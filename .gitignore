@@ -1,25 +1,65 @@
-# 虚拟环境 (最重要)
+# 虚拟环境与依赖 (最重要)
 Dev_Workspace_env/
 */Dev_Workspace_env/
+.env
+.venv
+env/
+venv/
+ENV/
 
-# Python 临时文件
+# Python 编译与临时文件
 __pycache__/
-*.py[cod]
+*.py[codz]
 *$py.class
+*.so
 .pytest_cache/
 .coverage
+.coverage.*
+.cache
 htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# 构建与分发产物
+build/
+dist/
+*.egg-info/
+.eggs/
 
 # 开发工具
 .vscode/
 .idea/
 .ipynb_checkpoints/
+.pdm-python
+.pdm-build/
 
-# 项目特定排除
+# 项目特定数据与日志 (按文件夹路径)
 crawlers/news_data/
 TradingAgents/logs/
 Kronos/output/
+Kronos/logs/
+**/data_cache/
+**/news_data/
+
+# 大文件与模型
+*.pth
+*.pt
+*.ckpt
+*.bin
+*.feather
+*.parquet
+*.h5
+*.hdf5
 
 # 操作系统
 .DS_Store
 Thumbs.db
+ehthumbs.db
+Desktop.ini
+*~
+
+# 临时文件
+*.tmp
+*.temp
+temp/
+tmp/
