@@ -1,0 +1,25 @@
+# 虚拟环境 (最重要)
+Dev_Workspace_env/
+*/Dev_Workspace_env/
+
+# Python 临时文件
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# 开发工具
+.vscode/
+.idea/
+.ipynb_checkpoints/
+
+# 项目特定排除
+crawlers/news_data/
+TradingAgents/logs/
+Kronos/output/
+
+# 操作系统
+.DS_Store
+Thumbs.db
