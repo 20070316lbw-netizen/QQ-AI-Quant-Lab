@@ -11,19 +11,19 @@
 # 首先确保在 crawlers 目录下
 cd c:/Users/lbw15/Desktop/Dev_Workspace/crawlers
 
-# 使用模块化运行方式 (推荐)
-python -m finance_news_collector --topic 股市
+# 直接运行主程序
+python main.py --topic 股市
 
-# 如果上述命令报错,请使用环境中的绝对路径
-../Dev_Workspace_env/Scripts/python.exe -m finance_news_collector --all --save
+# 如果上述命令报错,支持使用虚拟环境绝对路径
+../Dev_Workspace_env/Scripts/python.exe main.py --all --save
 """
 
 import sys
 import argparse
 
-from .config import FINANCE_TOPICS, DEFAULT_OUTPUT_DIR
-from .collector import FinanceNewsCollector
-from .utils import print_banner, print_section
+from finance_news_collector.config import FINANCE_TOPICS, DEFAULT_OUTPUT_DIR
+from finance_news_collector.collector import FinanceNewsCollector
+from finance_news_collector.utils import print_banner, print_section
 
 
 def create_parser() -> argparse.ArgumentParser:
@@ -33,15 +33,14 @@ def create_parser() -> argparse.ArgumentParser:
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 示例用法:
-  # 确保在 crawlers 目录下运行:
-  cd crawlers
-  python -m finance_news_collector --topic 股市
+  # 在 crawlers 目录下运行:
+  python main.py --topic 股市
   
   # 如果遇到 SSL 错误或环境识别问题,请使用完整路径:
-  ../Dev_Workspace_env/Scripts/python.exe -m finance_news_collector --topic 基金 --days 7
+  ../Dev_Workspace_env/Scripts/python.exe main.py --topic 基金 --days 7
   
-  # 启用LLM分析 (预留功能)
-  python -m finance_news_collector --topic 股市 --llm --save
+  # 启用保存功能
+  python main.py --topic 股市 --save
         """
     )
     
@@ -154,7 +153,7 @@ def main():
         )
         
         if args.save:
-            from .utils import safe_filename
+            from finance_news_collector.utils import safe_filename
             filename = f"{safe_filename(args.keyword)}_news.json"
             collector.save_to_json(result, filename)
         

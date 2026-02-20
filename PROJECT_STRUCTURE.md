@@ -33,7 +33,7 @@
    `cd Kronos/webui && python app.py`
 
 3. **抓取实时新闻数据**:
-   `cd crawlers && python -m finance_news_collector --topic 股市`
+   `cd crawlers && python main.py --topic 股市`
 
 ---
 *保持轻量，专注核心。*

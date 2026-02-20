@@ -7,23 +7,10 @@
 
 实现原理说明:
 -------------
-本程序通过调用 z-ai CLI 工具来执行网络搜索。
-z-ai 是一个AI开发工具包，内置了 web_search 功能，
-可以搜索互联网并返回结构化的搜索结果。
-
-工作流程:
-1. Python程序构造搜索参数(JSON格式)
-2. 通过 subprocess 调用 z-ai CLI 命令
-3. z-ai 执行网络搜索，返回JSON格式的搜索结果
-4. Python解析JSON，提取新闻信息
-
-后续LLM扩展:
-------------
-z-ai 同样支持 LLM chat completions，可用于：
-- 新闻摘要生成
-- 情感分析
-- 关键信息提取
-- 智能问答
+本程序主要支持以下功能：
+1. 默认使用 DuckDuckGo 原生搜索接口抓取新闻。
+2. 同时兼容通过调用 z-ai CLI 命令行工具。
+3. 获取搜索结果后解析为结构化的 JSON 数据以便后续处理。
 """
 
 from typing import Dict, List

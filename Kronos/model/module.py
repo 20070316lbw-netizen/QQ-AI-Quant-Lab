@@ -88,8 +88,6 @@ class BinarySphericalQuantizer(nn.Module):
         return z + (zhat - z).detach()
 
     def forward(self, z, collect_metrics=True):
-        # if self.input_format == 'bchw':
-        #     z = rearrange(z, 'b c h w -> b h w c')
         zq = self.quantize(z)
 
         q_scale = 1. / (self.embed_dim ** 0.5) if self.l2_norm else 1.
@@ -117,9 +115,6 @@ class BinarySphericalQuantizer(nn.Module):
 
         # commit loss
         commit_loss = self.beta * torch.mean(((zq.detach() - z) ** 2).sum(dim=-1))
-
-        # if self.input_format == 'bchw':
-        #     zq = rearrange(zq, 'b h w c -> b c h w')
 
         return (
             zq,

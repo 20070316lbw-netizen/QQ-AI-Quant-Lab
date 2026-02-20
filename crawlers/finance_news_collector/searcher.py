@@ -3,14 +3,14 @@
 搜索引擎模块 - Search Engine Module
 ====================================
 
-负责调用 z-ai CLI 执行网络搜索
+负责执行网络搜索以获取财经新闻
 
 实现原理:
 ---------
-通过 Python 的 subprocess 模块调用 z-ai CLI 命令行工具。
+支持多种搜索源，默认为 DuckDuckGo 原生搜索。
 
-z-ai CLI 命令格式:
-    z-ai function -n web_search -a '{"query": "关键词", "num": 10}'
+1. DuckDuckGo (推荐): 使用 duckduckgo-search 库执行原生 Python 搜索，无需外部依赖。
+2. z-ai CLI (备选): 通过 subprocess 调用 z-ai 命令行工具执行搜索。
 
 返回结果格式 (JSON数组):
     [
@@ -20,18 +20,10 @@ z-ai CLI 命令格式:
             "snippet": "新闻摘要内容...",
             "host_name": "example.com",
             "rank": 0,
-            "date": "",
-            "favicon": ""
+            "date": ""
         },
         ...
     ]
-
-为什么用 CLI 而不是直接 HTTP 请求:
----------------------------------
-1. z-ai CLI 封装了复杂的认证和请求逻辑
-2. 自动处理错误重试
-3. 返回结构化数据，无需解析HTML
-4. 支持多种搜索参数
 """
 
 import subprocess
@@ -51,7 +43,7 @@ class SearchEngine:
     """
     搜索引擎类
     
-    封装 z-ai CLI 的 web_search 功能
+    统一封装多种搜索后端接口
     """
     
     def __init__(self, timeout: int = DEFAULT_TIMEOUT):

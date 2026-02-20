@@ -22,12 +22,9 @@ config["data_vendors"] = {
     "news_data": "yfinance",                 # Options: alpha_vantage, yfinance
 }
 
-# Initialize with custom config
+# 初始化并运行交易智能体
 ta = TradingAgentsGraph(debug=True, config=config)
 
-# forward propagate
+# 执行决策预测
 _, decision = ta.propagate("NVDA", "2026-02-19")
 print(decision)
-
-# Memorize mistakes and reflect
-# ta.reflect_and_remember(1000) # parameter is the position returns
