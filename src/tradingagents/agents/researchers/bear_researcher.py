@@ -54,7 +54,8 @@ def create_bear_researcher(llm, memory):
         {
           "decision": "SELL",
           "confidence": 0.0到1.0之间的浮点数 (请评估看空逻辑的强度),
-          "risk_score": 0.0到1.0之间的浮点数 (请评估潜在风险)
+          "risk_score": 0.0到1.0之间的浮点数 (请评估潜在风险),
+          "risk_bias": "conservative"
         }"""
         
 
@@ -68,8 +69,15 @@ def create_bear_researcher(llm, memory):
         json_match = re.search(r'```json\s*(\{.*?\})\s*```', response.content, re.DOTALL)
         if json_match:
             try:
-                report_data = json.loads(json_match.group(1))
-                report_data["analyst_name"] = "Bear Analyst"
+                report_data: AnalystReport = {
+                    "analyst_name": "Bear Analyst",
+                    "summary": report_data.get("summary", "看空观点"),
+                    "key_metrics": report_data.get("key_metrics", {}),
+                    "decision": str(report_data.get("decision", "SELL")).upper(),
+                    "confidence": float(report_data.get("confidence", 0.5)),
+                    "risk_score": float(report_data.get("risk_score", 0.5)),
+                    "risk_bias": str(report_data.get("risk_bias", "conservative")).lower()
+                }
                 structured_reports["bear_researcher"] = report_data
             except Exception as e:
                 print(f"Failed to parse structured JSON from Bear Researcher: {e}")

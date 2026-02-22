@@ -31,7 +31,8 @@ def create_news_analyst(llm):
               "key_metrics": {"核心新闻": "..."},
               "decision": "BULLISH/BEARISH/NEUTRAL",
               "confidence": 0.0到1.0之间的浮点数,
-              "risk_score": 0.0到1.0之间的浮点数 (1.0表示极高风险)
+              "risk_score": 0.0到1.0之间的浮点数 (1.0表示极高风险),
+              "risk_bias": "aggressive", "neutral" 或 "conservative"
             }"""
 
         prompt = ChatPromptTemplate.from_messages(
@@ -69,10 +70,15 @@ def create_news_analyst(llm):
             json_match = re.search(r'```json\s*(\{.*?\})\s*```', report, re.DOTALL)
             if json_match:
                 try:
-                    report_data = json.loads(json_match.group(1))
-                    report_data["analyst_name"] = "News Analyst"
-                    if "conclusion" in report_data and "decision" not in report_data:
-                        report_data["decision"] = report_data.pop("conclusion")
+                    report_data: AnalystReport = {
+                        "analyst_name": "News Analyst",
+                        "summary": report_data.get("summary", ""),
+                        "key_metrics": report_data.get("key_metrics", {}),
+                        "decision": str(report_data.get("decision", "NEUTRAL")).upper(),
+                        "confidence": float(report_data.get("confidence", 0.5)),
+                        "risk_score": float(report_data.get("risk_score", 0.5)),
+                        "risk_bias": str(report_data.get("risk_bias", "neutral")).lower()
+                    }
                     structured_reports["news"] = report_data
                 except Exception as e:
                     print(f"Failed to parse structured JSON from News Analyst: {e}")

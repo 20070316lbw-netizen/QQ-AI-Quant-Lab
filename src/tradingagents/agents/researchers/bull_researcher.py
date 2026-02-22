@@ -55,7 +55,8 @@ def create_bull_researcher(llm, memory):
         {
           "decision": "BUY",
           "confidence": 0.0到1.0之间的浮点数 (请评估看多逻辑的强度),
-          "risk_score": 0.0到1.0之间的浮点数 (请评估潜在风险)
+          "risk_score": 0.0到1.0之间的浮点数 (请评估潜在风险),
+          "risk_bias": "aggressive"
         }"""
 
         response = llm.invoke(prompt)
@@ -67,8 +68,15 @@ def create_bull_researcher(llm, memory):
         json_match = re.search(r'```json\s*(\{.*?\})\s*```', response.content, re.DOTALL)
         if json_match:
             try:
-                report_data = json.loads(json_match.group(1))
-                report_data["analyst_name"] = "Bull Analyst"
+                report_data: AnalystReport = {
+                    "analyst_name": "Bull Analyst",
+                    "summary": report_data.get("summary", "看多观点"),
+                    "key_metrics": report_data.get("key_metrics", {}),
+                    "decision": str(report_data.get("decision", "BUY")).upper(),
+                    "confidence": float(report_data.get("confidence", 0.5)),
+                    "risk_score": float(report_data.get("risk_score", 0.5)),
+                    "risk_bias": str(report_data.get("risk_bias", "aggressive")).lower()
+                }
                 structured_reports["bull_researcher"] = report_data
             except Exception as e:
                 print(f"Failed to parse structured JSON from Bull Researcher: {e}")

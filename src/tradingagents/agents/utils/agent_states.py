@@ -15,6 +15,7 @@ class AnalystReport(TypedDict):
     decision: Annotated[str, "Internal stance: BUY, SELL, or HOLD"]
     confidence: float # 0.0 to 1.0 (置信度)
     risk_score: float # 0.0 to 1.0 (风险指数，1.0为极高风险)
+    risk_bias: Annotated[str, "Strategic bias: aggressive, neutral, or conservative"]
 
 
 # Researcher team state
