@@ -14,9 +14,6 @@ dependencies = [
     "flask-cors",
     "pandas",
     "numpy",
-    "plotly",
-    "requests",
-    "beautifulsoup4",
     "python-dotenv",
     "yfinance",
     "questionary>=2.1.0",
@@ -24,7 +21,12 @@ dependencies = [
     "torch",
     "huggingface_hub",
     "tqdm",
-    "stockstats"
+    "stockstats",
+    "langchain",
+    "langchain-openai",
+    "langgraph",
+    "typing-extensions",
+    "openai"
 ]
 
 [project.scripts]
