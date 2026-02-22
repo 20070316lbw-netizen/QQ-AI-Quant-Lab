@@ -73,7 +73,7 @@ class SearchEngine:
         num_results: int,
         recency_days: Optional[int]
     ) -> List[Dict]:
-        """使用 duckduckgo-search 库执行搜索"""
+        """使用 duckduckgo-search (ddgs) 执行搜索"""
         try:
             from duckduckgo_search import DDGS
             
@@ -86,22 +86,31 @@ class SearchEngine:
                 else: timelimit = 'y'
 
             results = []
+            # 尝试使用 DDGS 搜索，并在 SSL 失败时提供建议
             with DDGS() as ddgs:
-                ddgs_results = ddgs.text(
-                    query, 
-                    max_results=num_results,
-                    timelimit=timelimit
-                )
+                try:
+                    ddgs_results = ddgs.text(
+                        query, 
+                        max_results=num_results,
+                        timelimit=timelimit
+                    )
+                except Exception as ssl_err:
+                    if "SSL" in str(ssl_err):
+                        print(f"[SearchEngine] 检测到 SSL 异常，这通常是由于网络或代理设置引起的。")
+                        # 如果环境允许，可以考虑在这里尝试无验证模式，但 DDGS 封装较深。
+                        # 这里我们仅记录并返回空，避免崩溃。
+                    raise ssl_err
                 
-                for i, r in enumerate(ddgs_results):
-                    results.append({
-                        "url": r.get("href", ""),
-                        "name": r.get("title", ""),
-                        "snippet": r.get("body", ""),
-                        "host_name": r.get("href", "").split("//")[-1].split("/")[0],
-                        "rank": i,
-                        "date": ""
-                    })
+                if ddgs_results:
+                    for i, r in enumerate(ddgs_results):
+                        results.append({
+                            "url": r.get("href", ""),
+                            "name": r.get("title", ""),
+                            "snippet": r.get("body", ""),
+                            "host_name": r.get("href", "").split("//")[-1].split("/")[0],
+                            "rank": i,
+                            "date": ""
+                        })
             return results
         except Exception as e:
             print(f"[SearchEngine] DuckDuckGo 搜索异常: {e}")

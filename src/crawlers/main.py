@@ -155,7 +155,7 @@ def main():
         )
         
         if args.save:
-            from finance_news_collector.utils import safe_filename
+            from crawlers.finance_news_collector.base import safe_filename
             filename = f"{safe_filename(args.keyword)}_news.json"
             collector.save_to_json(result, filename)
         

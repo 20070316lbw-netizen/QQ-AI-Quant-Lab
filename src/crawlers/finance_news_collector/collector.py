@@ -44,7 +44,12 @@ class FinanceNewsCollector:
             results[topic] = self.search_topic(topic, num_per_topic, recency_days)
         return results
     
-    def save_to_json(self, result: SearchResult, filename: str):
+    def save_to_json(self, result: SearchResult, filename: Optional[str] = None):
+        if not filename:
+            from .base import safe_filename
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"{safe_filename(result.query)}_{timestamp}.json"
+            
         filepath = self.output_dir / filename
         with open(filepath, 'w', encoding='utf-8') as f:
             json.dump(result.to_dict(), f, ensure_ascii=False, indent=JSON_INDENT)
