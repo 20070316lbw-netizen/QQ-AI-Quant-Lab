@@ -89,40 +89,54 @@ class SearchEngine:
             
             # 自动获取系统代理 (支持 Windows 注册表代理与通过环境变量注入的代理)
             import urllib.request
+            import os
+            
             system_proxies = urllib.request.getproxies()
             proxy_url = system_proxies.get("https") or system_proxies.get("http") or system_proxies.get("all")
-            
-            # 根据最新 duckduckgo_search 规范组装 proxy_dict 或 proxy_str
             proxy_config = proxy_url if proxy_url else None
             
-            if proxy_config:
-                print(f"[SearchEngine] 发现系统代理: {proxy_config}，正在为您挂载...")
+            # 用于保存获取到的原始结果
+            raw_ddgs_results = None
             
-            # 尝试使用 DDGS 搜索，并在 SSL 失败时提供建议
-            with DDGS(proxy=proxy_config, timeout=self.timeout) as ddgs:
+            # 策略：如果找到了系统代理，先走代理。如果失败，回退到无代理（直连）。
+            # 如果一开始就没有代理，直接走直连。
+            if proxy_config:
+                print(f"[SearchEngine] 发现系统代理: {proxy_config}，正在尝试挂载...")
                 try:
-                    ddgs_results = ddgs.text(
-                        query, 
-                        max_results=num_results,
-                        timelimit=timelimit
-                    )
-                except Exception as ssl_err:
-                    if "SSL" in str(ssl_err):
-                        print(f"[SearchEngine] 检测到 SSL 异常，这通常是由于网络或代理设置引起的。")
-                        # 如果环境允许，可以考虑在这里尝试无验证模式，但 DDGS 封装较深。
-                        # 这里我们仅记录并返回空，避免崩溃。
-                    raise ssl_err
+                    with DDGS(proxy=proxy_config, timeout=self.timeout) as ddgs:
+                        raw_ddgs_results = list(ddgs.text(query, max_results=num_results, timelimit=timelimit))
+                except Exception as proxy_err:
+                    print(f"[SearchEngine] ⚠️ 代理连接失败 ({proxy_err})，正在启动直连保护机制...")
+                    raw_ddgs_results = None
+            
+            # 如果因为一开始没代理，或者使用代理发生了失败，尝试执行无代理模式的强制直连
+            if raw_ddgs_results is None:
+                # 尝试通过环境变量屏蔽影响底层的 HTTP_PROXY
+                original_http = os.environ.get("HTTP_PROXY")
+                original_https = os.environ.get("HTTPS_PROXY")
+                if "HTTP_PROXY" in os.environ: del os.environ["HTTP_PROXY"]
+                if "HTTPS_PROXY" in os.environ: del os.environ["HTTPS_PROXY"]
                 
-                if ddgs_results:
-                    for i, r in enumerate(ddgs_results):
-                        results.append({
-                            "url": r.get("href", ""),
-                            "name": r.get("title", ""),
-                            "snippet": r.get("body", ""),
-                            "host_name": r.get("href", "").split("//")[-1].split("/")[0],
-                            "rank": i,
-                            "date": ""
-                        })
+                try:
+                    with DDGS(proxy=None, timeout=self.timeout) as ddgs:
+                        raw_ddgs_results = list(ddgs.text(query, max_results=num_results, timelimit=timelimit))
+                except Exception as direct_err:
+                    print(f"[SearchEngine] ❌ 直连搜索也失败了: {direct_err}")
+                finally:
+                    # 恢复全局环境变量，避免污染 Agent 其他层的调用逻辑
+                    if original_http is not None: os.environ["HTTP_PROXY"] = original_http
+                    if original_https is not None: os.environ["HTTPS_PROXY"] = original_https
+
+            if raw_ddgs_results:
+                for i, r in enumerate(raw_ddgs_results):
+                    results.append({
+                        "url": r.get("href", ""),
+                        "name": r.get("title", ""),
+                        "snippet": r.get("body", ""),
+                        "host_name": r.get("href", "").split("//")[-1].split("/")[0],
+                        "rank": i,
+                        "date": ""
+                    })
             return results
         except Exception as e:
             print(f"[SearchEngine] DuckDuckGo 搜索异常: {e}")
