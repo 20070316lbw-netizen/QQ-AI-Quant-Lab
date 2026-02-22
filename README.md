@@ -52,7 +52,3 @@ python src/trading_agents/main.py
 ## 🏷️ 版本说明
 - **代码架构**: `src` layout (v0.2.0-beta)
 - **核心组件**: FinanceNewsCollector 1.1.0, Kronos-mini, TradingAgents-Graph
-- **当前系统**: Antigravity v1.18.4
-
----
-*让数据驱动决策，让 AI 赋能交易。*
