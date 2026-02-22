@@ -3,7 +3,11 @@ import yfinance as yf
 from stockstats import wrap
 from typing import Annotated
 import os
-from .config import get_config
+try:
+    from tradingagents.agent_config import get_config
+except ImportError:
+    def get_config():
+        return {"data_cache_dir": "./data_cache"}
 
 
 class StockstatsUtils:

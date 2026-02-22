@@ -194,13 +194,18 @@ def _get_stock_stats_bulk(
     Fetches data once and calculates indicator for all available dates.
     Returns dict mapping date strings to indicator values.
     """
-    from .config import get_config
+    try:
+        from tradingagents.agent_config import get_config
+    except ImportError:
+        def get_config():
+            return {"data_vendors": {"technical_indicators": "yfinance"}, "data_cache_dir": "./data_cache"}
     import pandas as pd
     from stockstats import wrap
     import os
     
     config = get_config()
-    online = config["data_vendors"]["technical_indicators"] != "local"
+    # Default to online if not explicitly set to local
+    online = config.get("data_vendors", {}).get("technical_indicators") != "local"
     
     if not online:
         # Local data path
