@@ -30,10 +30,8 @@ import subprocess
 import json
 from typing import List, Dict, Optional
 
-from .config import (
+from .base import (
     SEARCH_SOURCE,
-    CLI_COMMAND,
-    CLI_FUNCTION_NAME,
     DEFAULT_TIMEOUT,
     DEFAULT_NUM_RESULTS
 )

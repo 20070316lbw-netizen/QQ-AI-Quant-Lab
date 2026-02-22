@@ -21,9 +21,8 @@ python main.py --topic 股市
 import sys
 import argparse
 
-from finance_news_collector.config import FINANCE_TOPICS, DEFAULT_OUTPUT_DIR
+from finance_news_collector.base import FINANCE_TOPICS, DEFAULT_OUTPUT_DIR, print_banner, print_section
 from finance_news_collector.collector import FinanceNewsCollector
-from finance_news_collector.utils import print_banner, print_section
 
 
 def create_parser() -> argparse.ArgumentParser:
@@ -100,13 +99,19 @@ def create_parser() -> argparse.ArgumentParser:
 
 def main():
     """主函数"""
+    
+    # 无参数运行则进入交互式界面
+    if len(sys.argv) == 1:
+        from cli.app import run_cli
+        run_cli()
+        return 0
+
     parser = create_parser()
     args = parser.parse_args()
     
     # 创建搜集器
     collector = FinanceNewsCollector(
-        output_dir=args.output,
-        enable_llm=args.llm
+        output_dir=args.output
     )
     
     print_banner("财经新闻自动搜集程序")
@@ -116,15 +121,14 @@ def main():
         # 搜集所有主题
         batch_result = collector.search_all_topics(
             num_per_topic=args.num,
-            recency_days=args.days,
-            with_analysis=args.llm
+            recency_days=args.days
         )
         
         if args.save:
             collector.save_batch_to_json(batch_result)
         
         # 打印各主题摘要
-        for topic, result in batch_result.results.items():
+        for topic, result in batch_result.items():
             print_section(f"主题: {topic}")
             collector.print_news(result, limit=3)
             
@@ -133,8 +137,7 @@ def main():
         result = collector.search_topic(
             args.topic,
             num_results=args.num,
-            recency_days=args.days,
-            with_analysis=args.llm
+            recency_days=args.days
         )
         
         if args.save:
@@ -148,8 +151,7 @@ def main():
         result = collector.search_news(
             args.keyword,
             num_results=args.num,
-            recency_days=args.days,
-            with_analysis=args.llm
+            recency_days=args.days
         )
         
         if args.save:
@@ -160,20 +162,9 @@ def main():
         collector.print_news(result)
         
     else:
-        # 默认搜集今日财经头条
-        print("未指定搜索条件，搜集今日财经头条...")
-        result = collector.search_news(
-            "财经新闻 今日头条",
-            num_results=args.num,
-            recency_days=args.days or 1,
-            with_analysis=args.llm
-        )
+        # 如果未带必要参数，打印帮助信息
+        parser.print_help()
         
-        if args.save:
-            collector.save_to_json(result, "today_headlines.json")
-        
-        collector.print_news(result)
-    
     return 0
 
 

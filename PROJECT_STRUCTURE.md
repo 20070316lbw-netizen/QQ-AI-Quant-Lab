@@ -1,39 +1,32 @@
-# Dev_Workspace 极致核心版 (Core Only)
+# Dev_Workspace 极致核心版 (Src Layout)
 
-本工作区已完成极致化瘦身，仅保留维持核心功能运行所必需的代码文件。所有文档资源、静态图片、微调逻辑及示例脚本均已剔除。
+整个工作区已采用标准的 `src` 布局架构。核心代码通过 `src/` 统一管理，根目录仅保留配置与文档。
 
 ---
 
 ## 🚀 核心架构图谱
 
-### 1. TradingAgents (多智能体交易决策)
-**路径**: `/TradingAgents`
-- **`tradingagents/`**: 智能体逻辑流。
-- **`cli/`**: 交互式入口。
-- **`main.py`**: 推理运行脚本。
-- **`default_config.py`**: 全局参数配置。
+### 📂 [src/](file:///c:/Users/lbw15/Desktop/Dev_Workspace/src)
+所有的业务逻辑代码均存放于此。
 
-### 2. Kronos (K线大模型预测)
-**路径**: `/Kronos`
-- **`model/`**: 模型权重加载与预测核心类。
-- **`webui/`**: 预测结果可视化界面。
-
-### 3. crawlers (新闻实时搜集)
-**路径**: `/crawlers`
-- **`finance_news_collector/`**: 模块化爬虫逻辑，适配 DuckDuckGo 搜索。
+1. **[trading_agents/](file:///c:/Users/lbw15/Desktop/Dev_Workspace/src/trading_agents)**: (原 TradingAgents) 多智能体交易决策系统。
+2. **[kronos/](file:///c:/Users/lbw15/Desktop/Dev_Workspace/src/kronos)**: (原 Kronos) K线大模型预测系统。
+3. **[crawlers/](file:///c:/Users/lbw15/Desktop/Dev_Workspace/src/crawlers)**: 金融新闻搜集器及 REST API。
 
 ---
 
-## ⚒️ 运行说明 (极简版)
+## ⚒️ 运行说明
 
-1. **启动交易评估** (使用内置智能体团队):
-   `cd TradingAgents && python main.py`
+进入 `src` 对应目录后即可按照原方式运行，或在根目录通过指定路径运行。
 
-2. **启动行情预测 Web 界面**:
-   `cd Kronos/webui && python app.py`
+1. **搜集实时新闻**:
+   `python src/crawlers/main.py --topic 股市`
 
-3. **抓取实时新闻数据**:
-   `cd crawlers && python main.py --topic 股市`
+2. **启动行情预测 UI**:
+   `python src/kronos/webui/app.py`
+
+3. **运行交易智能体**:
+   `python src/trading_agents/main.py`
 
 ---
 *保持轻量，专注核心。*
