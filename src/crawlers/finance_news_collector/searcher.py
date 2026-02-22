@@ -86,8 +86,20 @@ class SearchEngine:
                 else: timelimit = 'y'
 
             results = []
+            
+            # 自动获取系统代理 (支持 Windows 注册表代理与通过环境变量注入的代理)
+            import urllib.request
+            system_proxies = urllib.request.getproxies()
+            proxy_url = system_proxies.get("https") or system_proxies.get("http") or system_proxies.get("all")
+            
+            # 根据最新 duckduckgo_search 规范组装 proxy_dict 或 proxy_str
+            proxy_config = proxy_url if proxy_url else None
+            
+            if proxy_config:
+                print(f"[SearchEngine] 发现系统代理: {proxy_config}，正在为您挂载...")
+            
             # 尝试使用 DDGS 搜索，并在 SSL 失败时提供建议
-            with DDGS() as ddgs:
+            with DDGS(proxy=proxy_config, timeout=self.timeout) as ddgs:
                 try:
                     ddgs_results = ddgs.text(
                         query, 
