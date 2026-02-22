@@ -19,6 +19,13 @@
 ### 1. 环境准备与挂载
 项目已支持标准安装。请在当前虚拟环境下运行以下命令，即可在任意路径直接调用工具：
 ```bash
+# 激活环境 (Git Bash 用户)
+source Dev_Workspace_env/Scripts/activate
+
+# 激活环境 (CMD/PowerShell 用户)
+# .\Dev_Workspace_env\Scripts\activate
+
+# 挂载项目
 pip install -e .
 ```
 

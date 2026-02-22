@@ -8,7 +8,7 @@ from rich.prompt import Prompt
 try:
     from crawlers.cli.app import run_cli as start_crawler
     from kronos.webui.app import start_server as start_kronos
-    from trading_agents.main import main as start_trading
+    from tradingagents.main import main as start_trading
 except ImportError as e:
     print(f"Error importing modules: {e}")
     sys.exit(1)

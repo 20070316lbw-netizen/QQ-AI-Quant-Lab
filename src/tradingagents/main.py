@@ -1,5 +1,5 @@
-from trading_agents.tradingagents.graph.trading_graph import TradingAgentsGraph
-from trading_agents.tradingagents.default_config import DEFAULT_CONFIG
+from .graph.trading_graph import TradingAgentsGraph
+from .default_config import DEFAULT_CONFIG
 
 from dotenv import load_dotenv
 
