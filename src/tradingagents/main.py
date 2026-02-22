@@ -14,13 +14,8 @@ config["deep_think_llm"] = "qwen2.5:3b"
 config["quick_think_llm"] = "qwen2.5:3b"
 config["max_debate_rounds"] = 1
 
-# Configure data vendors (default uses yfinance, no extra API keys needed)
-config["data_vendors"] = {
-    "core_stock_apis": "yfinance",           # Options: alpha_vantage, yfinance
-    "technical_indicators": "yfinance",      # Options: alpha_vantage, yfinance
-    "fundamental_data": "yfinance",          # Options: alpha_vantage, yfinance
-    "news_data": "yfinance",                 # Options: alpha_vantage, yfinance
-}
+    # configuration is simpler for v3
+
 
 def main():
     """初始化并运行交易智能体"""
