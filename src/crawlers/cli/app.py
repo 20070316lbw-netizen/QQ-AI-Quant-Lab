@@ -26,7 +26,6 @@ def run_cli():
     print_welcome()
     
     while True:
-        print_menu()
         choice = get_menu_choice()
         
         if choice == 0:

@@ -1,5 +1,6 @@
 import sys
 import datetime
+import questionary
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
@@ -65,25 +66,30 @@ def main_hub():
     print_welcome()
     
     while True:
-        table = Table(show_header=False, box=None)
-        table.add_row("[bold yellow]1[/bold yellow]", "🔍 财经新闻助手 (Crawler CLI - 单独抓数据)")
-        table.add_row("[bold yellow]2[/bold yellow]", "🤖 智能体研究员 (全自动运行端到端行情研判)")
-        table.add_row("[bold yellow]3[/bold yellow]", "⚙️  执行 Agent 演示脚本 (TradingAgents main.py)")
-        table.add_row("[bold yellow]0[/bold yellow]", "🚪 退出系统")
+        choice = questionary.select(
+            "请选择您的操作模式 (使用上下方向键选择，回车确认):",
+            choices=[
+                questionary.Choice("🤖 智能体研究员 (全自动运行端到端行情研判)", value="agent"),
+                questionary.Choice("🔍 财经新闻助手 (Crawler CLI - 单独抓数据)", value="crawler"),
+                questionary.Choice("⚙️  执行 Agent 演示脚本 (TradingAgents main.py)", value="demo"),
+                questionary.Choice("🚪 退出系统", value="exit")
+            ],
+            style=questionary.Style([
+                ("selected", "fg:cyan bold"),
+                ("pointer", "fg:cyan bold"),
+                ("highlighted", "fg:cyan bold"),
+            ]),
+            instruction="\n按上/下方向键切换，按回车键进入"
+        ).ask()
         
-        console.print("\n[bold green]请选择您的操作模式:[/bold green]")
-        console.print(table)
-        
-        choice = Prompt.ask("输入序号", choices=["0", "1", "2", "3"], default="2")
-        
-        if choice == "0":
+        if choice == "exit" or choice is None:
             console.print("[italic gray]系统已退出。[/italic gray]")
             break
-        elif choice == "1":
+        elif choice == "crawler":
             start_crawler()
-        elif choice == "2":
+        elif choice == "agent":
             run_agentic_flow()
-        elif choice == "3":
+        elif choice == "demo":
             start_trading()
 
 if __name__ == "__main__":
