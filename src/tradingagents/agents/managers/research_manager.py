@@ -4,41 +4,78 @@ import json
 
 def create_research_manager(llm, memory):
     def research_manager_node(state) -> dict:
-        history = state["investment_debate_state"].get("history", "")
-        market_research_report = state["market_report"]
-        sentiment_report = state["sentiment_report"]
-        news_report = state["news_report"]
-        fundamentals_report = state["fundamentals_report"]
-
         investment_debate_state = state["investment_debate_state"]
+        structured_reports = state.get("structured_reports", {})
 
-        curr_situation = f"{market_research_report}\n\n{sentiment_report}\n\n{news_report}\n\n{fundamentals_report}"
-        past_memories = memory.get_memories(curr_situation, n_matches=2)
+        # 1. 核心数学聚合逻辑 (取代主观直觉)
+        decision_map = {"BUY": 1, "BULLISH": 1, "SELL": -1, "BEARISH": -1, "HOLD": 0, "NEUTRAL": 0}
+        
+        # 权重分配：研究员权重稍高，分析师权重基础化
+        # 'bull_researcher', 'bear_researcher', 'market', 'social', 'news', 'fundamentals'
+        weights = {
+            "bull_researcher": 1.5,
+            "bear_researcher": 1.5,
+            "market": 1.0,
+            "social": 0.8,
+            "news": 1.0,
+            "fundamentals": 1.2
+        }
+        
+        total_score = 0
+        total_weight = 0
+        confidences = []
+        risk_scores = []
+        
+        calculation_details = []
 
-        past_memory_str = ""
-        for i, rec in enumerate(past_memories, 1):
-            past_memory_str += rec["recommendation"] + "\n\n"
+        for key, weight in weights.items():
+            report = structured_reports.get(key)
+            if report:
+                dec = str(report.get("decision", "")).upper()
+                conf = report.get("confidence", 0.5)
+                risk = report.get("risk_score", 0.5)
+                
+                point = decision_map.get(dec, 0)
+                weighted_point = point * conf * weight
+                
+                total_score += weighted_point
+                total_weight += weight
+                confidences.append(conf)
+                risk_scores.append(risk)
+                
+                calculation_details.append(f"- {report.get('analyst_name', key)}: 决策={dec}, 置信度={conf:.2f}, 风险={risk:.2f}, 贡献分={weighted_point:.2f}")
 
-        prompt = f"""作为投资组合经理和辩论主持人，你的职责是批判性地评估本轮辩论并做出最终决定：选择支持看空分析师、看多分析师，或者在有强有力理由的情况下选择“持有”。
+        # 计算最终数字指标
+        final_numeric_score = total_score / total_weight if total_weight > 0 else 0
+        avg_confidence = sum(confidences) / len(confidences) if confidences else 0.5
+        avg_risk = sum(risk_scores) / len(risk_scores) if risk_scores else 0.5
+        
+        # 决定方向
+        if final_numeric_score > 0.2:
+            final_decision = "BUY"
+        elif final_numeric_score < -0.2:
+            final_decision = "SELL"
+        else:
+            final_decision = "HOLD"
 
-请简明扼要地总结双方的核心观点，关注最具说服力的证据或逻辑。你的建议——买入 (Buy)、卖出 (Sell) 或持有 (Hold)——必须清晰且具有可操作性。不要仅仅因为双方都有理就默认选择“持有”；必须根据辩论中最有力的论据做出决断。
-
-此外，请为交易员制定一份详细的中文投资计划，包括：
-1. 你的建议：一个由最具说服力的论据支持的决定性立场。
-2. 理由：解释为什么这些论据会导致你的结论。
-3. 战略行动：实施该建议的具体步骤。
-
-请考虑你过去在类似情况下的错误。利用这些洞察来改进你的决策，并确保你在不断学习和进步。请以对话的形式、自然地陈述你的分析，不要使用特殊的格式（如特殊的 Markdown 标题等）。
-
-以下是你过去对错误的思考：
-\"{past_memory_str}\"
-
-以下是辩论过程：
-辩论历史：
-{history}
-
-请务必全程使用中文进行总结和计划制定。"""
-        response = llm.invoke(prompt)
+        # 2. 调用 LLM 仅进行结果的“中文话术整理”，严禁其改变计算出的结论
+        details_str = "\n".join(calculation_details)
+        summary_prompt = f"""作为研究经理，你已完成多方因素的加权计算：
+        
+        各方贡献明细：
+        {details_str}
+        
+        最终数学推导结果：
+        - 聚合得分: {final_numeric_score:.2f} (范围 -1 到 1)
+        - 建议方向: {final_decision}
+        - 平均置信度: {avg_confidence:.2f}
+        - 综合风险值: {avg_risk:.2f}
+        
+        请根据以上硬性数字指标，撰写一份简洁的中文投资计划摘要。
+        注意：你**必须**维持数学推导出的 {final_decision} 结论，严禁自行发挥。
+        报告中必须包含：汇总理由、关键得分拆解。"""
+        
+        response = llm.invoke(summary_prompt)
 
         new_investment_debate_state = {
             "judge_decision": response.content,
@@ -51,7 +88,7 @@ def create_research_manager(llm, memory):
 
         return {
             "investment_debate_state": new_investment_debate_state,
-            "investment_plan": response.content,
+            "investment_plan": f"### 数字聚合决策: {final_decision} (Score: {final_numeric_score:.2f})\n\n" + response.content,
         }
 
     return research_manager_node

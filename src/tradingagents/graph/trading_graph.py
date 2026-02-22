@@ -201,6 +201,7 @@ class TradingAgentsGraph:
             console = Console()
             
             final_state = init_agent_state
+            last_message_id = None
             
             # 使用 values 模式：每个 chunk 都是当前完整的 AgentState
             for current_state in self.graph.stream(init_agent_state, **args):
@@ -211,16 +212,19 @@ class TradingAgentsGraph:
                     continue
                 
                 msg = messages[-1]
-                # 这里我们难以直接从 values 模式获知是哪个 node 产生的，
-                # 但可以通过消息的 sender 或内容特征来判断
+                msg_id = getattr(msg, "id", None)
                 content = getattr(msg, "content", "")
                 
+                # 消息去重逻辑：如果 ID 相同且内容不为空，则跳过本次打印
+                if msg_id and msg_id == last_message_id:
+                    continue
+                
                 if content:
+                    last_message_id = msg_id
                     is_chinese = bool(re.search(r'[\u4e00-\u9fa5]', content))
                     has_proposal = "FINAL TRANSACTION PROPOSAL" in content
                     
                     if not is_chinese and not has_proposal:
-                        # 即时显示思考/工具调用等中间态
                         console.print(f"\n[italic cyan]>>> 系统深度计算/检索中...[/italic cyan]")
                         console.print(f"[dim italic]{content}[/dim italic]")
                     else:

@@ -32,27 +32,46 @@ def create_conservative_debator(llm):
         else:
             trimmed_history = history
 
-        prompt = f"""你是一名‘保守型风险分析师’。核心职责：识别潜在风险，强调资本保护和极端情况下的生存。
-
+        prompt = f"""你是一名‘保守型风险分析师’。核心职责：发现潜在风险，质疑过度乐观的预期。
+        
         背景与交易计划：
         {trader_decision}
-
+        
         补充资源：
         {context_str}
-
+        
         辩论历史板：
         {trimmed_history}
-
+        
         对手最新观点：
         激进型：{current_aggressive_response}
         中立型：{current_neutral_response}
-
-        任务：请结合数据，用中文发表一段审慎的辩论。指出激进观点的盲点，强调下行风险。言简意赅。
-重点是辩论和批评，以展示低风险策略相对于他们方法的优势。请以对话的形式自然陈述，不要使用特殊的格式。"""
+        
+        任务：请结合数据，用中文发表一段保守谨慎的风控建议。针对现有的看多逻辑，寻找隐藏的风险死角。
+        
+        **特别指令：**
+        必须在辩论内容结束后，附带一个以 ```json 开启的结构化 JSON 块：
+        {{
+          "decision": "BUY/SELL/HOLD",
+          "confidence": 0.0到1.0之间的浮点数,
+          "risk_score": 0.0到1.0之间的浮点数
+        }}"""
 
         response = llm.invoke(prompt)
 
         argument = f"保守型分析师: {response.content}"
+        structured_reports = state.get("structured_reports", {})
+        
+        # 尝试提取结构化 JSON
+        import re
+        json_match = re.search(r'```json\s*(\{.*?\})\s*```', response.content, re.DOTALL)
+        if json_match:
+            try:
+                report_data = json.loads(json_match.group(1))
+                report_data["analyst_name"] = "Conservative Risk Analyst"
+                structured_reports["conservative_analyst"] = report_data
+            except Exception as e:
+                print(f"Failed to parse structured JSON from Conservative Analyst: {e}")
 
         new_risk_debate_state = {
             "history": history + "\n" + argument,
@@ -70,6 +89,10 @@ def create_conservative_debator(llm):
             "count": risk_debate_state["count"] + 1,
         }
 
-        return {"risk_debate_state": new_risk_debate_state}
+        return {
+            "risk_debate_state": new_risk_debate_state,
+            "structured_reports": structured_reports,
+            "messages": [AIMessage(content=argument, name="ConservativeAnalyst")]
+        }
 
     return conservative_node

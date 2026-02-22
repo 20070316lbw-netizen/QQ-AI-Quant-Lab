@@ -1,5 +1,5 @@
+from langchain_core.messages import AIMessage
 import time
-import json
 
 
 def create_neutral_debator(llm):
@@ -46,27 +46,55 @@ def create_neutral_debator(llm):
         激进型：{current_aggressive_response}
         保守型：{current_conservative_response}
         
-        任务：请以中立客观的角度，用中文对双方论点进行复盘和调和。指出双方各自的合理性与偏见。言简意赅。
+        任务：请结合数据，用中文发表一段客观中立的风险分析。识别各方逻辑中的合理性与盲点。
+        
+        **特别指令：**
+        必须在辩论内容结束后，附带一个以 ```json 开启的结构化 JSON 块：
+        ```json
+        {{
+          "decision": "BUY/SELL/HOLD",
+          "confidence": 0.0到1.0之间的浮点数,
+          "risk_score": 0.0到1.0之间的浮点数
+        }}
+        ```
+言简意赅。
         重点在于辩论而非仅仅呈现数据，你的目标是证明平衡的视角能带来最可靠的结果。请以对话的形式自然陈述，不要使用特殊的格式。"""
 
         response = llm.invoke(prompt)
 
         argument = f"中立型分析师: {response.content}"
+        structured_reports = state.get("structured_reports", {})
+        
+        # 尝试提取结构化 JSON
+        json_match = re.search(r'```json\s*(\{.*?\})\s*```', response.content, re.DOTALL)
+        if json_match:
+            try:
+                report_data = json.loads(json_match.group(1))
+                report_data["analyst_name"] = "Neutral Risk Analyst"
+                structured_reports["neutral_analyst"] = report_data
+            except Exception as e:
+                print(f"Failed to parse structured JSON from Neutral Analyst: {e}")
 
         new_risk_debate_state = {
             "history": history + "\n" + argument,
+            "neutral_history": neutral_history + "\n" + argument,
             "aggressive_history": risk_debate_state.get("aggressive_history", ""),
             "conservative_history": risk_debate_state.get("conservative_history", ""),
-            "neutral_history": neutral_history + "\n" + argument,
             "latest_speaker": "Neutral",
+            "current_neutral_response": argument,
             "current_aggressive_response": risk_debate_state.get(
                 "current_aggressive_response", ""
             ),
-            "current_conservative_response": risk_debate_state.get("current_conservative_response", ""),
-            "current_neutral_response": argument,
+            "current_conservative_response": risk_debate_state.get(
+                "current_conservative_response", ""
+            ),
             "count": risk_debate_state["count"] + 1,
         }
 
-        return {"risk_debate_state": new_risk_debate_state}
+        return {
+            "risk_debate_state": new_risk_debate_state,
+            "structured_reports": structured_reports,
+            "messages": [AIMessage(content=argument, name="NeutralAnalyst")]
+        }
 
     return neutral_node

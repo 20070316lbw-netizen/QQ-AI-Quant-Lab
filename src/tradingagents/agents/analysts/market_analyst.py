@@ -34,7 +34,17 @@ def create_market_analyst(llm):
                 你还可以调用 `get_market_prediction` 工具进行趋势预测。"""
             )
         else:
-            system_message = "数据已获取。请结合上下文中的工具执行结果，撰写一篇专业详尽的中文分析报告。报告末尾必须附带 Markdown 表格。全程严禁输出英文段落。"
+            system_message = """数据已获取。请结合上下文中的工具执行结果，撰写一篇专业详尽的中文分析报告。全程严禁输出英文段落。
+            
+            **特别指令：**
+            在报告正文结束后，请必须附带一个以 ```json 开启的结构化 JSON 块，包含以下字段：
+            {
+              "summary": "简短的中文结论总结",
+              "key_metrics": {"指标名": "值"},
+              "decision": "BUY/SELL/HOLD",
+              "confidence": 0.0到1.0之间的浮点数,
+              "risk_score": 0.0到1.0之间的浮点数 (1.0表示极高风险)
+            }"""
 
         prompt = ChatPromptTemplate.from_messages(
             [
@@ -63,13 +73,42 @@ def create_market_analyst(llm):
         result = chain.invoke(state["messages"])
 
         report = ""
+        structured_reports = state.get("structured_reports", {})
 
         if len(result.tool_calls) == 0:
             report = result.content
+            # 尝试从正文中提取 JSON 结构化块
+            import re
+            json_match = re.search(r'```json\s*(\{.*?\})\s*```', report, re.DOTALL)
+            if json_match:
+                try:
+                    report_data = json.loads(json_match.group(1))
+                    report_data["analyst_name"] = "Market Analyst"
+                    # 确保字段名称对齐
+                    if "conclusion" in report_data and "decision" not in report_data:
+                        report_data["decision"] = report_data.pop("conclusion")
+                    
+                    structured_reports["market"] = report_data
+                except Exception as e:
+                    print(f"Failed to parse structured JSON from Market Analyst: {e}")
+
+        # 提取 Kronos 预测结果并持久化到 state 中
+        kronos_report = state.get("kronos_report", "")
+        # ... (check messages in state)
+        for msg in reversed(state.get("messages", [])):
+            if getattr(msg, "type", "") == "tool" and "### Kronos AI Prediction" in (getattr(msg, "content", "") or ""):
+                kronos_report = msg.content
+                break
+        
+        # 如果当前结果就是最终报告，也要检查它是否包含预测信息（以防万一）
+        if report and "### Kronos AI Prediction" in report:
+            kronos_report = report
 
         return {
             "messages": [result],
             "market_report": report,
+            "kronos_report": kronos_report,
+            "structured_reports": structured_reports,
         }
 
     return market_analyst_node

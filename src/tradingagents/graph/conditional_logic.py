@@ -45,23 +45,27 @@ class ConditionalLogic:
 
     def should_continue_debate(self, state: AgentState) -> str:
         """Determine if debate should continue."""
-
-        if (
-            state["investment_debate_state"]["count"] >= 2 * self.max_debate_rounds
-        ):  # 3 rounds of back-and-forth between 2 agents
+        
+        # 刚性终止：达到最大轮数限制时，强制移交管理层
+        if state["investment_debate_state"]["count"] >= 2 * self.max_debate_rounds:
             return "Research Manager"
-        if state["investment_debate_state"]["current_response"].startswith(("Bull", "看多分析师")):
+            
+        # 动态路由：根据上一位发言者切换
+        curr_res = state["investment_debate_state"]["current_response"]
+        if curr_res.startswith(("Bull", "看多分析师", "激进")):
             return "Bear Researcher"
         return "Bull Researcher"
 
     def should_continue_risk_analysis(self, state: AgentState) -> str:
         """Determine if risk analysis should continue."""
-        if (
-            state["risk_debate_state"]["count"] >= 3 * self.max_risk_discuss_rounds
-        ):  # 3 rounds of back-and-forth between 3 agents
+        
+        # 刚性终止：达到风险博弈上限
+        if state["risk_debate_state"]["count"] >= 3 * self.max_risk_discuss_rounds:
             return "Risk Judge"
-        if state["risk_debate_state"]["latest_speaker"].startswith(("Aggressive", "激进型分析师")):
+            
+        latest_speaker = state["risk_debate_state"]["latest_speaker"]
+        if latest_speaker in ["Aggressive", "激进型分析师"]:
             return "Conservative Analyst"
-        if state["risk_debate_state"]["latest_speaker"].startswith(("Conservative", "保守型分析师")):
+        if latest_speaker in ["Conservative", "保守型分析师"]:
             return "Neutral Analyst"
         return "Aggressive Analyst"

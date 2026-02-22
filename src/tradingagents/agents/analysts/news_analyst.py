@@ -22,7 +22,17 @@ def create_news_analyst(llm):
                 "你是一名资深的新闻研究员。请使用提供的工具：`get_news` (个股) 或 `get_global_news` (全球宏观) 抓取关键资讯。严禁空谈，必须基于事实。"
             )
         else:
-            system_message = "数据已获取。请结合上下文，撰写详尽的中文新闻与宏观分析报告。末尾必须附带摘要表格。全程严禁输出英文段落。"
+            system_message = """数据已获取。请结合上下文，撰写详尽的中文新闻与宏观分析报告。全程严禁输出英文段落。
+            
+            **特别指令：**
+            在报告正文结束后，请必须附带一个以 ```json 开启的结构化 JSON 块，包含以下字段：
+            {
+              "summary": "简短的中文资讯总结",
+              "key_metrics": {"核心新闻": "..."},
+              "decision": "BULLISH/BEARISH/NEUTRAL",
+              "confidence": 0.0到1.0之间的浮点数,
+              "risk_score": 0.0到1.0之间的浮点数 (1.0表示极高风险)
+            }"""
 
         prompt = ChatPromptTemplate.from_messages(
             [
@@ -50,13 +60,27 @@ def create_news_analyst(llm):
         result = chain.invoke(state["messages"])
 
         report = ""
+        structured_reports = state.get("structured_reports", {})
 
         if len(result.tool_calls) == 0:
             report = result.content
+            # 尝试从正文中提取 JSON 结构化块
+            import re
+            json_match = re.search(r'```json\s*(\{.*?\})\s*```', report, re.DOTALL)
+            if json_match:
+                try:
+                    report_data = json.loads(json_match.group(1))
+                    report_data["analyst_name"] = "News Analyst"
+                    if "conclusion" in report_data and "decision" not in report_data:
+                        report_data["decision"] = report_data.pop("conclusion")
+                    structured_reports["news"] = report_data
+                except Exception as e:
+                    print(f"Failed to parse structured JSON from News Analyst: {e}")
 
         return {
             "messages": [result],
             "news_report": report,
+            "structured_reports": structured_reports,
         }
 
     return news_analyst_node

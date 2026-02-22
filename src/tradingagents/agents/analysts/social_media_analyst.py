@@ -22,7 +22,17 @@ def create_social_media_analyst(llm):
                 "你是一名舆情监控分析师。请使用 `get_news` 工具搜索社媒讨论、情绪波动及最新动态。请搜集多方证据，不要泛泛而谈。"
             )
         else:
-            system_message = "社媒与舆情数据已获取。请撰写一份详尽的中文情绪分析报告并附带核心要点表，分析其对投资者的隐含影响。全程严禁输出英文。"
+            system_message = """社媒与舆情数据已获取。请撰写一份详尽的中文情绪分析报告并附带核心要点表。全程严禁输出英文。
+            
+            **特别指令：**
+            在报告正文结束后，请必须附带一个以 ```json 开启的结构化 JSON 块，包含以下字段：
+            {
+              "summary": "简短的中文情绪总结",
+              "key_metrics": {"情绪分": "值", "热门话题": "..."},
+              "decision": "BULLISH/BEARISH/NEUTRAL",
+              "confidence": 0.0到1.0之间的浮点数,
+              "risk_score": 0.0到1.0之间的浮点数 (1.0表示极高风险)
+            }"""
 
         prompt = ChatPromptTemplate.from_messages(
             [
@@ -51,13 +61,27 @@ def create_social_media_analyst(llm):
         result = chain.invoke(state["messages"])
 
         report = ""
+        structured_reports = state.get("structured_reports", {})
 
         if len(result.tool_calls) == 0:
             report = result.content
+            # 尝试从正文中提取 JSON 结构化块
+            import re
+            json_match = re.search(r'```json\s*(\{.*?\})\s*```', report, re.DOTALL)
+            if json_match:
+                try:
+                    report_data = json.loads(json_match.group(1))
+                    report_data["analyst_name"] = "Social Media Analyst"
+                    if "conclusion" in report_data and "decision" not in report_data:
+                        report_data["decision"] = report_data.pop("conclusion")
+                    structured_reports["social"] = report_data
+                except Exception as e:
+                    print(f"Failed to parse structured JSON from Social Media Analyst: {e}")
 
         return {
             "messages": [result],
             "sentiment_report": report,
+            "structured_reports": structured_reports,
         }
 
     return social_media_analyst_node

@@ -47,11 +47,32 @@ def create_bear_researcher(llm, memory):
         上一个看多论点：{current_response}
         来自类似情况的教训：{past_memory_str}
         
-        请发表一段短小精悍、直击要害的中文看空论辩。严禁输出英文，严禁重复废话。"""
+        请发表一段短小精悍、直击要害的中文看空论辩。严禁输出英文，严禁重复废话。
+        
+        **特别指令：**
+        在辩论内容结束后，必须附带一个以 ```json 开启的结构化 JSON 块，包含：
+        {
+          "decision": "SELL",
+          "confidence": 0.0到1.0之间的浮点数 (请评估看空逻辑的强度),
+          "risk_score": 0.0到1.0之间的浮点数 (请评估潜在风险)
+        }"""
+        
 
         response = llm.invoke(prompt)
 
         argument = f"看空分析师: {response.content}"
+        structured_reports = state.get("structured_reports", {})
+        
+        # 尝试提取结构化 JSON
+        import re
+        json_match = re.search(r'```json\s*(\{.*?\})\s*```', response.content, re.DOTALL)
+        if json_match:
+            try:
+                report_data = json.loads(json_match.group(1))
+                report_data["analyst_name"] = "Bear Analyst"
+                structured_reports["bear_researcher"] = report_data
+            except Exception as e:
+                print(f"Failed to parse structured JSON from Bear Researcher: {e}")
 
         new_investment_debate_state = {
             "history": history + "\n" + argument,
@@ -61,6 +82,10 @@ def create_bear_researcher(llm, memory):
             "count": investment_debate_state["count"] + 1,
         }
 
-        return {"investment_debate_state": new_investment_debate_state}
+        return {
+            "investment_debate_state": new_investment_debate_state,
+            "structured_reports": structured_reports,
+            "messages": [AIMessage(content=argument, name="BearResearcher")]
+        }
 
     return bear_node

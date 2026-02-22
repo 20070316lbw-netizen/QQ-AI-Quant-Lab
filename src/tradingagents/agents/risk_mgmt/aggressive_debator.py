@@ -1,3 +1,4 @@
+from langchain_core.messages import AIMessage
 import time
 import json
 
@@ -47,11 +48,31 @@ def create_aggressive_debator(llm):
         保守型：{current_conservative_response}
         中立型：{current_neutral_response}
         
-        任务：请结合数据，用中文发表一段具有攻击性的辩论。反驳他们的保守逻辑，重申高风险策略的价值。言简意赅，直击要害。"""
+        任务：请结合数据，用中文发表一段具有攻击性的辩论。反驳他们的保守逻辑，重申高风险策略的价值。言简意赅，直击要害。
+        
+        **特别指令：**
+        必须在辩论内容结束后，附带一个以 ```json 开启的结构化 JSON 块：
+        {
+          "decision": "BUY/SELL/HOLD",
+          "confidence": 0.0到1.0之间的浮点数 (请评估你的立场的坚定程度),
+          "risk_score": 0.0到1.0之间的浮点数 (请评估你眼中的风险水平)
+        }"""
 
         response = llm.invoke(prompt)
 
         argument = f"激进型分析师: {response.content}"
+        structured_reports = state.get("structured_reports", {})
+        
+        # 尝试提取结构化 JSON
+        import re
+        json_match = re.search(r'```json\s*(\{.*?\})\s*```', response.content, re.DOTALL)
+        if json_match:
+            try:
+                report_data = json.loads(json_match.group(1))
+                report_data["analyst_name"] = "Aggressive Risk Analyst"
+                structured_reports["aggressive_analyst"] = report_data
+            except Exception as e:
+                print(f"Failed to parse structured JSON from Aggressive Analyst: {e}")
 
         new_risk_debate_state = {
             "history": history + "\n" + argument,
@@ -67,6 +88,10 @@ def create_aggressive_debator(llm):
             "count": risk_debate_state["count"] + 1,
         }
 
-        return {"risk_debate_state": new_risk_debate_state}
+        return {
+            "risk_debate_state": new_risk_debate_state,
+            "structured_reports": structured_reports,
+            "messages": [AIMessage(content=argument, name="AggressiveAnalyst")]
+        }
 
     return aggressive_node

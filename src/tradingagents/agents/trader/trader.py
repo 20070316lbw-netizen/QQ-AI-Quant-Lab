@@ -7,12 +7,18 @@ def create_trader(llm, memory):
     def trader_node(state, name):
         company_name = state["company_of_interest"]
         investment_plan = state["investment_plan"]
-        market_research_report = state["market_report"]
-        sentiment_report = state["sentiment_report"]
-        news_report = state["news_report"]
-        fundamentals_report = state["fundamentals_report"]
+        structured_reports = state.get("structured_reports", {})
 
-        curr_situation = f"{market_research_report}\n\n{sentiment_report}\n\n{news_report}\n\n{fundamentals_report}"
+        # 构建结构化上下文摘要
+        summary_parts = []
+        for key, report in structured_reports.items():
+            name = report.get("analyst_name", key)
+            summary_parts.append(f"【{name}】 摘要: {report.get('summary', '')}")
+            
+        if not summary_parts:
+             summary_parts = [state.get("market_report", "")]
+
+        curr_situation = "\n\n".join(summary_parts)
         past_memories = memory.get_memories(curr_situation, n_matches=2)
 
         past_memory_str = ""
@@ -20,7 +26,7 @@ def create_trader(llm, memory):
             for i, rec in enumerate(past_memories, 1):
                 past_memory_str += rec["recommendation"] + "\n\n"
         else:
-            past_memory_str = "No past memories found."
+            past_memory_str = "暂无相关历史教训。"
 
         context = {
             "role": "user",
@@ -30,10 +36,22 @@ def create_trader(llm, memory):
         messages = [
             {
                 "role": "system",
-                "content": f"""你是一名交易计划执行者，负责分析市场数据并做出最终投资决策。请根据你的分析，提供具体的中决策：买入 (Buy)、卖出 (Sell) 或持有 (Hold)。请以坚定的态度结束你的响应，并务必在响应末尾包含 'FINAL TRANSACTION PROPOSAL: **BUY/HOLD/SELL**' 以确认你的建议。别忘了利用过去决策中的经验教训，从错误中学习。以下是你在类似情况下交易时的一些反思和教训：{past_memory_str}""",
+                "content": f"""你是一名交易计划执行者，负责分析市场数据并做出最终投资决策。请根据你的分析，提供具体决策：买入 (Buy)、卖出 (Sell) 或持有 (Hold)。
+                
+                **核心指令：**
+                请以坚定的态度结束你的响应，并务必在响应末尾包含以下量化格式的建议：
+                'FINAL TRANSACTION PROPOSAL: **BUY/HOLD/SELL (Confidence: 0.XX)**'
+                其中 0.XX 是你对该决策的置信度（请参考风险判官给出的分歧指数进行微调）。
+                
+                别忘了利用过去决策中的经验教训，从错误中学习。以下是你在类似情况下交易时的一些反思和教训：{past_memory_str}""",
             },
             context,
         ]
+        
+        # 增加逻辑：确保输入的消息中包含判官的意见（辅助 LLM 参考置信度）
+        if state.get("final_trade_decision"):
+            messages.insert(1, {"role": "assistant", "content": f"风险判官建议与分歧评估：\n{state['final_trade_decision']}"})
+
 
         result = llm.invoke(messages)
 

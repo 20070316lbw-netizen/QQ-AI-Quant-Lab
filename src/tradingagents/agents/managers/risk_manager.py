@@ -4,37 +4,86 @@ import json
 
 def create_risk_manager(llm, memory):
     def risk_manager_node(state) -> dict:
-
-        company_name = state["company_of_interest"]
-
-        history = state["risk_debate_state"]["history"]
         risk_debate_state = state["risk_debate_state"]
-        market_research_report = state["market_report"]
-        news_report = state.get("news_report", "No news available.")
-        fundamentals_report = state.get("fundamentals_report", "No fundamentals available.")
-        sentiment_report = state["sentiment_report"]
-        trader_plan = state["investment_plan"]
+        structured_reports = state.get("structured_reports", {})
+        kronos_prediction = state.get("kronos_report", "暂无 Kronos 预测数据。")
 
-        curr_situation = f"{market_research_report}\n\n{sentiment_report}\n\n{news_report}\n\n{fundamentals_report}"
-        past_memories = memory.get_memories(curr_situation, n_matches=2)
+        # 1. 深度量化决策引擎 (DI & Consensus Integration)
+        decision_map = {"BUY": 1, "BULLISH": 1, "SELL": -1, "BEARISH": -1, "HOLD": 0, "NEUTRAL": 0}
+        
+        scores = []
+        confidences = []
+        risks = []
+        valid_reports = 0
+        
+        details = []
 
-        past_memory_str = ""
-        for i, rec in enumerate(past_memories, 1):
-            past_memory_str += rec["recommendation"] + "\n\n"
+        for key, report in structured_reports.items():
+            dec = str(report.get("decision", "")).upper()
+            if dec in decision_map:
+                s = decision_map[dec]
+                c = report.get("confidence", 0.5)
+                r = report.get("risk_score", 0.5)
+                scores.append(s)
+                confidences.append(c)
+                risks.append(r)
+                valid_reports += 1
+                details.append(f"- {report.get('analyst_name', key)}: {dec} (C:{c:.2f}, R:{r:.2f})")
 
-        prompt = f"""作为风险管理法官，请评估以下辩论并确定最终决策：买入 (Buy)、卖出 (Sell) 或持有 (Hold)。
+        # 初始化默认值
+        divergence_index = 0.0
+        buy_ratio = 0.0
+        final_numeric_score = 0.0
+        avg_risk = 0.5
+        quant_decision = "HOLD"
+        final_confidence = 0.0
+
+        if valid_reports > 0:
+            avg_score = sum(scores) / valid_reports
+            variance = sum((s - avg_score) ** 2 for s in scores) / valid_reports
+            divergence_index = min(variance, 1.0)
+            
+            buy_count = sum(1 for s in scores if s > 0)
+            buy_ratio = buy_count / valid_reports
+            
+            avg_risk = sum(risks) / valid_reports
+            avg_conf = sum(confidences) / valid_reports
+            
+            # 核心加权得分 (结合了置信度均值)
+            final_numeric_score = avg_score * avg_conf
+            
+            # 根据数学结果直接锁定决策方向
+            if final_numeric_score > 0.15:
+                quant_decision = "BUY"
+            elif final_numeric_score < -0.15:
+                quant_decision = "SELL"
+            else:
+                quant_decision = "HOLD"
+                
+            # 置信度下修：分歧越大、风险越高，置_信度越低
+            final_confidence = avg_conf * (1 - divergence_index * 0.4) * (1 - avg_risk * 0.3)
+
+        # 2. 生成最终报告（LLM 仅负责话术编排）
+        details_str = "\n".join(details)
+        prompt = f"""作为风险管理判官，你已执行以下数学聚合方案：
         
-        决策依据：
-        - 交易员计划：{trader_plan}
-        - 历史教训：{past_memory_str}
+        底层因子明细：
+        {details_str}
         
-        风险分析师辩论历史：
-        {history}
+        数学推导结果：
+        - 全队分歧指数 (DI): {divergence_index:.2f}
+        - 方向一致性 (买方占比): {buy_ratio*100:.0f}%
+        - 综合风险评级: {avg_risk:.2f}
+        - 最终量化结论: {quant_decision} (最终计算出的置信度: {final_confidence:.2f})
         
-        任务：
-        1. 总结各方最强逻辑。
-        2. 给出最终建议并说明修正理由（基于交易员原计划）。
-        请务必直奔主题，使用中文，且在末尾包含 'FINAL TRANSACTION PROPOSAL: **BUY/HOLD/SELL**'。"""
+        参考预测数据：
+        {kronos_prediction[:100]}...
+        
+        请撰写一份最终的中文风控审查报告。
+        **硬性限制**：
+        - 你**必须**在结尾输出：'FINAL TRANSACTION PROPOSAL: **{quant_decision} (Confidence: {final_confidence:.2f})**'
+        - 你严禁修改上述计算得出的 {quant_decision} 结论。
+        报告内容应着重于解释这些数字所反映的市场实质。"""
 
         response = llm.invoke(prompt)
 
