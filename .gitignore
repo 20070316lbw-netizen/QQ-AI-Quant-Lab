@@ -40,6 +40,12 @@ Kronos/output/
 Kronos/logs/
 **/data_cache/
 **/news_data/
+eval_results/
+results/
+**/results/
+**/logs/
+outputs/
+**/outputs/
 
 # 大文件与模型
 *.pth
