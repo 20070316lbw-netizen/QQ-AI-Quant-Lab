@@ -25,7 +25,6 @@ dependencies = [
 lab-main = "main_hub:main_hub"
 news-lab = "crawlers.main:main"
 api-lab = "crawlers.api:run_server"
-predict-lab = "kronos.webui.app:start_server"
 trade-lab = "tradingagents.main:main"
 
 [tool.setuptools.packages.find]

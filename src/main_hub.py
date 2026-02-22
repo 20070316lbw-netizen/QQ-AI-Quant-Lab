@@ -7,7 +7,6 @@ from rich.prompt import Prompt
 # Import our project components
 try:
     from crawlers.cli.app import run_cli as start_crawler
-    from kronos.webui.app import start_server as start_kronos
     from tradingagents.main import main as start_trading
 except ImportError as e:
     print(f"Error importing modules: {e}")
@@ -28,14 +27,13 @@ def main_hub():
     while True:
         table = Table(show_header=False, box=None)
         table.add_row("[bold yellow]1[/bold yellow]", "🔍 财经新闻助手 (Crawler CLI)")
-        table.add_row("[bold yellow]2[/bold yellow]", "📈 行情预测系统 (Kronos WebUI)")
-        table.add_row("[bold yellow]3[/bold yellow]", "🤖 智能体决策台 (Trading Agents)")
+        table.add_row("[bold yellow]2[/bold yellow]", "🤖 智能体决策台 (Trading Agents)")
         table.add_row("[bold yellow]0[/bold yellow]", "🚪 退出系统")
         
         console.print("\n[bold green]请选择您要进入的模块:[/bold green]")
         console.print(table)
         
-        choice = Prompt.ask("输入序号", choices=["0", "1", "2", "3"], default="1")
+        choice = Prompt.ask("输入序号", choices=["0", "1", "2"], default="1")
         
         if choice == "0":
             console.print("[italic gray]系统已退出。[/italic gray]")
@@ -43,8 +41,6 @@ def main_hub():
         elif choice == "1":
             start_crawler()
         elif choice == "2":
-            start_kronos()
-        elif choice == "3":
             start_trading()
 
 if __name__ == "__main__":
