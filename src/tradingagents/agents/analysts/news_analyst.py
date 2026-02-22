@@ -2,7 +2,7 @@ from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 import time
 import json
 from tradingagents.agents.utils.agent_utils import get_news, get_global_news
-from tradingagents.dataflows.config import get_config
+from tradingagents.agent_config import get_config
 
 
 def create_news_analyst(llm):

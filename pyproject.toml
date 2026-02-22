@@ -18,14 +18,19 @@ dependencies = [
     "requests",
     "beautifulsoup4",
     "python-dotenv",
-    "yfinance"
+    "yfinance",
+    "questionary>=2.1.0",
+    "duckduckgo-search",
+    "torch",
+    "huggingface_hub",
+    "tqdm",
+    "stockstats"
 ]
 
 [project.scripts]
 lab-main = "main_hub:main_hub"
-news-lab = "crawlers.main:main"
-api-lab = "crawlers.api:run_server"
-trade-lab = "tradingagents.main:main"
+# Legacy scripts removed for single-CLI experience.
+# Use 'lab-main' and select modules from the menu.
 
 [tool.setuptools.packages.find]
 where = ["src"]

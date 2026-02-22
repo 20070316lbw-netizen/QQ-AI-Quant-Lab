@@ -3,7 +3,7 @@ import time
 import json
 from tradingagents.agents.utils.agent_utils import get_stock_data, get_indicators
 from tradingagents.agents.utils.kronos_tools import get_market_prediction
-from tradingagents.dataflows.config import get_config
+from tradingagents.agent_config import get_config
 
 
 def create_market_analyst(llm):
