@@ -21,8 +21,8 @@ python main.py --topic 股市
 import sys
 import argparse
 
-from finance_news_collector.base import FINANCE_TOPICS, DEFAULT_OUTPUT_DIR, print_banner, print_section
-from finance_news_collector.collector import FinanceNewsCollector
+from crawlers.finance_news_collector.base import FINANCE_TOPICS, DEFAULT_OUTPUT_DIR, print_banner, print_section
+from crawlers.finance_news_collector.collector import FinanceNewsCollector
 
 
 def create_parser() -> argparse.ArgumentParser:

@@ -15,7 +15,7 @@ warnings.filterwarnings('ignore')
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 try:
-    from model import Kronos, KronosTokenizer, KronosPredictor
+    from kronos.model import Kronos, KronosTokenizer, KronosPredictor
     MODEL_AVAILABLE = True
 except ImportError:
     MODEL_AVAILABLE = False
@@ -697,12 +697,10 @@ def get_model_status():
             'message': 'Kronos model library not available, please install related dependencies'
         })
 
-if __name__ == '__main__':
+def start_server():
+    """启动 Kronos Web UI 的入口点"""
     print("Starting Kronos Web UI...")
-    print(f"Model availability: {MODEL_AVAILABLE}")
-    if MODEL_AVAILABLE:
-        print("Tip: You can load Kronos model through /api/load-model endpoint")
-    else:
-        print("Tip: Will use simulated data for demonstration")
-    
     app.run(debug=True, host='0.0.0.0', port=7070)
+
+if __name__ == '__main__':
+    start_server()

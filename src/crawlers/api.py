@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
-from finance_news_collector.base import FINANCE_TOPICS, NewsItem
-from finance_news_collector.collector import FinanceNewsCollector
+from crawlers.finance_news_collector.base import FINANCE_TOPICS, NewsItem
+from crawlers.finance_news_collector.collector import FinanceNewsCollector
 
 app = Flask(__name__)
 collector = FinanceNewsCollector()
@@ -28,6 +28,10 @@ def get_news():
 
     return jsonify(result.to_dict())
 
-if __name__ == '__main__':
+def run_server():
+    """启动 API 服务器的入口点"""
     print("🚀 Crawler API is running on http://localhost:5000")
     app.run(host='0.0.0.0', port=5000)
+
+if __name__ == '__main__':
+    run_server()

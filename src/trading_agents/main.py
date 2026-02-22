@@ -1,5 +1,5 @@
-from tradingagents.graph.trading_graph import TradingAgentsGraph
-from tradingagents.default_config import DEFAULT_CONFIG
+from trading_agents.tradingagents.graph.trading_graph import TradingAgentsGraph
+from trading_agents.tradingagents.default_config import DEFAULT_CONFIG
 
 from dotenv import load_dotenv
 
@@ -22,9 +22,12 @@ config["data_vendors"] = {
     "news_data": "yfinance",                 # Options: alpha_vantage, yfinance
 }
 
-# 初始化并运行交易智能体
-ta = TradingAgentsGraph(debug=True, config=config)
+def main():
+    """初始化并运行交易智能体"""
+    ta = TradingAgentsGraph(debug=True, config=config)
+    # 执行决策预测
+    _, decision = ta.propagate("NVDA", "2026-02-19")
+    print(decision)
 
-# 执行决策预测
-_, decision = ta.propagate("NVDA", "2026-02-19")
-print(decision)
+if __name__ == '__main__':
+    main()

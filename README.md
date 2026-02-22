@@ -16,28 +16,24 @@
 
 ## 🛠️ 快速上手
 
-### 1. 环境准备
-项目已配置好虚拟环境，请确保使用 `Dev_Workspace_env` 下的 Python。
-
-### 2. 运行财经爬虫 (交互模式)
-最简单的使用方式，直接启动菜单选择：
+### 1. 环境准备与挂载
+项目已支持标准安装。请在当前虚拟环境下运行以下命令，即可在任意路径直接调用工具：
 ```bash
-python src/crawlers/main.py
+pip install -e .
 ```
-*在菜单中您可以一键搜索主题、自定义关键词，或启动 API 服务器。*
 
-### 3. 运行行情预测 WebUI
-可视化查看 K 线预测结果：
+### 2. 核心总入口 (推荐)
+直接启动智库控制台，一键进入任一模块：
 ```bash
-python src/kronos/webui/app.py
+lab-main
 ```
-*启动后访问 [http://localhost:7070](http://localhost:7070)*
 
-### 4. 运行交易智能体决策
-获取 AI 团队对特定股票的交易建议：
-```bash
-python src/trading_agents/main.py
-```
+### 3. 各模块快捷命令
+安装后，您可以直接在终端输入以下快捷命令启动对应功能：
+- **`news-lab`**: 启动财经新闻搜集交互界面。
+- **`predict-lab`**: 启动 Kronos K线预测 WebUI。
+- **`trade-lab`**: 运行智能体交易决策演示。
+- **`api-lab`**: 启动搜集器 REST API 服务器。
 
 ---
 
