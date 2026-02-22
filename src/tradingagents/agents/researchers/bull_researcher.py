@@ -22,29 +22,37 @@ def create_bull_researcher(llm, memory):
         for i, rec in enumerate(past_memories, 1):
             past_memory_str += rec["recommendation"] + "\n\n"
 
-        prompt = f"""You are a Bull Analyst advocating for investing in the stock. Your task is to build a strong, evidence-based case emphasizing growth potential, competitive advantages, and positive market indicators. Leverage the provided research and data to address concerns and counter bearish arguments effectively.
+        # 动态瘦身：如果辩论已经进行，减小背景资料的权重
+        is_rebuttal = investment_debate_state["count"] > 0
+        
+        if not is_rebuttal:
+            context_str = f"市场研究报告：{market_research_report}\n社交媒体情绪报告：{sentiment_report}\n最新全球事务新闻：{news_report}\n公司基本面报告：{fundamentals_report}"
+        else:
+            # 在辩论后期，仅保留关键摘要以节省 Token
+            context_str = "参考资料已在首轮提供。请重点针对以下最新辩论历史进行反驳。"
 
-Key points to focus on:
-- Growth Potential: Highlight the company's market opportunities, revenue projections, and scalability.
-- Competitive Advantages: Emphasize factors like unique products, strong branding, or dominant market positioning.
-- Positive Indicators: Use financial health, industry trends, and recent positive news as evidence.
-- Bear Counterpoints: Critically analyze the bear argument with specific data and sound reasoning, addressing concerns thoroughly and showing why the bull perspective holds stronger merit.
-- Engagement: Present your argument in a conversational style, engaging directly with the bear analyst's points and debating effectively rather than just listing data.
+        # 历史记录修剪：仅保留最近的对比，防止 Token 爆炸
+        history_lines = history.split("\n")
+        if len(history_lines) > 6:
+            trimmed_history = "...(早期辩论已省略)...\n" + "\n".join(history_lines[-6:])
+        else:
+            trimmed_history = history
 
-Resources available:
-Market research report: {market_research_report}
-Social media sentiment report: {sentiment_report}
-Latest world affairs news: {news_report}
-Company fundamentals report: {fundamentals_report}
-Conversation history of the debate: {history}
-Last bear argument: {current_response}
-Reflections from similar situations and lessons learned: {past_memory_str}
-Use this information to deliver a compelling bull argument, refute the bear's concerns, and engage in a dynamic debate that demonstrates the strengths of the bull position. You must also address reflections and learn from lessons and mistakes you made in the past.
-"""
+        prompt = f"""你是一名看多分析师 (Bull Analyst)。你的任务是构建一个强有力的看多案例。
+        
+        {context_str}
+        
+        辩论历史记录 (精简版):
+        {trimmed_history}
+        
+        上一个看空论点：{current_response}
+        来自类似情况的教训：{past_memory_str}
+        
+        请发表一段短小精悍、直击要害的中文看多论辩。严禁输出英文，严禁重复废话。"""
 
         response = llm.invoke(prompt)
 
-        argument = f"Bull Analyst: {response.content}"
+        argument = f"看多分析师: {response.content}"
 
         new_investment_debate_state = {
             "history": history + "\n" + argument,

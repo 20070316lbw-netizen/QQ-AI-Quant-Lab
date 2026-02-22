@@ -19,23 +19,25 @@ def create_research_manager(llm, memory):
         for i, rec in enumerate(past_memories, 1):
             past_memory_str += rec["recommendation"] + "\n\n"
 
-        prompt = f"""As the portfolio manager and debate facilitator, your role is to critically evaluate this round of debate and make a definitive decision: align with the bear analyst, the bull analyst, or choose Hold only if it is strongly justified based on the arguments presented.
+        prompt = f"""作为投资组合经理和辩论主持人，你的职责是批判性地评估本轮辩论并做出最终决定：选择支持看空分析师、看多分析师，或者在有强有力理由的情况下选择“持有”。
 
-Summarize the key points from both sides concisely, focusing on the most compelling evidence or reasoning. Your recommendation—Buy, Sell, or Hold—must be clear and actionable. Avoid defaulting to Hold simply because both sides have valid points; commit to a stance grounded in the debate's strongest arguments.
+请简明扼要地总结双方的核心观点，关注最具说服力的证据或逻辑。你的建议——买入 (Buy)、卖出 (Sell) 或持有 (Hold)——必须清晰且具有可操作性。不要仅仅因为双方都有理就默认选择“持有”；必须根据辩论中最有力的论据做出决断。
 
-Additionally, develop a detailed investment plan for the trader. This should include:
+此外，请为交易员制定一份详细的中文投资计划，包括：
+1. 你的建议：一个由最具说服力的论据支持的决定性立场。
+2. 理由：解释为什么这些论据会导致你的结论。
+3. 战略行动：实施该建议的具体步骤。
 
-Your Recommendation: A decisive stance supported by the most convincing arguments.
-Rationale: An explanation of why these arguments lead to your conclusion.
-Strategic Actions: Concrete steps for implementing the recommendation.
-Take into account your past mistakes on similar situations. Use these insights to refine your decision-making and ensure you are learning and improving. Present your analysis conversationally, as if speaking naturally, without special formatting. 
+请考虑你过去在类似情况下的错误。利用这些洞察来改进你的决策，并确保你在不断学习和进步。请以对话的形式、自然地陈述你的分析，不要使用特殊的格式（如特殊的 Markdown 标题等）。
 
-Here are your past reflections on mistakes:
+以下是你过去对错误的思考：
 \"{past_memory_str}\"
 
-Here is the debate:
-Debate History:
-{history}"""
+以下是辩论过程：
+辩论历史：
+{history}
+
+请务必全程使用中文进行总结和计划制定。"""
         response = llm.invoke(prompt)
 
         new_investment_debate_state = {

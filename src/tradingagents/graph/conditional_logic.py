@@ -50,7 +50,7 @@ class ConditionalLogic:
             state["investment_debate_state"]["count"] >= 2 * self.max_debate_rounds
         ):  # 3 rounds of back-and-forth between 2 agents
             return "Research Manager"
-        if state["investment_debate_state"]["current_response"].startswith("Bull"):
+        if state["investment_debate_state"]["current_response"].startswith(("Bull", "看多分析师")):
             return "Bear Researcher"
         return "Bull Researcher"
 
@@ -60,8 +60,8 @@ class ConditionalLogic:
             state["risk_debate_state"]["count"] >= 3 * self.max_risk_discuss_rounds
         ):  # 3 rounds of back-and-forth between 3 agents
             return "Risk Judge"
-        if state["risk_debate_state"]["latest_speaker"].startswith("Aggressive"):
+        if state["risk_debate_state"]["latest_speaker"].startswith(("Aggressive", "激进型分析师")):
             return "Conservative Analyst"
-        if state["risk_debate_state"]["latest_speaker"].startswith("Conservative"):
+        if state["risk_debate_state"]["latest_speaker"].startswith(("Conservative", "保守型分析师")):
             return "Neutral Analyst"
         return "Aggressive Analyst"

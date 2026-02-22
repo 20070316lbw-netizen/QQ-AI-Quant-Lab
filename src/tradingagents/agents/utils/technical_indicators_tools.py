@@ -5,8 +5,8 @@ from crawlers.data_gateway import gateway
 @tool
 def get_indicators(
     symbol: Annotated[str, "ticker symbol of the company"],
-    indicator: Annotated[str, "technical indicator to get the analysis and report of"],
-    curr_date: Annotated[str, "The current trading date you are trading on, YYYY-mm-dd"],
+    indicator: Annotated[str, "technical indicator(s) to get, can be comma-separated like 'rsi,macd'"],
+    curr_date: Annotated[str, "The current trading date, YYYY-mm-dd. Optional, defaults to today."] = None,
     look_back_days: Annotated[int, "how many days to look back"] = 30,
 ) -> str:
     """

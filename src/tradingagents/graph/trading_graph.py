@@ -195,16 +195,42 @@ class TradingAgentsGraph:
         args = self.propagator.get_graph_args()
 
         if self.debug:
-            # Debug mode with tracing
-            trace = []
-            for chunk in self.graph.stream(init_agent_state, **args):
-                if len(chunk["messages"]) == 0:
-                    pass
-                else:
-                    chunk["messages"][-1].pretty_print()
-                    trace.append(chunk)
-
-            final_state = trace[-1]
+            # 高性能模式：采用 stream_mode="values" 获取每一环节的完整状态，确保输出质量与速度
+            from rich.console import Console
+            import re
+            console = Console()
+            
+            final_state = init_agent_state
+            
+            # 使用 values 模式：每个 chunk 都是当前完整的 AgentState
+            for current_state in self.graph.stream(init_agent_state, **args):
+                final_state = current_state
+                messages = current_state.get("messages", [])
+                
+                if not messages:
+                    continue
+                
+                msg = messages[-1]
+                # 这里我们难以直接从 values 模式获知是哪个 node 产生的，
+                # 但可以通过消息的 sender 或内容特征来判断
+                content = getattr(msg, "content", "")
+                
+                if content:
+                    is_chinese = bool(re.search(r'[\u4e00-\u9fa5]', content))
+                    has_proposal = "FINAL TRANSACTION PROPOSAL" in content
+                    
+                    if not is_chinese and not has_proposal:
+                        # 即时显示思考/工具调用等中间态
+                        console.print(f"\n[italic cyan]>>> 系统深度计算/检索中...[/italic cyan]")
+                        console.print(f"[dim italic]{content}[/dim italic]")
+                    else:
+                        console.print(f"\n[bold cyan]>>> 研报片段/决策汇报...[/bold cyan]")
+                        if has_proposal:
+                            console.print(f"[bold green]{content}[/bold green]")
+                        else:
+                            console.print(content)
+            
+            # 此时 final_state 已经是最后一次迭代的结果，无需再次 invoke
         else:
             # Standard mode without tracing
             final_state = self.graph.invoke(init_agent_state, **args)

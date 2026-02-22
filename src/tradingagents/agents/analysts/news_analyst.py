@@ -15,23 +15,27 @@ def create_news_analyst(llm):
             get_global_news,
         ]
 
-        system_message = (
-            "You are a news researcher tasked with analyzing recent news and trends over the past week. Please write a comprehensive report of the current state of the world that is relevant for trading and macroeconomics. Use the available tools: get_news(query, start_date, end_date) for company-specific or targeted news searches, and get_global_news(curr_date, look_back_days, limit) for broader macroeconomic news. Do not simply state the trends are mixed, provide detailed and finegrained analysis and insights that may help traders make decisions."
-            + """ Make sure to append a Markdown table at the end of the report to organize key points in the report, organized and easy to read."""
-        )
+        # 动态瘦身：如果已经执行过工具，进入汇总阶段，则移除详细工具指令
+        has_data = len(state.get("messages", [])) > 2
+        if not has_data:
+            system_message = (
+                "你是一名资深的新闻研究员。请使用提供的工具：`get_news` (个股) 或 `get_global_news` (全球宏观) 抓取关键资讯。严禁空谈，必须基于事实。"
+            )
+        else:
+            system_message = "数据已获取。请结合上下文，撰写详尽的中文新闻与宏观分析报告。末尾必须附带摘要表格。全程严禁输出英文段落。"
 
         prompt = ChatPromptTemplate.from_messages(
             [
                 (
                     "system",
-                    "You are a helpful AI assistant, collaborating with other assistants."
-                    " Use the provided tools to progress towards answering the question."
-                    " If you are unable to fully answer, that's OK; another assistant with different tools"
-                    " will help where you left off. Execute what you can to make progress."
-                    " If you or any other assistant has the FINAL TRANSACTION PROPOSAL: **BUY/HOLD/SELL** or deliverable,"
-                    " prefix your response with FINAL TRANSACTION PROPOSAL: **BUY/HOLD/SELL** so the team knows to stop."
-                    " You have access to the following tools: {tool_names}.\n{system_message}"
-                    "For your reference, the current date is {current_date}. We are looking at the company {ticker}",
+                    "你是一个专业的 AI 投资补手的成员，正在与其他成员协作。"
+                    " 请使用提供的工具逐步解决问题。"
+                    " 如果你无法完全回答，也没关系；拥有不同工具的其他助手会接手你的工作。"
+                    " 尽量执行你能做的部分来推进进度。"
+                    " 如果你或其他助手得出了【最终交易建议：买入/持有/卖出】，请在响应开头明确标注"
+                    " 'FINAL TRANSACTION PROPOSAL: **BUY/HOLD/SELL**'，以便团队停止工作。"
+                    " 你拥有的工具: {tool_names}。\n{system_message}"
+                    " 参考信息：当前日期是 {current_date}。我们要分析的公司是 {ticker}"
                 ),
                 MessagesPlaceholder(variable_name="messages"),
             ]

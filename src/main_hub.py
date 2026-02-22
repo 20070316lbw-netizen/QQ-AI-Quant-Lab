@@ -13,6 +13,7 @@ try:
     from tradingagents.main import main as start_trading
     from tradingagents.graph.trading_graph import TradingAgentsGraph
     from tradingagents.default_config import DEFAULT_CONFIG
+    from tradingagents.utils.llm_deploy_helper import deploy_assistant_ui
 except ImportError as e:
     print(f"Error importing modules: {e}")
     sys.exit(1)
@@ -72,6 +73,7 @@ def main_hub():
                 questionary.Choice("🤖 智能体研究员 (全自动运行端到端行情研判)", value="agent"),
                 questionary.Choice("🔍 财经新闻助手 (Crawler CLI - 单独抓数据)", value="crawler"),
                 questionary.Choice("⚙️  执行 Agent 演示脚本 (TradingAgents main.py)", value="demo"),
+                questionary.Choice("🛠️  LLM 部署助手 (本地模型安装与检测)", value="llm_tool"),
                 questionary.Choice("🚪 退出系统", value="exit")
             ],
             style=questionary.Style([
@@ -91,6 +93,9 @@ def main_hub():
             run_agentic_flow()
         elif choice == "demo":
             start_trading()
+        elif choice == "llm_tool":
+            deploy_assistant_ui()
+            Prompt.ask("\n按回车键返回主菜单...")
 
 if __name__ == "__main__":
     main_hub()
