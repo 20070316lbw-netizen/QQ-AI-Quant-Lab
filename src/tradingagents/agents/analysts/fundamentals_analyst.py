@@ -29,14 +29,14 @@ def create_fundamentals_analyst(llm):
             
             **特别指令：**
             在报告正文结束后，请必须附带一个以 ```json 开启的结构化 JSON 块，包含以下字段：
-            {
+            {{
               "summary": "简短的中文财报总结",
-              "key_metrics": {"营收增长": "值", "净利润": "值", "自由现金流": "值"},
+              "key_metrics": {{"营收增长": "值", "净利润": "值", "自由现金流": "值"}},
               "decision": "BULLISH/BEARISH/NEUTRAL",
               "confidence": 0.0到1.0之间的浮点数,
               "risk_score": 0.0到1.0之间的浮点数 (1.0表示极高风险),
               "risk_bias": "aggressive", "neutral" 或 "conservative"
-            }"""
+            }}"""
 
         prompt = ChatPromptTemplate.from_messages(
             [
@@ -74,14 +74,15 @@ def create_fundamentals_analyst(llm):
             json_match = re.search(r'```json\s*(\{.*?\})\s*```', report, re.DOTALL)
             if json_match:
                 try:
+                    raw_json = json.loads(json_match.group(1))
                     report_data: AnalystReport = {
                         "analyst_name": "Fundamentals Analyst",
-                        "summary": report_data.get("summary", ""),
-                        "key_metrics": report_data.get("key_metrics", {}),
-                        "decision": str(report_data.get("decision", "NEUTRAL")).upper(),
-                        "confidence": float(report_data.get("confidence", 0.5)),
-                        "risk_score": float(report_data.get("risk_score", 0.5)),
-                        "risk_bias": str(report_data.get("risk_bias", "neutral")).lower()
+                        "summary": raw_json.get("summary", ""),
+                        "key_metrics": raw_json.get("key_metrics", {}),
+                        "decision": str(raw_json.get("decision", "HOLD")).upper(),
+                        "confidence": float(raw_json.get("confidence", 0.5)),
+                        "risk_score": float(raw_json.get("risk_score", 0.5)),
+                        "risk_bias": str(raw_json.get("risk_bias", "neutral")).lower()
                     }
                     structured_reports["fundamentals"] = report_data
                 except Exception as e:

@@ -59,6 +59,8 @@ def run_agentic_flow():
         console.print(Panel(decision, title=f"最终分析意见: {ticker}", border_style="green"))
             
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         console.print(f"\n[bold red]❌ 智能体运行过程中发生故障:[/bold red] {str(e)}")
         
     Prompt.ask("\n按回车键返回主菜单...")

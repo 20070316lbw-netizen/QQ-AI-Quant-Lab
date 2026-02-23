@@ -1,6 +1,7 @@
 from langchain_core.messages import AIMessage
 import time
 import json
+import re
 
 
 def create_bull_researcher(llm, memory):
@@ -52,12 +53,12 @@ def create_bull_researcher(llm, memory):
         
         **特别指令：**
         在辩论内容结束后，必须附带一个以 ```json 开启的结构化 JSON 块，包含：
-        {
+        {{
           "decision": "BUY",
           "confidence": 0.0到1.0之间的浮点数 (请评估看多逻辑的强度),
           "risk_score": 0.0到1.0之间的浮点数 (请评估潜在风险),
           "risk_bias": "aggressive"
-        }"""
+        }}"""
 
         response = llm.invoke(prompt)
 
@@ -68,14 +69,15 @@ def create_bull_researcher(llm, memory):
         json_match = re.search(r'```json\s*(\{.*?\})\s*```', response.content, re.DOTALL)
         if json_match:
             try:
+                raw_json = json.loads(json_match.group(1))
                 report_data: AnalystReport = {
                     "analyst_name": "Bull Analyst",
-                    "summary": report_data.get("summary", "看多观点"),
-                    "key_metrics": report_data.get("key_metrics", {}),
-                    "decision": str(report_data.get("decision", "BUY")).upper(),
-                    "confidence": float(report_data.get("confidence", 0.5)),
-                    "risk_score": float(report_data.get("risk_score", 0.5)),
-                    "risk_bias": str(report_data.get("risk_bias", "aggressive")).lower()
+                    "summary": raw_json.get("summary", "看多观点"),
+                    "key_metrics": raw_json.get("key_metrics", {}),
+                    "decision": str(raw_json.get("decision", "BUY")).upper(),
+                    "confidence": float(raw_json.get("confidence", 0.5)),
+                    "risk_score": float(raw_json.get("risk_score", 0.5)),
+                    "risk_bias": str(raw_json.get("risk_bias", "aggressive")).lower()
                 }
                 structured_reports["bull_researcher"] = report_data
             except Exception as e:
