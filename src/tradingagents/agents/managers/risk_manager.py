@@ -4,7 +4,7 @@ import json
 
 def create_risk_manager(llm, memory):
     def risk_manager_node(state) -> dict:
-        risk_debate_state = state["risk_debate_state"]
+        risk_debate_state = state.get("risk_debate_state", {})
         structured_reports = state.get("structured_reports", {})
         kronos_prediction = state.get("kronos_report", "暂无 Kronos 预测数据。")
 

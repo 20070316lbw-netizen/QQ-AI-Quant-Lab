@@ -1,0 +1,228 @@
+{
+    "ticker": "AAPL",
+    "iterations": 20,
+    "total_runs": 20,
+    "summary_timestamp": "20260223_153014",
+    "data": [
+        {
+            "iteration": 1,
+            "timestamp": "2026-02-23T15:30:23.951163",
+            "elapsed_seconds": 8.22,
+            "decision": "HOLD",
+            "confidence": 0.7758393777330508,
+            "expected_return": "-0.57%",
+            "uncertainty": 0.0,
+            "z_score": 0.18540155566737312,
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 2,
+            "timestamp": "2026-02-23T15:30:27.586272",
+            "elapsed_seconds": 3.63,
+            "decision": "HOLD",
+            "confidence": 0.7782920970207908,
+            "expected_return": "-0.55%",
+            "uncertainty": 0.0,
+            "z_score": 0.17926975744802293,
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 3,
+            "timestamp": "2026-02-23T15:30:31.420632",
+            "elapsed_seconds": 3.83,
+            "decision": "HOLD",
+            "confidence": 0.7984934825000596,
+            "expected_return": "0.40%",
+            "uncertainty": 0.0,
+            "z_score": 0.128766293749851,
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 4,
+            "timestamp": "2026-02-23T15:30:35.390388",
+            "elapsed_seconds": 3.97,
+            "decision": "HOLD",
+            "confidence": 0.7218464839172873,
+            "expected_return": "-0.99%",
+            "uncertainty": 0.0,
+            "z_score": 0.32038379020678165,
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 5,
+            "timestamp": "2026-02-23T15:30:40.170665",
+            "elapsed_seconds": 4.78,
+            "decision": "SMALL BEARISH POSITION",
+            "confidence": 0.6826435699860085,
+            "expected_return": "-2.82%",
+            "uncertainty": 0.0,
+            "z_score": 0.9132178499300427,
+            "raw_decision_text": "SELL"
+        },
+        {
+            "iteration": 6,
+            "timestamp": "2026-02-23T15:30:44.027531",
+            "elapsed_seconds": 3.86,
+            "decision": "HOLD",
+            "confidence": 0.7347742483032653,
+            "expected_return": "-0.89%",
+            "uncertainty": 0.0,
+            "z_score": 0.28806437924183675,
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 7,
+            "timestamp": "2026-02-23T15:30:48.968502",
+            "elapsed_seconds": 4.94,
+            "decision": "SMALL BEARISH POSITION",
+            "confidence": 0.6014580662189436,
+            "expected_return": "-1.57%",
+            "uncertainty": 0.0,
+            "z_score": 0.5072903310947182,
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 8,
+            "timestamp": "2026-02-23T15:30:53.040368",
+            "elapsed_seconds": 4.07,
+            "decision": "MEDIUM BEARISH POSITION",
+            "confidence": 0.7239489543235912,
+            "expected_return": "-3.46%",
+            "uncertainty": 0.0,
+            "z_score": 1.1197447716179563,
+            "raw_decision_text": "SELL"
+        },
+        {
+            "iteration": 9,
+            "timestamp": "2026-02-23T15:30:57.261782",
+            "elapsed_seconds": 4.22,
+            "decision": "HOLD",
+            "confidence": 0.7677007651256995,
+            "expected_return": "0.64%",
+            "uncertainty": 0.0,
+            "z_score": 0.20574808718575127,
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 10,
+            "timestamp": "2026-02-23T15:31:01.412464",
+            "elapsed_seconds": 4.15,
+            "decision": "SMALL BEARISH POSITION",
+            "confidence": 0.6486950126573275,
+            "expected_return": "-2.30%",
+            "uncertainty": 0.0,
+            "z_score": 0.7434750632866378,
+            "raw_decision_text": "BUY"
+        },
+        {
+            "iteration": 11,
+            "timestamp": "2026-02-23T15:31:05.453858",
+            "elapsed_seconds": 4.04,
+            "decision": "HOLD",
+            "confidence": 0.7341972911694209,
+            "expected_return": "0.89%",
+            "uncertainty": 0.0,
+            "z_score": 0.2895067720764477,
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 12,
+            "timestamp": "2026-02-23T15:31:09.678913",
+            "elapsed_seconds": 4.22,
+            "decision": "MEDIUM BEARISH POSITION",
+            "confidence": 0.7245049336059681,
+            "expected_return": "-3.47%",
+            "uncertainty": 0.0,
+            "z_score": 1.122524668029841,
+            "raw_decision_text": "SELL"
+        },
+        {
+            "iteration": 13,
+            "timestamp": "2026-02-23T15:31:13.628590",
+            "elapsed_seconds": 3.95,
+            "decision": "HOLD",
+            "confidence": 0.8017356406592958,
+            "expected_return": "-0.37%",
+            "uncertainty": 0.0,
+            "z_score": 0.12066089835176053,
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 14,
+            "timestamp": "2026-02-23T15:31:17.766586",
+            "elapsed_seconds": 4.14,
+            "decision": "MEDIUM BULLISH POSITION",
+            "confidence": 0.7255690986429524,
+            "expected_return": "3.49%",
+            "uncertainty": 0.0,
+            "z_score": 1.127845493214762,
+            "raw_decision_text": "BUY"
+        },
+        {
+            "iteration": 15,
+            "timestamp": "2026-02-23T15:31:21.717447",
+            "elapsed_seconds": 3.95,
+            "decision": "HOLD",
+            "confidence": 0.7261315293712175,
+            "expected_return": "-0.96%",
+            "uncertainty": 0.0,
+            "z_score": 0.30967117657195614,
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 16,
+            "timestamp": "2026-02-23T15:31:25.686047",
+            "elapsed_seconds": 3.97,
+            "decision": "HOLD",
+            "confidence": 0.8147901917210755,
+            "expected_return": "-0.27%",
+            "uncertainty": 0.0,
+            "z_score": 0.08802452069731115,
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 17,
+            "timestamp": "2026-02-23T15:31:29.699840",
+            "elapsed_seconds": 4.01,
+            "decision": "HOLD",
+            "confidence": 0.7939779799360795,
+            "expected_return": "0.43%",
+            "uncertainty": 0.0,
+            "z_score": 0.14005505015980094,
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 18,
+            "timestamp": "2026-02-23T15:31:34.446946",
+            "elapsed_seconds": 4.75,
+            "decision": "HOLD",
+            "confidence": 0.7737005525473915,
+            "expected_return": "0.59%",
+            "uncertainty": 0.0,
+            "z_score": 0.19074861863152126,
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 19,
+            "timestamp": "2026-02-23T15:31:39.442051",
+            "elapsed_seconds": 4.99,
+            "decision": "MEDIUM BEARISH POSITION",
+            "confidence": 0.7471793761719078,
+            "expected_return": "-3.82%",
+            "uncertainty": 0.0,
+            "z_score": 1.2358968808595392,
+            "raw_decision_text": "SELL"
+        },
+        {
+            "iteration": 20,
+            "timestamp": "2026-02-23T15:31:43.469361",
+            "elapsed_seconds": 4.03,
+            "decision": "HOLD",
+            "confidence": 0.8230863343905536,
+            "expected_return": "0.21%",
+            "uncertainty": 0.0,
+            "z_score": 0.06728416402361605,
+            "raw_decision_text": "HOLD"
+        }
+    ]
+}

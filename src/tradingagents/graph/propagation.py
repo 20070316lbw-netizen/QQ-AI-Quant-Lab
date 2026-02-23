@@ -39,6 +39,7 @@ class Propagator:
             "fundamentals_report": "",
             "sentiment_report": "",
             "news_report": "",
+            "kronos_report": "",
             "structured_reports": {},
         }
 

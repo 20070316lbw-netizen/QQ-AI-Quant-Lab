@@ -63,6 +63,43 @@ def run_agentic_flow():
         
     Prompt.ask("\n按回车键返回主菜单...")
 
+def run_kronos_test_flow():
+    """孤立测试 Kronos 模型的高级实验流"""
+    console.print(Panel("[bold magenta]🧪 Kronos Foundations: 纯量化时序预测测试 (V7.0)[/bold magenta]", border_style="magenta"))
+    ticker = Prompt.ask("👉 请输入测试标的代码 (如 AAPL, TSLA)", default="AAPL")
+    today = datetime.datetime.now().strftime("%Y-%m-%d")
+    
+    config = DEFAULT_CONFIG.copy()
+    config["llm_provider"] = "ollama"
+    config["backend_url"] = "http://localhost:11434"
+    config["deep_think_llm"] = "qwen2.5:3b"
+    config["quick_think_llm"] = "qwen2.5:3b"
+    
+    console.print(f"\n[bold magenta]正在启动隔离实验环境... (噪音过滤: ON, 预测模型: Kronos-v1)[/bold magenta]")
+    try:
+        # 开启 test_mode=True
+        ta = TradingAgentsGraph(debug=True, config=config, test_mode=True)
+        
+        with Progress(
+            SpinnerColumn(),
+            TextColumn("[progress.description]{task.description}"),
+            transient=True,
+        ) as progress:
+            progress.add_task(description="正在计算时序预测曲线并映射交易信号...", total=None)
+            final_state, stripped_decision = ta.propagate(ticker, today)
+        
+        console.print("\n[bold green]✅ 孤立测试完成！[/bold green]")
+        # 显示完整的结构化报告（包含 Z-Score, Vol 等）
+        full_report = final_state.get("final_trade_decision", stripped_decision)
+        console.print(Panel(full_report, title=f"Kronos 深度量化报告: {ticker}", border_style="magenta"))
+        console.print("[dim]提示：在该模式下，不进行任何新闻/情绪/基本面抓取，决策 100% 由模型曲线驱动。[/dim]")
+            
+    except Exception as e:
+        console.print(f"\n[bold red]❌ 实验运行故障:[/bold red] {str(e)}")
+        
+    Prompt.ask("\n按回车键返回主菜单...")
+
+
 def main_hub():
     print_welcome()
     
@@ -71,6 +108,7 @@ def main_hub():
             "请选择您的操作模式 (使用上下方向键选择，回车确认):",
             choices=[
                 questionary.Choice("🤖 智能体研究员 (全自动运行端到端行情研判)", value="agent"),
+                questionary.Choice("🧪 Kronos 孤立性测试模式 (纯量化模型验证)", value="kronos_test"),
                 questionary.Choice("🔍 财经新闻助手 (Crawler CLI - 单独抓数据)", value="crawler"),
                 questionary.Choice("⚙️  执行 Agent 演示脚本 (TradingAgents main.py)", value="demo"),
                 questionary.Choice("🛠️  LLM 部署助手 (本地模型安装与检测)", value="llm_tool"),
@@ -91,6 +129,8 @@ def main_hub():
             start_crawler()
         elif choice == "agent":
             run_agentic_flow()
+        elif choice == "kronos_test":
+            run_kronos_test_flow()
         elif choice == "demo":
             start_trading()
         elif choice == "llm_tool":

@@ -1,0 +1,188 @@
+{
+    "ticker": "AAPL",
+    "iterations": 20,
+    "total_runs": 20,
+    "summary_timestamp": "20260223_152427",
+    "data": [
+        {
+            "iteration": 1,
+            "timestamp": "2026-02-23T15:24:37.543359",
+            "elapsed_seconds": 7.88,
+            "decision": "HOLD",
+            "confidence": 0.8351961455204099,
+            "expected_return": "0.11%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 2,
+            "timestamp": "2026-02-23T15:24:41.398841",
+            "elapsed_seconds": 3.85,
+            "decision": "HOLD",
+            "confidence": 0.835278080497247,
+            "expected_return": "-0.11%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 3,
+            "timestamp": "2026-02-23T15:24:46.260419",
+            "elapsed_seconds": 4.86,
+            "decision": "SMALL BULLISH POSITION",
+            "confidence": 0.607809821523522,
+            "expected_return": "1.67%",
+            "raw_decision_text": "BUY"
+        },
+        {
+            "iteration": 4,
+            "timestamp": "2026-02-23T15:24:50.355100",
+            "elapsed_seconds": 4.09,
+            "decision": "HOLD",
+            "confidence": 0.7779363545648993,
+            "expected_return": "-0.56%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 5,
+            "timestamp": "2026-02-23T15:24:54.663084",
+            "elapsed_seconds": 4.31,
+            "decision": "SMALL BEARISH POSITION",
+            "confidence": 0.645715275281052,
+            "expected_return": "-2.25%",
+            "raw_decision_text": "SELL"
+        },
+        {
+            "iteration": 6,
+            "timestamp": "2026-02-23T15:24:59.791252",
+            "elapsed_seconds": 5.13,
+            "decision": "SMALL BULLISH POSITION",
+            "confidence": 0.6145356280767637,
+            "expected_return": "1.77%",
+            "raw_decision_text": "BUY"
+        },
+        {
+            "iteration": 7,
+            "timestamp": "2026-02-23T15:25:04.078666",
+            "elapsed_seconds": 4.29,
+            "decision": "SMALL BEARISH POSITION",
+            "confidence": 0.6790134168729284,
+            "expected_return": "-2.77%",
+            "raw_decision_text": "SELL"
+        },
+        {
+            "iteration": 8,
+            "timestamp": "2026-02-23T15:25:08.118419",
+            "elapsed_seconds": 4.04,
+            "decision": "HOLD",
+            "confidence": 0.7637942685608083,
+            "expected_return": "0.67%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 9,
+            "timestamp": "2026-02-23T15:25:12.170599",
+            "elapsed_seconds": 4.05,
+            "decision": "HOLD",
+            "confidence": 0.8029789834423592,
+            "expected_return": "0.36%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 10,
+            "timestamp": "2026-02-23T15:25:17.318552",
+            "elapsed_seconds": 5.15,
+            "decision": "HOLD",
+            "confidence": 0.8018701544275262,
+            "expected_return": "0.37%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 11,
+            "timestamp": "2026-02-23T15:25:22.258747",
+            "elapsed_seconds": 4.94,
+            "decision": "HOLD",
+            "confidence": 0.7022350900831269,
+            "expected_return": "-1.14%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 12,
+            "timestamp": "2026-02-23T15:25:26.359523",
+            "elapsed_seconds": 4.1,
+            "decision": "SMALL BEARISH POSITION",
+            "confidence": 0.6710309893596892,
+            "expected_return": "-2.64%",
+            "raw_decision_text": "SELL"
+        },
+        {
+            "iteration": 13,
+            "timestamp": "2026-02-23T15:25:30.461994",
+            "elapsed_seconds": 4.1,
+            "decision": "SMALL BEARISH POSITION",
+            "confidence": 0.6542110296585443,
+            "expected_return": "-2.38%",
+            "raw_decision_text": "SELL"
+        },
+        {
+            "iteration": 14,
+            "timestamp": "2026-02-23T15:25:35.307436",
+            "elapsed_seconds": 4.84,
+            "decision": "SMALL BEARISH POSITION",
+            "confidence": 0.6680626631547196,
+            "expected_return": "-2.60%",
+            "raw_decision_text": "SELL"
+        },
+        {
+            "iteration": 15,
+            "timestamp": "2026-02-23T15:25:40.152693",
+            "elapsed_seconds": 4.84,
+            "decision": "SMALL BEARISH POSITION",
+            "confidence": 0.6200914892113546,
+            "expected_return": "-1.86%",
+            "raw_decision_text": "SELL"
+        },
+        {
+            "iteration": 16,
+            "timestamp": "2026-02-23T15:25:44.195015",
+            "elapsed_seconds": 4.04,
+            "decision": "SMALL BULLISH POSITION",
+            "confidence": 0.6599683873159485,
+            "expected_return": "2.47%",
+            "raw_decision_text": "BUY"
+        },
+        {
+            "iteration": 17,
+            "timestamp": "2026-02-23T15:25:48.192790",
+            "elapsed_seconds": 4.0,
+            "decision": "HOLD",
+            "confidence": 0.7762786144950261,
+            "expected_return": "0.57%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 18,
+            "timestamp": "2026-02-23T15:25:52.336766",
+            "elapsed_seconds": 4.14,
+            "decision": "MEDIUM BEARISH POSITION",
+            "confidence": 0.7522412840976821,
+            "expected_return": "-3.90%",
+            "raw_decision_text": "SELL"
+        },
+        {
+            "iteration": 19,
+            "timestamp": "2026-02-23T15:25:56.272530",
+            "elapsed_seconds": 3.93,
+            "decision": "HOLD",
+            "confidence": 0.8064997711961277,
+            "expected_return": "0.34%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 20,
+            "timestamp": "2026-02-23T15:26:00.152297",
+            "elapsed_seconds": 3.88,
+            "decision": "HOLD",
+            "confidence": 0.7306595777469556,
+            "expected_return": "0.92%",
+            "raw_decision_text": "HOLD"
+        }
+    ]
+}

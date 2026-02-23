@@ -6,13 +6,11 @@ from .analysts.fundamentals_analyst import create_fundamentals_analyst
 from .analysts.market_analyst import create_market_analyst
 from .analysts.news_analyst import create_news_analyst
 from .analysts.social_media_analyst import create_social_media_analyst
+from .analysts.kronos_analyst import create_kronos_analyst
 
 from .researchers.bear_researcher import create_bear_researcher
 from .researchers.bull_researcher import create_bull_researcher
 
-from .risk_mgmt.aggressive_debator import create_aggressive_debator
-from .risk_mgmt.conservative_debator import create_conservative_debator
-from .risk_mgmt.neutral_debator import create_neutral_debator
 
 from .managers.research_manager import create_research_manager
 from .managers.risk_manager import create_risk_manager
@@ -30,11 +28,9 @@ __all__ = [
     "create_research_manager",
     "create_fundamentals_analyst",
     "create_market_analyst",
-    "create_neutral_debator",
     "create_news_analyst",
-    "create_aggressive_debator",
     "create_risk_manager",
-    "create_conservative_debator",
     "create_social_media_analyst",
+    "create_kronos_analyst",
     "create_trader",
 ]

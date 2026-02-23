@@ -21,34 +21,72 @@ warnings.filterwarnings('ignore', category=UserWarning)
 # 全局缓存储存实例化后的模型，避免重复加载
 _kronos_predictor = None
 
+class StatisticalPredictor:
+    """
+    一个基于线性趋势和滚动波动率的纯量化预测平替类。
+    当 Kronos Transformer 加载失败（如 401/404）时，作为稳健回退方案生效。
+    """
+    def __init__(self):
+        self.price_cols = ['open', 'high', 'low', 'close']
+        self.vol_col = 'volume'
+        self.amt_vol = 'amount'
+
+    def predict(self, df, x_timestamp, y_timestamp, pred_len, T=1.0, top_p=0.9, sample_count=1, verbose=False):
+        # 1. 计算线性趋势 (使用最后 20 天作为参考)
+        window = min(len(df), 20)
+        recent_df = df.iloc[-window:]
+        
+        results = {}
+        # 为开高低收计算预测
+        for col in self.price_cols:
+            if col not in df.columns:
+                continue
+            y = recent_df[col].values
+            x = np.arange(len(y))
+            # 线性拟合
+            slope, intercept = np.polyfit(x, y, 1)
+            # 预测
+            future_x = np.arange(len(y), len(y) + pred_len)
+            base_pred = intercept + slope * future_x
+            
+            # 添加基于历史波动的微量噪音
+            volatility = recent_df[col].pct_change().std()
+            if np.isnan(volatility): volatility = 0.01
+            noise = np.random.normal(0, volatility * recent_df[col].iloc[-1] * 0.3, pred_len)
+            results[col] = base_pred + noise
+            
+        # 2. 成交量处理
+        avg_vol = df[self.vol_col].mean() if self.vol_col in df.columns else 0.0
+        results[self.vol_col] = np.full(pred_len, avg_vol)
+        results[self.amt_vol] = np.full(pred_len, avg_vol * results.get('close', [1.0])[0])
+        
+        return pd.DataFrame(results, index=y_timestamp)
+
 def _get_predictor():
-    """懒加载 KronosPredictor 实例"""
+    """懒加载 KronosPredictor 或 StatisticalPredictor 实例"""
     global _kronos_predictor
     if _kronos_predictor is None:
         try:
             from kronos.model.kronos import Kronos, KronosTokenizer, KronosPredictor
             
-            # 使用 huggingface_hub 中的类方法动态获取配置和加载权重
-            # 注意：实际生产环境中可能需要将这部分硬编码指向本地权重，
-            # 这里按照原版 webui 的逻辑使用自动拉取或默认配置
             print("[Kronos] Initializing prediction model (this might take a few seconds)...")
             
-            # TODO: 暂时使用默认小参数初始化一个壳，或者应当使用 from_pretrained
-            # 原本项目通过 huggingface 拉取 `Alibaba-NLP/kronos-7b` 一类的模型，
-            # 由于在无UI模式下，我们需要用户预先下载或通过此处自动下载。
-            # 为了 API 简洁性，我们假设用户环境已准备妥当。
-            
-            tokenizer = KronosTokenizer.from_pretrained("Alibaba-NLP/kronos-7b")
-            model = Kronos.from_pretrained("Alibaba-NLP/kronos-7b")
-            
-            device = "cuda" if torch.cuda.is_available() else ("mps" if torch.backends.mps.is_available() else "cpu")
-            _kronos_predictor = KronosPredictor(model, tokenizer, device=device)
-            print("[Kronos] Model loaded successfully.")
+            try:
+                # 官方仓库：NeoQuasar/Kronos-Tokenizer-2k + NeoQuasar/Kronos-mini
+                tokenizer = KronosTokenizer.from_pretrained("NeoQuasar/Kronos-Tokenizer-2k")
+                model = Kronos.from_pretrained("NeoQuasar/Kronos-mini")
+                _kronos_predictor = KronosPredictor(model, tokenizer, device="cpu", max_context=512)
+                print("[Kronos] ✅ Real model loaded successfully! [Mode: Kronos-mini on CPU]")
+            except Exception as e:
+                print(f"[Kronos] Remote load failed: {e}")
+                print("[Kronos] Falling back to Statistical Quant Strategy (Robust Mode)...")
+                _kronos_predictor = StatisticalPredictor()
             
         except Exception as e:
-            print(f"[Kronos] Error loading model: {e}")
-            raise
-            
+            print(f"[Kronos] Critical initialization error: {e}")
+            print("[Kronos] Critical fallback to Statistical Quant Strategy...")
+            _kronos_predictor = StatisticalPredictor()
+                
     return _kronos_predictor
 
 
@@ -59,52 +97,115 @@ def predict_market_trend(
     top_p: float = 0.9,
     sample_count: int = 1
 ) -> pd.DataFrame:
-    """
-    接收历史 K 线数据，输出未来预测走势。
-    
-    Args:
-        df: 历史数据 DataFrame，必须包含 ['open', 'high', 'low', 'close']，可以包含 'volume', 'amount'
-        pred_len: 预测未来多少个时间步
-        temperature: 采样温度，越高代表预测越具有多样性（但也可能偏离过大）
-        top_p: Nucleus 采样率
-        sample_count: 采样次数，函数内部会平均这些结果以获得更平滑的预测
-        
-    Returns:
-        pd.DataFrame: 包含未来 pred_len 步开高低收和成交量的预测数据框，索引为未来的日期。
-    """
+    """接收历史 K 线数据，输出未来预测走势。"""
     
     if df.empty:
-        raise ValueError("Provided historical data DataFrame is empty.")
+        raise ValueError("Historical data is empty.")
         
-    # 确保索引是 datetime
+    # --- V7.4 格式标准化 (Index -> Series) ---
     if not isinstance(df.index, pd.DatetimeIndex):
-        try:
-            df.index = pd.to_datetime(df.index)
-        except Exception:
-            raise ValueError("DataFrame index must be convertible to DatetimeIndex.")
-            
+        df.index = pd.to_datetime(df.index)
+    
     predictor = _get_predictor()
     
-    # 准备时间戳
-    x_timestamps = df.index
+    # 强制克隆原始索引以便后续使用
+    x_timestamp_series = pd.Series(df.index, name='date')
     
-    # 根据历史数据的频率（例如每日）生成未来的时间戳
-    # 假设每日数据
     last_date = df.index[-1]
-    y_timestamps = pd.date_range(start=last_date + timedelta(days=1), periods=pred_len, freq='B') # 'B' for business days
+    y_timestamp_index = pd.date_range(start=last_date + timedelta(days=1), periods=pred_len, freq='B')
+    y_timestamp_series = pd.Series(y_timestamp_index, name='date')
     
-    print(f"[Kronos] Predicting next {pred_len} steps from {last_date.date()}...")
+    # 准备传给模型的 DF：重置索引并生成 'date' 列
+    df_for_model = df.copy()
+    if 'date' not in df_for_model.columns:
+        df_for_model = df_for_model.reset_index().rename(columns={df.index.name if df.index.name else 'index': 'date'})
+
+    # --- V13.0+ 自适应 Ensemble 采样 (Boundary-Aware) ---
+    # 先跑 3 轮，若结果 Z 落在决策边界 ±0.1 的纠结区间内，追加 2 轮精准采样
+    initial_count = 3
+    valid_predictions = []
+    boundaries = [0.5, 1.0, 1.5]  # Z-Score 决策边界
+    epsilon = 0.1                  # 纠结区间宽度
+    noise_std = 0.0309             # 预采样边界判定用的噪声估计
     
-    # 调用底层模型的方法
-    prediction_df = predictor.predict(
-        df=df,
-        x_timestamp=x_timestamps,
-        y_timestamp=y_timestamps,
-        pred_len=pred_len,
-        T=temperature,
-        top_p=top_p,
-        sample_count=sample_count,
-        verbose=False # 关闭进度条防止污染 CLI
-    )
+    print(f"[Kronos] Predicting next {pred_len} steps from {last_date.date()} [Mode: Adaptive Ensemble]")
+    
+    # 第一阶段：必跑 3 轮
+    for i in range(initial_count):
+        print(f"  ↳ Initial Sampling {i+1}/{initial_count}...")
+        try:
+            sample_df = predictor.predict(
+                df=df_for_model.set_index('date'), 
+                x_timestamp=x_timestamp_series, 
+                y_timestamp=y_timestamp_series,
+                pred_len=pred_len,
+                T=temperature,
+                top_p=top_p,
+                sample_count=sample_count,
+                verbose=False
+            )
+            if sample_df is not None and not sample_df.empty:
+                valid_predictions.append(sample_df)
+        except Exception as e:
+            print(f"  ❌ Sampling error: {e}")
+            
+    if not valid_predictions:
+        print("[Kronos] ❌ All initial samplings failed.")
+        return None
+
+    # 计算初步结果用于边界判定
+    temp_df = pd.concat(valid_predictions).groupby(level=0).mean()
+    start_p = temp_df.iloc[0]['close']
+    end_p = temp_df.iloc[-1]['close']
+    r_3 = (end_p / start_p) - 1.0
+    z_3 = abs(r_3 / noise_std)
+    
+    # 边界纠结判定 (Boundary Contention Check)
+    near_boundary = any(abs(z_3 - b) < epsilon for b in boundaries)
+    
+    if near_boundary and len(valid_predictions) == initial_count:
+        print(f"[Kronos] ⚠️ Boundary detected (Z={z_3:.2f}). Running 2 additional samples for precision...")
+        for i in range(2):
+            print(f"  ↳ Extra Sampling {i+4}/5...")
+            try:
+                sample_df = predictor.predict(
+                    df=df_for_model.set_index('date'), 
+                    x_timestamp=x_timestamp_series, 
+                    y_timestamp=y_timestamp_series,
+                    pred_len=pred_len,
+                    T=temperature,
+                    top_p=top_p,
+                    sample_count=sample_count,
+                    verbose=False
+                )
+                if sample_df is not None and not sample_df.empty:
+                    valid_predictions.append(sample_df)
+            except Exception as e:
+                print(f"  ❌ Extra sampling error: {e}")
+    else:
+        print(f"[Kronos] ✅ Signal clear (Z={z_3:.2f}). Skipping extra samplings.")
+
+    # 最终结果合成
+    prediction_df = pd.concat(valid_predictions).groupby(level=0).mean()
+    
+    # --- V13.4 5-Step Logic: 计算收益均值与波动 (Step 2 & 3) ---
+    all_returns = []
+    for df in valid_predictions:
+        s_p = df.iloc[0]['close']
+        e_p = df.iloc[-1]['close']
+        all_returns.append((e_p / s_p) - 1.0)
+    
+    mean_return = float(np.mean(all_returns))
+    std_return = float(np.std(all_returns))
+    
+    # 注入元数据 (Step 4 & 5 的基础)
+    prediction_df.attrs = {
+        'mean_return': mean_return,
+        'std_return': std_return,
+        'model_uncertainty': std_return  # 保持向下兼容
+    }
+    
+    print(f"[Kronos] ✅ Adaptive Ensemble completed ({len(valid_predictions)} samples).")
+    print(f"         Mean Return: {mean_return:.2%}, Std: {std_return:.2%}")
     
     return prediction_df

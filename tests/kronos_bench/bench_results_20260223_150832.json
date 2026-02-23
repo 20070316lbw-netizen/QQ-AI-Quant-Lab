@@ -1,0 +1,188 @@
+{
+    "ticker": "AAPL",
+    "iterations": 20,
+    "total_runs": 20,
+    "summary_timestamp": "20260223_150832",
+    "data": [
+        {
+            "iteration": 1,
+            "timestamp": "2026-02-23T15:08:45.682443",
+            "elapsed_seconds": 11.54,
+            "decision": "HOLD",
+            "confidence": 0.5,
+            "expected_return": "0.00%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 2,
+            "timestamp": "2026-02-23T15:08:46.031973",
+            "elapsed_seconds": 0.35,
+            "decision": "HOLD",
+            "confidence": 0.5,
+            "expected_return": "0.00%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 3,
+            "timestamp": "2026-02-23T15:08:46.384142",
+            "elapsed_seconds": 0.35,
+            "decision": "HOLD",
+            "confidence": 0.5,
+            "expected_return": "0.00%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 4,
+            "timestamp": "2026-02-23T15:08:46.738933",
+            "elapsed_seconds": 0.35,
+            "decision": "HOLD",
+            "confidence": 0.5,
+            "expected_return": "0.00%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 5,
+            "timestamp": "2026-02-23T15:08:47.099521",
+            "elapsed_seconds": 0.36,
+            "decision": "HOLD",
+            "confidence": 0.5,
+            "expected_return": "0.00%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 6,
+            "timestamp": "2026-02-23T15:08:47.460819",
+            "elapsed_seconds": 0.36,
+            "decision": "HOLD",
+            "confidence": 0.5,
+            "expected_return": "0.00%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 7,
+            "timestamp": "2026-02-23T15:08:47.825555",
+            "elapsed_seconds": 0.36,
+            "decision": "HOLD",
+            "confidence": 0.5,
+            "expected_return": "0.00%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 8,
+            "timestamp": "2026-02-23T15:08:48.188128",
+            "elapsed_seconds": 0.36,
+            "decision": "HOLD",
+            "confidence": 0.5,
+            "expected_return": "0.00%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 9,
+            "timestamp": "2026-02-23T15:08:48.539650",
+            "elapsed_seconds": 0.35,
+            "decision": "HOLD",
+            "confidence": 0.5,
+            "expected_return": "0.00%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 10,
+            "timestamp": "2026-02-23T15:08:48.883309",
+            "elapsed_seconds": 0.34,
+            "decision": "HOLD",
+            "confidence": 0.5,
+            "expected_return": "0.00%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 11,
+            "timestamp": "2026-02-23T15:08:49.234333",
+            "elapsed_seconds": 0.35,
+            "decision": "HOLD",
+            "confidence": 0.5,
+            "expected_return": "0.00%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 12,
+            "timestamp": "2026-02-23T15:08:49.586529",
+            "elapsed_seconds": 0.35,
+            "decision": "HOLD",
+            "confidence": 0.5,
+            "expected_return": "0.00%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 13,
+            "timestamp": "2026-02-23T15:08:49.939080",
+            "elapsed_seconds": 0.35,
+            "decision": "HOLD",
+            "confidence": 0.5,
+            "expected_return": "0.00%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 14,
+            "timestamp": "2026-02-23T15:08:50.289103",
+            "elapsed_seconds": 0.35,
+            "decision": "HOLD",
+            "confidence": 0.5,
+            "expected_return": "0.00%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 15,
+            "timestamp": "2026-02-23T15:08:50.644909",
+            "elapsed_seconds": 0.35,
+            "decision": "HOLD",
+            "confidence": 0.5,
+            "expected_return": "0.00%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 16,
+            "timestamp": "2026-02-23T15:08:51.003338",
+            "elapsed_seconds": 0.36,
+            "decision": "HOLD",
+            "confidence": 0.5,
+            "expected_return": "0.00%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 17,
+            "timestamp": "2026-02-23T15:08:51.348354",
+            "elapsed_seconds": 0.34,
+            "decision": "HOLD",
+            "confidence": 0.5,
+            "expected_return": "0.00%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 18,
+            "timestamp": "2026-02-23T15:08:51.693590",
+            "elapsed_seconds": 0.34,
+            "decision": "HOLD",
+            "confidence": 0.5,
+            "expected_return": "0.00%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 19,
+            "timestamp": "2026-02-23T15:08:52.056357",
+            "elapsed_seconds": 0.36,
+            "decision": "HOLD",
+            "confidence": 0.5,
+            "expected_return": "0.00%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 20,
+            "timestamp": "2026-02-23T15:08:52.413149",
+            "elapsed_seconds": 0.36,
+            "decision": "HOLD",
+            "confidence": 0.5,
+            "expected_return": "0.00%",
+            "raw_decision_text": "HOLD"
+        }
+    ]
+}

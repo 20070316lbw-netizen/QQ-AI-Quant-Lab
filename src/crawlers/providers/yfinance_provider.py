@@ -154,7 +154,7 @@ def _get_stock_stats_bulk(
         curr_date_dt = pd.to_datetime(curr_date)
         
         end_date = today_date
-        start_date = today_date - pd.DateOffset(years=15)
+        start_date = today_date - pd.DateOffset(years=2)
         start_date_str = start_date.strftime("%Y-%m-%d")
         end_date_str = end_date.strftime("%Y-%m-%d")
         

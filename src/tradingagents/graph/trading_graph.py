@@ -49,6 +49,7 @@ class TradingAgentsGraph:
         debug=False,
         config: Dict[str, Any] = None,
         callbacks: Optional[List] = None,
+        test_mode=False,
     ):
         """Initialize the trading agents graph and components.
 
@@ -128,7 +129,7 @@ class TradingAgentsGraph:
         self.log_states_dict = {}  # date to full state dict
 
         # Set up the graph
-        self.graph = self.graph_setup.setup_graph(selected_analysts)
+        self.graph = self.graph_setup.setup_graph(selected_analysts, test_mode=test_mode)
 
     def _get_provider_kwargs(self) -> Dict[str, Any]:
         """Get provider-specific kwargs for LLM client creation."""
@@ -250,37 +251,47 @@ class TradingAgentsGraph:
 
     def _log_state(self, trade_date, final_state):
         """Log the final state to a JSON file."""
-        self.log_states_dict[str(trade_date)] = {
-            "company_of_interest": final_state["company_of_interest"],
-            "trade_date": final_state["trade_date"],
-            "market_report": final_state["market_report"],
-            "sentiment_report": final_state["sentiment_report"],
-            "news_report": final_state["news_report"],
-            "fundamentals_report": final_state["fundamentals_report"],
-            "investment_debate_state": {
-                "bull_history": final_state["investment_debate_state"]["bull_history"],
-                "bear_history": final_state["investment_debate_state"]["bear_history"],
-                "history": final_state["investment_debate_state"]["history"],
-                "current_response": final_state["investment_debate_state"][
-                    "current_response"
-                ],
-                "judge_decision": final_state["investment_debate_state"][
-                    "judge_decision"
-                ],
-            },
-            "trader_investment_decision": final_state["trader_investment_plan"],
-            "risk_debate_state": {
-                "aggressive_history": final_state["risk_debate_state"]["aggressive_history"],
-                "conservative_history": final_state["risk_debate_state"]["conservative_history"],
-                "neutral_history": final_state["risk_debate_state"]["neutral_history"],
-                "history": final_state["risk_debate_state"]["history"],
-                "judge_decision": final_state["risk_debate_state"]["judge_decision"],
-            },
-            "investment_plan": final_state["investment_plan"],
-            "final_trade_decision": final_state["final_trade_decision"],
-        }
+        invest_debate = final_state.get("investment_debate_state", {})
+        
+        if not invest_debate.get("bull_history"):
+            self.log_states_dict[str(trade_date)] = {
+                "company_of_interest": final_state.get("company_of_interest", ""),
+                "trade_date": final_state.get("trade_date", ""),
+                "kronos_report": final_state.get("kronos_report", ""),
+                "structured_reports": final_state.get("structured_reports", {}),
+                "final_trade_decision": final_state.get("final_trade_decision", ""),
+            }
+        else:
+            self.log_states_dict[str(trade_date)] = {
+                "company_of_interest": final_state["company_of_interest"],
+                "trade_date": final_state["trade_date"],
+                "market_report": final_state["market_report"],
+                "sentiment_report": final_state["sentiment_report"],
+                "news_report": final_state["news_report"],
+                "fundamentals_report": final_state["fundamentals_report"],
+                "investment_debate_state": {
+                    "bull_history": final_state["investment_debate_state"]["bull_history"],
+                    "bear_history": final_state["investment_debate_state"]["bear_history"],
+                    "history": final_state["investment_debate_state"]["history"],
+                    "current_response": final_state["investment_debate_state"][
+                        "current_response"
+                    ],
+                    "judge_decision": final_state["investment_debate_state"][
+                        "judge_decision"
+                    ],
+                },
+                "trader_investment_decision": final_state["trader_investment_plan"],
+                "risk_debate_state": {
+                    "aggressive_history": final_state["risk_debate_state"]["aggressive_history"],
+                    "conservative_history": final_state["risk_debate_state"]["conservative_history"],
+                    "neutral_history": final_state["risk_debate_state"]["neutral_history"],
+                    "history": final_state["risk_debate_state"]["history"],
+                    "judge_decision": final_state["risk_debate_state"]["judge_decision"],
+                },
+                "investment_plan": final_state["investment_plan"],
+                "final_trade_decision": final_state["final_trade_decision"],
+            }
 
-        # Save to file
         directory = Path(f"eval_results/{self.ticker}/TradingAgentsStrategy_logs/")
         directory.mkdir(parents=True, exist_ok=True)
 

@@ -49,8 +49,13 @@ def get_market_prediction(
         prediction_df = predict_market_trend(df, pred_len=pred_len)
         
         # 3. Format output
+        uncertainty = prediction_df.attrs.get('model_uncertainty', 0.0)
+        mean_ret = prediction_df.attrs.get('mean_return', 0.0)
+        std_ret = prediction_df.attrs.get('std_return', 0.0)
+        
         header = f"### Kronos AI Prediction for {symbol.upper()} (Next {pred_len} Days)\n"
-        header += f"*Based on historical data up to {end_date}*\n\n"
+        header += f"*Based on historical data up to {end_date}*\n"
+        header += f"<!-- METADATA: uncertainty={uncertainty}, mean_return={mean_ret}, std_return={std_ret} -->\n\n"
         
         # Round the values for nicer LLM reading
         prediction_df = prediction_df.round(2)

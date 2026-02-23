@@ -1,0 +1,188 @@
+{
+    "ticker": "AAPL",
+    "iterations": 20,
+    "total_runs": 20,
+    "summary_timestamp": "20260223_140043",
+    "data": [
+        {
+            "iteration": 1,
+            "timestamp": "2026-02-23T14:00:58.805054",
+            "elapsed_seconds": 13.18,
+            "decision": "SELL",
+            "confidence": 0.6228901123764989,
+            "expected_return": "-4.58%",
+            "raw_decision_text": "SELL"
+        },
+        {
+            "iteration": 2,
+            "timestamp": "2026-02-23T14:01:02.998891",
+            "elapsed_seconds": 4.19,
+            "decision": "HOLD",
+            "confidence": 0.7,
+            "expected_return": "-0.55%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 3,
+            "timestamp": "2026-02-23T14:01:07.101410",
+            "elapsed_seconds": 4.1,
+            "decision": "HOLD",
+            "confidence": 0.7,
+            "expected_return": "2.01%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 4,
+            "timestamp": "2026-02-23T14:01:11.535713",
+            "elapsed_seconds": 4.43,
+            "decision": "HOLD",
+            "confidence": 0.7,
+            "expected_return": "-2.63%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 5,
+            "timestamp": "2026-02-23T14:01:15.843528",
+            "elapsed_seconds": 4.31,
+            "decision": "HOLD",
+            "confidence": 0.7,
+            "expected_return": "0.10%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 6,
+            "timestamp": "2026-02-23T14:01:20.201452",
+            "elapsed_seconds": 4.36,
+            "decision": "HOLD",
+            "confidence": 0.7,
+            "expected_return": "-0.95%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 7,
+            "timestamp": "2026-02-23T14:01:24.471445",
+            "elapsed_seconds": 4.27,
+            "decision": "HOLD",
+            "confidence": 0.7,
+            "expected_return": "1.48%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 8,
+            "timestamp": "2026-02-23T14:01:28.731923",
+            "elapsed_seconds": 4.26,
+            "decision": "BUY",
+            "confidence": 0.6279789586033392,
+            "expected_return": "5.60%",
+            "raw_decision_text": "BUY"
+        },
+        {
+            "iteration": 9,
+            "timestamp": "2026-02-23T14:01:32.998863",
+            "elapsed_seconds": 4.27,
+            "decision": "HOLD",
+            "confidence": 0.7,
+            "expected_return": "-2.07%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 10,
+            "timestamp": "2026-02-23T14:01:37.306935",
+            "elapsed_seconds": 4.31,
+            "decision": "HOLD",
+            "confidence": 0.7,
+            "expected_return": "-2.93%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 11,
+            "timestamp": "2026-02-23T14:01:41.362146",
+            "elapsed_seconds": 4.05,
+            "decision": "HOLD",
+            "confidence": 0.7,
+            "expected_return": "-2.95%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 12,
+            "timestamp": "2026-02-23T14:01:45.421676",
+            "elapsed_seconds": 4.06,
+            "decision": "SELL",
+            "confidence": 0.6161869830457727,
+            "expected_return": "-3.24%",
+            "raw_decision_text": "SELL"
+        },
+        {
+            "iteration": 13,
+            "timestamp": "2026-02-23T14:01:49.766027",
+            "elapsed_seconds": 4.34,
+            "decision": "HOLD",
+            "confidence": 0.7,
+            "expected_return": "-1.87%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 14,
+            "timestamp": "2026-02-23T14:01:53.969489",
+            "elapsed_seconds": 4.2,
+            "decision": "HOLD",
+            "confidence": 0.7,
+            "expected_return": "-1.78%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 15,
+            "timestamp": "2026-02-23T14:01:58.025209",
+            "elapsed_seconds": 4.05,
+            "decision": "BUY",
+            "confidence": 0.6197962749544592,
+            "expected_return": "3.96%",
+            "raw_decision_text": "BUY"
+        },
+        {
+            "iteration": 16,
+            "timestamp": "2026-02-23T14:02:02.396774",
+            "elapsed_seconds": 4.37,
+            "decision": "HOLD",
+            "confidence": 0.7,
+            "expected_return": "-1.80%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 17,
+            "timestamp": "2026-02-23T14:02:06.714143",
+            "elapsed_seconds": 4.32,
+            "decision": "SELL",
+            "confidence": 0.6340744858254586,
+            "expected_return": "-6.81%",
+            "raw_decision_text": "SELL"
+        },
+        {
+            "iteration": 18,
+            "timestamp": "2026-02-23T14:02:10.968601",
+            "elapsed_seconds": 4.25,
+            "decision": "HOLD",
+            "confidence": 0.7,
+            "expected_return": "-2.89%",
+            "raw_decision_text": "HOLD"
+        },
+        {
+            "iteration": 19,
+            "timestamp": "2026-02-23T14:02:15.120249",
+            "elapsed_seconds": 4.15,
+            "decision": "SELL",
+            "confidence": 0.62075514187059,
+            "expected_return": "-4.15%",
+            "raw_decision_text": "SELL"
+        },
+        {
+            "iteration": 20,
+            "timestamp": "2026-02-23T14:02:19.261095",
+            "elapsed_seconds": 4.14,
+            "decision": "HOLD",
+            "confidence": 0.7,
+            "expected_return": "-1.29%",
+            "raw_decision_text": "HOLD"
+        }
+    ]
+}

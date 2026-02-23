@@ -38,7 +38,7 @@ class GraphSetup:
         self.conditional_logic = conditional_logic
 
     def setup_graph(
-        self, selected_analysts=["market", "social", "news", "fundamentals"]
+        self, selected_analysts=["market", "social", "news", "fundamentals"], test_mode=False
     ):
         """Set up and compile the agent workflow graph.
 
@@ -119,6 +119,46 @@ class GraphSetup:
         workflow.add_node("Research Manager", research_manager_node)
         workflow.add_node("Trader", trader_node)
         workflow.add_node("Risk Judge", risk_manager_node)
+
+        # --- 实验性：Kronos 孤立测试模式 (纯量化，零 LLM) ---
+        if test_mode:
+            def kronos_quant_decision_node(state):
+                """纯数学节点：直接从 KronosAnalyst 报告中提取决策，并以标准化格式输出。"""
+                ticker = state.get("company_of_interest", "UNKNOWN")
+                reports = state.get("structured_reports", {})
+                kronos = reports.get("kronos_solo", {})
+                
+                full_decision = kronos.get("decision", "HOLD")
+                # 提取纯方向 (BUY/SELL/HOLD)
+                if "BULLISH" in full_decision: direction = "BUY"
+                elif "BEARISH" in full_decision: direction = "SELL"
+                else: direction = "HOLD"
+                
+                z_score = kronos.get("key_metrics", {}).get("z_score", 0.0)
+                expected_ret = kronos.get("key_metrics", {}).get("expected_return", "0.00%")
+                volatility = kronos.get("key_metrics", {}).get("uncertainty", 0.0)
+                confidence = kronos.get("confidence", 0.5)
+                
+                final_text = (
+                    f"============================\n"
+                    f"TICKER: {ticker}\n"
+                    f"DIRECTION: {direction}\n"
+                    f"Z_SCORE: {z_score:.2f}\n"
+                    f"EXPECTED_RETURN: {expected_ret}\n"
+                    f"VOLATILITY: {volatility:.2%}\n"
+                    f"CONFIDENCE: {confidence:.2f}\n"
+                    f"============================\n\n"
+                    f"FINAL TRANSACTION PROPOSAL: **{full_decision} (Confidence: {confidence:.2f})**"
+                )
+                return {"final_trade_decision": final_text}
+
+            workflow.add_node("Kronos Analyst", create_kronos_analyst(self.quick_thinking_llm))
+            workflow.add_node("Quant Decision", kronos_quant_decision_node)
+            workflow.add_edge(START, "Kronos Analyst")
+            workflow.add_edge("Kronos Analyst", "Quant Decision")
+            workflow.add_edge("Quant Decision", END)
+            return workflow.compile()
+        # --------------------------------------------------
 
         # Define edges
         # Start with the first analyst
