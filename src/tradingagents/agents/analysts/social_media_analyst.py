@@ -29,10 +29,8 @@ def create_social_media_analyst(llm):
             {{
               "summary": "简短的中文情绪总结",
               "key_metrics": {{"情绪分": "值", "热门话题": "..."}},
-              "decision": "BULLISH/BEARISH/NEUTRAL",
-              "confidence": 0.0到1.0之间的浮点数,
-              "risk_score": 0.0到1.0之间的浮点数 (1.0表示极高风险),
-              "risk_bias": "aggressive", "neutral" 或 "conservative"
+              "market_sentiment": -1.0到1.0之间的浮点数 (评估网络情绪，-1.0代表全网看空，1.0代表全网看多),
+              "risk_factor": 0.0到1.0之间的浮点数 (0.0表示风平浪静，1.0表示极高风险爆发)
             }}"""
 
         prompt = ChatPromptTemplate.from_messages(
@@ -43,8 +41,8 @@ def create_social_media_analyst(llm):
                     " 请使用提供的工具逐步解决问题。"
                     " 如果你无法完全回答，也没关系；拥有不同工具的其他助手会接手你的工作。"
                     " 尽量执行你能做的部分来推进进度。"
-                    " 如果你或其他助手得出了【最终交易建议：买入/持有/卖出】，请在响应开头明确标注"
-                    " 'FINAL TRANSACTION PROPOSAL: **BUY/HOLD/SELL**'，以便团队停止工作。"
+                    " 当你完成所有分析和报告输出后，请在响应开头明确标注"
+                    " 'FINAL ANALYSIS COMPLETE'，以便团队停止工作。"
                     " 你拥有的工具: {tool_names}。\n{system_message}"
                     " 参考信息：当前日期是 {current_date}。我们要分析的公司是 {ticker}"
                 ),
@@ -76,10 +74,8 @@ def create_social_media_analyst(llm):
                         "analyst_name": "Social Media Analyst",
                         "summary": raw_json.get("summary", ""),
                         "key_metrics": raw_json.get("key_metrics", {}),
-                        "decision": str(raw_json.get("decision", "NEUTRAL")).upper(),
-                        "confidence": float(raw_json.get("confidence", 0.5)),
-                        "risk_score": float(raw_json.get("risk_score", 0.5)),
-                        "risk_bias": str(raw_json.get("risk_bias", "neutral")).lower()
+                        "market_sentiment": float(raw_json.get("market_sentiment", 0.0)),
+                        "risk_factor": float(raw_json.get("risk_factor", 0.5))
                     }
                     structured_reports["social"] = report_data
                 except Exception as e:

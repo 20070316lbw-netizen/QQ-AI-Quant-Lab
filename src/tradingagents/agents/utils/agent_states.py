@@ -12,10 +12,8 @@ class AnalystReport(TypedDict):
     analyst_name: str
     summary: str  # 专业详细的中文分析报告
     key_metrics: Annotated[dict, "Dictionary of critical metrics/indicators found"]
-    decision: Annotated[str, "Internal stance: BUY, SELL, or HOLD"]
-    confidence: float # 0.0 to 1.0 (置信度)
-    risk_score: float # 0.0 to 1.0 (风险指数，1.0为极高风险)
-    risk_bias: Annotated[str, "Strategic bias: aggressive, neutral, or conservative"]
+    market_sentiment: float # -1.0 to 1.0 (情绪打分，-1.0为极度看空，1.0为极度看多)
+    risk_factor: float # 0.0 to 1.0 (风险指数，1.0为极高风险)
 
 
 # Researcher team state

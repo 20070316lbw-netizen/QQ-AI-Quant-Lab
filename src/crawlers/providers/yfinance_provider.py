@@ -18,7 +18,10 @@ def get_YFin_data_online(
     ticker = yf.Ticker(symbol.upper())
 
     # Fetch historical data for the specified date range
-    data = ticker.history(start=start_date, end=end_date)
+    try:
+        data = ticker.history(start=start_date, end=end_date)
+    except Exception as e:
+        return f"Error fetching YFinance data for symbol '{symbol}': {e}"
 
     # Check if data is empty
     if data.empty:

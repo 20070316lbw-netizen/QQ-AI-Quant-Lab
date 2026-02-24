@@ -53,10 +53,10 @@ def create_bear_researcher(llm, memory):
         **特别指令：**
         在辩论内容结束后，必须附带一个以 ```json 开启的结构化 JSON 块，包含：
         {{
-          "decision": "SELL",
-          "confidence": 0.0到1.0之间的浮点数 (请评估看空逻辑的强度),
-          "risk_score": 0.0到1.0之间的浮点数 (请评估潜在风险),
-          "risk_bias": "conservative"
+          "summary": "一句话核心反驳总结",
+          "key_metrics": {{"看空论据": "..."}},
+          "market_sentiment": -1.0到1.0之间的浮点数 (本轮论据对空方的情绪提振强度，由于你是看空者，此分数应偏负),
+          "risk_factor": 0.0到1.0之间的浮点数 (客观评估潜在的市场黑天鹅风险或断崖概率)
         }}"""
         
 
@@ -74,10 +74,8 @@ def create_bear_researcher(llm, memory):
                     "analyst_name": "Bear Analyst",
                     "summary": raw_json.get("summary", "看空观点"),
                     "key_metrics": raw_json.get("key_metrics", {}),
-                    "decision": str(raw_json.get("decision", "SELL")).upper(),
-                    "confidence": float(raw_json.get("confidence", 0.5)),
-                    "risk_score": float(raw_json.get("risk_score", 0.5)),
-                    "risk_bias": str(raw_json.get("risk_bias", "conservative")).lower()
+                    "market_sentiment": float(raw_json.get("market_sentiment", -0.5)),
+                    "risk_factor": float(raw_json.get("risk_factor", 0.4))
                 }
                 structured_reports["bear_researcher"] = report_data
             except Exception as e:
