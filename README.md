@@ -1,88 +1,101 @@
-# QQ-AI-Quant-Lab (v5.3)
+# QQ-AI-Quant-Lab: Neuro-Symbolic 混合智能量化终点 (Phase 6 完结版)
 
-> **AI 驱动的量化财经智库** —— 集成实时新闻、社媒心理、基本面深度分析与 Kronos 时序预测。
+> 本仓库是一个**工业级的混合智能量化研究平台**。在历经六个大阶段的重构后，系统从“依赖大模型盲猜涨跌”进化为了**『统计学主导、NLP情绪因子辅助』的双轨制 (Dual-Track) 架构**。这套系统以时间序列预测大模型 (Kronos) 为心脏，辅以严格的防未来函数及严谨的统计检验引擎。
 
-![V5.2 Architecture](architecture_v5.png)
-
-## 🚀 架构核心：Algorithmic Decision Chain (V5.2)
-
-QQ-AI-Quant-Lab 现已进化为**硬逻辑算法决策链**模式。我们摒弃了传统的 AI 模糊感性判断，引入了基于数学权重的聚合逻辑，确保每一项投资建议都具备极致的逻辑连贯性与可追溯性。
-
-### 核心机制：量化聚合与风险对冲
-
-系统不再依赖管理层智能体的“主观直觉”，而是通过以下两个核心数学引擎进行决策：
-
-#### 1. 加权因子聚合 (Weighted Factor Aggregator)
-在 `Research Manager` 节点中，我们对不同领域的专家报告进行了精准的权重分配：
-
-```python
-# 核心权重引擎 (Research Manager)
-weights = {
-    "bull_researcher": 1.5,
-    "bear_researcher": 1.5,
-    "market": 1.0,
-    "social": 0.8,
-    "news": 1.0,
-    "fundamentals": 1.2
-}
-
-# 计算加权得分
-for key, weight in weights.items():
-    report = structured_reports.get(key)
-    if report:
-        point = decision_map.get(report.get("decision"), 0)
-        weighted_point = point * report.get("confidence") * weight
-        total_score += weighted_point
-```
-
-#### 2. 分歧指数与置信度缩放 (Divergence & Scaling)
-在 `Risk Judge` 节点中，系统通过计算全队的分歧度来自动修正决策：
-
-```python
-# 分歧指数计算 (Risk Judge)
-if valid_reports > 0:
-    avg_score = sum(scores) / valid_reports
-    # 使用方差估算观点分歧度
-    variance = sum((s - avg_score) ** 2 for s in scores) / valid_reports
-    divergence_index = min(variance, 1.0) # 0.0 (一致) 到 1.0 (严重对立)
-    
-    # 最终置信度缩放公式
-    # 分歧越大、风险越高，置信度下修越狠
-    final_confidence = avg_conf * (1 - divergence_index * 0.4) * (1 - avg_risk * 0.3)
-```
-
-## 🛠️ 安装与部署 (Requirements)
-
-### 环境要求
-- **Python**: `>= 3.11` (推荐使用 3.11+ 以获得最佳 f-string 兼容性)
-- **操作系统**: Windows, Linux, macOS (已完成跨平台路径适配)
-
-### 快速安装
-```bash
-# 克隆仓库
-git clone <repository-url>
-cd Dev_Workspace
-
-# 安装依赖
-pip install -e .
-```
-
-### 核心依赖清单 (Dependencies)
-项目依赖已在 `pyproject.toml` 中统一管理，主要包括：
-- **LangGraph**: 构建多智能体决策图谱。
-- **Data Gateway**: `yfinance`, `duckduckgo-search`。
-- **Logic Engine**: `numpy`, `stockstats`。
-- **ML/AI**: `torch`, `huggingface_hub` (用于 Kronos 推理)。
-
-## 🎮 启动指南
-
-```bash
-lab-main
-```
-
-1. 在 TUI 菜单中选择 `🤖 智能体研究员`。
-2. 输入股票代码（如 `AAPL`, `TSLA`）。
-3. 观看 V5.2 决策链如何自动推导出最终的 **量化决策建议**。
+**特别提示**：这份 README 是为主理人（您）在学习回归后无缝接手而撰写的系统全貌“白皮书”。
 
 ---
-*Powered by Deepmind Advanced Agentic Coding Team | v5.3-stable*
+
+## 🧭 核⼼理论范式：从“预测方向”到“预测分布与波动” 
+
+本系统最核心的颠覆性升级在于：**彻底放弃强迫大模型去预测“一个单一的价格终点”。** 
+因为带有温度采样的自回归时序模型 (Autoregressive Inference)，它的每一次推演生成的是一条“可能的未来轨迹”。因此，本项目的系统哲学是：利用大模型的多重采样 (Ensemble)，提取**未来的预测极值（区间）和标准差（不确定性）**。这成为了挖掘真实 Alpha 的圣杯。
+
+---
+
+## 🧠 核心数学引擎 (The Math Logic)
+
+本项目底层决策链已实现全面透明化与公式化。核心逻辑集中在 `src/core/kronos_engine.py` 与 `src/trading_signal.py` 之中：
+
+### 1. 动量状态判定 (Regime Strength / 原 Z-Score)
+系统不盲从预测均值，而是结合该次预测的分歧度计算出一种信噪比概念的指数：
+
+$$
+Regime\_Strength = \frac{\text{Mean\_Return}_{(30步平均期望收益)}}{\max(\text{Std\_Return}_{(不确定性标准差)}, 0.005_{噪音拦截地板})}
+$$
+
+- **强趋势 (Strong Regime)**：$|Regime\_Strength| > 0.5$ 且波动适中。此时动量极强，直接顺势做多/做空。
+- **均值回归 (Ranging Regime)**：$|Regime\_Strength| \le 0.5$ 或被极高波动打断。此时系统判定为“垃圾时间/无序震荡”，自动放弃趋势追踪或将杠杆减半。
+
+### 2. 黑天鹅与高波动惩罚机制 (Volatility Discount)
+量化的第一要务是活下去。如果在采样集成中发现 Kronos 的未来不确定性异常巨大，系统将触发指数级的仓位强平保护：
+
+$$
+Volatility\_Discount = \exp{\Big(-10.0 \times \max\big(0, (\text{Uncertainty} - 3\%)\big)\Big)}
+$$
+
+*解读：当预测标准差超过 3% 后，波动每增加一点，推荐持仓就会断崖式下跌，防止由于宏观消息即将落地导致的双杀爆仓。*
+
+### 3. 双轨融合：量化信号与自然语言情绪结合
+在确定了绝对客观的数学仓位后，系统的 NLP 外脑（各类研究员 Agents）会吐出情绪因子，以轻微放大或缩小乘数的形式挂载在最终决策上：
+
+$$
+Final\_Confidence = \tanh(|Regime\_Strength|) \times Volatility\_Discount \times (1 + \lambda_{s} \cdot \text{Sentiment}) \times (1 - \text{Risk})
+$$
+
+（注：若处在震荡市中，仓位还会在此基础上再被主观砍半）。
+
+---
+
+## 🛠️ 三大实战武器库 (Entry Points)
+
+当前项目的代码已做到完全解耦且开箱即用。主理人回归后，任何策略调优都可以通过以下三个入口闭环完成：
+
+### 1. 可视化交易控制台 (Web UI)
+这是查看单只股票最新量化推演和波动作图的最直观武器（依赖于 Streamlit）：
+```bash
+# 在终端中启动面板，然后在浏览器打开 http://localhost:8501
+streamlit run src/webui.py
+```
+
+### 2. 严谨冷酷的大规模跑批机 (Backtest Runner)
+用于扫盘海量历史数据。该引擎已开启 `as_of_date` 防前视墙，支持全盘并行生成用于统计的只读快照（JSONL 格式）。
+```bash
+# 股票池和参数请在 src/backtest/config.py 中配置
+python src/backtest/backtest_runner.py
+# 运行后会在此目录下生成一个巨大的 jsonl 数据集：src/backtest/results/
+```
+
+### 3. Alpha 相关性验证器 (Performance Analyzer)
+用来检验您的任何改动是否真正有效。它会吞噬刚才的跑批日志，分别校验 1D 和 5D 下的胜率，以及**决定生死的核心指标：Pearson 相关性**。
+```bash
+# 替换为您刚刚跑出来的最新日志名字即可
+python src/backtest/performance_analyzer.py src\backtest\results\backtest_xxx.jsonl
+```
+
+---
+
+## 📁 核心代码结构概览
+
+```text
+src/
+├── core/                   # 纯底层量化心脏
+│   ├── kronos_engine.py    # Kronos 预测特征清洗 (提供 Z-score 和预期标准差)
+│   └── z_decision.py       # 旧版方向决断遗留组件
+├── backtest/               # Phase 6 终极独立回测框架
+│   ├── config.py           # 股票池与周期配置中心
+│   ├── backtest_runner.py  # 绝对时间轴切面推进历史预演
+│   └── performance_analyzer.py # 皮尔逊相关性及胜率解算器
+├── trading_signal.py       # 双轨制融合信号总 API 暴露层
+├── webui.py                # Streamlit Web 面板启动器
+├── crawlers/               # 无状态的网络数据爬虫封装网关 (yfinance 等)
+└── tradingagents/          # LangGraph 多智能体协同心智层 (被降权打辅助)
+```
+
+## 🗓️ NEXT STEP (写给修学归来的主理人)
+
+当您巩固完了 Pandas 以及统计学原理后，我们的目标将踏入更加迷人的深水区：
+1. **套利模式开发**：由于最新测试得出 `Predicted_Range` 与未来实际振幅的相关性高达 `0.38`，这给了我们开发“双向网格交易”或“隐含期权波动率套利”的无限可能。
+2. **多因子组合**：尝试引入换手率、市盈率等更多外部因子组合至现在的单维特征矩阵中。
+
+**祝武运昌隆！** 🚀
