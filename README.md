@@ -21,17 +21,17 @@
 系统不盲从预测均值，而是结合该次预测的分歧度计算出一种信噪比概念的指数：
 
 $$
-Regime\_Strength = \frac{\text{Mean\_Return}_{(30步平均期望收益)}}{\max(\text{Std\_Return}_{(不确定性标准差)}, 0.005_{噪音拦截地板})}
+\text{Regime Strength} = \frac{\text{Mean Return}_{(30步平均期望收益)}}{\max(\text{Std Return}_{(不确定性标准差)}, 0.005_{噪音拦截地板})}
 $$
 
-- **强趋势 (Strong Regime)**：$|Regime\_Strength| > 0.5$ 且波动适中。此时动量极强，直接顺势做多/做空。
-- **均值回归 (Ranging Regime)**：$|Regime\_Strength| \le 0.5$ 或被极高波动打断。此时系统判定为“垃圾时间/无序震荡”，自动放弃趋势追踪或将杠杆减半。
+- **强趋势 (Strong Regime)**：$|\text{Regime Strength}| > 0.5$ 且波动适中。此时动量极强，直接顺势做多/做空。
+- **均值回归 (Ranging Regime)**：$|\text{Regime Strength}| \le 0.5$ 或被极高波动打断。此时系统判定为“垃圾时间/无序震荡”，自动放弃趋势追踪或将杠杆减半。
 
 ### 2. 黑天鹅与高波动惩罚机制 (Volatility Discount)
 量化的第一要务是活下去。如果在采样集成中发现 Kronos 的未来不确定性异常巨大，系统将触发指数级的仓位强平保护：
 
 $$
-Volatility\_Discount = \exp{\Big(-10.0 \times \max\big(0, (\text{Uncertainty} - 3\%)\big)\Big)}
+\text{Volatility Discount} = \exp{\Big(-10.0 \times \max\big(0, (\text{Uncertainty} - 3\%)\big)\Big)}
 $$
 
 *解读：当预测标准差超过 3% 后，波动每增加一点，推荐持仓就会断崖式下跌，防止由于宏观消息即将落地导致的双杀爆仓。*
@@ -40,7 +40,7 @@ $$
 在确定了绝对客观的数学仓位后，系统的 NLP 外脑（各类研究员 Agents）会吐出情绪因子，以轻微放大或缩小乘数的形式挂载在最终决策上：
 
 $$
-Final\_Confidence = \tanh(|Regime\_Strength|) \times Volatility\_Discount \times (1 + \lambda_{s} \cdot \text{Sentiment}) \times (1 - \text{Risk})
+\text{Final Confidence} = \tanh(|\text{Regime Strength}|) \times \text{Volatility Discount} \times (1 + \lambda_{s} \cdot \text{Sentiment}) \times (1 - \text{Risk})
 $$
 
 （注：若处在震荡市中，仓位还会在此基础上再被主观砍半）。
