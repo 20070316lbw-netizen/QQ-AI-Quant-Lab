@@ -16,7 +16,8 @@ from crawlers.providers.yfinance_provider import (
     get_balance_sheet,
     get_cashflow,
     get_income_statement,
-    get_insider_transactions
+    get_insider_transactions,
+    get_fundamental_risk_metrics
 )
 from crawlers.providers.yfinance_news_provider import (
     get_news_yfinance,

@@ -4,6 +4,7 @@ from typing import Dict, Any, Tuple
 
 from core.kronos_engine import KronosEngine
 from core.z_decision import compute_base_signal
+from crawlers.data_gateway import DataGateway
 
 def get_llm_adjustments(ticker: str) -> Tuple[float, float]:
     """
@@ -69,6 +70,25 @@ def generate_signal(ticker: str, as_of_date: str = None, ext_sentiment: float = 
     
     final_confidence = max(0.0, min(1.0, adjusted_strength))
     
+    # 【Phase 10：财务暴雷一票否决熔断】
+    # 绕开大语言模型的主观评价，直接调用 YFinance 资产负债表底层的结构化硬核数据
+    fun_metrics = DataGateway.get_fundamental_risk_metrics(ticker)
+    fundamental_risk_override = False
+    if fun_metrics.get("is_valid", False):
+        debt_to_eq = fun_metrics.get("debtToEquity", 0.0)
+        curr_ratio = fun_metrics.get("currentRatio", 1.0)
+        
+        # 极硬性条件：杠杆被吹成泡沫(>3倍) 并且 短期用于救火的流动现金枯竭(<0.8)
+        if debt_to_eq > 3.0 and curr_ratio < 0.8:
+            fundamental_risk_override = True
+            from rich.console import Console
+            Console().print(f"[bold red on white]🚨 基本面极度崩盘预警: {ticker} 陷入债务死局! (Debt/Eq={debt_to_eq:.2f}, 缺钱率 CurRatio={curr_ratio:.2f})[/bold red on white]")
+            Console().print("[bold red]⛔ 无论 K 线趋势多好或 NLP 如何吹捧，系统底层强制一票否决归零该票仓位！[/bold red]")
+            
+            final_confidence = 0.0
+            regime = "FUNDAMENTAL_BUST_OVERRIDE"
+            direction = "CRASH_SELL"
+    
     # 5. 保留完整的状态日志便于审计 (含 Phase 6 新增量化指标)
     signal_pack = {
         "ticker": ticker.upper(),
@@ -88,7 +108,8 @@ def generate_signal(ticker: str, as_of_date: str = None, ext_sentiment: float = 
             "sentiment_score": round(sentiment_score, 4),
             "risk_factor": round(risk_factor, 4),
             "base_strength": round(base_momentum_strength, 4),
-            "volatility_discount": round(volatility_discount_factor, 4)
+            "volatility_discount": round(volatility_discount_factor, 4),
+            "fundamental_bust_triggered": fundamental_risk_override
         }
     }
     
