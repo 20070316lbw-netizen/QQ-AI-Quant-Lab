@@ -3,6 +3,12 @@ import os
 import yfinance as yf
 import pandas as pd
 from datetime import datetime, timedelta
+try:
+    from tqdm import tqdm
+except ImportError:
+    def tqdm(iterable, **kwargs):
+        return iterable
+    tqdm.write = print
 
 # 加入系统路径以引入主模块
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
@@ -69,19 +75,19 @@ def run_backtest():
     trading_dates = spy_df.index.tz_localize(None).strftime("%Y-%m-%d").tolist()
     print(f"Found {len(trading_dates)} trading days from {start_date} to {end_date}.")
     
-    # 为了在合理时间 (数十分钟) 内完成超 1000 个样本的回测，
-    # 2年约504个交易日。每7天采样一次意味着每只股票约72个样本。
-    # 15 只股票 x 72 个样本/只 = > 1080 总体样本容量。
-    sample_dates = trading_dates[::7]
+    # 世纪大回测要求：穷尽所有交易日，不丢失一丝波澜。
+    sample_dates = trading_dates
     print(f"Selected {len(sample_dates)} sampling dates per stock for backtesting (Expected total: {len(sample_dates) * len(universe)}).")
 
     all_results = []
     
     for ticker in universe:
         print(f"\n========== Starting Backtest for {ticker} ==========")
+        stock_results = []
         
-        for date in sample_dates:
-            print(f"[*] Processing {ticker} as of {date}...")
+        # 引入进度条
+        for date in tqdm(sample_dates, desc=f"Processing {ticker}"):
+            # print(f"[*] Processing {ticker} as of {date}...") # 被进度条替代
             
             try:
                 # 1. 挂钩历史断点获取信号 (杜绝未来函数)
@@ -119,14 +125,17 @@ def run_backtest():
                     "actual_range_5d": fut_range_5d
                 }
                 
+                stock_results.append(record)
                 all_results.append(record)
                 
             except Exception as e:
-                print(f"  [X] Failed processing {date}: {e}")
+                # 只在发生异常时打断进度条打印报错
+                tqdm.write(f"  [X] Failed processing {ticker} at {date}: {e}")
                 
-    # 统一落盘
-    recorder.save_batch(all_results)
-    
+        # 每跑完一只股票的所有日子，进行一次强制落盘 (避免三年来中途崩溃引发的全部白干)。
+        if stock_results:
+            recorder.save_batch(stock_results)
+            
     # 触发硬核分析模块
     print("\n========== Backtest Execution Completed ==========")
     if all_results:
