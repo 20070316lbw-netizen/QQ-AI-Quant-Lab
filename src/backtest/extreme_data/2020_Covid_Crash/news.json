@@ -1,0 +1,22 @@
+[
+    {
+        "date": "2020-03-09",
+        "title": "Black Monday: US Markets Halt Trading for First Time in Years",
+        "summary": "Circuit breakers tripped as the S&P 500 plunged 7%. A global pandemic mixed with an oil price war sparks unprecedented terror in global markets. Apple (AAPL) stores closed globally, and bottling operations for Coke (KO) face supply chain collapse."
+    },
+    {
+        "date": "2020-03-12",
+        "title": "Worst Day Since 1987: Dow Crashes Another 10%",
+        "summary": "Traders call it the worst panic since Black Monday of 1987. The VIX volatility index skyrockets to historic highs. Widespread lockdowns and travel bans are destroying value across all sectors."
+    },
+    {
+        "date": "2020-03-16",
+        "title": "Panic Deepens: Fed's Emergency Rate Cut Fails to Calm Markets",
+        "summary": "Despite the Federal Reserve slashing interest rates to zero, the market triggered another Level 1 circuit breaker immediately at the open. The global economy is grinding to a complete halt."
+    },
+    {
+        "date": "2020-03-24",
+        "title": "Unemployment Claims Likely to Shatter Records",
+        "summary": "As states force non-essential businesses to close, economists project unemployment numbers not seen since the Great Depression. Investor sentiment shows zero signs of a bottom."
+    }
+]

@@ -8,8 +8,10 @@ from .stockstats_utils import StockstatsUtils
 def get_YFin_data_online(
     symbol: Annotated[str, "ticker symbol of the company"],
     start_date: Annotated[str, "Start date in yyyy-mm-dd format"],
-    end_date: Annotated[str, "End date in yyyy-mm-dd format"],
+    end_date: Annotated[str, "End date in yyyy-mm-dd format, optional"] = None,
 ):
+    if not end_date:
+        end_date = datetime.now().strftime("%Y-%m-%d")
 
     datetime.strptime(start_date, "%Y-%m-%d")
     datetime.strptime(end_date, "%Y-%m-%d")
