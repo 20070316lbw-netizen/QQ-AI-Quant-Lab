@@ -166,7 +166,7 @@ if app_mode == "🦅 单股全息扫描":
                             showlegend=False, paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)', font=dict(color="#00ffcc", family="Courier New"),
                             title=dict(text="5维雷达穿透评分 (0-100)", font=dict(color="#00ffcc"))
                         )
-                        st.plotly_chart(fig_radar, use_container_width=True)
+                        st.plotly_chart(fig_radar, use_container_width=True, key=f"radar_chart_{ticker}")
                     else:
                         st.error("未能在此次演算中获取到多因子雷达回传。")
 
@@ -195,7 +195,7 @@ if app_mode == "🦅 单股全息扫描":
                         
                         fig_price.update_layout(title=f"{ticker} 战损区边界防御图", xaxis_rangeslider_visible=False, template="plotly_dark",
                                           paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(11, 15, 25, 0.8)', height=600)
-                        st.plotly_chart(fig_price, use_container_width=True)
+                        st.plotly_chart(fig_price, use_container_width=True, key=f"kronos_candlestick_{ticker}")
                     else:
                         st.warning("⚠️ 没有获取到支撑该时空节点的弹道数据。")
 
@@ -257,7 +257,7 @@ elif app_mode == "💼 AI 投资组合配资":
                         fig_pie.update_traces(hoverinfo='label+percent', textinfo='value', textfont_size=16,
                                               marker=dict(colors=['#00ffcc', '#ff0055', '#bb86fc', '#03dac6', '#cf6679'], line=dict(color='#000000', width=2)))
                         fig_pie.update_layout(paper_bgcolor='rgba(0,0,0,0)', font=dict(color="#00ffcc", family="Courier New"))
-                        st.plotly_chart(fig_pie, use_container_width=True)
+                        st.plotly_chart(fig_pie, use_container_width=True, key="portfolio_pie_chart")
                         
                 except Exception as e:
                     st.error(f"配资过程异常崩溃: {str(e)}")
@@ -300,7 +300,7 @@ elif app_mode == "🧊 震荡网格计算机":
                     df.columns = ["网格层级", "触达现价", "距离当前震幅 (%)", "执行动作"]
                     
                     st.subheader(f"📊 {grid_lines} 级机械化挂单表")
-                    st.dataframe(df, use_container_width=True)
+                    st.dataframe(df, use_container_width=True, key="grid_dataframe")
                     
             except Exception as e:
                  st.error(f"网格构建毁灭性中止: {str(e)}")
