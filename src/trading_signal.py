@@ -5,6 +5,8 @@ from typing import Dict, Any, Tuple
 from core.kronos_engine import KronosEngine
 from core.z_decision import compute_base_signal
 from crawlers.data_gateway import DataGateway
+from core.multi_factor.factor_extractor import extract_raw_factors
+from core.multi_factor.scoring_engine import ScoringEngine
 
 def get_llm_adjustments(ticker: str) -> Tuple[float, float]:
     """
@@ -61,8 +63,29 @@ def generate_signal(ticker: str, as_of_date: str = None, ext_sentiment: float = 
     # 【核心！】预测波动极大时（例如预测标准差>5%），必须缩减杠杆与头寸以管控风险
     volatility_discount_factor = math.exp(-10.0 * max(0, uncertainty - 0.03)) 
     
-    # 融合：动量 * 波动折扣 * 情绪放大 * 风险惩罚
-    adjusted_strength = base_momentum_strength * volatility_discount_factor * (1 + 0.3 * sentiment_score) * (1 - risk_factor)
+    # ===== Phase 11: 引入 Fama-French 多因子选股底牌 (O-Score) =====
+    # 在非 Offline 隔离时，提取并打分该股票的财务多因子
+    factor_scores = {}
+    o_score = 50.0  # 中庸基准分 
+    multi_factor_multiplier = 1.0
+    
+    if not DataGateway.offline_mode:
+        try:
+            raw_factors = extract_raw_factors(ticker)
+            factor_scores = ScoringEngine.process(raw_factors)
+            o_score = factor_scores.get("overall_score", 50.0)
+            
+            # 因子分与仓位乘数映射关系 (Factor to Multiplier)
+            # O-Score 在 [0, 100] 分之间，50 分为 1x 倍数不增不减。
+            # 如果是个破烂票 (O < 30) -> 大减仓 甚至是腰斩
+            # 如果是个金手指 (O > 70) -> 仓位微提
+            multi_factor_multiplier = 0.5 + (o_score / 100.0) * 1.0 # 满分100 = 1.5倍；0分 = 0.5倍锁仓
+            
+        except Exception as e:
+            print(f"Warning: Multi-Factor extraction failed: {e}")
+            
+    # 融合：动量 * 波动折扣 * 因子乘数 * 情绪放大 * 风险惩罚
+    adjusted_strength = base_momentum_strength * volatility_discount_factor * multi_factor_multiplier * (1 + 0.3 * sentiment_score) * (1 - risk_factor)
     
     # 属于震荡行情时，主观降低其置信度上限
     if "RANGING" in regime:
@@ -109,7 +132,10 @@ def generate_signal(ticker: str, as_of_date: str = None, ext_sentiment: float = 
             "risk_factor": round(risk_factor, 4),
             "base_strength": round(base_momentum_strength, 4),
             "volatility_discount": round(volatility_discount_factor, 4),
-            "fundamental_bust_triggered": fundamental_risk_override
+            "fundamental_bust_triggered": fundamental_risk_override,
+            "multi_factor_o_score": round(o_score, 2),
+            "multi_factor_multiplier": round(multi_factor_multiplier, 3),
+            "factor_scores": factor_scores
         }
     }
     

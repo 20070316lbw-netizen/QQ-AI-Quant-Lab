@@ -145,5 +145,13 @@ class DataGateway:
         DataGateway._log_fetch("正在同步全球宏观经济资讯...")
         return get_global_news_yfinance(curr_date, look_back_days, limit)
 
+    @staticmethod
+    def get_fundamental_risk_metrics(ticker: str) -> dict:
+        """[Phase 10: 财务暴雷阻断] 提取用于强行熔断的结构化底层财务指标"""
+        # 注意：脱网模式下暂时无视硬风控（或者可以设计打桩(Mock)），为了简便先让其直通
+        if DataGateway.offline_mode: 
+            return {"debtToEquity": 0.0, "currentRatio": 1.5, "freeCashflow": 1, "is_valid": True}
+        return get_fundamental_risk_metrics(ticker)
+
 # 初始化一个全局实例便于调用
 gateway = DataGateway()
