@@ -1,101 +1,99 @@
-# QQ-AI-Quant-Lab: Neuro-Symbolic 混合智能量化终点 (Phase 6 完结版)
+# QQ-AI-Quant-Lab: 混合智能多因子协同量化中枢 (v2.0)
 
-> 本仓库是一个**工业级的混合智能量化研究平台**。在历经六个大阶段的重构后，系统从“依赖大模型盲猜涨跌”进化为了**『统计学主导、NLP情绪因子辅助』的双轨制 (Dual-Track) 架构**。这套系统以时间序列预测大模型 (Kronos) 为心脏，辅以严格的防未来函数及严谨的统计检验引擎。
+> 本体系为兼具强韧风控与进攻延展性的**军工级混合智能量化研究平台**。历经 13 个迭代周期（Phase），现已演化为一个囊括**深层神经网络引擎 (Kronos) 短距突刺**、**Fama-French 经典多因子大一统雷达 (O-Score) 长距基座**以及**结构化防暴雷/波动率惩罚网**的超维协同体。
+> 平台无缝兼容且经过实弹压测支持美股与 A 股标的（如 600519.SS）。
 
-**特别提示**：这份 README 是为主理人（您）在学习回归后无缝接手而撰写的系统全貌“白皮书”。
+**特别声明**：本文档兼具架构白皮书及前沿量化公式检索功能，为主理人学成归来的战略复盘提供系统级查阅指引。
 
 ---
 
-## 🧭 核⼼理论范式：从“预测方向”到“预测分布与波动” 
+## 🧭 核⼼理论范式：多维干预与分层共振
 
-本系统最核心的颠覆性升级在于：**彻底放弃强迫大模型去预测“一个单一的价格终点”。** 
-因为带有温度采样的自回归时序模型 (Autoregressive Inference)，它的每一次推演生成的是一条“可能的未来轨迹”。因此，本项目的系统哲学是：利用大模型的多重采样 (Ensemble)，提取**未来的预测极值（区间）和标准差（不确定性）**。这成为了挖掘真实 Alpha 的圣杯。
+在 V2 版宏大架构内，本系统抛弃了单薄的大模型“算命”范式或被动因子持仓，形成了精密级联递退的量化管线：
+1. **长期雷达 (多因子选股)**：通过提纯基本面的价值、质量等因素，在庞大资产堆中圈定高分“金手指”，并在计算中平滑授予配资特权。
+2. **微观打击 (自回归预测池)**：不强求神谕般的“均值”，而是提取基于 Kronos 在未来30天的“变异振幅区间”与时间趋势。
+3. **断手自保 (多重断路器)**：一旦发现高隐形杠杆、现金断层或是宏观恐慌溢出（如雷曼时刻、多次熔断），无视前两级的进攻欲望，物理归零清仓。
 
 ---
 
 ## 🧠 核心数学引擎 (The Math Logic)
 
-本项目底层决策链已实现全面透明化与公式化。核心逻辑集中在 `src/core/kronos_engine.py` 与 `src/trading_signal.py` 之中：
+本平台最引以为傲的四大数字防线矩阵，代码核心集中于 `src/trading_signal.py` 以及核心算力层：
 
-### 1. 动量状态判定 (Regime Strength / 原 Z-Score)
-系统不盲从预测均值，而是结合该次预测的分歧度计算出一种信噪比概念的指数：
-
+### 1. 动能基准测算 (Regime Strength / 伪 Z-Score)
+对于未来 30 步的多维采样平均，系统利用不确定性分歧比（信噪化）给出入场基准置信度。
 $$
-\text{Regime Strength} = \frac{\text{Mean Return}_{(30步平均期望收益)}}{\max(\text{Std Return}_{(不确定性标准差)}, 0.005_{噪音拦截地板})}
+\text{Regime Strength} = \frac{\text{Mean Return}}{\max(\text{Std Return (Uncertainty)}, 0.005)}
 $$
+- **顺势斩击**：$|\text{Regime Strength}| > 0.5$，直接认定处于强势多头或深度做空状态。
+- **混沌迷航**：如果不达标，则为无序震荡区间（Ranging Mixed），建议动能仓位直接折半。
 
-- **强趋势 (Strong Regime)**：$|\text{Regime Strength}| > 0.5$ 且波动适中。此时动量极强，直接顺势做多/做空。
-- **均值回归 (Ranging Regime)**：$|\text{Regime Strength}| \le 0.5$ 或被极高波动打断。此时系统判定为“垃圾时间/无序震荡”，自动放弃趋势追踪或将杠杆减半。
-
-### 2. 黑天鹅与高波动惩罚机制 (Volatility Discount)
-量化的第一要务是活下去。如果在采样集成中发现 Kronos 的未来不确定性异常巨大，系统将触发指数级的仓位强平保护：
-
+### 2. 黑天鹅巨型波动扣减 (Volatility Discount)
+本金永不眠。通过计算得到的时序预期标准差若超频，说明不可测知的毁灭即将到来，必须进行指数级折腰惩罚：
 $$
 \text{Volatility Discount} = \exp{\Big(-10.0 \times \max\big(0, (\text{Uncertainty} - 3\%)\big)\Big)}
 $$
+*效果实录：在 2008 崩盘前夜，该机制曾成功将建议仓位剥离至 < 1%，完备存还了流动性。*
 
-*解读：当预测标准差超过 3% 后，波动每增加一点，推荐持仓就会断崖式下跌，防止由于宏观消息即将落地导致的双杀爆仓。*
-
-### 3. 双轨融合：量化信号与自然语言情绪结合
-在确定了绝对客观的数学仓位后，系统的 NLP 外脑（各类研究员 Agents）会吐出情绪因子，以轻微放大或缩小乘数的形式挂载在最终决策上：
-
+### 3. Fama-French 统协多因子 O-Score 得分模型
+针对基本面各量纲（百亿市值与市盈倍数不相容），采用反向指标截断衰减映射（如极大市盈率将获得0分），组装为统一的 `0-100` 打分蜘蛛网（Radar Chart）。
 $$
-\text{Final Confidence} = \tanh(|\text{Regime Strength}|) \times \text{Volatility Discount} \times (1 + \lambda_{s} \cdot \text{Sentiment}) \times (1 - \text{Risk})
+\text{O-Score} = \sum_{F \in \{Value, Quality, Size, Momentum, Volatility\}} W_F \cdot F(x) 
 $$
+在最终交易链中，**若 $O < 40$ 分，此票遭到降维（杠杆削半）；若 $O > 75$ 分神票，分配更多敞口权** ($0.5x \sim 1.5x$ 调仓器)。
 
-（注：若处在震荡市中，仓位还会在此基础上再被主观砍半）。
+### 4. 极端一票否决墙 (Fundamental Bust Override)
+直抵公司资产负债表与现金流表的核心，无需 NLP 分析师听高管讲故事：
+- $ \text{Debt-to-Equity} > 3.0 $（杠杆爆炒成魔）
+- $ \text{Current Ratio} < 0.8 $（随时可能断缴的危险流动性）
+只要触发此规则并集公式，$ \text{Final Position} \equiv 0 $ 且向中控台疯狂拉响红灯。
 
 ---
 
-## 🛠️ 三大实战武器库 (Entry Points)
+## 🛠️ 控制台与战地武器库 (Entry Points)
 
-当前项目的代码已做到完全解耦且开箱即用。主理人回归后，任何策略调优都可以通过以下三个入口闭环完成：
+所有代码高度松耦合，主控制流明确。
 
-### 1. 可视化交易控制台 (Web UI)
-这是查看单只股票最新量化推演和波动作图的最直观武器（依赖于 Streamlit）：
+### 1. 赛博全息交易战情室 (Web UI)
+这是您重归实验室最先应该领略的**极客深色控制台**。涵盖多因子雷达网及一票否决截断呈现：
 ```bash
-# 在终端中启动面板，然后在浏览器打开 http://localhost:8501
+# 进入环境并挂载控制台：
 streamlit run src/webui.py
+# 浏览器访问 localhost:8501 步入指挥室
 ```
 
-### 2. 严谨冷酷的大规模跑批机 (Backtest Runner)
-用于扫盘海量历史数据。该引擎已开启 `as_of_date` 防前视墙，支持全盘并行生成用于统计的只读快照（JSONL 格式）。
+### 2. 时空穿梭与大规模跑批 (Backtest Runner)
+允许您把环境切换到 `2008-09-01` 或者 `2020-03-01`，用绝对隔离（Offline Sandbox）并模拟最可怕的时局。该引擎可屏蔽未来函数的干扰。
 ```bash
-# 股票池和参数请在 src/backtest/config.py 中配置
 python src/backtest/backtest_runner.py
-# 运行后会在此目录下生成一个巨大的 jsonl 数据集：src/backtest/results/
+# 跑批产物输出至：src/backtest/results/
 ```
 
-### 3. Alpha 相关性验证器 (Performance Analyzer)
-用来检验您的任何改动是否真正有效。它会吞噬刚才的跑批日志，分别校验 1D 和 5D 下的胜率，以及**决定生死的核心指标：Pearson 相关性**。
+### 3. Alpha 皮尔逊检验分析仪 (Performance Analyzer)
+用来硬核评价某项新特征对于夏普或者真实走势具有决定能力。
 ```bash
-# 替换为您刚刚跑出来的最新日志名字即可
-python src/backtest/performance_analyzer.py src\backtest\results\backtest_xxx.jsonl
+python src/backtest/performance_analyzer.py <你的新结果>.jsonl
 ```
 
 ---
 
-## 📁 核心代码结构概览
+## 📁 系统星图架构目录
 
 ```text
 src/
 ├── core/                   # 纯底层量化心脏
-│   ├── kronos_engine.py    # Kronos 预测特征清洗 (提供 Z-score 和预期标准差)
+│   ├── kronos_engine.py    # Kronos 自回归预测清洗池 
+│   ├── multi_factor/       # 🚀 Phase 11 多因子提取与雷达投影核心库
 │   └── z_decision.py       # 旧版方向决断遗留组件
-├── backtest/               # Phase 6 终极独立回测框架
-│   ├── config.py           # 股票池与周期配置中心
-│   ├── backtest_runner.py  # 绝对时间轴切面推进历史预演
-│   └── performance_analyzer.py # 皮尔逊相关性及胜率解算器
-├── trading_signal.py       # 双轨制融合信号总 API 暴露层
-├── webui.py                # Streamlit Web 面板启动器
-├── crawlers/               # 无状态的网络数据爬虫封装网关 (yfinance 等)
-└── tradingagents/          # LangGraph 多智能体协同心智层 (被降权打辅助)
+├── backtest/               # 坚不可摧的绝缘时空回测环境
+│   ├── extreme_data/       # 🚀 断网式黑天鹅模拟靶场 (内含雷曼/疫情等历史真迹)
+│   ├── backtest_runner.py  # 全局流水生成器
+│   └── performance_analyzer.py # 皮尔逊相关性解算器
+├── crawlers/               # 无状态的网络数据爬虫与统一路由门面网关 (Gateway)
+├── trading_signal.py       # 🚀 双轨制融合战损级信号总 API 暴露层 (拦截/集成枢纽)
+├── webui.py                # 🚀 深度重构的赛博全息终端 (St.tabs/Plotly Radar)
+└── tradingagents/          # LangGraph 多智能体协同心智层 (已完全辅助化)
 ```
 
-## 🗓️ NEXT STEP (写给修学归来的主理人)
-
-当您巩固完了 Pandas 以及统计学原理后，我们的目标将踏入更加迷人的深水区：
-1. **套利模式开发**：由于最新测试得出 `Predicted_Range` 与未来实际振幅的相关性高达 `0.38`，这给了我们开发“双向网格交易”或“隐含期权波动率套利”的无限可能。
-2. **多因子组合**：尝试引入换手率、市盈率等更多外部因子组合至现在的单维特征矩阵中。
-
-**祝武运昌隆！** 🚀
+**致主理人：** 
+当您深入夯实金融和 Python 时，此框架已为您铺垫出跨越重洋（A/美股兼容）、无懈防守的多维基础设施。欢迎归来并引领 QQ-AI-Quant-Lab 挺进巅峰！🚀
