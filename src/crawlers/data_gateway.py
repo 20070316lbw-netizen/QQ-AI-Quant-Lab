@@ -2,11 +2,12 @@
 统一数据网关 (Data Gateway)
 ===========================
 作为整个量化实验室的底层数据吞吐口，接受来自 Agent 层的请求，
-并调度对应的 Provider (如 YFinance, WebCrawler 等) 获取数据。
+并调度对应的 Provider (如 YFinance, AKShare, WebCrawler 等) 获取数据。
 
 设计原则：
 1. Agent 不与具体网站协议打交道，只向 Gateway 提出 "What I need"。
 2. Gateway 封装所有的重试、网络格式转换细节。
+3. 【Phase 24】通过后缀 .SS/.SZ 自动识别 A 股，路由至 AKShare 供应商。
 """
 from typing import Optional, Dict
 from crawlers.providers.yfinance_provider import (
@@ -23,6 +24,14 @@ from crawlers.providers.yfinance_news_provider import (
     get_news_yfinance,
     get_global_news_yfinance
 )
+# 【Phase 24】AKShare A 股数据新增供应商
+from crawlers.providers.akshare_provider import (
+    get_ak_stock_data,
+    get_ak_fundamental_snapshot,
+)
+
+# A 股代码后缀标识集合（大写匹配）
+_A_SHARE_SUFFIXES = (".SS", ".SZ")
 
 class DataGateway:
     """提供全套行情、财报与新闻接口的单例门面 (Facade)"""
@@ -39,7 +48,11 @@ class DataGateway:
 
     @staticmethod
     def get_stock_data(symbol: str, start_date: str, end_date: str) -> str:
-        """获取股票 OHLCV 数据 (支持离线物理阻断模式)"""
+        """获取股票 OHLCV 数据。
+        - 离线模式: 读取本地封闭舱数据
+        - A 股 (.SS/.SZ): 路由至 AKShare
+        - 美股 / 其他: 默认 yfinance
+        """
         if DataGateway.offline_mode:
             import os
             import pandas as pd
@@ -51,29 +64,27 @@ class DataGateway:
                 return f"No local data found for symbol '{symbol}' in event {DataGateway.offline_event_name}"
             
             try:
-                # 读取本地保存的完整文件
                 df = pd.read_csv(file_path, index_col='Date', parse_dates=True)
-                # 按照 start_date 进行截断，而对于 end_date 则尽可能返回到切片最后，不强求对齐
                 start_dt = pd.to_datetime(start_date)
-                mask = (df.index >= start_dt) 
-                
-                # 如果模型传了 end_date，我们也尽力切断，防止穿越
+                mask = (df.index >= start_dt)
                 if end_date:
                     end_dt = pd.to_datetime(end_date)
                     mask = mask & (df.index <= end_dt)
-                    
                 sliced_df = df.loc[mask].copy()
-                
                 if sliced_df.empty:
-                     # 极度宽容模式：如果由于模型生成的日期比样本池最新一条还晚，则直接返回全表，保活为主
                      sliced_df = df.copy()
-                     
                 csv_string = sliced_df.to_csv()
                 header = f"# [OFFLINE MOCK] Stock data for {symbol.upper()} from {start_date} to {end_date}\n"
                 header += f"# Total records: {len(sliced_df)}\n\n"
                 return header + csv_string
             except Exception as e:
                 return f"Error reading mock offline data: {e}"
+
+        # 【Phase 24】A 股智能路由
+        elif symbol.upper().endswith(_A_SHARE_SUFFIXES):
+            DataGateway._log_fetch(f"检测到 A 股代码 {symbol}，切换至 AKShare 供应商...")
+            return get_ak_stock_data(symbol, start_date, end_date)
+
         else:
             DataGateway._log_fetch(f"正在从 yfinance 抓取 {symbol} 历史行情 ({start_date} ~ {end_date})...")
             return get_YFin_data_online(symbol, start_date, end_date)
@@ -126,7 +137,6 @@ class DataGateway:
                 try:
                     with open(news_file, "r", encoding='utf-8') as f:
                         news_data = json.load(f)
-                        # 将 JSON 拼接为分析师可以读懂的字符串
                         output = f"# MOCK NEWS for {DataGateway.offline_event_name}\n"
                         for item in news_data:
                             output += f"- [{item['date']}] {item['title']} : {item['summary']}\n"
@@ -147,10 +157,13 @@ class DataGateway:
 
     @staticmethod
     def get_fundamental_risk_metrics(ticker: str) -> dict:
-        """[Phase 10: 财务暴雷阻断] 提取用于强行熔断的结构化底层财务指标"""
-        # 注意：脱网模式下暂时无视硬风控（或者可以设计打桩(Mock)），为了简便先让其直通
-        if DataGateway.offline_mode: 
+        """[Phase 10+24: 财务暴雷阻断] 提取用于强行熔断的底层财务指标。支持 A 股路由。"""
+        if DataGateway.offline_mode:
             return {"debtToEquity": 0.0, "currentRatio": 1.5, "freeCashflow": 1, "is_valid": True}
+        # 【Phase 24】A 股路由
+        if ticker.upper().endswith(_A_SHARE_SUFFIXES):
+            DataGateway._log_fetch(f"路由至 AKShare 获取 {ticker} 基本面快照...")
+            return get_ak_fundamental_snapshot(ticker)
         return get_fundamental_risk_metrics(ticker)
 
 # 初始化一个全局实例便于调用

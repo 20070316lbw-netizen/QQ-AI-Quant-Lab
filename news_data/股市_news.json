@@ -1,0 +1,88 @@
+{
+  "query": "股市",
+  "total_count": 10,
+  "collect_time": "2026-02-22T21:08:54.250982",
+  "error": null,
+  "news": [
+    {
+      "title": "YouTube Help",
+      "url": "https://support.google.com/youtube/?hl=en",
+      "snippet": "Learn more about YouTube YouTube help videos Browse our video library for helpful tips, feature overviews, and step-by-step tutorials. …",
+      "source": "support.google.com",
+      "date": "",
+      "rank": 0
+    },
+    {
+      "title": "Iniciar sesión en la aplicación YouTube en una smart TV o videoco…",
+      "url": "https://support.google.com/youtube/answer/3015415?hl=es",
+      "snippet": "Iniciar sesión con tu teléfono: escanea el código QR o ve a yt.be/activate en tu teléfono, tablet u ordenador y, a continuación, introduce el …",
+      "source": "support.google.com",
+      "date": "",
+      "rank": 1
+    },
+    {
+      "title": "YouTube - Pomoc - Google Help",
+      "url": "https://support.google.com/youtube/?hl=pl",
+      "snippet": "Oficjalne Centrum pomocy produktu YouTube, w którym można znaleźć porady i samouczki na temat korzystania z produktu, jak również …",
+      "source": "support.google.com",
+      "date": "",
+      "rank": 2
+    },
+    {
+      "title": "YouTube說明 - Google Help",
+      "url": "https://support.google.com/youtube/?hl=zh-Hant",
+      "snippet": "您可以在「YouTube 官方說明中心」找到本產品的使用教學和提示，以及各種常見問題解答。",
+      "source": "support.google.com",
+      "date": "",
+      "rank": 3
+    },
+    {
+      "title": "YouTube Ajuda - Google Help",
+      "url": "https://support.google.com/youtube/?hl=pt",
+      "snippet": "Saiba mais sobre o YouTube Vídeos de ajuda do YouTube Navegue na nossa biblioteca de vídeos para obter sugestões úteis, descrições gerais …",
+      "source": "support.google.com",
+      "date": "",
+      "rank": 4
+    },
+    {
+      "title": "Slack - 知乎",
+      "url": "https://www.zhihu.com/topic/19956174/hot",
+      "snippet": "Slack 是聊天群组 + 大规模工具集成 + 文件整合 + 统一搜索。截至2014年底，Slack 已经整合了电子邮件、短信、Google Drives、Twitter、Trello、Asana …",
+      "source": "www.zhihu.com",
+      "date": "",
+      "rank": 5
+    },
+    {
+      "title": "如何高效使用协作工具 Slack？ - 知乎",
+      "url": "https://www.zhihu.com/question/23057336",
+      "snippet": "2014년 5월 13일 · 发现 Slack 是个很不错的团队交流工具。不过我不是很熟悉怎么用，请大家多指教。",
+      "source": "www.zhihu.com",
+      "date": "",
+      "rank": 6
+    },
+    {
+      "title": "协作工具slack在国内能用吗？ - 知乎",
+      "url": "https://www.zhihu.com/question/621356631",
+      "snippet": "2023년 9월 10일 · 3、企业微信 企业微信是一款由腾讯推出的团队协作工具，在国内用户中受到欢迎。 它能够满足团队协作的各种需求，包括实时沟通、文件共享 …",
+      "source": "www.zhihu.com",
+      "date": "",
+      "rank": 7
+    },
+    {
+      "title": "Lark、飞书、企微、Teams、Slack等大家是如何选择？",
+      "url": "https://www.zhihu.com/question/588086583",
+      "snippet": "2023년 3월 7일 · Teams、Slack和Lark。 Teams（微软Teams）： 优势： 与Windows、Microsoft Office 365集成，可以方便地与其他Microsoft工具 …",
+      "source": "www.zhihu.com",
+      "date": "",
+      "rank": 8
+    },
+    {
+      "title": "国内有哪些组织在使用slack?有哪些经验？ - 知乎",
+      "url": "https://www.zhihu.com/question/27599285",
+      "snippet": "2015년 1월 15일 · 总体来讲， slack 用起来还是挺流畅的，而且也相对正式一点，能够把工作内容按话题清晰的分门别类。经验说不好，就说一点体验吧： 1 …",
+      "source": "www.zhihu.com",
+      "date": "",
+      "rank": 9
+    }
+  ]
+}

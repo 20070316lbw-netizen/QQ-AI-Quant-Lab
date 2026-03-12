@@ -1,0 +1,174 @@
+"""
+build_enhanced_features_cn.py
+=============================
+A 股 Alpha Genome 特征工程强化版。
+1. 动量 (Momentum)
+2. 纯净波动率 (Ortho Volatility): 剥离动量后的 60d 波动残差。
+3. 价值因子 (Value): 采用 1/PS (S/P) 作为核心。
+4. 行业中性化排名。
+"""
+
+import os
+import glob
+import pandas as pd
+import numpy as np
+from tqdm import tqdm
+from scipy.stats import linregress
+
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+from config import PRICE_DIR, FUND_DIR, CN_DIR
+
+SAVE_PATH = os.path.join(CN_DIR, 'cn_features_enhanced.parquet')
+
+def calculate_stock_features(ticker_file):
+    df = pd.read_parquet(ticker_file)
+    if df.empty or len(df) < 250:
+        return None
+
+    ticker = os.path.basename(ticker_file).replace(".parquet", "")
+    df = df.sort_index()
+
+    # ── 1. 动量 (Momentum) ──
+    df["mom_20d"] = df["close"].pct_change(20)
+    df["mom_60d"] = df["close"].pct_change(60)
+    df["mom_120d"] = df["close"].pct_change(120)
+
+    # ── 2. 波动率 (Volatility) ──
+    df["vol_60d"] = df["close"].pct_change().rolling(60).std()
+
+    # ── 3. 价值因子 (Value) ──
+    # S/P = 1 / PS (Baostock 提供的 ps 是 P/S)
+    df["sp_ratio"] = 1.0 / (df["ps"] + 1e-6)
+    
+    # 初始化基本面列，确保即使 join 失败也不会报错
+    df["roe"] = np.nan
+    df["np_growth"] = np.nan
+
+    # ── 4. 基本面因子 ──
+    fund_path = os.path.join(FUND_DIR, f"{ticker}_fundamental.parquet")
+    if os.path.exists(fund_path):
+        try:
+            fdf = pd.read_parquet(fund_path)
+            if not fdf.empty:
+                fdf.set_index("statDate", inplace=True)
+                fdf.index = pd.to_datetime(fdf.index)
+                cols_to_join = [c for c in ["roe", "np_growth"] if c in fdf.columns]
+                if cols_to_join:
+                    # 先删除初始化的空列再 join，或者直接 update
+                    df.update(fdf[cols_to_join])
+                    for c in cols_to_join:
+                        df[c] = df[c].ffill()
+        except:
+            pass
+    
+    # 填充最终默认值
+    df["roe"] = df["roe"].fillna(0)
+    df["np_growth"] = df["np_growth"].fillna(0)
+
+    # ── 5. 换手率 (Liquidity) ──
+    df["turn_20d"] = df["turn"].rolling(20).mean()
+
+    df["ticker"] = ticker
+    # 保留原始 close 用于标签计算
+    df["raw_close"] = df["close"]
+    
+    return df.reset_index()
+
+def orthogonalize_vol(df):
+    """
+    对波动率进行正交化：vol_60d_res = vol_60d ~ mom_60d
+    """
+    df = df.copy()
+    valid = df.dropna(subset=["vol_60d", "mom_60d"])
+    if len(valid) < 10:
+        df["vol_60d_res"] = df["vol_60d"]
+        return df
+    
+    # 截面回归太慢，这里对单只股票做时序残差其实也可以代表“异常波动”
+    # 但为了对齐美股逻辑，我们应该在 main 中做截面正交。
+    # 这里先不处理，放进 main。
+    return df
+
+def main():
+    print("AlphaRanker — A 股增强特征工程 (Genome v1)")
+    
+    price_files = glob.glob(os.path.join(PRICE_DIR, "*.parquet"))
+    print(f"Found {len(price_files)} stocks.")
+
+    # 1. 提取所有股票的原始指标
+    all_stocks = []
+    for f in tqdm(price_files, desc="Processing Tickers"):
+        res = calculate_stock_features(f)
+        if res is not None:
+            all_stocks.append(res)
+    
+    full_panel = pd.concat(all_stocks, ignore_index=True)
+    full_panel["date"] = pd.to_datetime(full_panel["date"])
+    
+    # --- 新增: 多周期未来标签 (Multi-horizon Labels) ---
+    print("Computing multi-horizon labels (5d, 20d, 60d, 120d)...")
+    full_panel = full_panel.sort_values(["ticker", "date"])
+    for d in [5, 20, 60, 120]:
+        full_panel[f"label_{d}d"] = (
+            full_panel.groupby("ticker")["raw_close"].shift(-d) /
+            full_panel["raw_close"] - 1
+        )
+    
+    # 2. 月末采样 (Aligning with US logic)
+    print("Sampling month-end dates...")
+    full_panel["ym"] = full_panel["date"].dt.to_period("M")
+    
+    # 显式找到每只股票每月的最大日期
+    panel_me = full_panel.sort_values("date").groupby(["ticker", "ym"]).tail(1).copy()
+    panel_me = panel_me.reset_index(drop=True)
+    
+    # 恢复实盘残余标签：月底采样面板上的 shift(-1) 能自动对接未走完的下月残余收益
+    panel_me["label_next_month"] = (
+        panel_me.sort_values(["ticker", "date"]).groupby("ticker")["raw_close"].shift(-1) /
+        panel_me["raw_close"] - 1
+    )
+    
+    # 4. 截面积正交化 (Ortho Vol)
+    print("Performing cross-sectional orthogonalization (Vol ~ Mom)...")
+    def get_residuals(group):
+        group = group.copy()
+        mask = group[["vol_60d", "mom_60d"]].notna().all(axis=1)
+        if mask.sum() > 20:
+            slope, intercept, _, _, _ = linregress(group.loc[mask, "mom_60d"], group.loc[mask, "vol_60d"])
+            group.loc[mask, "vol_60d_res"] = group.loc[mask, "vol_60d"] - (intercept + slope * group.loc[mask, "mom_60d"])
+        else:
+            group["vol_60d_res"] = group["vol_60d"]
+        return group
+
+    # 显式使用 'date' 列进行分组
+    print(f"Columns before grouping: {panel_me.columns.tolist()}")
+    if "date" not in panel_me.columns:
+        panel_me = panel_me.reset_index()
+    
+    # 彻底解决：先按日期分组，然后在内部函数中确保不出错
+    temp_list = []
+    for d, grp in tqdm(panel_me.groupby("date"), desc="Orthogonalizing"):
+        temp_list.append(get_residuals(grp))
+    panel_me = pd.concat(temp_list, ignore_index=True)
+    
+    # 5. 行业合并与中性化排名
+    from config import IND_MAP_PATH
+    if os.path.exists(IND_MAP_PATH):
+        ind_df = pd.read_parquet(IND_MAP_PATH)
+        panel_me = pd.merge(panel_me, ind_df, on="ticker", how="left")
+        panel_me["industry_name"] = panel_me["industry_name"].fillna("Unknown")
+    
+    rank_cols = ["mom_20d", "mom_60d", "vol_60d_res", "sp_ratio", "roe", "turn_20d"]
+    for col in rank_cols:
+        if col in panel_me.columns:
+            panel_me[f"{col}_rank"] = panel_me.groupby(["date", "industry_name"])[col].rank(pct=True)
+    
+    # 6. 保存
+    panel_me = panel_me.dropna(subset=["label_next_month", "mom_60d"])
+    panel_me.to_parquet(SAVE_PATH, compression="snappy")
+    print(f"Enhanced features saved to {SAVE_PATH}")
+    print(f"Final shape: {panel_me.shape}")
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,241 @@
+{
+  "test_z_decile": {
+    "description": "Z-Score 十分位 vs 实际收益（Trailing 20D）",
+    "deciles": [
+      {
+        "decile": 1,
+        "z_lo": -54.8858,
+        "z_hi": -10.8286,
+        "count": 23,
+        "mean_ret": 0.06989617391304348,
+        "win_rate": 0.6956521739130435
+      },
+      {
+        "decile": 2,
+        "z_lo": -10.5324,
+        "z_hi": -3.9047,
+        "count": 23,
+        "mean_ret": 0.05279078260869565,
+        "win_rate": 0.6521739130434783
+      },
+      {
+        "decile": 3,
+        "z_lo": -3.8664,
+        "z_hi": -2.7725,
+        "count": 23,
+        "mean_ret": 0.05435517391304348,
+        "win_rate": 0.782608695652174
+      },
+      {
+        "decile": 4,
+        "z_lo": -2.739,
+        "z_hi": -1.663,
+        "count": 23,
+        "mean_ret": 0.026639478260869567,
+        "win_rate": 0.6086956521739131
+      },
+      {
+        "decile": 5,
+        "z_lo": -1.6411,
+        "z_hi": -0.6162,
+        "count": 23,
+        "mean_ret": -0.009271478260869565,
+        "win_rate": 0.43478260869565216
+      },
+      {
+        "decile": 6,
+        "z_lo": -0.5641,
+        "z_hi": 0.1175,
+        "count": 23,
+        "mean_ret": -0.030823347826086957,
+        "win_rate": 0.21739130434782608
+      },
+      {
+        "decile": 7,
+        "z_lo": 0.1424,
+        "z_hi": 0.9502,
+        "count": 23,
+        "mean_ret": -0.010760913043478261,
+        "win_rate": 0.43478260869565216
+      },
+      {
+        "decile": 8,
+        "z_lo": 0.9579,
+        "z_hi": 1.8172,
+        "count": 23,
+        "mean_ret": -0.03357082608695652,
+        "win_rate": 0.08695652173913043
+      },
+      {
+        "decile": 9,
+        "z_lo": 1.8891,
+        "z_hi": 3.7261,
+        "count": 23,
+        "mean_ret": -0.012933,
+        "win_rate": 0.21739130434782608
+      },
+      {
+        "decile": 10,
+        "z_lo": 4.0359,
+        "z_hi": 43.8468,
+        "count": 30,
+        "mean_ret": -0.04105286666666667,
+        "win_rate": 0.06666666666666667
+      }
+    ],
+    "low5_ret": 3.8882,
+    "high5_ret": -2.5828,
+    "spread": -6.471
+  },
+  "test_o_score": {
+    "description": "O-Score 独立策略（等权 + 加权，多档 K 值）",
+    "equal_weight": [
+      {
+        "k_pct": 0.1,
+        "k": 23,
+        "weighted": false,
+        "long_ret": 2.0785,
+        "short_ret": -1.043,
+        "spread": 3.1216,
+        "long_wr": 0.6957,
+        "short_wr": 0.2174
+      },
+      {
+        "k_pct": 0.15,
+        "k": 35,
+        "weighted": false,
+        "long_ret": 1.5698,
+        "short_ret": -2.0822,
+        "spread": 3.652,
+        "long_wr": 0.6571,
+        "short_wr": 0.1714
+      },
+      {
+        "k_pct": 0.2,
+        "k": 47,
+        "weighted": false,
+        "long_ret": 3.0064,
+        "short_ret": -1.4782,
+        "spread": 4.4846,
+        "long_wr": 0.6383,
+        "short_wr": 0.1702
+      },
+      {
+        "k_pct": 0.25,
+        "k": 59,
+        "weighted": false,
+        "long_ret": 2.9226,
+        "short_ret": -1.7781,
+        "spread": 4.7007,
+        "long_wr": 0.661,
+        "short_wr": 0.1695
+      },
+      {
+        "k_pct": 0.3,
+        "k": 71,
+        "weighted": false,
+        "long_ret": 3.2544,
+        "short_ret": -1.7647,
+        "spread": 5.0191,
+        "long_wr": 0.6338,
+        "short_wr": 0.1972
+      },
+      {
+        "k_pct": 0.35,
+        "k": 82,
+        "weighted": false,
+        "long_ret": 2.6722,
+        "short_ret": -1.8942,
+        "spread": 4.5665,
+        "long_wr": 0.5976,
+        "short_wr": 0.1829
+      },
+      {
+        "k_pct": 0.4,
+        "k": 94,
+        "weighted": false,
+        "long_ret": 3.3655,
+        "short_ret": -1.7801,
+        "spread": 5.1456,
+        "long_wr": 0.6277,
+        "short_wr": 0.2128
+      }
+    ],
+    "o_score_weighted": [
+      {
+        "k_pct": 0.1,
+        "k": 23,
+        "weighted": true,
+        "long_ret": 2.1531,
+        "short_ret": -0.8536,
+        "spread": 3.0067,
+        "long_wr": 0.6957,
+        "short_wr": 0.2174
+      },
+      {
+        "k_pct": 0.15,
+        "k": 35,
+        "weighted": true,
+        "long_ret": 1.6371,
+        "short_ret": -2.0781,
+        "spread": 3.7152,
+        "long_wr": 0.6571,
+        "short_wr": 0.1714
+      },
+      {
+        "k_pct": 0.2,
+        "k": 47,
+        "weighted": true,
+        "long_ret": 2.9797,
+        "short_ret": -1.4116,
+        "spread": 4.3913,
+        "long_wr": 0.6383,
+        "short_wr": 0.1702
+      },
+      {
+        "k_pct": 0.25,
+        "k": 59,
+        "weighted": true,
+        "long_ret": 2.9077,
+        "short_ret": -1.7872,
+        "spread": 4.6949,
+        "long_wr": 0.661,
+        "short_wr": 0.1695
+      },
+      {
+        "k_pct": 0.3,
+        "k": 71,
+        "weighted": true,
+        "long_ret": 3.2173,
+        "short_ret": -1.769,
+        "spread": 4.9864,
+        "long_wr": 0.6338,
+        "short_wr": 0.1972
+      },
+      {
+        "k_pct": 0.35,
+        "k": 82,
+        "weighted": true,
+        "long_ret": 2.6842,
+        "short_ret": -1.9186,
+        "spread": 4.6028,
+        "long_wr": 0.5976,
+        "short_wr": 0.1829
+      },
+      {
+        "k_pct": 0.4,
+        "k": 94,
+        "weighted": true,
+        "long_ret": 3.3114,
+        "short_ret": -1.7855,
+        "spread": 5.0969,
+        "long_wr": 0.6277,
+        "short_wr": 0.2128
+      }
+    ],
+    "best_eq_k_pct": 0.4,
+    "best_wt_k_pct": 0.4,
+    "stable_eq_count": 7,
+    "stable_wt_count": 7
+  }
+}

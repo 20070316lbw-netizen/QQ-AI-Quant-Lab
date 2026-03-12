@@ -1,0 +1,50 @@
+{
+  "bootstrap": {
+    "n_samples": 237,
+    "n_boot": 500,
+    "mean_spread_pct": 4.6668,
+    "std_pct": 1.4886,
+    "win_rate": 1.0,
+    "t_stat": 70.1006,
+    "ci_95_lo_pct": 1.8525,
+    "ci_95_hi_pct": 7.4863,
+    "verdict": "✅ 策略统计显著，O-Score 在当前样本具有真实 Alpha 迹象"
+  },
+  "sub_factors": {
+    "o_score": {
+      "long_ret": 3.2544,
+      "short_ret": -1.7647,
+      "spread": 5.0191
+    },
+    "value": {
+      "long_ret": -0.7207,
+      "short_ret": -0.4203,
+      "spread": -0.3004
+    },
+    "quality": {
+      "long_ret": -0.3833,
+      "short_ret": 0.2988,
+      "spread": -0.682
+    },
+    "size": {
+      "long_ret": -1.3419,
+      "short_ret": -0.1357,
+      "spread": -1.2062
+    },
+    "momentum": {
+      "long_ret": 5.3095,
+      "short_ret": -2.7628,
+      "spread": 8.0723
+    },
+    "volatility": {
+      "long_ret": 3.2487,
+      "short_ret": -0.3307,
+      "spread": 3.5794
+    }
+  },
+  "weighting_schemes": {
+    "equal_weight_30pct": 5.0191,
+    "o_score_weighted_30pct": 4.978,
+    "extreme_10pct": 3.1216
+  }
+}

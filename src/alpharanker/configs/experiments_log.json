@@ -1,0 +1,92 @@
+[
+    {
+        "timestamp": "2026-03-11 19:04:21",
+        "dataset": "A股_实时池 (HS300+CSI500)",
+        "horizon": "5d",
+        "features": [
+            "mom_60d_rank",
+            "vol_60d_res_rank",
+            "sp_ratio_rank",
+            "roe_rank"
+        ],
+        "results": {
+            "mom_60d_rank": -0.1958968808705437,
+            "vol_60d_res_rank": -0.04435996033235007,
+            "sp_ratio_rank": 0.11984457931902986,
+            "roe_rank": 0.09832773407314324
+        },
+        "notes": "实时窗口验证 2026-01-30 截面，全因子自动化评定挂件产出。"
+    },
+    {
+        "timestamp": "2026-03-11 19:04:21",
+        "dataset": "A股_实时池 (HS300+CSI500)",
+        "horizon": "20d",
+        "features": [
+            "mom_60d_rank",
+            "vol_60d_res_rank",
+            "sp_ratio_rank",
+            "roe_rank"
+        ],
+        "results": {
+            "mom_60d_rank": 0.011164366609592448,
+            "vol_60d_res_rank": -0.03690086036081941,
+            "sp_ratio_rank": 0.10433021824781817,
+            "roe_rank": 0.0477906679782763
+        },
+        "notes": "实时窗口验证 2026-01-30 截面，全因子自动化评定挂件产出。"
+    },
+    {
+        "timestamp": "2026-03-11 19:04:22",
+        "dataset": "A股_实时池 (HS300+CSI500)",
+        "horizon": "60d",
+        "features": [
+            "mom_60d_rank",
+            "vol_60d_res_rank",
+            "sp_ratio_rank",
+            "roe_rank"
+        ],
+        "results": {
+            "mom_60d_rank": NaN,
+            "vol_60d_res_rank": NaN,
+            "sp_ratio_rank": NaN,
+            "roe_rank": NaN
+        },
+        "notes": "实时窗口验证 2026-01-30 截面，全因子自动化评定挂件产出。"
+    },
+    {
+        "timestamp": "2026-03-11 19:04:22",
+        "dataset": "A股_实时池 (HS300+CSI500)",
+        "horizon": "120d",
+        "features": [
+            "mom_60d_rank",
+            "vol_60d_res_rank",
+            "sp_ratio_rank",
+            "roe_rank"
+        ],
+        "results": {
+            "mom_60d_rank": NaN,
+            "vol_60d_res_rank": NaN,
+            "sp_ratio_rank": NaN,
+            "roe_rank": NaN
+        },
+        "notes": "实时窗口验证 2026-01-30 截面，全因子自动化评定挂件产出。"
+    },
+    {
+        "timestamp": "2026-03-11 19:04:22",
+        "dataset": "A股_实时池 (HS300+CSI500)",
+        "horizon": "next_month",
+        "features": [
+            "mom_60d_rank",
+            "vol_60d_res_rank",
+            "sp_ratio_rank",
+            "roe_rank"
+        ],
+        "results": {
+            "mom_60d_rank": 0.011164366609592448,
+            "vol_60d_res_rank": -0.03690086036081941,
+            "sp_ratio_rank": 0.10433021824781817,
+            "roe_rank": 0.0477906679782763
+        },
+        "notes": "实时窗口验证 2026-01-30 截面，全因子自动化评定挂件产出。"
+    }
+]

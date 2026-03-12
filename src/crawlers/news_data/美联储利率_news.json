@@ -1,0 +1,32 @@
+{
+  "query": "美联储利率",
+  "total_count": 3,
+  "collect_time": "2026-02-18T09:34:03.795263",
+  "error": null,
+  "news": [
+    {
+      "title": "基准利率| 美国-市场指标| 图组",
+      "url": "https://sc.macromicro.me/collections/9/us-market-relative/48/target-rate",
+      "snippet": "美国的基准利率是有效联邦资金利率（Effective Federal Funds Rate，EFFR），为联邦资金市场中，机构进行隔夜无担保拆借资金的利率水准，由市场每日交易决定。",
+      "source": "sc.macromicro.me",
+      "date": "",
+      "rank": 0
+    },
+    {
+      "title": "美联储利率决议",
+      "url": "https://cn.investing.com/economic-calendar/fed-interest-rate-decision-168",
+      "snippet": "联邦公开市场委员会（FOMC）对于短期利率的确定。 利率的确定大部分依赖于增长前景和通货膨胀。 央行的主要目的是确保物价稳定。 高利率可以吸引那些寻求最佳“无风险” ...",
+      "source": "cn.investing.com",
+      "date": "",
+      "rank": 1
+    },
+    {
+      "title": "美联储议息会议时间表_会议纪要_美联储主席_美联储(FED)-汇通网",
+      "url": "https://bank.fx678.com",
+      "snippet": "美联储宣布将联邦基金利率目标区间维持在3.50%-3.75%，符合市场普遍预期，终结了自2025年9月以来连续三次（每次25个基点）的降息态势；会议以10票赞成、2票反对通过决议，美联储 ...",
+      "source": "bank.fx678.com",
+      "date": "",
+      "rank": 2
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+[console_scripts]
+lab-main = main_hub:main_hub

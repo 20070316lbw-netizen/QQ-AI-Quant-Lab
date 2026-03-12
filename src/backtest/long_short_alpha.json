@@ -1,0 +1,1967 @@
+{
+  "meta": {
+    "test_name": "HS300 Long-Short Alpha Verification",
+    "signal_date": "2026-02-28",
+    "run_time": "2026-02-28T22:41:54.017756",
+    "hold_days": 20,
+    "long_count": 105,
+    "short_count": 132,
+    "t1_window": {
+      "start": "2026-01-26",
+      "end": "2026-02-28",
+      "description": "Trailing 20 T-days (动量追随检验)"
+    },
+    "t2_window": {
+      "start": "2026-02-28",
+      "end": "2026-04-02",
+      "description": "Forward 20 T-days (Alpha 正向验证，待补算)"
+    }
+  },
+  "t1_trailing": {
+    "long_portfolio": {
+      "tickers": [
+        "600000.SS",
+        "600018.SS",
+        "600009.SS",
+        "600011.SS",
+        "600025.SS",
+        "600027.SS",
+        "600030.SS",
+        "600036.SS",
+        "600050.SS",
+        "600061.SS",
+        "600066.SS",
+        "600085.SS",
+        "600104.SS",
+        "600196.SS",
+        "600219.SS",
+        "600415.SS",
+        "600436.SS",
+        "600600.SS",
+        "600660.SS",
+        "600741.SS",
+        "600760.SS",
+        "600809.SS",
+        "600887.SS",
+        "600905.SS",
+        "600900.SS",
+        "600918.SS",
+        "600941.SS",
+        "600958.SS",
+        "601012.SS",
+        "601058.SS",
+        "601077.SS",
+        "601066.SS",
+        "601111.SS",
+        "601127.SS",
+        "601136.SS",
+        "601138.SS",
+        "601166.SS",
+        "601169.SS",
+        "601186.SS",
+        "601211.SS",
+        "601236.SS",
+        "601288.SS",
+        "601298.SS",
+        "601328.SS",
+        "601319.SS",
+        "601336.SS",
+        "601398.SS",
+        "601456.SS",
+        "601601.SS",
+        "601607.SS",
+        "601618.SS",
+        "601658.SS",
+        "601633.SS",
+        "601728.SS",
+        "601800.SS",
+        "601816.SS",
+        "601818.SS",
+        "601825.SS",
+        "601881.SS",
+        "601901.SS",
+        "601919.SS",
+        "601939.SS",
+        "601985.SS",
+        "601988.SS",
+        "601998.SS",
+        "603195.SS",
+        "603369.SS",
+        "603392.SS",
+        "603799.SS",
+        "603893.SS",
+        "605499.SS",
+        "688036.SS",
+        "688126.SS",
+        "688169.SS",
+        "688271.SS",
+        "688303.SS",
+        "688472.SS",
+        "688506.SS",
+        "688981.SS",
+        "000001.SZ",
+        "000063.SZ",
+        "000100.SZ",
+        "000166.SZ",
+        "000596.SZ",
+        "000568.SZ",
+        "000625.SZ",
+        "000651.SZ",
+        "000776.SZ",
+        "000858.SZ",
+        "000963.SZ",
+        "000983.SZ",
+        "002050.SZ",
+        "002241.SZ",
+        "002304.SZ",
+        "002311.SZ",
+        "002352.SZ",
+        "002422.SZ",
+        "002459.SZ",
+        "002466.SZ",
+        "002475.SZ",
+        "002594.SZ",
+        "003816.SZ",
+        "300014.SZ",
+        "300015.SZ",
+        "300033.SZ"
+      ],
+      "stats": {
+        "count": 105,
+        "mean_ret": -0.026145,
+        "mean_pct": -2.6145,
+        "stdev": 0.034924,
+        "win_rate": 0.1905,
+        "min": -0.150292,
+        "max": 0.058728
+      },
+      "raw": {
+        "600000.SS": {
+          "start_price": 10.35,
+          "end_price": 9.72,
+          "return": -0.06087,
+          "error": null
+        },
+        "600018.SS": {
+          "start_price": 5.01,
+          "end_price": 5.09,
+          "return": 0.015968,
+          "error": null
+        },
+        "600009.SS": {
+          "start_price": 31.05,
+          "end_price": 30.51,
+          "return": -0.017391,
+          "error": null
+        },
+        "600011.SS": {
+          "start_price": 7.39,
+          "end_price": 7.24,
+          "return": -0.020298,
+          "error": null
+        },
+        "600025.SS": {
+          "start_price": 9.1,
+          "end_price": 9.37,
+          "return": 0.02967,
+          "error": null
+        },
+        "600027.SS": {
+          "start_price": 5.01,
+          "end_price": 5.1,
+          "return": 0.017964,
+          "error": null
+        },
+        "600030.SS": {
+          "start_price": 27.7809,
+          "end_price": 27.37,
+          "return": -0.014792,
+          "error": null
+        },
+        "600036.SS": {
+          "start_price": 38.02,
+          "end_price": 38.75,
+          "return": 0.0192,
+          "error": null
+        },
+        "600050.SS": {
+          "start_price": 5.1,
+          "end_price": 4.92,
+          "return": -0.035294,
+          "error": null
+        },
+        "600061.SS": {
+          "start_price": 7.71,
+          "end_price": 7.46,
+          "return": -0.032425,
+          "error": null
+        },
+        "600066.SS": {
+          "start_price": 31.26,
+          "end_price": 29.69,
+          "return": -0.050224,
+          "error": null
+        },
+        "600085.SS": {
+          "start_price": 30.47,
+          "end_price": 30.77,
+          "return": 0.009846,
+          "error": null
+        },
+        "600104.SS": {
+          "start_price": 14.61,
+          "end_price": 14.33,
+          "return": -0.019165,
+          "error": null
+        },
+        "600196.SS": {
+          "start_price": 28.16,
+          "end_price": 26.48,
+          "return": -0.059659,
+          "error": null
+        },
+        "600219.SS": {
+          "start_price": 7.34,
+          "end_price": 7.08,
+          "return": -0.035422,
+          "error": null
+        },
+        "600415.SS": {
+          "start_price": 16.68,
+          "end_price": 14.86,
+          "return": -0.109113,
+          "error": null
+        },
+        "600436.SS": {
+          "start_price": 160.3,
+          "end_price": 163.24,
+          "return": 0.018341,
+          "error": null
+        },
+        "600600.SS": {
+          "start_price": 61.89,
+          "end_price": 62.47,
+          "return": 0.009371,
+          "error": null
+        },
+        "600660.SS": {
+          "start_price": 60.48,
+          "end_price": 60.4,
+          "return": -0.001323,
+          "error": null
+        },
+        "600741.SS": {
+          "start_price": 20.2,
+          "end_price": 19.33,
+          "return": -0.043069,
+          "error": null
+        },
+        "600760.SS": {
+          "start_price": 56.7779,
+          "end_price": 55.34,
+          "return": -0.025325,
+          "error": null
+        },
+        "600809.SS": {
+          "start_price": 164.38,
+          "end_price": 161.15,
+          "return": -0.01965,
+          "error": null
+        },
+        "600887.SS": {
+          "start_price": 26.68,
+          "end_price": 26.08,
+          "return": -0.022489,
+          "error": null
+        },
+        "600905.SS": {
+          "start_price": 4.17,
+          "end_price": 4.16,
+          "return": -0.002398,
+          "error": null
+        },
+        "600900.SS": {
+          "start_price": 25.774,
+          "end_price": 26.04,
+          "return": 0.010322,
+          "error": null
+        },
+        "600918.SS": {
+          "start_price": 6.55,
+          "end_price": 6.41,
+          "return": -0.021374,
+          "error": null
+        },
+        "600941.SS": {
+          "start_price": 94.8,
+          "end_price": 94.31,
+          "return": -0.005169,
+          "error": null
+        },
+        "600958.SS": {
+          "start_price": 10.47,
+          "end_price": 10.11,
+          "return": -0.034384,
+          "error": null
+        },
+        "601012.SS": {
+          "start_price": 19.09,
+          "end_price": 18.32,
+          "return": -0.040335,
+          "error": null
+        },
+        "601058.SS": {
+          "start_price": 15.89,
+          "end_price": 15.72,
+          "return": -0.010699,
+          "error": null
+        },
+        "601077.SS": {
+          "start_price": 6.13,
+          "end_price": 6.49,
+          "return": 0.058728,
+          "error": null
+        },
+        "601066.SS": {
+          "start_price": 24.68,
+          "end_price": 23.85,
+          "return": -0.03363,
+          "error": null
+        },
+        "601111.SS": {
+          "start_price": 8.67,
+          "end_price": 8.41,
+          "return": -0.029988,
+          "error": null
+        },
+        "601127.SS": {
+          "start_price": 114.6,
+          "end_price": 107.32,
+          "return": -0.063525,
+          "error": null
+        },
+        "601136.SS": {
+          "start_price": 18.83,
+          "end_price": 18.3,
+          "return": -0.028147,
+          "error": null
+        },
+        "601138.SS": {
+          "start_price": 59.26,
+          "end_price": 55.7,
+          "return": -0.060074,
+          "error": null
+        },
+        "601166.SS": {
+          "start_price": 18.3344,
+          "end_price": 18.31,
+          "return": -0.001333,
+          "error": null
+        },
+        "601169.SS": {
+          "start_price": 5.27,
+          "end_price": 5.39,
+          "return": 0.02277,
+          "error": null
+        },
+        "601186.SS": {
+          "start_price": 7.49,
+          "end_price": 7.36,
+          "return": -0.017356,
+          "error": null
+        },
+        "601211.SS": {
+          "start_price": 20.0,
+          "end_price": 18.93,
+          "return": -0.0535,
+          "error": null
+        },
+        "601236.SS": {
+          "start_price": 8.2,
+          "end_price": 8.16,
+          "return": -0.004878,
+          "error": null
+        },
+        "601288.SS": {
+          "start_price": 6.84,
+          "end_price": 6.4,
+          "return": -0.064327,
+          "error": null
+        },
+        "601298.SS": {
+          "start_price": 9.1,
+          "end_price": 9.31,
+          "return": 0.023077,
+          "error": null
+        },
+        "601328.SS": {
+          "start_price": 6.64,
+          "end_price": 6.55,
+          "return": -0.013554,
+          "error": null
+        },
+        "601319.SS": {
+          "start_price": 9.14,
+          "end_price": 8.57,
+          "return": -0.062363,
+          "error": null
+        },
+        "601336.SS": {
+          "start_price": 80.0,
+          "end_price": 75.6,
+          "return": -0.055,
+          "error": null
+        },
+        "601398.SS": {
+          "start_price": 7.24,
+          "end_price": 6.92,
+          "return": -0.044199,
+          "error": null
+        },
+        "601456.SS": {
+          "start_price": 9.95,
+          "end_price": 9.85,
+          "return": -0.01005,
+          "error": null
+        },
+        "601601.SS": {
+          "start_price": 43.34,
+          "end_price": 40.81,
+          "return": -0.058376,
+          "error": null
+        },
+        "601607.SS": {
+          "start_price": 17.61,
+          "end_price": 17.2,
+          "return": -0.023282,
+          "error": null
+        },
+        "601618.SS": {
+          "start_price": 3.25,
+          "end_price": 3.21,
+          "return": -0.012308,
+          "error": null
+        },
+        "601658.SS": {
+          "start_price": 5.08,
+          "end_price": 4.97,
+          "return": -0.021654,
+          "error": null
+        },
+        "601633.SS": {
+          "start_price": 21.27,
+          "end_price": 20.5,
+          "return": -0.036201,
+          "error": null
+        },
+        "601728.SS": {
+          "start_price": 5.79,
+          "end_price": 5.79,
+          "return": 0.0,
+          "error": null
+        },
+        "601800.SS": {
+          "start_price": 8.53,
+          "end_price": 8.14,
+          "return": -0.045721,
+          "error": null
+        },
+        "601816.SS": {
+          "start_price": 4.94,
+          "end_price": 4.95,
+          "return": 0.002024,
+          "error": null
+        },
+        "601818.SS": {
+          "start_price": 3.2797,
+          "end_price": 3.24,
+          "return": -0.012105,
+          "error": null
+        },
+        "601825.SS": {
+          "start_price": 8.4,
+          "end_price": 8.41,
+          "return": 0.00119,
+          "error": null
+        },
+        "601881.SS": {
+          "start_price": 15.33,
+          "end_price": 14.61,
+          "return": -0.046967,
+          "error": null
+        },
+        "601901.SS": {
+          "start_price": 7.9298,
+          "end_price": 7.68,
+          "return": -0.031504,
+          "error": null
+        },
+        "601919.SS": {
+          "start_price": 14.47,
+          "end_price": 15.01,
+          "return": 0.037319,
+          "error": null
+        },
+        "601939.SS": {
+          "start_price": 8.69,
+          "end_price": 8.59,
+          "return": -0.011507,
+          "error": null
+        },
+        "601985.SS": {
+          "start_price": 8.81,
+          "end_price": 8.52,
+          "return": -0.032917,
+          "error": null
+        },
+        "601988.SS": {
+          "start_price": 5.31,
+          "end_price": 5.28,
+          "return": -0.00565,
+          "error": null
+        },
+        "601998.SS": {
+          "start_price": 7.36,
+          "end_price": 7.2,
+          "return": -0.021739,
+          "error": null
+        },
+        "603195.SS": {
+          "start_price": 42.41,
+          "end_price": 43.55,
+          "return": 0.02688,
+          "error": null
+        },
+        "603369.SS": {
+          "start_price": 33.1,
+          "end_price": 31.25,
+          "return": -0.055891,
+          "error": null
+        },
+        "603392.SS": {
+          "start_price": 46.9,
+          "end_price": 40.99,
+          "return": -0.126013,
+          "error": null
+        },
+        "603799.SS": {
+          "start_price": 79.59,
+          "end_price": 78.62,
+          "return": -0.012187,
+          "error": null
+        },
+        "603893.SS": {
+          "start_price": 186.4726,
+          "end_price": 179.97,
+          "return": -0.034871,
+          "error": null
+        },
+        "605499.SS": {
+          "start_price": 250.8,
+          "end_price": 241.56,
+          "return": -0.036842,
+          "error": null
+        },
+        "688036.SS": {
+          "start_price": 61.73,
+          "end_price": 57.81,
+          "return": -0.063502,
+          "error": null
+        },
+        "688126.SS": {
+          "start_price": 22.62,
+          "end_price": 21.72,
+          "return": -0.039788,
+          "error": null
+        },
+        "688169.SS": {
+          "start_price": 147.93,
+          "end_price": 143.09,
+          "return": -0.032718,
+          "error": null
+        },
+        "688271.SS": {
+          "start_price": 133.95,
+          "end_price": 130.7,
+          "return": -0.024263,
+          "error": null
+        },
+        "688303.SS": {
+          "start_price": 25.73,
+          "end_price": 23.9,
+          "return": -0.071123,
+          "error": null
+        },
+        "688472.SS": {
+          "start_price": 17.1,
+          "end_price": 14.53,
+          "return": -0.150292,
+          "error": null
+        },
+        "688506.SS": {
+          "start_price": 282.3,
+          "end_price": 264.6,
+          "return": -0.062699,
+          "error": null
+        },
+        "688981.SS": {
+          "start_price": 121.92,
+          "end_price": 115.0,
+          "return": -0.056759,
+          "error": null
+        },
+        "000001.SZ": {
+          "start_price": 10.96,
+          "end_price": 10.9,
+          "return": -0.005474,
+          "error": null
+        },
+        "000063.SZ": {
+          "start_price": 39.5,
+          "end_price": 38.65,
+          "return": -0.021519,
+          "error": null
+        },
+        "000100.SZ": {
+          "start_price": 5.03,
+          "end_price": 4.97,
+          "return": -0.011928,
+          "error": null
+        },
+        "000166.SZ": {
+          "start_price": 5.13,
+          "end_price": 5.01,
+          "return": -0.023392,
+          "error": null
+        },
+        "000596.SZ": {
+          "start_price": 124.27,
+          "end_price": 121.21,
+          "return": -0.024623,
+          "error": null
+        },
+        "000568.SZ": {
+          "start_price": 111.1992,
+          "end_price": 110.5,
+          "return": -0.006288,
+          "error": null
+        },
+        "000625.SZ": {
+          "start_price": 11.57,
+          "end_price": 11.06,
+          "return": -0.04408,
+          "error": null
+        },
+        "000651.SZ": {
+          "start_price": 39.07,
+          "end_price": 37.45,
+          "return": -0.041464,
+          "error": null
+        },
+        "000776.SZ": {
+          "start_price": 22.71,
+          "end_price": 20.84,
+          "return": -0.082343,
+          "error": null
+        },
+        "000858.SZ": {
+          "start_price": 102.34,
+          "end_price": 104.05,
+          "return": 0.016709,
+          "error": null
+        },
+        "000963.SZ": {
+          "start_price": 37.76,
+          "end_price": 35.94,
+          "return": -0.048199,
+          "error": null
+        },
+        "000983.SZ": {
+          "start_price": 6.98,
+          "end_price": 7.34,
+          "return": 0.051576,
+          "error": null
+        },
+        "002050.SZ": {
+          "start_price": 51.94,
+          "end_price": 51.21,
+          "return": -0.014055,
+          "error": null
+        },
+        "002241.SZ": {
+          "start_price": 28.22,
+          "end_price": 27.18,
+          "return": -0.036853,
+          "error": null
+        },
+        "002304.SZ": {
+          "start_price": 56.39,
+          "end_price": 53.2,
+          "return": -0.05657,
+          "error": null
+        },
+        "002311.SZ": {
+          "start_price": 51.92,
+          "end_price": 54.81,
+          "return": 0.055663,
+          "error": null
+        },
+        "002352.SZ": {
+          "start_price": 38.75,
+          "end_price": 37.87,
+          "return": -0.02271,
+          "error": null
+        },
+        "002422.SZ": {
+          "start_price": 32.1,
+          "end_price": 30.54,
+          "return": -0.048598,
+          "error": null
+        },
+        "002459.SZ": {
+          "start_price": 11.87,
+          "end_price": 12.1,
+          "return": 0.019377,
+          "error": null
+        },
+        "002466.SZ": {
+          "start_price": 61.71,
+          "end_price": 56.6,
+          "return": -0.082807,
+          "error": null
+        },
+        "002475.SZ": {
+          "start_price": 53.9208,
+          "end_price": 50.22,
+          "return": -0.068634,
+          "error": null
+        },
+        "002594.SZ": {
+          "start_price": 92.63,
+          "end_price": 89.32,
+          "return": -0.035734,
+          "error": null
+        },
+        "003816.SZ": {
+          "start_price": 3.9,
+          "end_price": 3.95,
+          "return": 0.012821,
+          "error": null
+        },
+        "300014.SZ": {
+          "start_price": 65.78,
+          "end_price": 62.33,
+          "return": -0.052448,
+          "error": null
+        },
+        "300015.SZ": {
+          "start_price": 11.31,
+          "end_price": 10.6,
+          "return": -0.062776,
+          "error": null
+        },
+        "300033.SZ": {
+          "start_price": 355.03,
+          "end_price": 332.36,
+          "return": -0.063854,
+          "error": null
+        }
+      }
+    },
+    "short_portfolio": {
+      "tickers": [
+        "600010.SS",
+        "600019.SS",
+        "600016.SS",
+        "600015.SS",
+        "600023.SS",
+        "600026.SS",
+        "600029.SS",
+        "600031.SS",
+        "600039.SS",
+        "600089.SS",
+        "600111.SS",
+        "600115.SS",
+        "600160.SS",
+        "600150.SS",
+        "600176.SS",
+        "600183.SS",
+        "600188.SS",
+        "600233.SS",
+        "600309.SS",
+        "600346.SS",
+        "600372.SS",
+        "600362.SS",
+        "600406.SS",
+        "600426.SS",
+        "600489.SS",
+        "600482.SS",
+        "600519.SS",
+        "600522.SS",
+        "600547.SS",
+        "600570.SS",
+        "600584.SS",
+        "600585.SS",
+        "600588.SS",
+        "600674.SS",
+        "600795.SS",
+        "600803.SS",
+        "600845.SS",
+        "600875.SS",
+        "600886.SS",
+        "600893.SS",
+        "600926.SS",
+        "600930.SS",
+        "600938.SS",
+        "600989.SS",
+        "600999.SS",
+        "601018.SS",
+        "601021.SS",
+        "601088.SS",
+        "601100.SS",
+        "601117.SS",
+        "601229.SS",
+        "601238.SS",
+        "601318.SS",
+        "601377.SS",
+        "601600.SS",
+        "601628.SS",
+        "601668.SS",
+        "601669.SS",
+        "601688.SS",
+        "601689.SS",
+        "601698.SS",
+        "601788.SS",
+        "601808.SS",
+        "601868.SS",
+        "601872.SS",
+        "601888.SS",
+        "601898.SS",
+        "601899.SS",
+        "601916.SS",
+        "603259.SS",
+        "603260.SS",
+        "603296.SS",
+        "603501.SS",
+        "603986.SS",
+        "603993.SS",
+        "605117.SS",
+        "688008.SS",
+        "688009.SS",
+        "688041.SS",
+        "688082.SS",
+        "688047.SS",
+        "688111.SS",
+        "688187.SS",
+        "688223.SS",
+        "688256.SS",
+        "688396.SS",
+        "000002.SZ",
+        "000301.SZ",
+        "000333.SZ",
+        "000338.SZ",
+        "000408.SZ",
+        "000425.SZ",
+        "000538.SZ",
+        "000617.SZ",
+        "000630.SZ",
+        "000661.SZ",
+        "000725.SZ",
+        "000708.SZ",
+        "000768.SZ",
+        "000786.SZ",
+        "000792.SZ",
+        "000807.SZ",
+        "000876.SZ",
+        "000895.SZ",
+        "000938.SZ",
+        "000975.SZ",
+        "000999.SZ",
+        "001965.SZ",
+        "001979.SZ",
+        "002001.SZ",
+        "002027.SZ",
+        "002028.SZ",
+        "002074.SZ",
+        "002179.SZ",
+        "002230.SZ",
+        "002236.SZ",
+        "002252.SZ",
+        "002371.SZ",
+        "002384.SZ",
+        "002415.SZ",
+        "002463.SZ",
+        "002493.SZ",
+        "002600.SZ",
+        "002601.SZ",
+        "002625.SZ",
+        "002648.SZ",
+        "002709.SZ",
+        "002714.SZ",
+        "002736.SZ",
+        "002916.SZ",
+        "002938.SZ",
+        "300059.SZ"
+      ],
+      "stats": {
+        "count": 132,
+        "mean_ret": 0.029993,
+        "mean_pct": 2.9993,
+        "stdev": 0.105725,
+        "win_rate": 0.5833,
+        "min": -0.184308,
+        "max": 0.427065
+      },
+      "raw": {
+        "600010.SS": {
+          "start_price": 2.57,
+          "end_price": 3.24,
+          "return": 0.2607,
+          "error": null
+        },
+        "600019.SS": {
+          "start_price": 7.3,
+          "end_price": 7.2,
+          "return": -0.013699,
+          "error": null
+        },
+        "600016.SS": {
+          "start_price": 3.76,
+          "end_price": 3.88,
+          "return": 0.031915,
+          "error": null
+        },
+        "600015.SS": {
+          "start_price": 6.38,
+          "end_price": 6.69,
+          "return": 0.048589,
+          "error": null
+        },
+        "600023.SS": {
+          "start_price": 5.0,
+          "end_price": 5.33,
+          "return": 0.066,
+          "error": null
+        },
+        "600026.SS": {
+          "start_price": 15.17,
+          "end_price": 20.58,
+          "return": 0.356625,
+          "error": null
+        },
+        "600029.SS": {
+          "start_price": 7.6,
+          "end_price": 7.34,
+          "return": -0.034211,
+          "error": null
+        },
+        "600031.SS": {
+          "start_price": 23.05,
+          "end_price": 23.15,
+          "return": 0.004338,
+          "error": null
+        },
+        "600039.SS": {
+          "start_price": 9.85,
+          "end_price": 9.94,
+          "return": 0.009137,
+          "error": null
+        },
+        "600089.SS": {
+          "start_price": 29.07,
+          "end_price": 30.34,
+          "return": 0.043688,
+          "error": null
+        },
+        "600111.SS": {
+          "start_price": 51.72,
+          "end_price": 62.4,
+          "return": 0.206497,
+          "error": null
+        },
+        "600115.SS": {
+          "start_price": 5.81,
+          "end_price": 5.73,
+          "return": -0.013769,
+          "error": null
+        },
+        "600160.SS": {
+          "start_price": 39.3066,
+          "end_price": 41.6,
+          "return": 0.058346,
+          "error": null
+        },
+        "600150.SS": {
+          "start_price": 35.34,
+          "end_price": 37.75,
+          "return": 0.068195,
+          "error": null
+        },
+        "600176.SS": {
+          "start_price": 20.64,
+          "end_price": 27.04,
+          "return": 0.310078,
+          "error": null
+        },
+        "600183.SS": {
+          "start_price": 70.48,
+          "end_price": 69.11,
+          "return": -0.019438,
+          "error": null
+        },
+        "600188.SS": {
+          "start_price": 14.31,
+          "end_price": 17.72,
+          "return": 0.238295,
+          "error": null
+        },
+        "600233.SS": {
+          "start_price": 17.25,
+          "end_price": 19.61,
+          "return": 0.136812,
+          "error": null
+        },
+        "600309.SS": {
+          "start_price": 84.97,
+          "end_price": 93.0,
+          "return": 0.094504,
+          "error": null
+        },
+        "600346.SS": {
+          "start_price": 26.1,
+          "end_price": 25.7,
+          "return": -0.015326,
+          "error": null
+        },
+        "600372.SS": {
+          "start_price": 15.87,
+          "end_price": 16.14,
+          "return": 0.017013,
+          "error": null
+        },
+        "600362.SS": {
+          "start_price": 62.82,
+          "end_price": 58.04,
+          "return": -0.07609,
+          "error": null
+        },
+        "600406.SS": {
+          "start_price": 25.83,
+          "end_price": 27.3,
+          "return": 0.056911,
+          "error": null
+        },
+        "600426.SS": {
+          "start_price": 37.99,
+          "end_price": 38.6,
+          "return": 0.016057,
+          "error": null
+        },
+        "600489.SS": {
+          "start_price": 33.0,
+          "end_price": 31.84,
+          "return": -0.035152,
+          "error": null
+        },
+        "600482.SS": {
+          "start_price": 26.95,
+          "end_price": 33.63,
+          "return": 0.247866,
+          "error": null
+        },
+        "600519.SS": {
+          "start_price": 1342.0,
+          "end_price": 1455.02,
+          "return": 0.084218,
+          "error": null
+        },
+        "600522.SS": {
+          "start_price": 20.95,
+          "end_price": 29.14,
+          "return": 0.390931,
+          "error": null
+        },
+        "600547.SS": {
+          "start_price": 55.74,
+          "end_price": 47.31,
+          "return": -0.151238,
+          "error": null
+        },
+        "600570.SS": {
+          "start_price": 32.11,
+          "end_price": 30.02,
+          "return": -0.065089,
+          "error": null
+        },
+        "600584.SS": {
+          "start_price": 47.31,
+          "end_price": 48.16,
+          "return": 0.017967,
+          "error": null
+        },
+        "600585.SS": {
+          "start_price": 23.81,
+          "end_price": 25.56,
+          "return": 0.073499,
+          "error": null
+        },
+        "600588.SS": {
+          "start_price": 15.59,
+          "end_price": 14.22,
+          "return": -0.087877,
+          "error": null
+        },
+        "600674.SS": {
+          "start_price": 13.94,
+          "end_price": 14.44,
+          "return": 0.035868,
+          "error": null
+        },
+        "600795.SS": {
+          "start_price": 4.73,
+          "end_price": 4.91,
+          "return": 0.038055,
+          "error": null
+        },
+        "600803.SS": {
+          "start_price": 19.62,
+          "end_price": 20.39,
+          "return": 0.039246,
+          "error": null
+        },
+        "600845.SS": {
+          "start_price": 23.95,
+          "end_price": 24.18,
+          "return": 0.009603,
+          "error": null
+        },
+        "600875.SS": {
+          "start_price": 27.18,
+          "end_price": 37.07,
+          "return": 0.36387,
+          "error": null
+        },
+        "600886.SS": {
+          "start_price": 13.17,
+          "end_price": 13.25,
+          "return": 0.006074,
+          "error": null
+        },
+        "600893.SS": {
+          "start_price": 45.99,
+          "end_price": 57.14,
+          "return": 0.242444,
+          "error": null
+        },
+        "600926.SS": {
+          "start_price": 15.58,
+          "end_price": 16.25,
+          "return": 0.043004,
+          "error": null
+        },
+        "600930.SS": {
+          "start_price": 6.0792,
+          "end_price": 6.02,
+          "return": -0.009737,
+          "error": null
+        },
+        "600938.SS": {
+          "start_price": 33.49,
+          "end_price": 35.87,
+          "return": 0.071066,
+          "error": null
+        },
+        "600989.SS": {
+          "start_price": 22.79,
+          "end_price": 23.93,
+          "return": 0.050022,
+          "error": null
+        },
+        "600999.SS": {
+          "start_price": 17.04,
+          "end_price": 16.6,
+          "return": -0.025822,
+          "error": null
+        },
+        "601018.SS": {
+          "start_price": 3.78,
+          "end_price": 4.27,
+          "return": 0.12963,
+          "error": null
+        },
+        "601021.SS": {
+          "start_price": 58.13,
+          "end_price": 55.0,
+          "return": -0.053845,
+          "error": null
+        },
+        "601088.SS": {
+          "start_price": 41.65,
+          "end_price": 42.26,
+          "return": 0.014646,
+          "error": null
+        },
+        "601100.SS": {
+          "start_price": 111.5,
+          "end_price": 112.83,
+          "return": 0.011928,
+          "error": null
+        },
+        "601117.SS": {
+          "start_price": 8.9,
+          "end_price": 9.34,
+          "return": 0.049438,
+          "error": null
+        },
+        "601229.SS": {
+          "start_price": 9.26,
+          "end_price": 9.68,
+          "return": 0.045356,
+          "error": null
+        },
+        "601238.SS": {
+          "start_price": 8.18,
+          "end_price": 8.05,
+          "return": -0.015892,
+          "error": null
+        },
+        "601318.SS": {
+          "start_price": 64.14,
+          "end_price": 63.09,
+          "return": -0.01637,
+          "error": null
+        },
+        "601377.SS": {
+          "start_price": 7.09,
+          "end_price": 6.75,
+          "return": -0.047955,
+          "error": null
+        },
+        "601600.SS": {
+          "start_price": 13.4,
+          "end_price": 13.72,
+          "return": 0.023881,
+          "error": null
+        },
+        "601628.SS": {
+          "start_price": 46.93,
+          "end_price": 44.48,
+          "return": -0.052205,
+          "error": null
+        },
+        "601668.SS": {
+          "start_price": 5.09,
+          "end_price": 5.04,
+          "return": -0.009823,
+          "error": null
+        },
+        "601669.SS": {
+          "start_price": 5.98,
+          "end_price": 5.73,
+          "return": -0.041806,
+          "error": null
+        },
+        "601688.SS": {
+          "start_price": 23.25,
+          "end_price": 21.38,
+          "return": -0.08043,
+          "error": null
+        },
+        "601689.SS": {
+          "start_price": 76.99,
+          "end_price": 67.82,
+          "return": -0.119106,
+          "error": null
+        },
+        "601698.SS": {
+          "start_price": 38.23,
+          "end_price": 37.32,
+          "return": -0.023803,
+          "error": null
+        },
+        "601788.SS": {
+          "start_price": 17.21,
+          "end_price": 16.64,
+          "return": -0.03312,
+          "error": null
+        },
+        "601808.SS": {
+          "start_price": 16.36,
+          "end_price": 16.87,
+          "return": 0.031174,
+          "error": null
+        },
+        "601868.SS": {
+          "start_price": 2.53,
+          "end_price": 2.54,
+          "return": 0.003953,
+          "error": null
+        },
+        "601872.SS": {
+          "start_price": 11.38,
+          "end_price": 16.24,
+          "return": 0.427065,
+          "error": null
+        },
+        "601888.SS": {
+          "start_price": 92.66,
+          "end_price": 80.58,
+          "return": -0.130369,
+          "error": null
+        },
+        "601898.SS": {
+          "start_price": 13.48,
+          "end_price": 15.17,
+          "return": 0.125371,
+          "error": null
+        },
+        "601899.SS": {
+          "start_price": 39.5,
+          "end_price": 39.55,
+          "return": 0.001266,
+          "error": null
+        },
+        "601916.SS": {
+          "start_price": 2.94,
+          "end_price": 2.98,
+          "return": 0.013605,
+          "error": null
+        },
+        "603259.SS": {
+          "start_price": 96.72,
+          "end_price": 98.01,
+          "return": 0.013337,
+          "error": null
+        },
+        "603260.SS": {
+          "start_price": 53.34,
+          "end_price": 51.3,
+          "return": -0.038245,
+          "error": null
+        },
+        "603296.SS": {
+          "start_price": 90.52,
+          "end_price": 92.17,
+          "return": 0.018228,
+          "error": null
+        },
+        "603501.SS": {
+          "start_price": 124.62,
+          "end_price": 123.0,
+          "return": -0.013,
+          "error": null
+        },
+        "603986.SS": {
+          "start_price": 292.6,
+          "end_price": 300.0,
+          "return": 0.02529,
+          "error": null
+        },
+        "603993.SS": {
+          "start_price": 24.66,
+          "end_price": 23.99,
+          "return": -0.02717,
+          "error": null
+        },
+        "605117.SS": {
+          "start_price": 93.93,
+          "end_price": 104.5,
+          "return": 0.112531,
+          "error": null
+        },
+        "688008.SS": {
+          "start_price": 164.11,
+          "end_price": 163.55,
+          "return": -0.003412,
+          "error": null
+        },
+        "688009.SS": {
+          "start_price": 5.59,
+          "end_price": 5.72,
+          "return": 0.023256,
+          "error": null
+        },
+        "688041.SS": {
+          "start_price": 272.9085,
+          "end_price": 261.1,
+          "return": -0.043269,
+          "error": null
+        },
+        "688082.SS": {
+          "start_price": 192.0,
+          "end_price": 172.24,
+          "return": -0.102917,
+          "error": null
+        },
+        "688047.SS": {
+          "start_price": 177.8,
+          "end_price": 158.73,
+          "return": -0.107255,
+          "error": null
+        },
+        "688111.SS": {
+          "start_price": 348.5,
+          "end_price": 301.16,
+          "return": -0.135839,
+          "error": null
+        },
+        "688187.SS": {
+          "start_price": 60.8,
+          "end_price": 59.4,
+          "return": -0.023026,
+          "error": null
+        },
+        "688223.SS": {
+          "start_price": 6.69,
+          "end_price": 7.54,
+          "return": 0.127055,
+          "error": null
+        },
+        "688256.SS": {
+          "start_price": 1300.0,
+          "end_price": 1178.0,
+          "return": -0.093846,
+          "error": null
+        },
+        "688396.SS": {
+          "start_price": 68.05,
+          "end_price": 57.1,
+          "return": -0.160911,
+          "error": null
+        },
+        "000002.SZ": {
+          "start_price": 4.82,
+          "end_price": 4.84,
+          "return": 0.004149,
+          "error": null
+        },
+        "000301.SZ": {
+          "start_price": 12.3,
+          "end_price": 13.02,
+          "return": 0.058537,
+          "error": null
+        },
+        "000333.SZ": {
+          "start_price": 76.35,
+          "end_price": 78.64,
+          "return": 0.029993,
+          "error": null
+        },
+        "000338.SZ": {
+          "start_price": 24.32,
+          "end_price": 27.86,
+          "return": 0.145559,
+          "error": null
+        },
+        "000408.SZ": {
+          "start_price": 94.87,
+          "end_price": 86.16,
+          "return": -0.09181,
+          "error": null
+        },
+        "000425.SZ": {
+          "start_price": 10.95,
+          "end_price": 12.26,
+          "return": 0.119635,
+          "error": null
+        },
+        "000538.SZ": {
+          "start_price": 56.17,
+          "end_price": 56.05,
+          "return": -0.002136,
+          "error": null
+        },
+        "000617.SZ": {
+          "start_price": 9.12,
+          "end_price": 9.09,
+          "return": -0.003289,
+          "error": null
+        },
+        "000630.SZ": {
+          "start_price": 7.55,
+          "end_price": 7.93,
+          "return": 0.050331,
+          "error": null
+        },
+        "000661.SZ": {
+          "start_price": 101.76,
+          "end_price": 95.77,
+          "return": -0.058864,
+          "error": null
+        },
+        "000725.SZ": {
+          "start_price": 4.47,
+          "end_price": 4.48,
+          "return": 0.002237,
+          "error": null
+        },
+        "000708.SZ": {
+          "start_price": 15.98,
+          "end_price": 18.03,
+          "return": 0.128285,
+          "error": null
+        },
+        "000768.SZ": {
+          "start_price": 29.25,
+          "end_price": 30.83,
+          "return": 0.054017,
+          "error": null
+        },
+        "000786.SZ": {
+          "start_price": 27.63,
+          "end_price": 27.99,
+          "return": 0.013029,
+          "error": null
+        },
+        "000792.SZ": {
+          "start_price": 35.92,
+          "end_price": 38.2,
+          "return": 0.063474,
+          "error": null
+        },
+        "000807.SZ": {
+          "start_price": 33.59,
+          "end_price": 31.2,
+          "return": -0.071152,
+          "error": null
+        },
+        "000876.SZ": {
+          "start_price": 8.92,
+          "end_price": 8.71,
+          "return": -0.023543,
+          "error": null
+        },
+        "000895.SZ": {
+          "start_price": 25.71,
+          "end_price": 26.28,
+          "return": 0.02217,
+          "error": null
+        },
+        "000938.SZ": {
+          "start_price": 26.0,
+          "end_price": 25.95,
+          "return": -0.001923,
+          "error": null
+        },
+        "000975.SZ": {
+          "start_price": 37.98,
+          "end_price": 30.98,
+          "return": -0.184308,
+          "error": null
+        },
+        "000999.SZ": {
+          "start_price": 28.77,
+          "end_price": 28.88,
+          "return": 0.003823,
+          "error": null
+        },
+        "001965.SZ": {
+          "start_price": 9.44,
+          "end_price": 9.69,
+          "return": 0.026483,
+          "error": null
+        },
+        "001979.SZ": {
+          "start_price": 9.79,
+          "end_price": 9.91,
+          "return": 0.012257,
+          "error": null
+        },
+        "002001.SZ": {
+          "start_price": 28.0,
+          "end_price": 31.5,
+          "return": 0.125,
+          "error": null
+        },
+        "002027.SZ": {
+          "start_price": 7.42,
+          "end_price": 7.07,
+          "return": -0.04717,
+          "error": null
+        },
+        "002028.SZ": {
+          "start_price": 189.77,
+          "end_price": 214.43,
+          "return": 0.129947,
+          "error": null
+        },
+        "002074.SZ": {
+          "start_price": 40.36,
+          "end_price": 37.9,
+          "return": -0.060951,
+          "error": null
+        },
+        "002179.SZ": {
+          "start_price": 36.06,
+          "end_price": 35.55,
+          "return": -0.014143,
+          "error": null
+        },
+        "002230.SZ": {
+          "start_price": 58.17,
+          "end_price": 55.82,
+          "return": -0.040399,
+          "error": null
+        },
+        "002236.SZ": {
+          "start_price": 20.17,
+          "end_price": 19.26,
+          "return": -0.045117,
+          "error": null
+        },
+        "002252.SZ": {
+          "start_price": 6.5094,
+          "end_price": 6.29,
+          "return": -0.0337,
+          "error": null
+        },
+        "002371.SZ": {
+          "start_price": 496.22,
+          "end_price": 471.88,
+          "return": -0.049051,
+          "error": null
+        },
+        "002384.SZ": {
+          "start_price": 73.11,
+          "end_price": 85.55,
+          "return": 0.170155,
+          "error": null
+        },
+        "002415.SZ": {
+          "start_price": 32.31,
+          "end_price": 31.44,
+          "return": -0.026927,
+          "error": null
+        },
+        "002463.SZ": {
+          "start_price": 71.65,
+          "end_price": 83.6,
+          "return": 0.166783,
+          "error": null
+        },
+        "002493.SZ": {
+          "start_price": 13.64,
+          "end_price": 15.6,
+          "return": 0.143695,
+          "error": null
+        },
+        "002600.SZ": {
+          "start_price": 15.42,
+          "end_price": 15.38,
+          "return": -0.002594,
+          "error": null
+        },
+        "002601.SZ": {
+          "start_price": 21.99,
+          "end_price": 23.35,
+          "return": 0.061846,
+          "error": null
+        },
+        "002625.SZ": {
+          "start_price": 49.36,
+          "end_price": 47.91,
+          "return": -0.029376,
+          "error": null
+        },
+        "002648.SZ": {
+          "start_price": 22.71,
+          "end_price": 23.38,
+          "return": 0.029502,
+          "error": null
+        },
+        "002709.SZ": {
+          "start_price": 43.41,
+          "end_price": 42.28,
+          "return": -0.026031,
+          "error": null
+        },
+        "002714.SZ": {
+          "start_price": 46.51,
+          "end_price": 46.9,
+          "return": 0.008385,
+          "error": null
+        },
+        "002736.SZ": {
+          "start_price": 12.4698,
+          "end_price": 12.56,
+          "return": 0.007236,
+          "error": null
+        },
+        "002916.SZ": {
+          "start_price": 241.5,
+          "end_price": 285.46,
+          "return": 0.182029,
+          "error": null
+        },
+        "002938.SZ": {
+          "start_price": 57.08,
+          "end_price": 58.99,
+          "return": 0.033462,
+          "error": null
+        },
+        "300059.SZ": {
+          "start_price": 23.31,
+          "end_price": 22.52,
+          "return": -0.033891,
+          "error": null
+        }
+      }
+    },
+    "spread_pct": -5.6138,
+    "verdict": "✅ CONTRARIAN_POTENTIAL  多头过去并未大涨 — 可能具备真实预测能力（需 Forward 验证）"
+  },
+  "t2_forward": {
+    "status": "PENDING — run this script with --forward flag after 2026-04-02",
+    "long_portfolio": {
+      "tickers": [
+        "600000.SS",
+        "600018.SS",
+        "600009.SS",
+        "600011.SS",
+        "600025.SS",
+        "600027.SS",
+        "600030.SS",
+        "600036.SS",
+        "600050.SS",
+        "600061.SS",
+        "600066.SS",
+        "600085.SS",
+        "600104.SS",
+        "600196.SS",
+        "600219.SS",
+        "600415.SS",
+        "600436.SS",
+        "600600.SS",
+        "600660.SS",
+        "600741.SS",
+        "600760.SS",
+        "600809.SS",
+        "600887.SS",
+        "600905.SS",
+        "600900.SS",
+        "600918.SS",
+        "600941.SS",
+        "600958.SS",
+        "601012.SS",
+        "601058.SS",
+        "601077.SS",
+        "601066.SS",
+        "601111.SS",
+        "601127.SS",
+        "601136.SS",
+        "601138.SS",
+        "601166.SS",
+        "601169.SS",
+        "601186.SS",
+        "601211.SS",
+        "601236.SS",
+        "601288.SS",
+        "601298.SS",
+        "601328.SS",
+        "601319.SS",
+        "601336.SS",
+        "601398.SS",
+        "601456.SS",
+        "601601.SS",
+        "601607.SS",
+        "601618.SS",
+        "601658.SS",
+        "601633.SS",
+        "601728.SS",
+        "601800.SS",
+        "601816.SS",
+        "601818.SS",
+        "601825.SS",
+        "601881.SS",
+        "601901.SS",
+        "601919.SS",
+        "601939.SS",
+        "601985.SS",
+        "601988.SS",
+        "601998.SS",
+        "603195.SS",
+        "603369.SS",
+        "603392.SS",
+        "603799.SS",
+        "603893.SS",
+        "605499.SS",
+        "688036.SS",
+        "688126.SS",
+        "688169.SS",
+        "688271.SS",
+        "688303.SS",
+        "688472.SS",
+        "688506.SS",
+        "688981.SS",
+        "000001.SZ",
+        "000063.SZ",
+        "000100.SZ",
+        "000166.SZ",
+        "000596.SZ",
+        "000568.SZ",
+        "000625.SZ",
+        "000651.SZ",
+        "000776.SZ",
+        "000858.SZ",
+        "000963.SZ",
+        "000983.SZ",
+        "002050.SZ",
+        "002241.SZ",
+        "002304.SZ",
+        "002311.SZ",
+        "002352.SZ",
+        "002422.SZ",
+        "002459.SZ",
+        "002466.SZ",
+        "002475.SZ",
+        "002594.SZ",
+        "003816.SZ",
+        "300014.SZ",
+        "300015.SZ",
+        "300033.SZ"
+      ],
+      "stats": null,
+      "raw": null
+    },
+    "short_portfolio": {
+      "tickers": [
+        "600010.SS",
+        "600019.SS",
+        "600016.SS",
+        "600015.SS",
+        "600023.SS",
+        "600026.SS",
+        "600029.SS",
+        "600031.SS",
+        "600039.SS",
+        "600089.SS",
+        "600111.SS",
+        "600115.SS",
+        "600160.SS",
+        "600150.SS",
+        "600176.SS",
+        "600183.SS",
+        "600188.SS",
+        "600233.SS",
+        "600309.SS",
+        "600346.SS",
+        "600372.SS",
+        "600362.SS",
+        "600406.SS",
+        "600426.SS",
+        "600489.SS",
+        "600482.SS",
+        "600519.SS",
+        "600522.SS",
+        "600547.SS",
+        "600570.SS",
+        "600584.SS",
+        "600585.SS",
+        "600588.SS",
+        "600674.SS",
+        "600795.SS",
+        "600803.SS",
+        "600845.SS",
+        "600875.SS",
+        "600886.SS",
+        "600893.SS",
+        "600926.SS",
+        "600930.SS",
+        "600938.SS",
+        "600989.SS",
+        "600999.SS",
+        "601018.SS",
+        "601021.SS",
+        "601088.SS",
+        "601100.SS",
+        "601117.SS",
+        "601229.SS",
+        "601238.SS",
+        "601318.SS",
+        "601377.SS",
+        "601600.SS",
+        "601628.SS",
+        "601668.SS",
+        "601669.SS",
+        "601688.SS",
+        "601689.SS",
+        "601698.SS",
+        "601788.SS",
+        "601808.SS",
+        "601868.SS",
+        "601872.SS",
+        "601888.SS",
+        "601898.SS",
+        "601899.SS",
+        "601916.SS",
+        "603259.SS",
+        "603260.SS",
+        "603296.SS",
+        "603501.SS",
+        "603986.SS",
+        "603993.SS",
+        "605117.SS",
+        "688008.SS",
+        "688009.SS",
+        "688041.SS",
+        "688082.SS",
+        "688047.SS",
+        "688111.SS",
+        "688187.SS",
+        "688223.SS",
+        "688256.SS",
+        "688396.SS",
+        "000002.SZ",
+        "000301.SZ",
+        "000333.SZ",
+        "000338.SZ",
+        "000408.SZ",
+        "000425.SZ",
+        "000538.SZ",
+        "000617.SZ",
+        "000630.SZ",
+        "000661.SZ",
+        "000725.SZ",
+        "000708.SZ",
+        "000768.SZ",
+        "000786.SZ",
+        "000792.SZ",
+        "000807.SZ",
+        "000876.SZ",
+        "000895.SZ",
+        "000938.SZ",
+        "000975.SZ",
+        "000999.SZ",
+        "001965.SZ",
+        "001979.SZ",
+        "002001.SZ",
+        "002027.SZ",
+        "002028.SZ",
+        "002074.SZ",
+        "002179.SZ",
+        "002230.SZ",
+        "002236.SZ",
+        "002252.SZ",
+        "002371.SZ",
+        "002384.SZ",
+        "002415.SZ",
+        "002463.SZ",
+        "002493.SZ",
+        "002600.SZ",
+        "002601.SZ",
+        "002625.SZ",
+        "002648.SZ",
+        "002709.SZ",
+        "002714.SZ",
+        "002736.SZ",
+        "002916.SZ",
+        "002938.SZ",
+        "300059.SZ"
+      ],
+      "stats": null,
+      "raw": null
+    },
+    "spread_pct": null,
+    "verdict": null
+  }
+}

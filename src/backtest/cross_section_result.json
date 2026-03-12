@@ -1,0 +1,978 @@
+{
+  "meta": {
+    "run_start": "2026-02-28T22:02:51.384033",
+    "run_end": "2026-02-28T22:04:03.756967",
+    "total": 12,
+    "success": 12,
+    "errors": 0,
+    "summary": {
+      "BUY": 0,
+      "HOLD": 0,
+      "SELL": 0
+    }
+  },
+  "groups": [
+    {
+      "id": "G1",
+      "name": "G1 · 白马权重  [低波动核心资产]",
+      "results": [
+        {
+          "ticker": "600519.SS",
+          "name": "贵州茅台",
+          "group": "G1",
+          "signal": {
+            "ticker": "600519.SS",
+            "direction": "SELL",
+            "regime": "STRONG_TREND_DOWN",
+            "z_score": -2.9656,
+            "regime_strength": -2.9656,
+            "mean_return": -0.0459,
+            "uncertainty": 0.0155,
+            "predicted_range_pct": 0.1049,
+            "predicted_max": 1495.17,
+            "predicted_min": 1342.19,
+            "adjusted_position_strength": 0.8117,
+            "metadata": {
+              "model": "kronos-v1-foundation",
+              "timestamp": "2026-02-28T22:03:04.054529Z",
+              "sentiment_score": 0.0,
+              "risk_factor": 0.3,
+              "base_strength": 0.9947,
+              "volatility_discount": 1.0,
+              "fundamental_bust_triggered": false,
+              "multi_factor_o_score": 66.57,
+              "multi_factor_multiplier": 1.166,
+              "factor_scores": {
+                "value_score": 50.77,
+                "quality_score": 100.0,
+                "size_score": 0.0,
+                "momentum_score": 44.39,
+                "volatility_score": 100.0,
+                "overall_score": 66.57
+              }
+            }
+          },
+          "error": null,
+          "run_at": "2026-02-28T22:02:51.429724"
+        },
+        {
+          "ticker": "600036.SS",
+          "name": "招商银行",
+          "group": "G1",
+          "signal": {
+            "ticker": "600036.SS",
+            "direction": "BUY",
+            "regime": "STRONG_TREND_UP",
+            "z_score": 3.0596,
+            "regime_strength": 3.0596,
+            "mean_return": 0.0177,
+            "uncertainty": 0.0058,
+            "predicted_range_pct": 0.0662,
+            "predicted_max": 39.74,
+            "predicted_min": 37.19,
+            "adjusted_position_strength": 0.8325,
+            "metadata": {
+              "model": "kronos-v1-foundation",
+              "timestamp": "2026-02-28T22:03:05.767506Z",
+              "sentiment_score": 0.0,
+              "risk_factor": 0.3,
+              "base_strength": 0.9956,
+              "volatility_discount": 1.0,
+              "fundamental_bust_triggered": false,
+              "multi_factor_o_score": 69.46,
+              "multi_factor_multiplier": 1.195,
+              "factor_scores": {
+                "value_score": 100.0,
+                "quality_score": 84.95,
+                "size_score": 0.05,
+                "momentum_score": 24.9,
+                "volatility_score": 97.41,
+                "overall_score": 69.46
+              }
+            }
+          },
+          "error": null,
+          "run_at": "2026-02-28T22:02:51.432995"
+        },
+        {
+          "ticker": "601318.SS",
+          "name": "中国平安",
+          "group": "G1",
+          "signal": {
+            "ticker": "601318.SS",
+            "direction": "SELL",
+            "regime": "STRONG_TREND_DOWN",
+            "z_score": -5.1496,
+            "regime_strength": -5.1496,
+            "mean_return": -0.0911,
+            "uncertainty": 0.0177,
+            "predicted_range_pct": 0.1517,
+            "predicted_max": 64.66,
+            "predicted_min": 55.03,
+            "adjusted_position_strength": 0.8594,
+            "metadata": {
+              "model": "kronos-v1-foundation",
+              "timestamp": "2026-02-28T22:03:05.669740Z",
+              "sentiment_score": 0.0,
+              "risk_factor": 0.3,
+              "base_strength": 0.9999,
+              "volatility_discount": 1.0,
+              "fundamental_bust_triggered": false,
+              "multi_factor_o_score": 72.78,
+              "multi_factor_multiplier": 1.228,
+              "factor_scores": {
+                "value_score": 100.0,
+                "quality_score": 75.2,
+                "size_score": 0.02,
+                "momentum_score": 58.53,
+                "volatility_score": 97.53,
+                "overall_score": 72.78
+              }
+            }
+          },
+          "error": null,
+          "run_at": "2026-02-28T22:02:51.435502"
+        }
+      ]
+    },
+    {
+      "id": "G2",
+      "name": "G2 · 科技成长  [高波动趋势]",
+      "results": [
+        {
+          "ticker": "300308.SZ",
+          "name": "中际旭创",
+          "group": "G2",
+          "signal": {
+            "ticker": "300308.SZ",
+            "direction": "BUY",
+            "regime": "RANGING_MIXED",
+            "z_score": 0.14,
+            "regime_strength": 0.14,
+            "mean_return": 0.0085,
+            "uncertainty": 0.0606,
+            "predicted_range_pct": 0.2735,
+            "predicted_max": 590.74,
+            "predicted_min": 444.59,
+            "adjusted_position_strength": 0.0398,
+            "metadata": {
+              "model": "kronos-v1-foundation",
+              "timestamp": "2026-02-28T22:03:07.882255Z",
+              "sentiment_score": 0.0,
+              "risk_factor": 0.3,
+              "base_strength": 0.1391,
+              "volatility_discount": 0.7361,
+              "fundamental_bust_triggered": false,
+              "multi_factor_o_score": 61.19,
+              "multi_factor_multiplier": 1.112,
+              "factor_scores": {
+                "value_score": 5.04,
+                "quality_score": 100.0,
+                "size_score": 1.13,
+                "momentum_score": 100.0,
+                "volatility_score": 48.13,
+                "overall_score": 61.19
+              }
+            }
+          },
+          "error": null,
+          "run_at": "2026-02-28T22:02:51.438130"
+        },
+        {
+          "ticker": "688256.SS",
+          "name": "寒武纪",
+          "group": "G2",
+          "signal": {
+            "ticker": "688256.SS",
+            "direction": "BUY",
+            "regime": "STRONG_TREND_UP",
+            "z_score": 1.3327,
+            "regime_strength": 1.3327,
+            "mean_return": 0.0887,
+            "uncertainty": 0.0665,
+            "predicted_range_pct": 0.2448,
+            "predicted_max": 1321.76,
+            "predicted_min": 1037.36,
+            "adjusted_position_strength": 0.4124,
+            "metadata": {
+              "model": "kronos-v1-foundation",
+              "timestamp": "2026-02-28T22:03:14.069116Z",
+              "sentiment_score": 0.0,
+              "risk_factor": 0.3,
+              "base_strength": 0.8699,
+              "volatility_discount": 0.6941,
+              "fundamental_bust_triggered": false,
+              "multi_factor_o_score": 47.58,
+              "multi_factor_multiplier": 0.976,
+              "factor_scores": {
+                "value_score": 0.0,
+                "quality_score": 100.0,
+                "size_score": 2.36,
+                "momentum_score": 11.71,
+                "volatility_score": 100.0,
+                "overall_score": 47.58
+              }
+            }
+          },
+          "error": null,
+          "run_at": "2026-02-28T22:03:04.058590"
+        },
+        {
+          "ticker": "300750.SZ",
+          "name": "宁德时代",
+          "group": "G2",
+          "signal": {
+            "ticker": "300750.SZ",
+            "direction": "BUY",
+            "regime": "STRONG_TREND_UP",
+            "z_score": 2.3589,
+            "regime_strength": 2.3589,
+            "mean_return": 0.0607,
+            "uncertainty": 0.0258,
+            "predicted_range_pct": 0.1107,
+            "predicted_max": 367.66,
+            "predicted_min": 329.85,
+            "adjusted_position_strength": 0.8388,
+            "metadata": {
+              "model": "kronos-v1-foundation",
+              "timestamp": "2026-02-28T22:03:16.502428Z",
+              "sentiment_score": 0.0,
+              "risk_factor": 0.3,
+              "base_strength": 0.9823,
+              "volatility_discount": 1.0,
+              "fundamental_bust_triggered": false,
+              "multi_factor_o_score": 71.99,
+              "multi_factor_multiplier": 1.22,
+              "factor_scores": {
+                "value_score": 47.92,
+                "quality_score": 93.87,
+                "size_score": 0.0,
+                "momentum_score": 85.79,
+                "volatility_score": 100.0,
+                "overall_score": 71.99
+              }
+            }
+          },
+          "error": null,
+          "run_at": "2026-02-28T22:03:05.670815"
+        }
+      ]
+    },
+    {
+      "id": "G3",
+      "name": "G3 · 周期资源  [宏观敏感]",
+      "results": [
+        {
+          "ticker": "601088.SS",
+          "name": "中国神华",
+          "group": "G3",
+          "signal": {
+            "ticker": "601088.SS",
+            "direction": "SELL",
+            "regime": "STRONG_TREND_DOWN",
+            "z_score": -1.6008,
+            "regime_strength": -1.6008,
+            "mean_return": -0.0368,
+            "uncertainty": 0.023,
+            "predicted_range_pct": 0.0755,
+            "predicted_max": 42.84,
+            "predicted_min": 39.65,
+            "adjusted_position_strength": 0.8249,
+            "metadata": {
+              "model": "kronos-v1-foundation",
+              "timestamp": "2026-02-28T22:03:19.112991Z",
+              "sentiment_score": 0.0,
+              "risk_factor": 0.3,
+              "base_strength": 0.9218,
+              "volatility_discount": 1.0,
+              "fundamental_bust_triggered": false,
+              "multi_factor_o_score": 77.84,
+              "multi_factor_multiplier": 1.278,
+              "factor_scores": {
+                "value_score": 83.94,
+                "quality_score": 96.03,
+                "size_score": 0.18,
+                "momentum_score": 66.15,
+                "volatility_score": 100.0,
+                "overall_score": 77.84
+              }
+            }
+          },
+          "error": null,
+          "run_at": "2026-02-28T22:03:05.769018"
+        },
+        {
+          "ticker": "601899.SS",
+          "name": "紫金矿业",
+          "group": "G3",
+          "signal": {
+            "ticker": "601899.SS",
+            "direction": "SELL",
+            "regime": "STRONG_TREND_DOWN",
+            "z_score": -1.8467,
+            "regime_strength": -1.8467,
+            "mean_return": -0.0849,
+            "uncertainty": 0.046,
+            "predicted_range_pct": 0.2223,
+            "predicted_max": 42.08,
+            "predicted_min": 33.05,
+            "adjusted_position_strength": 0.647,
+            "metadata": {
+              "model": "kronos-v1-foundation",
+              "timestamp": "2026-02-28T22:03:21.950381Z",
+              "sentiment_score": 0.0,
+              "risk_factor": 0.3,
+              "base_strength": 0.9514,
+              "volatility_discount": 0.8525,
+              "fundamental_bust_triggered": false,
+              "multi_factor_o_score": 63.96,
+              "multi_factor_multiplier": 1.14,
+              "factor_scores": {
+                "value_score": 45.41,
+                "quality_score": 78.99,
+                "size_score": 0.04,
+                "momentum_score": 100.0,
+                "volatility_score": 49.53,
+                "overall_score": 63.96
+              }
+            }
+          },
+          "error": null,
+          "run_at": "2026-02-28T22:03:07.883261"
+        },
+        {
+          "ticker": "601857.SS",
+          "name": "中国石油",
+          "group": "G3",
+          "signal": {
+            "ticker": "601857.SS",
+            "direction": "SELL",
+            "regime": "STRONG_TREND_DOWN",
+            "z_score": -2.274,
+            "regime_strength": -2.274,
+            "mean_return": -0.0792,
+            "uncertainty": 0.0348,
+            "predicted_range_pct": 0.1334,
+            "predicted_max": 11.1,
+            "predicted_min": 9.65,
+            "adjusted_position_strength": 0.8263,
+            "metadata": {
+              "model": "kronos-v1-foundation",
+              "timestamp": "2026-02-28T22:03:39.495048Z",
+              "sentiment_score": 0.0,
+              "risk_factor": 0.3,
+              "base_strength": 0.979,
+              "volatility_discount": 0.9529,
+              "fundamental_bust_triggered": false,
+              "multi_factor_o_score": 76.54,
+              "multi_factor_multiplier": 1.265,
+              "factor_scores": {
+                "value_score": 98.03,
+                "quality_score": 63.93,
+                "size_score": 0.0,
+                "momentum_score": 98.26,
+                "volatility_score": 100.0,
+                "overall_score": 76.54
+              }
+            }
+          },
+          "error": null,
+          "run_at": "2026-02-28T22:03:14.069116"
+        }
+      ]
+    },
+    {
+      "id": "G4",
+      "name": "G4 · 高弹情绪  [暴露模型真实水平]",
+      "results": [
+        {
+          "ticker": "300059.SZ",
+          "name": "东方财富",
+          "group": "G4",
+          "signal": {
+            "ticker": "300059.SZ",
+            "direction": "BUY",
+            "regime": "STRONG_TREND_UP",
+            "z_score": 0.7744,
+            "regime_strength": 0.7744,
+            "mean_return": 0.0115,
+            "uncertainty": 0.0148,
+            "predicted_range_pct": 0.088,
+            "predicted_max": 23.51,
+            "predicted_min": 21.51,
+            "adjusted_position_strength": 0.4466,
+            "metadata": {
+              "model": "kronos-v1-foundation",
+              "timestamp": "2026-02-28T22:03:43.562147Z",
+              "sentiment_score": 0.0,
+              "risk_factor": 0.3,
+              "base_strength": 0.6495,
+              "volatility_discount": 1.0,
+              "fundamental_bust_triggered": false,
+              "multi_factor_o_score": 48.24,
+              "multi_factor_multiplier": 0.982,
+              "factor_scores": {
+                "value_score": 43.85,
+                "quality_score": 80.31,
+                "size_score": 6.85,
+                "momentum_score": 5.53,
+                "volatility_score": 73.8,
+                "overall_score": 48.24
+              }
+            }
+          },
+          "error": null,
+          "run_at": "2026-02-28T22:03:16.502948"
+        },
+        {
+          "ticker": "002230.SZ",
+          "name": "科大讯飞",
+          "group": "G4",
+          "signal": {
+            "ticker": "002230.SZ",
+            "direction": "SELL",
+            "regime": "STRONG_TREND_DOWN",
+            "z_score": -1.5781,
+            "regime_strength": -1.5781,
+            "mean_return": -0.1108,
+            "uncertainty": 0.0702,
+            "predicted_range_pct": 0.1959,
+            "predicted_max": 59.47,
+            "predicted_min": 48.48,
+            "adjusted_position_strength": 0.4051,
+            "metadata": {
+              "model": "kronos-v1-foundation",
+              "timestamp": "2026-02-28T22:03:59.062392Z",
+              "sentiment_score": 0.0,
+              "risk_factor": 0.3,
+              "base_strength": 0.9183,
+              "volatility_discount": 0.669,
+              "fundamental_bust_triggered": false,
+              "multi_factor_o_score": 44.21,
+              "multi_factor_multiplier": 0.942,
+              "factor_scores": {
+                "value_score": 2.62,
+                "quality_score": 57.09,
+                "size_score": 38.19,
+                "momentum_score": 51.92,
+                "volatility_score": 93.71,
+                "overall_score": 44.21
+              }
+            }
+          },
+          "error": null,
+          "run_at": "2026-02-28T22:03:19.113522"
+        },
+        {
+          "ticker": "601012.SS",
+          "name": "隆基绿能",
+          "group": "G4",
+          "signal": {
+            "ticker": "601012.SS",
+            "direction": "SELL",
+            "regime": "STRONG_TREND_DOWN",
+            "z_score": -1.4896,
+            "regime_strength": -1.4896,
+            "mean_return": -0.0371,
+            "uncertainty": 0.0249,
+            "predicted_range_pct": 0.1522,
+            "predicted_max": 19.08,
+            "predicted_min": 16.31,
+            "adjusted_position_strength": 0.6411,
+            "metadata": {
+              "model": "kronos-v1-foundation",
+              "timestamp": "2026-02-28T22:04:03.731965Z",
+              "sentiment_score": 0.0,
+              "risk_factor": 0.3,
+              "base_strength": 0.9033,
+              "volatility_discount": 1.0,
+              "fundamental_bust_triggered": false,
+              "multi_factor_o_score": 51.39,
+              "multi_factor_multiplier": 1.014,
+              "factor_scores": {
+                "value_score": 41.67,
+                "quality_score": 43.28,
+                "size_score": 35.47,
+                "momentum_score": 61.39,
+                "volatility_score": 100.0,
+                "overall_score": 51.39
+              }
+            }
+          },
+          "error": null,
+          "run_at": "2026-02-28T22:03:21.952938"
+        }
+      ]
+    }
+  ],
+  "raw_results": [
+    {
+      "ticker": "600519.SS",
+      "name": "贵州茅台",
+      "group": "G1",
+      "signal": {
+        "ticker": "600519.SS",
+        "direction": "SELL",
+        "regime": "STRONG_TREND_DOWN",
+        "z_score": -2.9656,
+        "regime_strength": -2.9656,
+        "mean_return": -0.0459,
+        "uncertainty": 0.0155,
+        "predicted_range_pct": 0.1049,
+        "predicted_max": 1495.17,
+        "predicted_min": 1342.19,
+        "adjusted_position_strength": 0.8117,
+        "metadata": {
+          "model": "kronos-v1-foundation",
+          "timestamp": "2026-02-28T22:03:04.054529Z",
+          "sentiment_score": 0.0,
+          "risk_factor": 0.3,
+          "base_strength": 0.9947,
+          "volatility_discount": 1.0,
+          "fundamental_bust_triggered": false,
+          "multi_factor_o_score": 66.57,
+          "multi_factor_multiplier": 1.166,
+          "factor_scores": {
+            "value_score": 50.77,
+            "quality_score": 100.0,
+            "size_score": 0.0,
+            "momentum_score": 44.39,
+            "volatility_score": 100.0,
+            "overall_score": 66.57
+          }
+        }
+      },
+      "error": null,
+      "run_at": "2026-02-28T22:02:51.429724"
+    },
+    {
+      "ticker": "601318.SS",
+      "name": "中国平安",
+      "group": "G1",
+      "signal": {
+        "ticker": "601318.SS",
+        "direction": "SELL",
+        "regime": "STRONG_TREND_DOWN",
+        "z_score": -5.1496,
+        "regime_strength": -5.1496,
+        "mean_return": -0.0911,
+        "uncertainty": 0.0177,
+        "predicted_range_pct": 0.1517,
+        "predicted_max": 64.66,
+        "predicted_min": 55.03,
+        "adjusted_position_strength": 0.8594,
+        "metadata": {
+          "model": "kronos-v1-foundation",
+          "timestamp": "2026-02-28T22:03:05.669740Z",
+          "sentiment_score": 0.0,
+          "risk_factor": 0.3,
+          "base_strength": 0.9999,
+          "volatility_discount": 1.0,
+          "fundamental_bust_triggered": false,
+          "multi_factor_o_score": 72.78,
+          "multi_factor_multiplier": 1.228,
+          "factor_scores": {
+            "value_score": 100.0,
+            "quality_score": 75.2,
+            "size_score": 0.02,
+            "momentum_score": 58.53,
+            "volatility_score": 97.53,
+            "overall_score": 72.78
+          }
+        }
+      },
+      "error": null,
+      "run_at": "2026-02-28T22:02:51.435502"
+    },
+    {
+      "ticker": "600036.SS",
+      "name": "招商银行",
+      "group": "G1",
+      "signal": {
+        "ticker": "600036.SS",
+        "direction": "BUY",
+        "regime": "STRONG_TREND_UP",
+        "z_score": 3.0596,
+        "regime_strength": 3.0596,
+        "mean_return": 0.0177,
+        "uncertainty": 0.0058,
+        "predicted_range_pct": 0.0662,
+        "predicted_max": 39.74,
+        "predicted_min": 37.19,
+        "adjusted_position_strength": 0.8325,
+        "metadata": {
+          "model": "kronos-v1-foundation",
+          "timestamp": "2026-02-28T22:03:05.767506Z",
+          "sentiment_score": 0.0,
+          "risk_factor": 0.3,
+          "base_strength": 0.9956,
+          "volatility_discount": 1.0,
+          "fundamental_bust_triggered": false,
+          "multi_factor_o_score": 69.46,
+          "multi_factor_multiplier": 1.195,
+          "factor_scores": {
+            "value_score": 100.0,
+            "quality_score": 84.95,
+            "size_score": 0.05,
+            "momentum_score": 24.9,
+            "volatility_score": 97.41,
+            "overall_score": 69.46
+          }
+        }
+      },
+      "error": null,
+      "run_at": "2026-02-28T22:02:51.432995"
+    },
+    {
+      "ticker": "300308.SZ",
+      "name": "中际旭创",
+      "group": "G2",
+      "signal": {
+        "ticker": "300308.SZ",
+        "direction": "BUY",
+        "regime": "RANGING_MIXED",
+        "z_score": 0.14,
+        "regime_strength": 0.14,
+        "mean_return": 0.0085,
+        "uncertainty": 0.0606,
+        "predicted_range_pct": 0.2735,
+        "predicted_max": 590.74,
+        "predicted_min": 444.59,
+        "adjusted_position_strength": 0.0398,
+        "metadata": {
+          "model": "kronos-v1-foundation",
+          "timestamp": "2026-02-28T22:03:07.882255Z",
+          "sentiment_score": 0.0,
+          "risk_factor": 0.3,
+          "base_strength": 0.1391,
+          "volatility_discount": 0.7361,
+          "fundamental_bust_triggered": false,
+          "multi_factor_o_score": 61.19,
+          "multi_factor_multiplier": 1.112,
+          "factor_scores": {
+            "value_score": 5.04,
+            "quality_score": 100.0,
+            "size_score": 1.13,
+            "momentum_score": 100.0,
+            "volatility_score": 48.13,
+            "overall_score": 61.19
+          }
+        }
+      },
+      "error": null,
+      "run_at": "2026-02-28T22:02:51.438130"
+    },
+    {
+      "ticker": "688256.SS",
+      "name": "寒武纪",
+      "group": "G2",
+      "signal": {
+        "ticker": "688256.SS",
+        "direction": "BUY",
+        "regime": "STRONG_TREND_UP",
+        "z_score": 1.3327,
+        "regime_strength": 1.3327,
+        "mean_return": 0.0887,
+        "uncertainty": 0.0665,
+        "predicted_range_pct": 0.2448,
+        "predicted_max": 1321.76,
+        "predicted_min": 1037.36,
+        "adjusted_position_strength": 0.4124,
+        "metadata": {
+          "model": "kronos-v1-foundation",
+          "timestamp": "2026-02-28T22:03:14.069116Z",
+          "sentiment_score": 0.0,
+          "risk_factor": 0.3,
+          "base_strength": 0.8699,
+          "volatility_discount": 0.6941,
+          "fundamental_bust_triggered": false,
+          "multi_factor_o_score": 47.58,
+          "multi_factor_multiplier": 0.976,
+          "factor_scores": {
+            "value_score": 0.0,
+            "quality_score": 100.0,
+            "size_score": 2.36,
+            "momentum_score": 11.71,
+            "volatility_score": 100.0,
+            "overall_score": 47.58
+          }
+        }
+      },
+      "error": null,
+      "run_at": "2026-02-28T22:03:04.058590"
+    },
+    {
+      "ticker": "300750.SZ",
+      "name": "宁德时代",
+      "group": "G2",
+      "signal": {
+        "ticker": "300750.SZ",
+        "direction": "BUY",
+        "regime": "STRONG_TREND_UP",
+        "z_score": 2.3589,
+        "regime_strength": 2.3589,
+        "mean_return": 0.0607,
+        "uncertainty": 0.0258,
+        "predicted_range_pct": 0.1107,
+        "predicted_max": 367.66,
+        "predicted_min": 329.85,
+        "adjusted_position_strength": 0.8388,
+        "metadata": {
+          "model": "kronos-v1-foundation",
+          "timestamp": "2026-02-28T22:03:16.502428Z",
+          "sentiment_score": 0.0,
+          "risk_factor": 0.3,
+          "base_strength": 0.9823,
+          "volatility_discount": 1.0,
+          "fundamental_bust_triggered": false,
+          "multi_factor_o_score": 71.99,
+          "multi_factor_multiplier": 1.22,
+          "factor_scores": {
+            "value_score": 47.92,
+            "quality_score": 93.87,
+            "size_score": 0.0,
+            "momentum_score": 85.79,
+            "volatility_score": 100.0,
+            "overall_score": 71.99
+          }
+        }
+      },
+      "error": null,
+      "run_at": "2026-02-28T22:03:05.670815"
+    },
+    {
+      "ticker": "601088.SS",
+      "name": "中国神华",
+      "group": "G3",
+      "signal": {
+        "ticker": "601088.SS",
+        "direction": "SELL",
+        "regime": "STRONG_TREND_DOWN",
+        "z_score": -1.6008,
+        "regime_strength": -1.6008,
+        "mean_return": -0.0368,
+        "uncertainty": 0.023,
+        "predicted_range_pct": 0.0755,
+        "predicted_max": 42.84,
+        "predicted_min": 39.65,
+        "adjusted_position_strength": 0.8249,
+        "metadata": {
+          "model": "kronos-v1-foundation",
+          "timestamp": "2026-02-28T22:03:19.112991Z",
+          "sentiment_score": 0.0,
+          "risk_factor": 0.3,
+          "base_strength": 0.9218,
+          "volatility_discount": 1.0,
+          "fundamental_bust_triggered": false,
+          "multi_factor_o_score": 77.84,
+          "multi_factor_multiplier": 1.278,
+          "factor_scores": {
+            "value_score": 83.94,
+            "quality_score": 96.03,
+            "size_score": 0.18,
+            "momentum_score": 66.15,
+            "volatility_score": 100.0,
+            "overall_score": 77.84
+          }
+        }
+      },
+      "error": null,
+      "run_at": "2026-02-28T22:03:05.769018"
+    },
+    {
+      "ticker": "601899.SS",
+      "name": "紫金矿业",
+      "group": "G3",
+      "signal": {
+        "ticker": "601899.SS",
+        "direction": "SELL",
+        "regime": "STRONG_TREND_DOWN",
+        "z_score": -1.8467,
+        "regime_strength": -1.8467,
+        "mean_return": -0.0849,
+        "uncertainty": 0.046,
+        "predicted_range_pct": 0.2223,
+        "predicted_max": 42.08,
+        "predicted_min": 33.05,
+        "adjusted_position_strength": 0.647,
+        "metadata": {
+          "model": "kronos-v1-foundation",
+          "timestamp": "2026-02-28T22:03:21.950381Z",
+          "sentiment_score": 0.0,
+          "risk_factor": 0.3,
+          "base_strength": 0.9514,
+          "volatility_discount": 0.8525,
+          "fundamental_bust_triggered": false,
+          "multi_factor_o_score": 63.96,
+          "multi_factor_multiplier": 1.14,
+          "factor_scores": {
+            "value_score": 45.41,
+            "quality_score": 78.99,
+            "size_score": 0.04,
+            "momentum_score": 100.0,
+            "volatility_score": 49.53,
+            "overall_score": 63.96
+          }
+        }
+      },
+      "error": null,
+      "run_at": "2026-02-28T22:03:07.883261"
+    },
+    {
+      "ticker": "601857.SS",
+      "name": "中国石油",
+      "group": "G3",
+      "signal": {
+        "ticker": "601857.SS",
+        "direction": "SELL",
+        "regime": "STRONG_TREND_DOWN",
+        "z_score": -2.274,
+        "regime_strength": -2.274,
+        "mean_return": -0.0792,
+        "uncertainty": 0.0348,
+        "predicted_range_pct": 0.1334,
+        "predicted_max": 11.1,
+        "predicted_min": 9.65,
+        "adjusted_position_strength": 0.8263,
+        "metadata": {
+          "model": "kronos-v1-foundation",
+          "timestamp": "2026-02-28T22:03:39.495048Z",
+          "sentiment_score": 0.0,
+          "risk_factor": 0.3,
+          "base_strength": 0.979,
+          "volatility_discount": 0.9529,
+          "fundamental_bust_triggered": false,
+          "multi_factor_o_score": 76.54,
+          "multi_factor_multiplier": 1.265,
+          "factor_scores": {
+            "value_score": 98.03,
+            "quality_score": 63.93,
+            "size_score": 0.0,
+            "momentum_score": 98.26,
+            "volatility_score": 100.0,
+            "overall_score": 76.54
+          }
+        }
+      },
+      "error": null,
+      "run_at": "2026-02-28T22:03:14.069116"
+    },
+    {
+      "ticker": "300059.SZ",
+      "name": "东方财富",
+      "group": "G4",
+      "signal": {
+        "ticker": "300059.SZ",
+        "direction": "BUY",
+        "regime": "STRONG_TREND_UP",
+        "z_score": 0.7744,
+        "regime_strength": 0.7744,
+        "mean_return": 0.0115,
+        "uncertainty": 0.0148,
+        "predicted_range_pct": 0.088,
+        "predicted_max": 23.51,
+        "predicted_min": 21.51,
+        "adjusted_position_strength": 0.4466,
+        "metadata": {
+          "model": "kronos-v1-foundation",
+          "timestamp": "2026-02-28T22:03:43.562147Z",
+          "sentiment_score": 0.0,
+          "risk_factor": 0.3,
+          "base_strength": 0.6495,
+          "volatility_discount": 1.0,
+          "fundamental_bust_triggered": false,
+          "multi_factor_o_score": 48.24,
+          "multi_factor_multiplier": 0.982,
+          "factor_scores": {
+            "value_score": 43.85,
+            "quality_score": 80.31,
+            "size_score": 6.85,
+            "momentum_score": 5.53,
+            "volatility_score": 73.8,
+            "overall_score": 48.24
+          }
+        }
+      },
+      "error": null,
+      "run_at": "2026-02-28T22:03:16.502948"
+    },
+    {
+      "ticker": "002230.SZ",
+      "name": "科大讯飞",
+      "group": "G4",
+      "signal": {
+        "ticker": "002230.SZ",
+        "direction": "SELL",
+        "regime": "STRONG_TREND_DOWN",
+        "z_score": -1.5781,
+        "regime_strength": -1.5781,
+        "mean_return": -0.1108,
+        "uncertainty": 0.0702,
+        "predicted_range_pct": 0.1959,
+        "predicted_max": 59.47,
+        "predicted_min": 48.48,
+        "adjusted_position_strength": 0.4051,
+        "metadata": {
+          "model": "kronos-v1-foundation",
+          "timestamp": "2026-02-28T22:03:59.062392Z",
+          "sentiment_score": 0.0,
+          "risk_factor": 0.3,
+          "base_strength": 0.9183,
+          "volatility_discount": 0.669,
+          "fundamental_bust_triggered": false,
+          "multi_factor_o_score": 44.21,
+          "multi_factor_multiplier": 0.942,
+          "factor_scores": {
+            "value_score": 2.62,
+            "quality_score": 57.09,
+            "size_score": 38.19,
+            "momentum_score": 51.92,
+            "volatility_score": 93.71,
+            "overall_score": 44.21
+          }
+        }
+      },
+      "error": null,
+      "run_at": "2026-02-28T22:03:19.113522"
+    },
+    {
+      "ticker": "601012.SS",
+      "name": "隆基绿能",
+      "group": "G4",
+      "signal": {
+        "ticker": "601012.SS",
+        "direction": "SELL",
+        "regime": "STRONG_TREND_DOWN",
+        "z_score": -1.4896,
+        "regime_strength": -1.4896,
+        "mean_return": -0.0371,
+        "uncertainty": 0.0249,
+        "predicted_range_pct": 0.1522,
+        "predicted_max": 19.08,
+        "predicted_min": 16.31,
+        "adjusted_position_strength": 0.6411,
+        "metadata": {
+          "model": "kronos-v1-foundation",
+          "timestamp": "2026-02-28T22:04:03.731965Z",
+          "sentiment_score": 0.0,
+          "risk_factor": 0.3,
+          "base_strength": 0.9033,
+          "volatility_discount": 1.0,
+          "fundamental_bust_triggered": false,
+          "multi_factor_o_score": 51.39,
+          "multi_factor_multiplier": 1.014,
+          "factor_scores": {
+            "value_score": 41.67,
+            "quality_score": 43.28,
+            "size_score": 35.47,
+            "momentum_score": 61.39,
+            "volatility_score": 100.0,
+            "overall_score": 51.39
+          }
+        }
+      },
+      "error": null,
+      "run_at": "2026-02-28T22:03:21.952938"
+    }
+  ]
+}

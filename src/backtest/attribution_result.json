@@ -1,0 +1,45 @@
+{
+  "test": "Attribution Test — Trailing 20D",
+  "universe_size": 237,
+  "variants": {
+    "full": {
+      "long_count": 105,
+      "short_count": 132,
+      "long_ret_pct": -2.6706,
+      "short_ret_pct": 4.0165,
+      "spread_pct": -6.6871,
+      "long_gt_short": false
+    },
+    "kronos": {
+      "long_count": 105,
+      "short_count": 132,
+      "long_ret_pct": -2.6145,
+      "short_ret_pct": 2.9993,
+      "spread_pct": -5.6137,
+      "long_gt_short": false
+    },
+    "factor": {
+      "long_count": 71,
+      "short_count": 71,
+      "long_ret_pct": 3.2544,
+      "short_ret_pct": -1.7647,
+      "spread_pct": 5.0191,
+      "long_gt_short": true
+    },
+    "random": {
+      "long_count": 118,
+      "short_count": 119,
+      "long_ret_pct": 1.0069,
+      "short_ret_pct": 0.0216,
+      "spread_pct": 0.9853,
+      "long_gt_short": true
+    }
+  },
+  "attribution": {
+    "kronos_delta_pct": -6.599,
+    "factor_delta_pct": 4.0338,
+    "full_delta_pct": -7.6724,
+    "synergy_pct": -5.1072,
+    "main_driver": "O-Score 因子"
+  }
+}

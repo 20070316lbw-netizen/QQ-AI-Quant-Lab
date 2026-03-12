@@ -56,92 +56,111 @@ def compute_future_actual_data(ticker: str, date: str, horizon: int):
         print(f"  [X] Failed fetching actual return for {ticker} at {date}: {e}")
         return None, None, None
 
+def process_single_ticker(args):
+    ticker, sample_dates, record_file_path = args
+    print(f"\n[Worker] ========== Starting Backtest for {ticker} ==========")
+    stock_results = []
+    
+    # 为了避免多个进程打印重叠，可以去掉 tqdm 或者简单降级，这里保留以看到进度
+    for date in tqdm(sample_dates, desc=f"Processing {ticker}", leave=False):
+        try:
+            signal = generate_signal(ticker=ticker, as_of_date=date)
+            
+            fut_ret_1d, fut_vol_1d, fut_range_1d = compute_future_actual_data(ticker, date, horizon=1)
+            fut_ret_5d, fut_vol_5d, fut_range_5d = compute_future_actual_data(ticker, date, horizon=5)
+            
+            if fut_ret_1d is None or fut_ret_5d is None:
+                continue
+                
+            meta = signal.get("metadata", {})
+            record = {
+                "date": date,
+                "ticker": ticker,
+                "regime": signal.get("regime", "UNKNOWN"),
+                "z_score": signal.get("z_score", 0.0),
+                "regime_strength": signal.get("regime_strength", 0.0),
+                "direction": signal["direction"],
+                "mean_return": signal["mean_return"],
+                "uncertainty": signal["uncertainty"],
+                "predicted_range_pct": signal.get("predicted_range_pct", 0.0),
+                "adjusted_position_strength": signal["adjusted_position_strength"],
+                "sentiment_score": meta.get("sentiment_score", 0.0),
+                "risk_factor": meta.get("risk_factor", 0.0),
+                "future_return_1d": fut_ret_1d,
+                "realized_vol_1d": fut_vol_1d,
+                "actual_range_1d": fut_range_1d,
+                "future_return_5d": fut_ret_5d,
+                "realized_vol_5d": fut_vol_5d,
+                "actual_range_5d": fut_range_5d
+            }
+            stock_results.append(record)
+            
+        except Exception as e:
+            tqdm.write(f"  [X] Failed processing {ticker} at {date}: {e}")
+            
+    if stock_results:
+        # 为防止多线程锁冲突写坏 JSONL，各进程写自己的小独立卷文件
+        import json
+        ticker_file = record_file_path.replace(".jsonl", f"_{ticker}.jsonl")
+        with open(ticker_file, "w", encoding="utf-8") as f:
+            for rec in stock_results:
+                f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+        return len(stock_results), ticker_file
+    return 0, None
+
+
 def run_backtest():
+    import concurrent.futures
+    import multiprocessing
+    
     universe = BACKTEST_CONFIG["universe"]
     start_date = BACKTEST_CONFIG["start_date"]
     end_date = BACKTEST_CONFIG["end_date"]
     
     recorder = SignalRecorder(BACKTEST_CONFIG["output_dir"])
+    record_file_path = recorder.record_file
     
-    # 生成全体交易日历 (以 S&P 500 代表或者直接用 yfinance 的 index)
     print("Pre-fetching SPY calendar to determine trading days...")
     spy = yf.Ticker("SPY")
     spy_df = spy.history(start=start_date, end=end_date)
-    # yf returned index might have timezone info
     if spy_df.empty:
         print("Failed to fetch trading days. Aborting.")
         return
         
     trading_dates = spy_df.index.tz_localize(None).strftime("%Y-%m-%d").tolist()
     print(f"Found {len(trading_dates)} trading days from {start_date} to {end_date}.")
-    
-    # 世纪大回测要求：穷尽所有交易日，不丢失一丝波澜。
     sample_dates = trading_dates
     print(f"Selected {len(sample_dates)} sampling dates per stock for backtesting (Expected total: {len(sample_dates) * len(universe)}).")
 
-    all_results = []
+    # 并发安全阀门：总核心的一半，且硬压不超过 8
+    total_cores = multiprocessing.cpu_count()
+    safe_workers = min(8, max(1, total_cores // 2))
+    print(f"\n⚡ 核聚变引擎启动：检测到 {total_cores} 个逻辑核心，安全起见将挂载 {safe_workers} 个车道并发回测！\n")
+
+    tasks = [(ticker, sample_dates, record_file_path) for ticker in universe]
     
-    for ticker in universe:
-        print(f"\n========== Starting Backtest for {ticker} ==========")
-        stock_results = []
-        
-        # 引入进度条
-        for date in tqdm(sample_dates, desc=f"Processing {ticker}"):
-            # print(f"[*] Processing {ticker} as of {date}...") # 被进度条替代
-            
-            try:
-                # 1. 挂钩历史断点获取信号 (杜绝未来函数)
-                signal = generate_signal(ticker=ticker, as_of_date=date)
+    # 启用多进程池发包
+    with concurrent.futures.ProcessPoolExecutor(max_workers=safe_workers) as executor:
+        results = list(executor.map(process_single_ticker, tasks))
+    
+    # 文件大一统合流
+    total_records = 0
+    with open(record_file_path, "w", encoding="utf-8") as outfile:
+        for count, t_file in results:
+            if t_file and os.path.exists(t_file):
+                total_records += count
+                with open(t_file, "r", encoding="utf-8") as infile:
+                    outfile.write(infile.read())
+                os.remove(t_file) # 切割完毕后销毁碎片
                 
-                # 2. 拉取真正未来收益、波幅用于验证 Z-Score 的预测力量
-                fut_ret_1d, fut_vol_1d, fut_range_1d = compute_future_actual_data(ticker, date, horizon=1)
-                fut_ret_5d, fut_vol_5d, fut_range_5d = compute_future_actual_data(ticker, date, horizon=5)
-                
-                if fut_ret_1d is None or fut_ret_5d is None:
-                    print(f"  [-] Skipping {date} due to lack of future return data.")
-                    continue
-                    
-                # 3. 构造落盘用的大宽表数据 (纳入 Phase 6 延伸矩阵)
-                meta = signal.get("metadata", {})
-                
-                record = {
-                    "date": date,
-                    "ticker": ticker,
-                    "regime": signal.get("regime", "UNKNOWN"),
-                    "z_score": signal.get("z_score", 0.0),
-                    "regime_strength": signal.get("regime_strength", 0.0),
-                    "direction": signal["direction"],
-                    "mean_return": signal["mean_return"],
-                    "uncertainty": signal["uncertainty"],
-                    "predicted_range_pct": signal.get("predicted_range_pct", 0.0),
-                    "adjusted_position_strength": signal["adjusted_position_strength"],
-                    "sentiment_score": meta.get("sentiment_score", 0.0),
-                    "risk_factor": meta.get("risk_factor", 0.0),
-                    "future_return_1d": fut_ret_1d,
-                    "realized_vol_1d": fut_vol_1d,
-                    "actual_range_1d": fut_range_1d,
-                    "future_return_5d": fut_ret_5d,
-                    "realized_vol_5d": fut_vol_5d,
-                    "actual_range_5d": fut_range_5d
-                }
-                
-                stock_results.append(record)
-                all_results.append(record)
-                
-            except Exception as e:
-                # 只在发生异常时打断进度条打印报错
-                tqdm.write(f"  [X] Failed processing {ticker} at {date}: {e}")
-                
-        # 每跑完一只股票的所有日子，进行一次强制落盘 (避免三年来中途崩溃引发的全部白干)。
-        if stock_results:
-            recorder.save_batch(stock_results)
-            
-    # 触发硬核分析模块
-    print("\n========== Backtest Execution Completed ==========")
-    if all_results:
-        analyze_performance(recorder.get_latest_file_path())
+    print(f"\n========== 🚀 All Tasks Completed! Total Records: {total_records} ==========")
+    if total_records > 0:
+        analyze_performance(record_file_path)
     else:
         print("No valid results collected.")
 
 if __name__ == "__main__":
+    # 多进程 Windows 挂载保护
+    import multiprocessing
+    multiprocessing.freeze_support()
     run_backtest()

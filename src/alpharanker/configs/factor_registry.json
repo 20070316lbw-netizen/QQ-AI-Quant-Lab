@@ -1,0 +1,38 @@
+{
+    "mom_20d_rank": {
+        "name": "短期动量 (20日)",
+        "category": "Momentum",
+        "direction": 1,
+        "description": "过去 20 个交易日的收益率排名，用于捕捉短期趋势或在特定市场下的反转效应。"
+    },
+    "mom_60d_rank": {
+        "name": "中期动量 (60日)",
+        "category": "Momentum",
+        "direction": 1,
+        "description": "过去 60 个交易日的收益率排名，捕捉中期动量趋势。"
+    },
+    "vol_60d_res_rank": {
+        "name": "纯净波动率 (剥离动量)",
+        "category": "Volatility / Risk",
+        "direction": -1,
+        "description": "剔除了动量效应的纯粹波动率。该因子在熊市或避险情绪高涨时，做空其高值域有巨大红利（防守利器）。"
+    },
+    "sp_ratio_rank": {
+        "name": "营收市值比 (S/P)",
+        "category": "Value",
+        "direction": 1,
+        "description": "市销率 (PS) 的倒数，代表每单位市值的营收额。估值越低，S/P越高。防守性价值因子。"
+    },
+    "roe_rank": {
+        "name": "净资产收益率 (ROE)",
+        "category": "Quality",
+        "direction": 1,
+        "description": "盈利能力的核心指标。在震荡市或去伪存真的下行周期，资金尤为偏爱高确定性高盈利。 "
+    },
+    "turn_20d_rank": {
+        "name": "均值换手率 (20日)",
+        "category": "Liquidity / Sentiment",
+        "direction": -1,
+        "description": "短期交易拥挤度。高换手通常暗示短期过热或筹码发散。"
+    }
+}

@@ -4,6 +4,10 @@ from datetime import datetime, timedelta
 from crawlers.data_gateway import gateway
 from kronos.api import predict_market_trend
 
+# Kronos 模型训练时的固定上下文窗口长度 (context_length = 84 个交易日)
+# 不同市场节假日导致 A 股实际返回交易日数量不同，必须统一
+_KRONOS_SEQ_LEN = 84
+
 class KronosEngine:
     """
     底层数学量化引擎的封装层：负责拉取历史OHLCV数据并驱动基础大语言/统计模型生成预测曲线。
@@ -18,14 +22,13 @@ class KronosEngine:
         """
         try:
             target_dt = datetime.strptime(target_date, "%Y-%m-%d")
-            # 出于性能和噪音双重考量，提取最近120天的特征足矣
-            start_dt = target_dt - timedelta(days=120)
+            # 提取最近 150 天数据，足够裁出 84 个交易日的窗口
+            start_dt = target_dt - timedelta(days=150)
             start_date_str = start_dt.strftime("%Y-%m-%d")
-            # Yfinance end_date 是不包含边界的，需要往后推一天才能取到 target_date 数据
             fetch_end_date = (target_dt + timedelta(days=1)).strftime("%Y-%m-%d")
         except ValueError:
             target_dt = datetime.now()
-            start_dt = target_dt - timedelta(days=120)
+            start_dt = target_dt - timedelta(days=150)
             start_date_str = start_dt.strftime("%Y-%m-%d")
             fetch_end_date = target_dt.strftime("%Y-%m-%d")
             
@@ -44,6 +47,24 @@ class KronosEngine:
             "Open": "open", "High": "high", "Low": "low", 
             "Close": "close", "Volume": "volume"
         }, inplace=True)
+        
+        # ── 【Tensor 修复 v2】固定输入序列长度至 _KRONOS_SEQ_LEN ──────────
+        # 不同股票/市场的实际交易日数量不一致，predictor 期望固定维度。
+        # 超出则截取最近 N 行；不足则用最早一行向前填充（保守占位）。
+        if len(df) > _KRONOS_SEQ_LEN:
+            df = df.iloc[-_KRONOS_SEQ_LEN:]
+        elif len(df) < _KRONOS_SEQ_LEN:
+            pad_rows = _KRONOS_SEQ_LEN - len(df)
+            pad_df = pd.DataFrame(
+                [df.iloc[0].to_dict()] * pad_rows,
+                index=pd.date_range(
+                    end=df.index[0] - pd.Timedelta(days=1),
+                    periods=pad_rows,
+                    freq='B'
+                )
+            )
+            df = pd.concat([pad_df, df])
+        # ─────────────────────────────────────────────────────────────────
         
         # 调用底层统一预测接口（基于集成采样，包含 z-score 边界判定逻辑）
         prediction_df = predict_market_trend(df, pred_len=pred_len)
@@ -70,4 +91,3 @@ class KronosEngine:
             "predicted_max": float(pred_max),
             "predicted_min": float(pred_min)
         }
-

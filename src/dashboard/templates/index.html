@@ -1,0 +1,1203 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AlphaRanker Data Explorer</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #111827;
+            --bg-card: #1a1f2e;
+            --bg-hover: #242a3d;
+            --bg-active: #1e2740;
+            --accent: #6366f1;
+            --accent-glow: rgba(99, 102, 241, 0.15);
+            --green: #10b981;
+            --red: #ef4444;
+            --yellow: #f59e0b;
+            --blue: #3b82f6;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: #1e293b;
+            --border-light: #334155;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--bg-secondary), #0f1729);
+            border-bottom: 1px solid var(--border);
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--accent), #8b5cf6);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .logo h1 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 16px;
+            margin-left: auto;
+        }
+
+        .header-stat {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .header-stat b {
+            color: var(--green);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Main Layout */
+        .main {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        /* Sidebar - File Tree */
+        .sidebar {
+            width: 280px;
+            min-width: 280px;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-title {
+            padding: 12px 16px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .tree-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 4px 0;
+        }
+
+        .tree-container::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .tree-container::-webkit-scrollbar-thumb {
+            background: var(--border-light);
+            border-radius: 4px;
+        }
+
+        .tree-item {
+            display: flex;
+            align-items: center;
+            padding: 4px 8px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background 0.15s;
+            white-space: nowrap;
+        }
+
+        .tree-item:hover {
+            background: var(--bg-hover);
+        }
+
+        .tree-item.active {
+            background: var(--accent-glow);
+        }
+
+        .tree-icon {
+            width: 20px;
+            text-align: center;
+            font-size: 12px;
+            flex-shrink: 0;
+        }
+
+        .tree-name {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            color: var(--text-secondary);
+        }
+
+        .tree-item.dir .tree-name {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        .tree-badge {
+            font-size: 10px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+            padding: 1px 6px;
+            background: var(--bg-primary);
+            border-radius: 4px;
+        }
+
+        .tree-children {
+            display: none;
+        }
+
+        .tree-children.open {
+            display: block;
+        }
+
+        /* Tabs */
+        .tab-bar {
+            display: flex;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            min-height: 36px;
+            overflow-x: auto;
+        }
+
+        .tab-bar::-webkit-scrollbar {
+            height: 2px;
+        }
+
+        .tab {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            font-size: 12px;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-right: 1px solid var(--border);
+            white-space: nowrap;
+            transition: all 0.2s;
+            min-width: 120px;
+        }
+
+        .tab:hover {
+            background: var(--bg-hover);
+        }
+
+        .tab.active {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .tab-close {
+            font-size: 14px;
+            opacity: 0.5;
+            cursor: pointer;
+            margin-left: 4px;
+        }
+
+        .tab-close:hover {
+            opacity: 1;
+            color: var(--red);
+        }
+
+        .tab-icon {
+            font-size: 12px;
+        }
+
+        /* Content */
+        .content-area {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        #panelsContainer {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .panel {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            overflow-y: auto;
+            padding: 20px;
+            display: none;
+        }
+
+        .panel.active {
+            display: block;
+        }
+
+        .panel::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .panel::-webkit-scrollbar-thumb {
+            background: var(--border-light);
+            border-radius: 4px;
+        }
+
+        /* Welcome */
+        .welcome {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .welcome-icon {
+            font-size: 56px;
+            margin-bottom: 12px;
+            opacity: 0.6;
+        }
+
+        .welcome h2 {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 6px;
+        }
+
+        .welcome p {
+            font-size: 13px;
+        }
+
+        /* File Info Header */
+        .file-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .file-header h2 {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .file-header .path {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .file-meta {
+            display: flex;
+            gap: 12px;
+            margin-left: auto;
+        }
+
+        .meta-chip {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+        }
+
+        /* Chart */
+        .chart-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .chart-box canvas {
+            width: 100% !important;
+            height: 350px !important;
+        }
+
+        .chart-title {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+        }
+
+        /* Data Table */
+        .data-table-wrap {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .data-table-scroll {
+            max-height: 500px;
+            overflow: auto;
+        }
+
+        .data-table-scroll::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+
+        .data-table-scroll::-webkit-scrollbar-thumb {
+            background: var(--border-light);
+            border-radius: 4px;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .data-table th {
+            background: var(--bg-secondary);
+            color: var(--text-muted);
+            font-size: 11px;
+            text-transform: uppercase;
+            padding: 10px 12px;
+            text-align: right;
+            position: sticky;
+            top: 0;
+            z-index: 5;
+        }
+
+        .data-table th:first-child {
+            text-align: left;
+        }
+
+        .data-table td {
+            padding: 8px 12px;
+            text-align: right;
+            color: var(--text-secondary);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table td:first-child {
+            text-align: left;
+            color: var(--text-primary);
+        }
+
+        .data-table tr:hover td {
+            background: var(--bg-hover);
+        }
+
+        .positive {
+            color: var(--green) !important;
+        }
+
+        .negative {
+            color: var(--red) !important;
+        }
+
+        /* View Switcher */
+        .view-switch {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 16px;
+            background: var(--bg-secondary);
+            padding: 3px;
+            border-radius: 8px;
+            width: fit-content;
+        }
+
+        .view-btn {
+            padding: 6px 16px;
+            border: none;
+            border-radius: 6px;
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .view-btn.active {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .stat-mini {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 16px;
+        }
+
+        .stat-mini .label {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .stat-mini .value {
+            font-size: 20px;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+
+        /* Slicer Tool */
+        .slicer-tool {
+            margin: 8px 8px 0;
+            padding: 10px 12px;
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.15), rgba(139, 92, 246, 0.1));
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+
+        .slicer-tool:hover {
+            background: rgba(99, 102, 241, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .slicer-tool-icon {
+            font-size: 18px;
+        }
+
+        .slicer-tool-text {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .slicer-tool-sub {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        .slicer-controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+            align-items: flex-end;
+        }
+
+        .slicer-group {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .slicer-group label {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .slicer-select {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-family: 'Inter', sans-serif;
+            min-width: 140px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .slicer-select:focus {
+            border-color: var(--accent);
+        }
+
+        .slicer-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .slicer-btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+
+        .slicer-btn-primary:hover {
+            background: #5558e6;
+            transform: translateY(-1px);
+        }
+
+        .slicer-btn-success {
+            background: var(--green);
+            color: white;
+        }
+
+        .slicer-btn-success:hover {
+            background: #0ea572;
+        }
+
+        .slicer-btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .slicer-status {
+            font-size: 12px;
+            color: var(--text-muted);
+            padding: 8px 0;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.25s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">
+            <div class="logo-icon">📊</div>
+            <h1>AlphaRanker Data Explorer</h1>
+        </div>
+        <div class="header-stats" id="headerStats"></div>
+    </div>
+
+    <div class="main">
+        <div class="sidebar">
+            <div class="sidebar-title">📁 Data Explorer</div>
+            <div class="slicer-tool" onclick="openSignals()" style="margin-bottom:8px">
+                <span class="slicer-tool-icon">🚀</span>
+                <div>
+                    <div class="slicer-tool-text">美股选股信号</div>
+                    <div class="slicer-tool-sub">量化排序 + 基本面防雷</div>
+                </div>
+            </div>
+            <div class="slicer-tool" onclick="openSlicer()">
+                <span class="slicer-tool-icon">🔀</span>
+                <div>
+                    <div class="slicer-tool-text">数据切片器</div>
+                    <div class="slicer-tool-sub">跨股票提取指标 → 导出 CSV</div>
+                </div>
+            </div>
+            <div class="tree-container" id="treeContainer">
+                <div style="padding:20px;color:var(--text-muted);font-size:13px;">Loading...</div>
+            </div>
+        </div>
+
+        <div class="content-area">
+            <div class="tab-bar" id="tabBar"></div>
+            <div id="panelsContainer">
+                <div class="panel active" id="welcomePanel">
+                    <div class="welcome">
+                        <div class="welcome-icon">🗂️</div>
+                        <h2>AlphaRanker Data Explorer</h2>
+                        <p>点击左侧目录树中的任意 .parquet 文件开始浏览</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+    <script>
+        let openTabs = [];  // {id, name, path, type}
+        let activeTabId = null;
+        let charts = {};
+
+        function fmt(n) {
+            if (n === 0 || n === null || n === undefined) return '—';
+            const num = Number(n);
+            if (isNaN(num)) return String(n);
+            const a = Math.abs(num);
+            const sign = num < 0 ? '-' : '';
+            if (a >= 1e12) return sign + (a / 1e12).toFixed(2) + 'T';
+            if (a >= 1e9) return sign + (a / 1e9).toFixed(2) + 'B';
+            if (a >= 1e6) return sign + (a / 1e6).toFixed(2) + 'M';
+            if (a >= 1e3) return sign + (a / 1e3).toFixed(1) + 'K';
+            if (Number.isInteger(num)) return num.toString();
+            return num.toFixed(2);
+        }
+
+        // ─── Tree ───
+        async function loadTree() {
+            const res = await fetch('/api/tree');
+            const tree = await res.json();
+            document.getElementById('treeContainer').innerHTML = renderTree(tree, 0);
+        }
+
+        function renderTree(nodes, depth) {
+            return nodes.map(n => {
+                const pad = depth * 16;
+                if (n.type === 'dir') {
+                    const badge = n.totalFiles > 0 ? `<span class="tree-badge">${n.totalFiles}</span>` : '';
+                    return `
+                    <div class="tree-item dir" style="padding-left:${8 + pad}px" onclick="toggleDir(this)">
+                        <span class="tree-icon">▶</span>
+                        <span class="tree-name">📁 ${n.name}</span>
+                        ${badge}
+                    </div>
+                    <div class="tree-children">${renderTree(n.children || [], depth + 1)}
+                        ${n.truncated ? `<div class="tree-item" style="padding-left:${8 + pad + 16}px"><span class="tree-name" style="color:var(--text-muted);font-style:italic">... more files</span></div>` : ''}
+                    </div>`;
+                } else {
+                    const icon = getFileIcon(n.name);
+                    return `<div class="tree-item" style="padding-left:${8 + pad}px" onclick="openFile('${n.path}','${n.name}')">
+                    <span class="tree-icon">${icon}</span>
+                    <span class="tree-name">${n.name}</span>
+                    <span class="tree-badge">${n.sizeStr}</span>
+                </div>`;
+                }
+            }).join('');
+        }
+
+        function getFileIcon(name) {
+            if (name.includes('price')) return '📈';
+            if (name.includes('income') || name.includes('fundamental')) return '📊';
+            if (name.includes('balance')) return '📋';
+            if (name.includes('cashflow')) return '💰';
+            if (name.includes('industry') || name.includes('sector')) return '🏭';
+            return '📄';
+        }
+
+        function toggleDir(el) {
+            const children = el.nextElementSibling;
+            const icon = el.querySelector('.tree-icon');
+            if (children.classList.contains('open')) {
+                children.classList.remove('open');
+                icon.textContent = '▶';
+            } else {
+                children.classList.add('open');
+                icon.textContent = '▼';
+            }
+        }
+
+        // ─── Tabs ───
+        function openFile(path, name) {
+            // Check if already open
+            let existing = openTabs.find(t => t.path === path);
+            if (existing) {
+                activateTab(existing.id);
+                return;
+            }
+
+            const id = 'tab_' + Date.now();
+            const type = detectFileType(name, path);
+            openTabs.push({ id, name, path, type });
+
+            // Create panel
+            const panel = document.createElement('div');
+            panel.className = 'panel';
+            panel.id = id;
+            panel.innerHTML = '<div style="padding:40px;color:var(--text-muted);">Loading...</div>';
+            document.getElementById('panelsContainer').appendChild(panel);
+
+            renderTabs();
+            activateTab(id);
+            loadFileContent(id, path, name, type);
+        }
+
+        function detectFileType(name, path) {
+            if (name.includes('industry') || name.includes('sector')) return 'industry';
+            if (path.includes('price')) return 'price';
+            if (name.includes('income') || name.includes('balance') || name.includes('cashflow') || name.includes('fundamental')) return 'financial';
+            return 'generic';
+        }
+
+        function renderTabs() {
+            const bar = document.getElementById('tabBar');
+            bar.innerHTML = openTabs.map(t => `
+            <div class="tab ${t.id === activeTabId ? 'active' : ''}" onclick="activateTab('${t.id}')">
+                <span class="tab-icon">${getFileIcon(t.name)}</span>
+                <span>${t.name.replace('.parquet', '')}</span>
+                <span class="tab-close" onclick="event.stopPropagation();closeTab('${t.id}')">×</span>
+            </div>
+        `).join('');
+        }
+
+        function activateTab(id) {
+            activeTabId = id;
+            document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+            const panel = document.getElementById(id) || document.getElementById('welcomePanel');
+            if (panel) panel.classList.add('active');
+            renderTabs();
+        }
+
+        function closeTab(id) {
+            openTabs = openTabs.filter(t => t.id !== id);
+            const panel = document.getElementById(id);
+            if (panel) panel.remove();
+            if (charts[id]) { charts[id].destroy(); delete charts[id]; }
+            if (activeTabId === id) {
+                activeTabId = openTabs.length ? openTabs[openTabs.length - 1].id : null;
+                activateTab(activeTabId || 'welcomePanel');
+            }
+            renderTabs();
+        }
+
+        // ─── Content Loaders ───
+        async function loadFileContent(tabId, path, name, type) {
+            const panel = document.getElementById(tabId);
+            if (!panel) return;
+
+            if (type === 'price') {
+                await loadPriceView(panel, tabId, path, name);
+            } else if (type === 'industry') {
+                await loadIndustryView(panel, tabId, path, name);
+            } else {
+                await loadGenericView(panel, tabId, path, name);
+            }
+        }
+
+        async function loadPriceView(panel, tabId, path, name) {
+            const [candleRes, previewRes] = await Promise.all([
+                fetch(`/api/candlestick?path=${encodeURIComponent(path)}`),
+                fetch(`/api/preview?path=${encodeURIComponent(path)}`)
+            ]);
+            const candle = await candleRes.json();
+            const preview = await previewRes.json();
+
+            const ticker = name.replace('.parquet', '');
+            panel.innerHTML = `<div class="fade-in">
+            <div class="file-header">
+                <div>
+                    <h2>📈 ${ticker}</h2>
+                    <div class="path">${path}</div>
+                </div>
+                <div class="file-meta">
+                    ${preview.shape ? `<span class="meta-chip">${preview.shape[0]} rows × ${preview.shape[1]} cols</span>` : ''}
+                </div>
+            </div>
+            <div class="chart-box">
+                <div class="chart-title">Price Chart (Close + MA5 / MA20)</div>
+                <canvas id="chart_${tabId}"></canvas>
+            </div>
+            ${candle.volume ? `<div class="chart-box"><div class="chart-title">Volume</div><canvas id="vol_${tabId}"></canvas></div>` : ''}
+            <div class="view-switch">
+                <button class="view-btn active" onclick="this.parentElement.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active');document.getElementById('tbl_${tabId}').style.display='block'">📋 Data</button>
+            </div>
+            <div id="tbl_${tabId}">${renderDataTable(preview)}</div>
+        </div>`;
+
+            // Price chart
+            if (candle.dates && candle.close) {
+                const ctx = document.getElementById(`chart_${tabId}`).getContext('2d');
+                const grad = ctx.createLinearGradient(0, 0, 0, 350);
+                grad.addColorStop(0, 'rgba(99,102,241,0.25)');
+                grad.addColorStop(1, 'rgba(99,102,241,0)');
+
+                charts[tabId] = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: candle.dates,
+                        datasets: [
+                            { label: 'Close', data: candle.close, borderColor: '#6366f1', backgroundColor: grad, borderWidth: 1.5, fill: true, tension: 0.2, pointRadius: 0 },
+                            ...(candle.ma5 ? [{ label: 'MA5', data: candle.ma5, borderColor: '#f59e0b', borderWidth: 1, pointRadius: 0, borderDash: [] }] : []),
+                            ...(candle.ma20 ? [{ label: 'MA20', data: candle.ma20, borderColor: '#ef4444', borderWidth: 1, pointRadius: 0, borderDash: [4, 2] }] : []),
+                        ]
+                    },
+                    options: chartOpts()
+                });
+
+                // Volume chart
+                if (candle.volume) {
+                    const vctx = document.getElementById(`vol_${tabId}`);
+                    if (vctx) {
+                        const colors = candle.close.map((c, i) => i > 0 && c >= candle.close[i - 1] ? 'rgba(16,185,129,0.6)' : 'rgba(239,68,68,0.6)');
+                        new Chart(vctx.getContext('2d'), {
+                            type: 'bar',
+                            data: { labels: candle.dates, datasets: [{ label: 'Volume', data: candle.volume, backgroundColor: colors }] },
+                            options: { ...chartOpts(), plugins: { legend: { display: false } } }
+                        });
+                    }
+                }
+            }
+        }
+
+        async function loadIndustryView(panel, tabId, path, name) {
+            const [distRes, previewRes] = await Promise.all([
+                fetch(`/api/industry_dist?path=${encodeURIComponent(path)}`),
+                fetch(`/api/preview?path=${encodeURIComponent(path)}`)
+            ]);
+            const dist = await distRes.json();
+            const preview = await previewRes.json();
+
+            const labels = Object.keys(dist).slice(0, 30);
+            const values = labels.map(k => dist[k]);
+
+            panel.innerHTML = `<div class="fade-in">
+            <div class="file-header"><div><h2>🏭 行业分布</h2><div class="path">${path}</div></div></div>
+            <div class="chart-box"><div class="chart-title">Industry Distribution</div><canvas id="chart_${tabId}"></canvas></div>
+            ${renderDataTable(preview)}
+        </div>`;
+
+            const ctx = document.getElementById(`chart_${tabId}`).getContext('2d');
+            const palette = labels.map((_, i) => `hsl(${(i * 360 / labels.length + 220) % 360}, 60%, 55%)`);
+            charts[tabId] = new Chart(ctx, {
+                type: 'bar',
+                data: { labels, datasets: [{ label: 'Stocks', data: values, backgroundColor: palette, borderRadius: 4 }] },
+                options: { ...chartOpts(), indexAxis: 'y', plugins: { legend: { display: false } } }
+            });
+        }
+
+        async function loadGenericView(panel, tabId, path, name) {
+            const res = await fetch(`/api/preview?path=${encodeURIComponent(path)}`);
+            const data = await res.json();
+
+            panel.innerHTML = `<div class="fade-in">
+            <div class="file-header">
+                <div><h2>${getFileIcon(name)} ${name.replace('.parquet', '')}</h2><div class="path">${path}</div></div>
+                <div class="file-meta">
+                    ${data.shape ? `<span class="meta-chip">${data.shape[0]} rows × ${data.shape[1]} cols</span>` : ''}
+                </div>
+            </div>
+            ${data.stats ? renderStats(data.stats) : ''}
+            ${renderDataTable(data)}
+        </div>`;
+        }
+
+        function renderDataTable(data) {
+            if (!data || data.error) return `<div style="padding:20px;color:var(--red)">Error: ${data?.error || 'No data'}</div>`;
+            let h = '<div class="data-table-wrap"><div class="data-table-scroll"><table class="data-table"><thead><tr><th>Index</th>';
+            data.columns.forEach(c => h += `<th>${c}</th>`);
+            h += '</tr></thead><tbody>';
+            data.data.forEach((row, i) => {
+                h += `<tr><td>${data.index[i]}</td>`;
+                row.forEach(v => {
+                    const cls = typeof v === 'number' ? (v > 0 ? '' : v < 0 ? 'negative' : '') : '';
+                    h += `<td class="${cls}">${fmt(v)}</td>`;
+                });
+                h += '</tr>';
+            });
+            h += '</tbody></table></div></div>';
+            if (data.totalRows > 50) h += `<div style="padding:8px 16px;font-size:11px;color:var(--text-muted)">Showing 50 of ${data.totalRows} rows</div>`;
+            return h;
+        }
+
+        function renderStats(stats) {
+            const keys = Object.keys(stats).slice(0, 8);
+            return `<div class="stats-grid">${keys.map(k => {
+                const s = stats[k];
+                return `<div class="stat-mini">
+                <div class="label">${k}</div>
+                <div class="value" style="font-size:14px">${fmt(s.mean)}</div>
+                <div style="font-size:10px;color:var(--text-muted)">min: ${fmt(s.min)} | max: ${fmt(s.max)}</div>
+            </div>`;
+            }).join('')}</div>`;
+        }
+
+        function chartOpts() {
+            return {
+                responsive: true, maintainAspectRatio: false,
+                plugins: { legend: { labels: { color: '#94a3b8', font: { size: 11 } } }, tooltip: { backgroundColor: '#1a1f2e', borderColor: '#334155', borderWidth: 1 } },
+                scales: {
+                    x: { grid: { color: 'rgba(51,65,85,0.2)' }, ticks: { color: '#64748b', maxTicksLimit: 10, font: { size: 10 } } },
+                    y: { grid: { color: 'rgba(51,65,85,0.2)' }, ticks: { color: '#64748b', font: { size: 10 } } }
+                },
+                interaction: { intersect: false, mode: 'index' }
+            };
+        }
+
+        // ─── Stats ───
+        async function loadStats() {
+            const res = await fetch('/api/stats');
+            const s = await res.json();
+            document.getElementById('headerStats').innerHTML = `
+            <div class="header-stat">🇨🇳 Prices <b>${s.cn_prices}</b></div>
+            <div class="header-stat">🇨🇳 Fund <b>${s.cn_fundamentals}</b></div>
+            <div class="header-stat">🇺🇸 Prices <b>${s.us_prices}</b></div>
+            <div class="header-stat">🇺🇸 Fund <b>${s.us_fundamentals}</b></div>
+        `;
+        }
+
+        // ─── Slicer ───
+        function openSlicer() {
+            let existing = openTabs.find(t => t.id === 'slicer');
+            if (existing) { activateTab('slicer'); return; }
+
+            openTabs.push({ id: 'slicer', name: '🔀 数据切片器', path: 'slicer', type: 'slicer' });
+            const panel = document.createElement('div');
+            panel.className = 'panel';
+            panel.id = 'slicer';
+            panel.innerHTML = `<div class="fade-in">
+                <div class="file-header"><div><h2>🔀 数据切片器</h2><div class="path">选择一个指标，从所有股票财报中提取并拼接成表</div></div></div>
+                <div class="slicer-controls">
+                    <div class="slicer-group">
+                        <label>市场</label>
+                        <select class="slicer-select" id="slicerMarket" onchange="loadSlicerFields()">
+                            <option value="us">🇺🇸 S&P 500</option>
+                            <option value="cn">🇨🇳 A 股</option>
+                        </select>
+                    </div>
+                    <div class="slicer-group">
+                        <label>报表类型</label>
+                        <select class="slicer-select" id="slicerType" onchange="loadSlicerFields()">
+                            <option value="income">利润表</option>
+                            <option value="balance">资产负债表</option>
+                            <option value="cashflow">现金流量表</option>
+                        </select>
+                    </div>
+                    <div class="slicer-group">
+                        <label>指标字段</label>
+                        <select class="slicer-select" id="slicerField" style="min-width:260px">
+                            <option value="">Loading...</option>
+                        </select>
+                    </div>
+                    <button class="slicer-btn slicer-btn-primary" onclick="runSlicer()" id="slicerRunBtn">🚀 提取</button>
+                    <button class="slicer-btn slicer-btn-success" onclick="downloadSlicerCSV()" id="slicerCsvBtn" disabled>⬇️ 导出 CSV</button>
+                </div>
+                <div id="slicerStatus" class="slicer-status"></div>
+                <div id="slicerResult"></div>
+            </div>`;
+            document.getElementById('panelsContainer').appendChild(panel);
+            renderTabs();
+            activateTab('slicer');
+            loadSlicerFields();
+        }
+
+        async function loadSlicerFields() {
+            const market = document.getElementById('slicerMarket').value;
+            const type = document.getElementById('slicerType').value;
+            const sel = document.getElementById('slicerField');
+            sel.innerHTML = '<option value="">Loading...</option>';
+
+            const res = await fetch(`/api/slicer/fields?market=${market}&type=${type}`);
+            const data = await res.json();
+
+            sel.innerHTML = data.fields.map(f =>
+                `<option value="${f}">${f}</option>`
+            ).join('');
+
+            document.getElementById('slicerStatus').textContent =
+                `共 ${data.count} 个文件，${data.fields.length} 个可选字段`;
+        }
+
+        let slicerState = null;
+
+        async function runSlicer() {
+            const market = document.getElementById('slicerMarket').value;
+            const type = document.getElementById('slicerType').value;
+            const field = document.getElementById('slicerField').value;
+            if (!field) return;
+
+            const btn = document.getElementById('slicerRunBtn');
+            btn.disabled = true;
+            btn.innerHTML = '⏳ 提取中...';
+            document.getElementById('slicerStatus').textContent = '正在从所有财报中提取 ' + field + '...';
+            document.getElementById('slicerResult').innerHTML = '';
+
+            try {
+                const res = await fetch(`/api/slicer/extract?market=${market}&type=${type}&field=${encodeURIComponent(field)}`);
+                const data = await res.json();
+                slicerState = { market, type, field };
+
+                document.getElementById('slicerStatus').textContent =
+                    `✅ 已从 ${data.totalStocks} 只股票中提取 "${data.field}"（${data.dates.length} 个季度）`;
+                document.getElementById('slicerCsvBtn').disabled = false;
+
+                // Render result table
+                let h = '<div class="data-table-wrap"><div class="data-table-scroll"><table class="data-table"><thead><tr><th>Ticker</th>';
+                data.dates.forEach(d => h += `<th>${d}</th>`);
+                h += '</tr></thead><tbody>';
+                data.data.forEach(row => {
+                    h += `<tr><td>${row.ticker}</td>`;
+                    row.values.forEach(v => {
+                        const cls = v > 0 ? '' : v < 0 ? 'negative' : '';
+                        h += `<td class="${cls}">${fmt(v)}</td>`;
+                    });
+                    h += '</tr>';
+                });
+                h += '</tbody></table></div></div>';
+                document.getElementById('slicerResult').innerHTML = h;
+            } catch (e) {
+                document.getElementById('slicerStatus').textContent = '❌ Error: ' + e.message;
+            }
+
+            btn.disabled = false;
+            btn.innerHTML = '🚀 提取';
+        }
+
+        function downloadSlicerCSV() {
+            if (!slicerState) return;
+            const { market, type, field } = slicerState;
+            window.open(`/api/slicer/csv?market=${market}&type=${type}&field=${encodeURIComponent(field)}`);
+        }
+
+        // ─── Signals ───
+        let signalsData = [];
+
+        function openSignals() {
+            let existing = openTabs.find(t => t.id === 'signals');
+            if (existing) { activateTab('signals'); return; }
+
+            openTabs.push({ id: 'signals', name: '🚀 美股选股信号', path: 'signals', type: 'signals' });
+            const panel = document.createElement('div');
+            panel.className = 'panel';
+            panel.id = 'signals';
+            panel.innerHTML = `<div class="fade-in">
+                <div class="file-header"><div><h2>🚀 纯量价模型 + 基本面双轨选股池</h2><div class="path">使用 10 年期 LightGBM 模型预测最新截面，并用最新财报数据执行硬性除雷。</div></div></div>
+                <div class="slicer-controls" style="background:var(--bg-secondary); padding:16px; border-radius:8px">
+                    <div class="slicer-group" style="flex:1">
+                        <label>最小市值 (Billion)</label>
+                        <input type="number" id="sigMinCap" class="slicer-select" value="2" step="1" oninput="renderSignalsTable()">
+                    </div>
+                    <div class="slicer-group" style="flex:1">
+                        <label>最大市盈率 (PE)</label>
+                        <input type="number" id="sigMaxPe" class="slicer-select" value="80" step="1" oninput="renderSignalsTable()">
+                    </div>
+                    <div class="slicer-group" style="flex:1">
+                        <label>排除亏损 (PE <= 0)</label>
+                        <select id="sigExcludeLoss" class="slicer-select" onchange="renderSignalsTable()">
+                            <option value="yes">是</option>
+                            <option value="no">否</option>
+                        </select>
+                    </div>
+                    <div class="slicer-group">
+                        <button class="slicer-btn slicer-btn-primary" onclick="loadSignals()"><span id="sigRefreshIcon">🔄</span> 刷新推断</button>
+                    </div>
+                </div>
+                <div id="sigStatus" class="slicer-status" style="margin-bottom:8px"></div>
+                <div id="sigResult"></div>
+            </div>`;
+            document.getElementById('panelsContainer').appendChild(panel);
+            renderTabs();
+            activateTab('signals');
+            loadSignals();
+        }
+
+        async function loadSignals() {
+            document.getElementById('sigRefreshIcon').textContent = '⏳';
+            document.getElementById('sigStatus').textContent = '加载最新截面数据与推断...';
+            try {
+                const res = await fetch('/api/model/signals');
+                const data = await res.json();
+                if (data.error) throw new Error(data.error);
+
+                signalsData = data.data;
+                document.getElementById('sigStatus').innerHTML = `✅ 截面日期: <b style="color:var(--green)">${data.report_date}</b> | 共评估 ${data.total_stocks} 只股票 (S&P 500)`;
+                renderSignalsTable();
+            } catch (e) {
+                document.getElementById('sigStatus').textContent = '❌ Error: ' + e.message;
+            }
+            document.getElementById('sigRefreshIcon').textContent = '🔄';
+        }
+
+        function renderSignalsTable() {
+            if (!signalsData.length) return;
+            const minCap = parseFloat(document.getElementById('sigMinCap').value) || 0;
+            const maxPe = parseFloat(document.getElementById('sigMaxPe').value) || 9999;
+            const excludeLoss = document.getElementById('sigExcludeLoss').value === 'yes';
+
+            let filtered = signalsData.filter(r => {
+                let capB = (r.marketCap || 0) / 1e9;
+                let pe = r.trailingPE || -1;
+
+                if (capB < minCap) return false;
+                if (excludeLoss && pe <= 0) return false;
+                if (pe > maxPe) return false;
+                return true;
+            });
+
+            // Limit to top 50 
+            const top50 = filtered.slice(0, 50);
+
+            let h = '<h3 style="margin-bottom:12px; font-size:14px">推荐候选池 (Top 50 满足条件)</h3>';
+            h += '<div class="data-table-wrap"><div class="data-table-scroll" style="max-height: 600px;"><table class="data-table"><thead><tr>';
+            h += '<th>🏆 模型排名</th><th>Ticker</th><th>信号得分</th><th>动量(6M)</th><th>波动(60D)</th><th>Sector</th><th>市值 (B$)</th><th>市盈率 (PE)</th><th>市净率 (PB)</th>';
+            h += '</tr></thead><tbody>';
+
+            top50.forEach(r => {
+                h += `<tr>`;
+                h += `<td>#${r.rank}</td>`;
+                h += `<td><b style="color:var(--text-primary)">${r.ticker}</b></td>`;
+                h += `<td><b>${fmt(r.score)}</b></td>`;
+                h += `<td class="${r.mom_6m > 0 ? 'positive' : 'negative'}">${fmt(r.mom_6m)}</td>`;
+                h += `<td>${fmt(r.vol_60d)}</td>`;
+                h += `<td>${r.sector || '-'}</td>`;
+                h += `<td>${fmt((r.marketCap || 0) / 1e9)}</td>`;
+                h += `<td>${r.trailingPE > 0 ? fmt(r.trailingPE) : '-'}</td>`;
+                h += `<td>${r.priceToBook > 0 ? fmt(r.priceToBook) : '-'}</td>`;
+                h += `</tr>`;
+            });
+            h += '</tbody></table></div></div>';
+            document.getElementById('sigResult').innerHTML = h;
+        }
+
+        // Init
+        loadTree();
+        loadStats();
+        setInterval(loadStats, 30000);
+    </script>
+</body>
+
+</html>

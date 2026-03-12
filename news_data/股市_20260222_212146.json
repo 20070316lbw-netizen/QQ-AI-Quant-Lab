@@ -1,0 +1,88 @@
+{
+  "query": "股市",
+  "total_count": 10,
+  "collect_time": "2026-02-22T21:21:46.481104",
+  "error": null,
+  "news": [
+    {
+      "title": "iPhone - Apple",
+      "url": "https://www.apple.com/iphone/",
+      "snippet": "Designed for Apple Intelligence. Discover iPhone 17 Pro, iPhone Air, and iPhone 17, along with iPhone 16 and iPhone 16e.",
+      "source": "www.apple.com",
+      "date": "",
+      "rank": 0
+    },
+    {
+      "title": "Buy iPhone - Apple (CA)",
+      "url": "https://www.apple.com/ca/shop/buy-iphone",
+      "snippet": "Shop the latest iPhone models and accessories, and find flexible monthly payment options that work for you. Get expert help today.",
+      "source": "www.apple.com",
+      "date": "",
+      "rank": 1
+    },
+    {
+      "title": "iPhone - Apple (CA)",
+      "url": "https://www.apple.com/ca/iphone/",
+      "snippet": "Designed for Apple Intelligence. Discover iPhone 17 Pro, iPhone Air, and iPhone 17, along with iPhone 16 and iPhone 16e.",
+      "source": "www.apple.com",
+      "date": "",
+      "rank": 2
+    },
+    {
+      "title": "iPhone 17 - Apple (CA)",
+      "url": "https://www.apple.com/ca/iphone-17/",
+      "snippet": "The A19 chip powers everything you do on iPhone, including Apple Intelligence features like Live Translation and Image Playground, and …",
+      "source": "www.apple.com",
+      "date": "",
+      "rank": 3
+    },
+    {
+      "title": "Apple - iPhone",
+      "url": "https://www.apple.com/",
+      "snippet": "Discover the innovative world of Apple and shop everything iPhone, iPad, Apple Watch, Mac, and Apple TV, plus explore accessories, …",
+      "source": "www.apple.com",
+      "date": "",
+      "rank": 4
+    },
+    {
+      "title": "Line-In 接口和 Microphone 接口的区别是什么？ - 知乎",
+      "url": "https://www.zhihu.com/question/20710302",
+      "snippet": "对于 Line Out 在网上的介绍很少，又由于他一般以3.5mm插孔作为载体居多，很多同学就会发出疑问，会问Line Out和手机的耳机接口有什么区别（两个接 …",
+      "source": "www.zhihu.com",
+      "date": "",
+      "rank": 5
+    },
+    {
+      "title": "CSS 里的 height 属性与 line-height 属性有什么区别？ - 知乎",
+      "url": "https://www.zhihu.com/question/20222907",
+      "snippet": "一.背景介绍 我们在使用css来布局时经常需要进行居中，有时一个属性就能搞定，有时则需要一定的技巧才能兼容到所有浏览器， 利用css来实现对象的垂直居中 …",
+      "source": "www.zhihu.com",
+      "date": "",
+      "rank": 6
+    },
+    {
+      "title": "李清龙 的想法: Line In：用来输入未经放大芯片放大的模拟音频信号。Mic：用来连接麦 …",
+      "url": "https://www.zhihu.com/pin/1381276294458560512",
+      "snippet": "Line out 可以接2.1音箱. 音频接口： 音频模拟接口包括Line In、Mic In、Speak Out和Lille Out。 Line In接口主要用于将磁带上的音频信号传输到电脑硬盘中保 …",
+      "source": "www.zhihu.com",
+      "date": "",
+      "rank": 7
+    },
+    {
+      "title": "为什么美国的斩杀线直到最近（2025年12月）才被发现？ - 知乎",
+      "url": "https://www.zhihu.com/question/1986449236607391653",
+      "snippet": "2026년 1월 1일 · 一个医保CEO被人当街枪杀， 然后万民同情， 然后无数人为杀人者叫好，捐款，包括监狱里的犯人， 连主流报刊都把杀人者出庭的照片做成“偶像 …",
+      "source": "www.zhihu.com",
+      "date": "",
+      "rank": 8
+    },
+    {
+      "title": "网友讨论美国存在「斩杀线」，这反映了美国社会哪些深层问题？",
+      "url": "https://www.zhihu.com/question/1982156476903605888",
+      "snippet": "22年，我在ebay买了个镜头，1399美金。比国内便宜一丢丢， 完成交易以后，收到了美国卖家的感谢信 洋洋洒洒比我高考作文多，说感谢我，镜头是他过世老爹 …",
+      "source": "www.zhihu.com",
+      "date": "",
+      "rank": 9
+    }
+  ]
+}
