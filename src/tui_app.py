@@ -194,7 +194,8 @@ class AlphaGenomeApp(App):
         # 定义核心监控因子
         mon_factors = {
             "sp_ratio_rank": "价值基因 (V)",
-            "mom_60d_rank": "动量反转 (M)",
+            "mom_60d_rank": "短期反转 (M_short)",
+            "mom_12m_minus_1m_rank": "趋势强度 (M_long)",
             "vol_60d_res_rank": "低波残差 (L)"
         }
         

@@ -33,6 +33,8 @@ def calculate_stock_features(ticker_file):
     df["mom_20d"] = df["close"].pct_change(20)
     df["mom_60d"] = df["close"].pct_change(60)
     df["mom_120d"] = df["close"].pct_change(120)
+    # 12-1 Momentum: 过去 1 年收益剔除最近 1 个月
+    df["mom_12m_minus_1m"] = df["close"].shift(22) / df["close"].shift(252) - 1
 
     # ── 2. 波动率 (Volatility) ──
     df["vol_60d"] = df["close"].pct_change().rolling(60).std()
@@ -159,12 +161,27 @@ def main():
         panel_me = pd.merge(panel_me, ind_df, on="ticker", how="left")
         panel_me["industry_name"] = panel_me["industry_name"].fillna("Unknown")
     
-    rank_cols = ["mom_20d", "mom_60d", "vol_60d_res", "sp_ratio", "roe", "turn_20d"]
+    rank_cols = ["mom_20d", "mom_60d", "mom_12m_minus_1m", "vol_60d_res", "sp_ratio", "roe", "turn_20d"]
     for col in rank_cols:
         if col in panel_me.columns:
             panel_me[f"{col}_rank"] = panel_me.groupby(["date", "industry_name"])[col].rank(pct=True)
     
-    # 6. 保存
+    # ── 6. 标签 Rank 化 (Rank Label for LambdaRank) ──
+    print("Converting next month returns to rank labels (0-4)...")
+    def to_rank_label(group, n_bins=5):
+        if len(group) < n_bins:
+            group["label_next_month_rank"] = 0
+            return group
+        group["label_next_month_rank"] = pd.qcut(group["label_next_month"], n_bins, labels=False, duplicates='drop')
+        return group
+    
+    # 在每个日期截面内进行分箱
+    temp_list = []
+    for d, grp in tqdm(panel_me.groupby("date"), desc="Binning Labels"):
+        temp_list.append(to_rank_label(grp))
+    panel_me = pd.concat(temp_list, ignore_index=True)
+    
+    # 7. 保存
     panel_me = panel_me.dropna(subset=["label_next_month", "mom_60d"])
     panel_me.to_parquet(SAVE_PATH, compression="snappy")
     print(f"Enhanced features saved to {SAVE_PATH}")

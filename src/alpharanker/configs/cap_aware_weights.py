@@ -28,8 +28,9 @@ REBALANCE_FREQUENCY_DAYS = 20   # 月度调仓
 # -----------------------------------------------------------
 HS300_FEATURE_WEIGHTS = {
     "sp_ratio_rank":    1.0,   # 价值核心 (IC>0)
-    "mom_60d_rank":    -0.5,   # 反转因子 (IC<0), 权重设为负
-    "vol_60d_res_rank":-0.15,  # 屏蔽期低权, 设为负号对齐低波逻辑
+    "mom_60d_rank":    -0.5,   # 短期反转 (M_short, IC<0)
+    "mom_12m_minus_1m_rank": 0.2, # 长期动量 (M_long, IC>0)
+    "vol_60d_res_rank":-0.15,  # 屏蔽期低权
     "roe_rank":         0.3,   # 质量因子 (预期 IC>0)
     "turn_20d_rank":    0.5,
     "np_growth_rank":   0.4,
@@ -46,8 +47,9 @@ HS300_SHORT_TERM_DISABLED = ["vol_60d_res_rank"]
 # -----------------------------------------------------------
 ZZ500_FEATURE_WEIGHTS = {
     "sp_ratio_rank":    1.0,   # 万年长青 (IC>0)
-    "mom_60d_rank":    -0.35,  # 中盘反转 (IC<0), 权重设为负
-    "vol_60d_res_rank":-0.9,   # 中盘防御核心 (IC<0), 权重设为负
+    "mom_60d_rank":    -0.35,  # 中盘反转 (M_short, IC<0)
+    "mom_12m_minus_1m_rank": 0.4, # 趋势核心 (M_long, IC>0)
+    "vol_60d_res_rank":-0.9,   # 中盘防御核心 (IC<0)
     "roe_rank":         0.3,
     "turn_20d_rank":    0.5,
     "np_growth_rank":   0.4,
