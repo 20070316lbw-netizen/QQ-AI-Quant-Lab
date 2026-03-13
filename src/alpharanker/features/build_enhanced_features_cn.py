@@ -14,6 +14,7 @@ import pandas as pd
 import numpy as np
 from tqdm import tqdm
 from scipy.stats import linregress
+import statsmodels.api as sm
 
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
@@ -77,20 +78,33 @@ def calculate_stock_features(ticker_file):
     
     return df.reset_index()
 
-def orthogonalize_vol(df):
-    """
-    对波动率进行正交化：vol_60d_res = vol_60d ~ mom_60d
-    """
+def winsorize_mad(series, n=3):
+    """MAD 去极值"""
+    median = series.median()
+    mad = (series - median).abs().median()
+    lower = median - n * 1.4826 * mad
+    upper = median + n * 1.4826 * mad
+    return series.clip(lower=lower, upper=upper)
+
+def neutralize_feature(df, feature_col, target_cols=['size_proxy']):
+    """市值/行业中性化 (OLS 取残差)"""
     df = df.copy()
-    valid = df.dropna(subset=["vol_60d", "mom_60d"])
-    if len(valid) < 10:
-        df["vol_60d_res"] = df["vol_60d"]
-        return df
+    mask = df[[feature_col] + target_cols].notna().all(axis=1)
+    if mask.sum() < 20:
+        return df[feature_col]
+        
+    y = df.loc[mask, feature_col]
+    X = df.loc[mask, target_cols]
+    X = sm.add_constant(X)
     
-    # 截面回归太慢，这里对单只股票做时序残差其实也可以代表“异常波动”
-    # 但为了对齐美股逻辑，我们应该在 main 中做截面正交。
-    # 这里先不处理，放进 main。
-    return df
+    model = sm.OLS(y, X).fit()
+    df.loc[mask, f"{feature_col}_neu"] = model.resid
+    # 如果回归失败或样本太少，保留原值
+    df[f"{feature_col}_neu"] = df[f"{feature_col}_neu"].fillna(df[feature_col])
+    return df[f"{feature_col}_neu"]
+
+def orthogonalize_vol(df):
+    pass
 
 def main():
     print("AlphaRanker — A 股增强特征工程 (Genome v1)")
@@ -154,17 +168,32 @@ def main():
         temp_list.append(get_residuals(grp))
     panel_me = pd.concat(temp_list, ignore_index=True)
     
-    # 5. 行业合并与中性化排名
+    # 5. 行业合并与预处理管线
     from config import IND_MAP_PATH
     if os.path.exists(IND_MAP_PATH):
         ind_df = pd.read_parquet(IND_MAP_PATH)
         panel_me = pd.merge(panel_me, ind_df, on="ticker", how="left")
         panel_me["industry_name"] = panel_me["industry_name"].fillna("Unknown")
     
+    # ── 新增：市值代理变量 ──
+    panel_me["size_proxy"] = np.log(panel_me["raw_close"] * panel_me["volume"] + 1e-6)
+    
     rank_cols = ["mom_20d", "mom_60d", "mom_12m_minus_1m", "vol_60d_res", "sp_ratio", "roe", "turn_20d"]
-    for col in rank_cols:
-        if col in panel_me.columns:
-            panel_me[f"{col}_rank"] = panel_me.groupby(["date", "industry_name"])[col].rank(pct=True)
+    
+    print("Applying Preprocessing Pipeline (MAD -> Size Neutral -> Industry De-mean)...")
+    temp_list = []
+    for d, grp in tqdm(panel_me.groupby("date"), desc="Neutralizing"):
+        grp = grp.copy()
+        for col in rank_cols:
+            if col in grp.columns:
+                # 1. MAD 去极值
+                grp[col] = winsorize_mad(grp[col])
+                # 2. 市值中性化
+                grp[col] = neutralize_feature(grp, col, target_cols=['size_proxy'])
+                # 3. 行业中性化 (去均值并排名)
+                grp[f"{col}_rank"] = grp.groupby("industry_name")[col].rank(pct=True)
+        temp_list.append(grp)
+    panel_me = pd.concat(temp_list, ignore_index=True)
     
     # ── 6. 标签 Rank 化 (Rank Label for LambdaRank) ──
     print("Converting next month returns to rank labels (0-4)...")
@@ -172,6 +201,7 @@ def main():
         if len(group) < n_bins:
             group["label_next_month_rank"] = 0
             return group
+        # 增加 labels=False 返回整型 [0, 1, 2, 3, 4]
         group["label_next_month_rank"] = pd.qcut(group["label_next_month"], n_bins, labels=False, duplicates='drop')
         return group
     
