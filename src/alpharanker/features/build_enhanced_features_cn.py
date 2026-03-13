@@ -48,26 +48,10 @@ def calculate_stock_features(ticker_file):
     df["roe"] = np.nan
     df["np_growth"] = np.nan
 
-    # ── 4. 基本面因子 ──
-    fund_path = os.path.join(FUND_DIR, f"{ticker}_fundamental.parquet")
-    if os.path.exists(fund_path):
-        try:
-            fdf = pd.read_parquet(fund_path)
-            if not fdf.empty:
-                fdf.set_index("statDate", inplace=True)
-                fdf.index = pd.to_datetime(fdf.index)
-                cols_to_join = [c for c in ["roe", "np_growth"] if c in fdf.columns]
-                if cols_to_join:
-                    # 先删除初始化的空列再 join，或者直接 update
-                    df.update(fdf[cols_to_join])
-                    for c in cols_to_join:
-                        df[c] = df[c].ffill()
-        except:
-            pass
+    # ── 4. 基本面因子 (暂不启用) ──
+    # ...
     
-    # 填充最终默认值
-    df["roe"] = df["roe"].fillna(0)
-    df["np_growth"] = df["np_growth"].fillna(0)
+    # 填充最终默认值 (已废弃)
 
     # ── 5. 换手率 (Liquidity) ──
     df["turn_20d"] = df["turn"].rolling(20).mean()
@@ -178,7 +162,7 @@ def main():
     # ── 新增：市值代理变量 ──
     panel_me["size_proxy"] = np.log(panel_me["raw_close"] * panel_me["volume"] + 1e-6)
     
-    rank_cols = ["mom_20d", "mom_60d", "mom_12m_minus_1m", "vol_60d_res", "sp_ratio", "roe", "turn_20d"]
+    rank_cols = ["mom_20d", "mom_60d", "mom_12m_minus_1m", "vol_60d_res", "sp_ratio", "turn_20d"]
     
     print("Applying Preprocessing Pipeline (MAD -> Size Neutral -> Industry De-mean)...")
     temp_list = []
