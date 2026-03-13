@@ -2,6 +2,10 @@ from textual.app import App, ComposeResult
 from textual.widgets import Header, Footer, Static, DataTable, TabbedContent, TabPane
 from textual.containers import Container, Horizontal, Vertical
 from textual.binding import Binding
+import os
+import sys
+import pandas as pd
+import numpy as np
 
 class AlphaGenomeApp(App):
     """Alpha Genome CLI 交易战情室 (TUI)"""
@@ -54,7 +58,7 @@ class AlphaGenomeApp(App):
             with Horizontal():
                 with TabbedContent(id="tabs"):
                     with TabPane("今日信号", id="signals"):
-                        yield Static("🐻 当前状态：[span class=status-bear]熊市 (MA250 Below)[/span]", id="active-regime")
+                        yield Static("🐻 当前状态：[b #f87171]熊市 (MA250 Below)[/]", id="active-regime")
                         yield DataTable(id="signal-table")
                     with TabPane("因子体检", id="health"):
                         yield Static("因子 IC 稳定性与衰减监控 (加载中...)", id="health-viewer")
@@ -81,9 +85,6 @@ class AlphaGenomeApp(App):
     def action_refresh(self) -> None:
         """刷新全量数据并更新 UI"""
         try:
-            import os
-            import pandas as pd
-            import sys
             sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
             from config import CN_DIR
             from alpharanker.configs.cap_aware_weights import get_weights
@@ -122,15 +123,16 @@ class AlphaGenomeApp(App):
                 )
 
             # 2. 更新状态栏
-            regime_text = "🐻 当前状态：[span class=status-bear]熊市 (MA250 Below)[/span]"
+            regime_text = "🐻 当前状态：[b #f87171]熊市 (MA250 Below)[/]"
             if os.path.exists(MACRO_PATH):
                 m_df = pd.read_parquet(MACRO_PATH)
                 latest_m = m_df[m_df['date'] <= latest_date].tail(1)
                 if not latest_m.empty and latest_m['regime'].iloc[0] == 1:
-                    regime_text = "🐂 当前状态：[span class=status-bull]牛市 (MA250 Above)[/span]"
+                    regime_text = "🐂 当前状态：[b #4ade80]牛市 (MA250 Above)[/]"
             # 数据质量审计
             null_ratio = latest_df.isnull().sum().sum() / (latest_df.shape[0] * latest_df.shape[1])
-            quality_msg = f"数据质量: {'[green]优' if null_ratio < 0.05 else '[yellow]警'}({null_ratio:.1%})"
+            quality_tag = "[b green]优[/]" if null_ratio < 0.05 else "[b yellow]警[/]"
+            quality_msg = f"数据质量: {quality_tag}({null_ratio:.1%})"
             self.query_one("#active-regime").update(f"{regime_text}  |  {quality_msg}")
 
             self.update_health_dashboard(latest_df)
