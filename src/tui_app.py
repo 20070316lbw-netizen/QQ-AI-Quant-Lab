@@ -128,7 +128,11 @@ class AlphaGenomeApp(App):
                 latest_m = m_df[m_df['date'] <= latest_date].tail(1)
                 if not latest_m.empty and latest_m['regime'].iloc[0] == 1:
                     regime_text = "🐂 当前状态：[span class=status-bull]牛市 (MA250 Above)[/span]"
-            self.query_one("#active-regime").update(regime_text)
+            # 数据质量审计
+            null_ratio = latest_df.isnull().sum().sum() / (latest_df.shape[0] * latest_df.shape[1])
+            quality_msg = f"数据质量: {'[green]优' if null_ratio < 0.05 else '[yellow]警'}({null_ratio:.1%})"
+            self.query_one("#active-regime").update(f"{regime_text}  |  {quality_msg}")
+
             self.update_health_dashboard(latest_df)
             self.update_hologram(latest_df)
 
