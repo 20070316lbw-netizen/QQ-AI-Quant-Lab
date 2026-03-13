@@ -1,62 +1,93 @@
-# QQ-AI-Quant-Lab: Alpha Genome 进化体系 (v3.0)
+# QQ-AI-Quant-Lab: Alpha Genome 进化体系 (Evolutionary System) v3.0
 
-> 本体系现已演化为基于 **Alpha Genome (M+V+L)** 核心序列的军工级量化研究平台。我们通过跨越美股（2005-2025）与 A 股（2021-2026）的长周期严苛实证，锁定了具备“慢基因”特性的跨市场获利底座。
+[**English**](#english-version) | [**中文版**](#中文版)
+
+---
+
+<a name="english-version"></a>
+
+# English Version
+
+## 🚀 Project Overview
+**Alpha Genome** is an advanced quantitative research framework designed to discover robust "Alpha Genes" across global equity markets (currently supporting US and A-Shares). By combining **LambdaRank** learning-to-rank algorithms with a state-aware **Market World Model**, the project moves beyond simple factor backtesting into environment-adaptive genomic alpha discovery.
+
+### 🎯 Key Problems Solved
+- **Factor Decay & Regime Shift**: Automatically detects market regimes (Bull/Bear) and reallocates weights to the most robust factors (M/V/L).
+- **Signal Noise**: Utilizes orthogonalization and neutralization to strip away market/sector biases, exposing pure alpha drivers.
+- **Low-Cost Accessibility**: Specifically identifies high-alpha opportunities in low-priced stocks (< 5 CNY) via the "500 Yuan Assistant".
+
+### 💎 Core Advantages
+- **Real market data, no synthetic demos**: Built on years of actual price and fundamental data.
+- **Out-of-sample validation (2024-2026)**: Rigorous testing on data the model has never seen.
+- **Discovered regime-dependent factor behavior**: e.g., Volatility Res becomes a primary alpha driver in Bear markets.
+
+## 🧬 Alpha Genome Core Sequences (M+V+L)
+- **M (Momentum)**: Short-term reversal (M_short) paired with 12-1 long-term momentum (M_long).
+- **V (Value)**: Quality-adjusted valuation metrics (S/P, 1/PS).
+- **L (Low Volatility)**: Orthogonalized volatility residuals stripping away momentum bias.
+
+## 📊 Key Findings / 核心发现
+- **ZZ500 Alpha**: 12-1 Momentum shows a significant t-stat of **2.48** in China's mid-cap space.
+- **Top 3 Alpha Genes (Neutralized)**:
+  1. `mom_60d_rank` (IC: -0.0439): Robust short-term reversal anchor.
+  2. `mom_20d_rank` (IC: -0.0329): Tactical swing driver.
+  3. `sp_ratio_rank` (IC: 0.0322): High-stability value guardian (IR > 0.32).
+- **A 股低波异常**: 实证确证 A 股存在强烈的“博彩税”特征，低波组合收益显著优于高波组合。
+
+---
+
+<a name="中文版"></a>
+
+# 中文版
+
+## 🚀 项目简介
+**Alpha Genome (Alpha 基因组)** 是一个先进的量化投研框架，旨在全球股票市场（目前支持美股与 A 股）中发现稳健的“Alpha 基因”。通过结合 **LambdaRank** 特征排序算法与状态感知的 **市场世界模型 (Market World Model)**，本项目实现了从传统因子回测向环境自适应基因发现的进化。
+
+### 🎯 解决的核心问题
+- **因子衰减与环境切换**：自动检测市场状态（牛/熊），并将权重重新分配给最稳健的因子序列 (M/V/L)。
+- **信号噪音**：利用正交化与中性化技术剥离市场和行业偏离，暴露纯净的 Alpha 驱动力。
+- **低门槛实战**：通过“500元小助手”专门识别低价股（< 5元）中的高 Alpha 机会。
+
+### 💎 核心优势
+- **真实市场数据，无合成演示**：基于多年真实的行情与基本面数据构建。
+- **样本外验证 (2024-2026)**：在模型从未接触过的数据集上执行严苛测试。
+- **发现环境敏感型行为**：例如，在熊市中，波动率残差 (VolRes) 会成为核心 Alpha 驱动力。
 
 ## 🧬 Alpha Genome 核心基因序列
+- **M (动量)**：短期反转 (M_short) 与 12-1 长期动量 (M_long) 的对冲组合。
+- **V (价值)**：经过质量校准的估值指标 (S/P, 1/PS)。
+- **L (低波)**：剥离动量干扰后的纯净波动率残差。
 
-不同于传统的因子堆砌，本系统提纯了三大具备极强穿透力的原始基因：
-1. **Momentum (M)**: 捕捉动量反转溢价（大盘显著反转，中盘噪音调优）。
-2. **Value (V)**: 以 `sp_ratio` (营收市值比) 为核心，展现出跨越 120 天持有期的长线增强能力。
-3. **Low Volatility Residual (L)**: 剥离动量效应后的纯净波动率残差 (`vol_60d_res`)，是熊市防御与风险定价的核心。
-4. **Secret Project (NLP)**: 基于 GLM-4.6V 的中文金融新闻情感分析模块，通过语义向量提取截面情绪 Alpha，作为第四维基因储备。
-
----
-
-## 🔬 最新实证里程碑 (2026-03)
-
-### 1. A 股长周期多周期实证
-我们在 A 股 58 个月度截面（2021-2026）中确证了 Alpha Genome 的统治力：
-- **sp_ratio (价值)**: 120天持有期 Rank IC 高达 **+0.103** (ZZ500)，展现出惊人的长线穿透力。
-- **vol_60d_res (低波)**: 在中盘股 (ZZ500) 中表现出极佳的风险隔离效果 (t-stat -2.84)。
-- **动量分层**: 大盘股 (HS300) 展现出显著的月度反转效应 (t-stat -2.18)。
-
-### 2. 时序衰减分析 (IC Decay)
-实证证明 Alpha Genome 属于“慢基因”，信号半衰期显著长于普通技术指标，支持低换手率的大规模资金容量。
+## 📊 核心发现
+- **中证 500 Alpha**：12-1 动量结构在中盘股表现极其稳健，t-stat 达 **2.48**。
+- **A 股低波异常**：实证确证 A 股存在强烈的“博彩税”特征，低波组合收益显著优于高波组合。
 
 ---
 
-## 🧠 核心数学引擎 (The Math Logic)
+## 🏗️ Project Structure
+- `src/alpharanker/features/`: Evolutionary feature engineering (Neutralization, Scaling).
+- `src/alpharanker/models/`: Regime-aware LambdaRank models.
+- `research_logs_repo/`: Standardized research audit logs and evaluation reports.
+- `src/tui_app.py`: High-performance interactive research terminal (Textual).
 
-### 1. Regime-Aware 动态权重矩阵
-系统不再使用固定参数，而是根据宏观状态（MA250 穿越及流动性分位）自动调节：
-- **信用扩张期**: 激活 ROE (Quality) 与成长基因。
-- **防御收缩期**: 锁定 `sp_ratio` 与 `vol_res` 防御仓位。
-
-### 2. IC 显著性检验 (Newey-West 修正)
-通过 Newey-West HAC 统计修正，在因子评估阶段剥离时序自相关干扰，确保 t-stat 与显著性结论的稳健与纯正。
-
----
-
-## 🛠️ 快速启动
-
-### 赛博全息交易战情室 (Web UI)
-```bash
-streamlit run src/webui.py
-```
-
-### 自动化因子审计与监控
-```bash
-python src/alpharanker/eval/eval_realtime_cn.py # 实时 A 股验证
-python src/alpharanker/eval/eval_cn_ic_decay.py   # 衰减分析
-```
+## ⚠️ Disclaimer / 免责声明
+The code and data in this project are for educational and research purposes only and do not constitute any investment advice. Please use with caution.
+本项目的代码和数据仅供学习和研究使用，不构成任何投资建议，请谨慎使用。
 
 ---
 
-## 📁 系统架构图 (V3)
-- `src/alpharanker/data/`: 兼容 Baostock/yfinance 的跨市场数据中台。
-- `src/alpharanker/features/`: 包含正交化降维逻辑的特征库。
-- `src/alpharanker/models/`: 基于 LambdaRank 框架的环境敏感型模型。
-- `research_logs_repo/`: 定向同步云端的研究审计日志库 (QQ-AI-Quant-Lab 专属)。
+## 👨‍💻 Team & Contact
 
-**致主理人：** 
-QQ-AI-Quant-Lab 现已从“模型猜测”进化为“基因驱动”。欢迎引领本体系挺进 2015 极值周期的最终炼金术验证！🚀
+**Project Lead:** **Bowei Liu**
+- **Email**: [20070316lbw@gmail.com]
+- **University**: Hunun Institute of Information Technology (大一 / Freshman)
+- **Major**: Financial Management (财务管理)
+
+**Core Contributors:**
+- **Bowei Liu**: Architecture design, manual manual authorship, and result evaluation. (提供了一双手和一个脑子)
+- **Gemini**: Coding MASTER, responsible for script writing, model building, and debugging. (代码编写高手)
+- **Claude**: Project report auditor and conversational collaborator; raised many critical questions during research. (项目报告检查兼聊天员)
+- **ChatGPT**: Project report auditor and advisor; contributed key insights to methodology. (项目报告检查)
+- **GLM**: Integrated via API for news labeling; a great teacher for NLP tasks. (API 接入，新闻打标签)
+
+*(Names listed in no particular order; all are core forces of the project.)*
