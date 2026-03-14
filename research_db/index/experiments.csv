@@ -1,0 +1,3 @@
+experiment,status,date,description
+exp_20260314_kronos_ic,completed,2026-03-14,Kronos Factor IC evaluation v2.0
+exp_20260313_pipeline_audit,completed,2026-03-13,Full pipeline logic audit v3.0

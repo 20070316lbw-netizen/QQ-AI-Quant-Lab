@@ -1,2 +1,3 @@
-factor,score,status,market,author
-news_sentiment_glm4,0.5,validated,CN,antigravity_agent
+factor,IC,status,market,date
+momentum_12_1,0.035,valid,CN,2026-03-11
+kronos_factor,0.037,weak,CN,2026-03-14

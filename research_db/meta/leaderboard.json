@@ -1,0 +1,14 @@
+{
+    "top_factors": [
+        {
+            "name": "momentum_12_1",
+            "IC": 0.035,
+            "status": "valid"
+        },
+        {
+            "name": "kronos_factor",
+            "IC": 0.037,
+            "status": "weak"
+        }
+    ]
+}

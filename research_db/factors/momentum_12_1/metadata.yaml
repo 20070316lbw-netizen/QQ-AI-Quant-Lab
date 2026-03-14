@@ -1,0 +1,8 @@
+name: momentum_12_1
+type: price_factor
+market: CN
+universe: ZZ500
+definition: 12m_return - 1m_return
+author: researcher_agent
+date: 2026-03-11
+status: validated

@@ -1,0 +1,8 @@
+name: kronos_factor
+type: ai_prediction_factor
+market: CN
+universe: ZZ500
+definition: Kronos-mini monthly prediction return
+author: researcher_agent
+date: 2026-03-14
+status: weak
