@@ -38,7 +38,7 @@ def main():
     # 1. 加载特征库以获取 2024 年可选股票列表
     FEATURES_PATH = os.path.join(CN_DIR, 'cn_features_enhanced.parquet')
     if not os.path.exists(FEATURES_PATH):
-        print("❌ 特征库缺失")
+        print("Features path missing")
         return
 
     df_feat = pd.read_parquet(FEATURES_PATH)
@@ -100,7 +100,7 @@ def main():
 
     res_df = pd.DataFrame(results)
     res_df.to_parquet(OUTPUT_PATH)
-    print(f"\n✅ 评估完成，结果已保存至: {OUTPUT_PATH}")
+    print(f"Evaluation completed, results saved to: {OUTPUT_PATH}")
 
     # 3. 计算 IC 与 T-Stat
     print("\n" + "-"*40)
@@ -127,9 +127,9 @@ def main():
     print(f"T-Stat: {t_stat:.2f}")
     
     if abs(mean_ic) > 0.03 and abs(t_stat) > 1.96:
-        print("\n📈 结论: Kronos 因子具有显著的预测增量 (值得加权)")
+        print("\nConclusion: Kronos factor has significant prediction value (Weighting recommended)")
     else:
-        print("\n📉 结论: Kronos 因子信号微弱或不显著 (建议保持原有权重)")
+        print("\nConclusion: Kronos factor signal is weak or insignificant (Keep default weights)")
 
 if __name__ == "__main__":
     main()
