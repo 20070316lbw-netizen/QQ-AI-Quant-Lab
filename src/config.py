@@ -3,6 +3,13 @@ import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # ============================================================
+# Central Quantitative Database (DuckDB)
+# ============================================================
+DB_DIR = r'C:\QQ_Quant_DB'
+DB_PATH = os.path.join(DB_DIR, 'quant_lab.duckdb')
+os.makedirs(DB_DIR, exist_ok=True)
+
+# ============================================================
 # Central Data Repository (shared across all projects)
 # ============================================================
 DATA_ROOT = r'C:\Data\Market'

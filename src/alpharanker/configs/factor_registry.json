@@ -2,13 +2,13 @@
     "mom_20d_rank": {
         "name": "短期动量 (20日)",
         "category": "Momentum",
-        "direction": 1,
+        "direction": -1,
         "description": "过去 20 个交易日的收益率排名，用于捕捉短期趋势或在特定市场下的反转效应。"
     },
     "mom_60d_rank": {
         "name": "中期动量 (60日)",
         "category": "Momentum",
-        "direction": 1,
+        "direction": -1,
         "description": "过去 60 个交易日的收益率排名，捕捉中期动量趋势。"
     },
     "vol_60d_res_rank": {
@@ -27,7 +27,8 @@
         "name": "净资产收益率 (ROE)",
         "category": "Quality",
         "direction": 1,
-        "description": "盈利能力的核心指标。在震荡市或去伪存真的下行周期，资金尤为偏爱高确定性高盈利。 "
+        "status": "disabled",
+        "description": "盈利能力的核心指标。注：当前数据管线暂不提供实时基本面更新，该因子已停用。"
     },
     "turn_20d_rank": {
         "name": "均值换手率 (20日)",

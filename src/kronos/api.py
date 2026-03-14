@@ -73,12 +73,12 @@ def _get_predictor():
             
             try:
                 # 官方仓库：NeoQuasar/Kronos-Tokenizer-2k + NeoQuasar/Kronos-mini
-                tokenizer = KronosTokenizer.from_pretrained("NeoQuasar/Kronos-Tokenizer-2k")
-                model = Kronos.from_pretrained("NeoQuasar/Kronos-mini")
+                tokenizer = KronosTokenizer.from_pretrained("C:/Users/lbw15/Desktop/Dev_Workspace/models/kronos/tokenizer")
+                model = Kronos.from_pretrained("C:/Users/lbw15/Desktop/Dev_Workspace/models/kronos/model")
                 _kronos_predictor = KronosPredictor(model, tokenizer, device="cpu", max_context=512)
-                print("[Kronos] ✅ Real model loaded successfully! [Mode: Kronos-mini on CPU]")
+                print("[Kronos] Real model loaded successfully! [Mode: Kronos-mini on CPU]")
             except Exception as e:
-                print(f"[Kronos] Remote load failed: {e}")
+                print(f"[Kronos] Load failed: {e}")
                 print("[Kronos] Falling back to Statistical Quant Strategy (Robust Mode)...")
                 _kronos_predictor = StatisticalPredictor()
             
@@ -132,7 +132,7 @@ def predict_market_trend(
     
     # 第一阶段：必跑 3 轮
     for i in range(initial_count):
-        print(f"  ↳ Initial Sampling {i+1}/{initial_count}...")
+        print(f"  Sampling {i+1}/{initial_count}...")
         try:
             sample_df = predictor.predict(
                 df=df_for_model.set_index('date'), 
@@ -150,7 +150,7 @@ def predict_market_trend(
             print(f"  ❌ Sampling error: {e}")
             
     if not valid_predictions:
-        print("[Kronos] ❌ All initial samplings failed.")
+        print("[Kronos] All initial samplings failed.")
         return None
 
     # 计算初步结果用于边界判定
@@ -164,9 +164,9 @@ def predict_market_trend(
     near_boundary = any(abs(z_3 - b) < epsilon for b in boundaries)
     
     if near_boundary and len(valid_predictions) == initial_count:
-        print(f"[Kronos] ⚠️ Boundary detected (Z={z_3:.2f}). Running 2 additional samples for precision...")
+        print(f"[Kronos] Boundary detected (Z={z_3:.2f}). Running 2 additional samples for precision...")
         for i in range(2):
-            print(f"  ↳ Extra Sampling {i+4}/5...")
+            print(f"  Extra Sampling {i+4}/5...")
             try:
                 sample_df = predictor.predict(
                     df=df_for_model.set_index('date'), 
@@ -183,7 +183,7 @@ def predict_market_trend(
             except Exception as e:
                 print(f"  ❌ Extra sampling error: {e}")
     else:
-        print(f"[Kronos] ✅ Signal clear (Z={z_3:.2f}). Skipping extra samplings.")
+        print(f"[Kronos] Signal clear (Z={z_3:.2f}). Skipping extra samplings.")
 
     # 最终结果合成
     prediction_df = pd.concat(valid_predictions).groupby(level=0).mean()
@@ -221,7 +221,7 @@ def predict_market_trend(
         'predicted_range_pct': predicted_range_pct
     }
     
-    print(f"[Kronos] ✅ Adaptive Ensemble completed ({len(valid_predictions)} samples).")
+    print(f"[Kronos] Adaptive Ensemble completed ({len(valid_predictions)} samples).")
     print(f"         Mean Return: {mean_return:.2%}, Std: {std_return:.2%}, Range: {predicted_range_pct:.2%}")
     
     return prediction_df

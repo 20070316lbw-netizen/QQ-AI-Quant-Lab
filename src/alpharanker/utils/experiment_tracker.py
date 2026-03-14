@@ -27,6 +27,17 @@ class ExperimentTracker:
         """
         Record a new experiment into the JSON log.
         """
+        # 增加防御：递归清洗 results 中的 NaN / Inf，防止污染 JSON
+        def clean_data(val):
+            if isinstance(val, (float, int)):
+                if val != val or val == float('inf') or val == float('-inf'):
+                    return None # JSON 不支持 NaN，转换为 null
+            elif isinstance(val, dict):
+                return {k: clean_data(v) for k, v in val.items()}
+            elif isinstance(val, list):
+                return [clean_data(i) for i in val]
+            return val
+
         entry = {
             "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
             "dataset": dataset_name,
@@ -34,7 +45,7 @@ class ExperimentTracker:
             "features": features,
             "questions": questions,     # 质疑与提问 (研究动机)
             "methodology": methodology, # 测试方法与逻辑
-            "results": results,
+            "results": clean_data(results),
             "notes": notes
         }
         

@@ -24,7 +24,7 @@ def fetch_chunk(ticker_std, start_date, end_date):
         _std_to_bs(ticker_std),
         "date,open,high,low,close,volume,turn,peTTM,pbMRQ,psTTM,pcfNcfTTM,isST",
         start_date=start_date, end_date=end_date,
-        frequency="d", adjustflag="2"
+        frequency="d", adjustflag="3"
     )
     
     if rs.error_code != '0':

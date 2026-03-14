@@ -11,15 +11,16 @@ from alpharanker.configs.cap_aware_weights import get_weights
 FEATURES_PATH = os.path.join(CN_DIR, 'cn_features_enhanced.parquet')
 MACRO_PATH = os.path.join(CN_DIR, 'macro_regime.parquet')
 
-def backtest_strategy(df, group="HS300", weights=None, rebalance_days=20):
+def backtest_strategy(df, group="HS300", weights=None, rebalance_days=1):
     """
-    简易回测：按 Alpha Score 排序，取前 20% 持有 20 天。
+    简易回测：按 Alpha Score 排序，取前 20% 持有 1 个月 (步长适配月度面板)。
     """
     g_df = df[df['index_group'] == group].copy()
     if g_df.empty:
         return None
     
     dates = sorted(g_df['date'].unique())
+    # 适配月度面板：如果 rebalance_days=20 会导致 20 个月才调仓一次
     rebalance_dates = dates[::rebalance_days]
     
     portfolio_returns = []
@@ -39,24 +40,40 @@ def backtest_strategy(df, group="HS300", weights=None, rebalance_days=20):
         
         # 选股 Top 20%
         top_n = max(1, int(len(sect) * 0.2))
-        portfolio = sect.sort_values('score', ascending=False).head(top_n)['ticker'].tolist()
+        portfolio_df = sect.sort_values('score', ascending=False).head(top_n)
+        portfolio = portfolio_df['ticker'].tolist()
         
-        # 计算持仓期收益 (简单平均)
-        # 寻找这些股票在下一个调仓日的价格
+        # 持仓期收益计算 
+        # p_start: 调仓起始日价格
+        p_start = portfolio_df.set_index('ticker')['raw_close']
+        
+        # p_end: 调仓结束日价格 (寻找这些股票在下一个调仓日的价格)
         hold_df = g_df[(g_df['date'] == d_end) & (g_df['ticker'].isin(portfolio))]
-        if not hold_df.empty:
-            # 这里简化，用 label_20d 或者实际价格差
-            # 我们用实际价格差来更真实一点
-            p_start = sect[sect['ticker'].isin(portfolio)].set_index('ticker')['raw_close']
-            p_end = hold_df.set_index('ticker')['raw_close']
+        p_end = hold_df.set_index('ticker')['raw_close']
+        
+        # --- 核心修复: 幸存者偏差保护 (Survivor Bias Protection) ---
+        # 如果股票在 d_end 缺失（停牌/退市），不能简单平均，否则会遗漏损失
+        common_tickers = p_start.index.intersection(p_end.index)
+        missing_tickers = p_start.index.difference(p_end.index)
+        
+        # 正常对齐部分的收益
+        rets_aligned = p_end[common_tickers] / p_start[common_tickers] - 1
+        
+        # 缺失部分的收益 (视为退市或长期停牌无法卖出，计为 -1.0)
+        # 在 2015 年极限测试中，这种处理能更真实地反映回撤
+        rets_missing = pd.Series(-1.0, index=missing_tickers)
+        
+        if len(missing_tickers) > 0:
+            print(f"  [!] {d_end.date()} 检测到 {len(missing_tickers)} 只选股成分缺失 (停牌/退市)，计入全损。")
             
-            # 对齐数据
-            ret = (p_end / p_start - 1).mean()
-            portfolio_returns.append({
-                'date': d_end,
-                'return': ret,
-                'regime': sect['regime_label'].iloc[0] if 'regime_label' in sect.columns else 'Unknown'
-            })
+        combined_rets = pd.concat([rets_aligned, rets_missing])
+        ret = combined_rets.mean()
+        
+        portfolio_returns.append({
+            'date': d_end,
+            'return': ret,
+            'regime': sect['regime_label'].iloc[0] if 'regime_label' in sect.columns else 'Unknown'
+        })
             
     return pd.DataFrame(portfolio_returns)
 

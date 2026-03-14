@@ -5,3 +5,5 @@ nul
 *.log
 __pycache__/
 .gemini/
+
+models/

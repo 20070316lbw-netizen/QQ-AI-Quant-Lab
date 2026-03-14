@@ -42,28 +42,42 @@ def calculate_ic_metrics(df, factor_cols, target_col='label_next_month'):
             
     return pd.DataFrame(ic_results)
 
-def get_feature_importance(df, feature_cols, target_col='label_next_month'):
-    """使用 LightGBM 训练模型并提取特征重要性 (Gain)"""
-    print(f"Training LightGBM to extract feature importance (Target: {target_col})...")
+def get_feature_importance(df, feature_cols, target_col='label_next_month_rank'):
+    """使用 LightGBM LambdaRank 训练并提取特征重要性 (Gain)"""
+    # 优先使用预计算好的 Rank Label
+    if target_col not in df.columns:
+        if 'label_next_month' in df.columns:
+            # 回退逻辑：如果没找到预计算标签，实时进行 5 分箱
+            print(f"Warning: {target_col} not found, calculating on-the-fly...")
+            df = df.copy()
+            df[target_col] = df.groupby('date')['label_next_month'].transform(
+                lambda x: pd.qcut(x, 5, labels=False, duplicates='drop') if len(x) >= 5 else 0
+            )
+        else:
+            return pd.Series(0, index=feature_cols)
+
+    print(f"Training LightGBM LambdaRank to extract feature importance (Target: {target_col})...")
     
-    # 简单切分
-    train_df = df.dropna(subset=feature_cols + [target_col])
+    # 必须按日期排序以构造分组信息 (query/group sizes)
+    train_df = df.dropna(subset=feature_cols + [target_col]).sort_values("date")
     if len(train_df) < 1000:
         return pd.Series(0, index=feature_cols)
         
-    X = train_df[feature_cols]
-    y = train_df[target_col]
+    X = train_df[feature_cols].values.astype(np.float32)
+    y = train_df[target_col].values.astype(np.int32)
+    q_sizes = train_df.groupby("date", sort=False).size().values
     
-    # 使用基础参数
+    # 采用与 Alpha Genome 主模型一致的参数
     params = {
-        "objective": "regression",
-        "metric": "rmse",
+        "objective": "lambdarank",
+        "metric": "ndcg",
         "verbosity": -1,
         "boosting_type": "gbdt",
-        "random_state": 42
+        "random_state": 42,
+        "label_gain": [0, 1, 2, 3, 4] # 对应 [0-4] Rank Label
     }
     
-    dtrain = lgb.Dataset(X, label=y)
+    dtrain = lgb.Dataset(X, label=y, group=q_sizes)
     model = lgb.train(params, dtrain, num_boost_round=100)
     
     importance = model.feature_importance(importance_type='gain')
@@ -86,14 +100,16 @@ def main():
     # 1. 计算 IC 指标
     ic_df = calculate_ic_metrics(df, candidate_factors)
     
-    # 2. 计算特征重要性 (Gain)
-    importance_series = get_feature_importance(df, candidate_factors)
+    # 2. 计算特征重要性 (Gain) - 使用 LambdaRank 模式对齐主逻辑
+    importance_series = get_feature_importance(df, candidate_factors, target_col='label_next_month_rank')
     ic_df["importance_gain"] = ic_df["factor"].map(importance_series)
     
-    # 3. 综合评分 (这里可以使用启发式公式，例如 0.4*IC + 0.3*IR + 0.3*Importance)
-    # 先做归一化
+    # 3. 综合评分 (权重分配: 0.4*IC + 0.3*IR + 0.3*Importance)
+    # 先做归一化处理
     for col in ["ic_mean", "ir", "importance_gain"]:
-        ic_df[f"{col}_norm"] = (ic_df[col].abs() - ic_df[col].abs().min()) / (ic_df[col].abs().max() - ic_df[col].abs().min() + 1e-9)
+        col_abs = ic_df[col].abs()
+        denom = col_abs.max() - col_abs.min()
+        ic_df[f"{col}_norm"] = (col_abs - col_abs.min()) / (denom + 1e-9)
     
     ic_df["composite_score"] = (
         0.4 * ic_df["ic_mean_norm"] + 
@@ -104,7 +120,7 @@ def main():
     leaderboard = ic_df.sort_values("composite_score", ascending=False).reset_index(drop=True)
     
     print("\n" + "="*80)
-    print("  因子排行榜 TOP 10")
+    print("  因子排行榜 TOP 10 (LambdaRank Gain 对齐版)")
     print("="*80)
     print(leaderboard[["factor", "ic_mean", "ir", "importance_gain", "composite_score"]].head(10).to_string())
     

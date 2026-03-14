@@ -87,8 +87,25 @@ def neutralize_feature(df, feature_col, target_cols=['size_proxy']):
     df[f"{feature_col}_neu"] = df[f"{feature_col}_neu"].fillna(df[feature_col])
     return df[f"{feature_col}_neu"]
 
-def orthogonalize_vol(df):
-    pass
+def orthogonalize_vol(group):
+    """
+    截面正交化：剥离动量因子对波动率的影响，提取纯净波动残差 (Vol Res)。
+    """
+    group = group.copy()
+    # 检查必要列是否存在
+    if "vol_60d" not in group.columns or "mom_60d" not in group.columns:
+        group["vol_60d_res"] = group.get("vol_60d", np.nan)
+        return group
+        
+    mask = group[["vol_60d", "mom_60d"]].notna().all(axis=1)
+    if mask.sum() > 20:
+        # 使用线性回归提取残差
+        slope, intercept, _, _, _ = linregress(group.loc[mask, "mom_60d"], group.loc[mask, "vol_60d"])
+        group.loc[mask, "vol_60d_res"] = group.loc[mask, "vol_60d"] - (intercept + slope * group.loc[mask, "mom_60d"])
+    else:
+        # 样本不足时保留原值
+        group["vol_60d_res"] = group["vol_60d"]
+    return group
 
 def main():
     print("AlphaRanker — A 股增强特征工程 (Genome v1)")
@@ -124,32 +141,25 @@ def main():
     panel_me = panel_me.reset_index(drop=True)
     
     # 恢复实盘残余标签：月底采样面板上的 shift(-1) 能自动对接未走完的下月残余收益
+    # 彻底解决：先显式排序，再根据 ticker 分组进行 shift，防止索引错位
+    panel_me = panel_me.sort_values(["ticker", "date"])
     panel_me["label_next_month"] = (
-        panel_me.sort_values(["ticker", "date"]).groupby("ticker")["raw_close"].shift(-1) /
+        panel_me.groupby("ticker")["raw_close"].shift(-1) /
         panel_me["raw_close"] - 1
     )
     
     # 4. 截面积正交化 (Ortho Vol)
     print("Performing cross-sectional orthogonalization (Vol ~ Mom)...")
-    def get_residuals(group):
-        group = group.copy()
-        mask = group[["vol_60d", "mom_60d"]].notna().all(axis=1)
-        if mask.sum() > 20:
-            slope, intercept, _, _, _ = linregress(group.loc[mask, "mom_60d"], group.loc[mask, "vol_60d"])
-            group.loc[mask, "vol_60d_res"] = group.loc[mask, "vol_60d"] - (intercept + slope * group.loc[mask, "mom_60d"])
-        else:
-            group["vol_60d_res"] = group["vol_60d"]
-        return group
-
+    
     # 显式使用 'date' 列进行分组
     print(f"Columns before grouping: {panel_me.columns.tolist()}")
     if "date" not in panel_me.columns:
         panel_me = panel_me.reset_index()
     
-    # 彻底解决：先按日期分组，然后在内部函数中确保不出错
+    # 彻底解决：先按日期分组，然后在内部函数中进行正交化
     temp_list = []
     for d, grp in tqdm(panel_me.groupby("date"), desc="Orthogonalizing"):
-        temp_list.append(get_residuals(grp))
+        temp_list.append(orthogonalize_vol(grp))
     panel_me = pd.concat(temp_list, ignore_index=True)
     
     # 5. 行业合并与预处理管线

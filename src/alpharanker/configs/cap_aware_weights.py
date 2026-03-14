@@ -31,9 +31,7 @@ HS300_FEATURE_WEIGHTS = {
     "mom_60d_rank":    -0.5,   # 短期反转 (M_short, IC<0)
     "mom_12m_minus_1m_rank": 0.2, # 长期动量 (M_long, IC>0)
     "vol_60d_res_rank":-0.15,  # 屏蔽期低权
-    "roe_rank":         0.3,   # 质量因子 (预期 IC>0)
     "turn_20d_rank":    0.5,
-    "np_growth_rank":   0.4,
 }
 
 # 大盘短线屏蔽开关 (5d/20d 持仓频率时生效)
@@ -50,9 +48,7 @@ ZZ500_FEATURE_WEIGHTS = {
     "mom_60d_rank":    -0.35,  # 中盘反转 (M_short, IC<0)
     "mom_12m_minus_1m_rank": 0.4, # 趋势核心 (M_long, IC>0)
     "vol_60d_res_rank":-0.9,   # 中盘防御核心 (IC<0)
-    "roe_rank":         0.3,
     "turn_20d_rank":    0.5,
-    "np_growth_rank":   0.4,
 }
 
 ZZ500_SHORT_TERM_DISABLED = []   # 中盘 vol 短线信号保留
