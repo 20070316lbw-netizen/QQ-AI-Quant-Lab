@@ -1,0 +1,14 @@
+{
+    "HS300": {
+        "final_nav": 1.3447,
+        "annual_return": 0.3447,
+        "max_drawdown": -0.3117,
+        "win_rate_months": 0.727
+    },
+    "ZZ500": {
+        "final_nav": 1.4957,
+        "annual_return": 0.4957,
+        "max_drawdown": -0.3282,
+        "win_rate_months": 0.727
+    }
+}

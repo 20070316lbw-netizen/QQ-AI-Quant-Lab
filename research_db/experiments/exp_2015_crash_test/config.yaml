@@ -1,0 +1,11 @@
+model: LightGBM_LambdaRank_v3.5
+factors:
+  - momentum_12_1
+  - value_ps
+  - turnover_20d
+horizon: 20d
+universe: HS300, ZZ500
+test_period: 2015-01-01 to 2016-01-01
+rebalance: monthly
+features: backward_adjusted
+survivor_bias_protection: true (missing stocks = -100% loss)
