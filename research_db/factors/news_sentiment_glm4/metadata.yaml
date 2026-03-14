@@ -1,0 +1,15 @@
+name: news_sentiment_glm4
+type: sentiment_factor
+market: CN
+universe: AlphaGenome_Pool
+definition: GLM-4-Plus sentiment score with CalibrationEngine v2
+author: antigravity_agent
+date: 2026-03-14
+status: validated
+version: 1.0.0
+channels:
+  - individual
+  - macro
+  - crypto
+  - culture
+  - default
