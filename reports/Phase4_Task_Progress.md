@@ -15,6 +15,11 @@
 - [ ] **任务 3：Phase 4 启动 (SFT 准备)**
     - [ ] 导出 DuckDB 高质量标注集
     - [ ] 定义 Phase 4 微调流水线
+- [ ] **任务 5：重构结构化研究数据库 (Research Knowledge Base)** [/]
+    - [ ] 初始化 `research_db` 目录体系 (index, factors, experiments, validation, strategies, meta)
+    - [ ] 迁移 Phase 4 新闻情感分析研究至 `factors/news_sentiment_glm4/`
+    - [ ] 建立研究索引同步机制 (Index Auto-update)
+    - [ ] 生成初始 Alpha Leaderboard (meta/leaderboard.json)
 - [ ] **任务 4：维护与同步**
     - [ ] 遵循 BAOSTOCK 安全准则
     - [ ] 执行 GitHub 同步
