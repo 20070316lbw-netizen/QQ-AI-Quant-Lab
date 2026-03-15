@@ -1,0 +1,64 @@
+{
+  "HS300": {
+    "is_ic": 0.24053829320345085,
+    "oos_ic": 0.010793716986377532,
+    "overfit_gap": 0.2297445762170733,
+    "importance": [
+      {
+        "feature": "vol_60d_res_rank",
+        "gain": 416.04216388612986
+      },
+      {
+        "feature": "mom_20d_rank",
+        "gain": 338.25753079354763
+      },
+      {
+        "feature": "mom_60d_rank",
+        "gain": 337.9530998915434
+      },
+      {
+        "feature": "sp_ratio_rank",
+        "gain": 326.92744363844395
+      },
+      {
+        "feature": "turn_20d_rank",
+        "gain": 304.1807875111699
+      },
+      {
+        "feature": "regime",
+        "gain": 20.477288089692593
+      }
+    ]
+  },
+  "ZZ500": {
+    "is_ic": 0.11781573296562504,
+    "oos_ic": 0.013498433313867256,
+    "overfit_gap": 0.10431729965175779,
+    "importance": [
+      {
+        "feature": "vol_60d_res_rank",
+        "gain": 368.40439957380295
+      },
+      {
+        "feature": "mom_20d_rank",
+        "gain": 357.5385203883052
+      },
+      {
+        "feature": "turn_20d_rank",
+        "gain": 356.070387609303
+      },
+      {
+        "feature": "mom_60d_rank",
+        "gain": 338.74706315249205
+      },
+      {
+        "feature": "sp_ratio_rank",
+        "gain": 328.33387602865696
+      },
+      {
+        "feature": "regime",
+        "gain": 26.55677203834057
+      }
+    ]
+  }
+}
