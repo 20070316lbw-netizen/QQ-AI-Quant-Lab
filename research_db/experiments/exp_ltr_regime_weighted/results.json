@@ -1,0 +1,22 @@
+{
+  "oos_2024": {
+    "mean_ic": 0.0185,
+    "ic_t_stat": 1.5574,
+    "mean_ndcg_at_10": 0.4702,
+    "is_oos_gap": 0.0396
+  },
+  "comparison_vs_baseline": {
+    "baseline_ic": 0.0214,
+    "weighted_ic": 0.0185,
+    "delta": -0.0029,
+    "status": "Performance Degraded"
+  },
+  "feature_importance_gain": {
+    "mom_60d_rank": 856.9560,
+    "vol_60d_res_rank": 806.0282,
+    "turn_20d_rank": 741.4727,
+    "sp_ratio_rank": 693.7131,
+    "mom_20d_rank": 626.6214,
+    "regime": 40.5994
+  }
+}
