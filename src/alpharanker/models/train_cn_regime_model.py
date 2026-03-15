@@ -16,6 +16,7 @@ import numpy as np
 import pandas as pd
 import lightgbm as lgb
 from scipy.stats import spearmanr
+from sklearn.metrics import ndcg_score
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..")))
 from config import BASE_DIR, MODEL_DIR, CN_DIR
@@ -28,7 +29,7 @@ MODEL_PATH    = os.path.join(MODEL_DIR, "cn_regime_genome.pkl")
 FEATURE_COLS = [
     "mom_60d_rank", "mom_20d_rank", 
     "vol_60d_res_rank", "sp_ratio_rank", 
-    "roe_rank", "turn_20d_rank"
+    "turn_20d_rank"
 ]
 
 def add_regime_tags(df):
@@ -73,6 +74,35 @@ def prepare_data(df):
     
     return df, X, y, q_sizes
 
+def calculate_metrics(model, df, X, label_col='label_next_month'):
+    preds = model.predict(X)
+    df = df.copy()
+    df["pred"] = preds
+    
+    ics = []
+    ndcgs = []
+    for d, grp in df.groupby("date"):
+        if len(grp) > 20:
+            ic, _ = spearmanr(grp["pred"], grp[label_col])
+            ics.append(ic)
+            
+            y_true = [grp["relevance"].values]
+            y_score = [grp["pred"].values]
+            ndcg = ndcg_score(y_true, y_score, k=10)
+            ndcgs.append(ndcg)
+    
+    mean_ic = np.mean(ics)
+    std_ic = np.std(ics)
+    t_stat = mean_ic / (std_ic / np.sqrt(len(ics))) if std_ic != 0 else 0
+    mean_ndcg = np.mean(ndcgs)
+    
+    return {
+        "mean_ic": mean_ic,
+        "std_ic": std_ic,
+        "t_stat": t_stat,
+        "mean_ndcg": mean_ndcg
+    }
+
 def main():
     print("="*60)
     print("  Alpha Genome: A 股状态感应模型训练")
@@ -85,46 +115,60 @@ def main():
     df = pd.read_parquet(FEATURES_PATH)
     df = add_regime_tags(df)
     
-    # 时序切分
-    all_dates = sorted(df["date"].unique())
-    n = len(all_dates)
-    train_dates = all_dates[:int(n*0.8)]
-    test_dates = all_dates[int(n*0.8):]
+    # 按照用户要求：2024 为 OOS 核心评估期
+    df['date'] = pd.to_datetime(df['date'])
+    train_df = df[df['date'] < '2024-01-01']
+    test_df = df[(df['date'] >= '2024-01-01') & (df['date'] <= '2024-12-31')]
     
-    train_df = df[df["date"].isin(train_dates)]
-    test_df = df[df["date"].isin(test_dates)]
+    if len(train_df) == 0 or len(test_df) == 0:
+        print("⚠️ 数据切分失败，检查日期范围。回滚使用 80/20 切分。")
+        all_dates = sorted(df["date"].unique())
+        n = len(all_dates)
+        train_dates = all_dates[:int(n*0.8)]
+        train_df = df[df["date"].isin(train_dates)]
+        test_df = df[~df["date"].isin(train_dates)]
+    else:
+        print(f">> 切分完成: Train ({train_df['date'].min().date()} ~ {train_df['date'].max().date()}) | Test (2024 All)")
     
-    _, X_train, y_train, q_train = prepare_data(train_df)
-    _, X_test, y_test, q_test = prepare_data(test_df)
+    tr_df, X_train, y_train, q_train = prepare_data(train_df)
+    va_df, X_test, y_test, q_test = prepare_data(test_df)
     
     params = {
         "objective": "lambdarank",
         "metric": "ndcg",
-        "learning_rate": 0.03,
-        "num_leaves": 15,
-        "min_child_samples": 100,
+        "learning_rate": 0.05,
+        "num_leaves": 31,
+        "min_child_samples": 50,
+        "feature_fraction": 0.8,
+        "importance_type": "gain",
         "verbose": -1,
         "seed": 42
     }
     
     lgb_train = lgb.Dataset(X_train, label=y_train, group=q_train)
     
-    print(f"正在训练... (样本: {len(X_train)} | 截面: {len(train_dates)})")
+    print(f"正在训练... (样本: {len(X_train)} | 截面: {len(q_train)})")
     model = lgb.train(params, lgb_train, num_boost_round=200)
     
     # 评估
-    preds = model.predict(X_test)
-    test_df = test_df.copy()
-    test_df["pred"] = preds
+    train_metrics = calculate_metrics(model, tr_df, X_train)
+    test_metrics = calculate_metrics(model, va_df, X_test)
     
-    ics = []
-    for d, grp in test_df.groupby("date"):
-        if len(grp) > 20:
-            ic, _ = spearmanr(grp["pred"], grp["label_next_month"])
-            ics.append(ic)
+    print("\n" + "="*40)
+    print("  Alpha Genome: IS vs OOS Metrics")
+    print("="*40)
+    print(f"  [Train - IS] IC: {train_metrics['mean_ic']:.4f} | NDCG@10: {train_metrics['mean_ndcg']:.4f}")
+    print(f"  [Test  - OOS] IC: {test_metrics['mean_ic']:.4f} | NDCG@10: {test_metrics['mean_ndcg']:.4f}")
+    print(f"  Gap (Overfit): {train_metrics['mean_ic'] - test_metrics['mean_ic']:.4f}")
+    print("="*40)
     
-    print(f"\n[验证结果] OOS Mean Rank IC: {np.mean(ics):.4f}")
-    
+    # 特征重要性
+    imp = pd.DataFrame({
+        "feature": FEATURE_COLS + ["regime"],
+        "gain": model.feature_importance(importance_type="gain")
+    }).sort_values("gain", ascending=False)
+    print(f"\n[Feature Importance]\n{imp.to_string(index=False)}")
+
     # 保存
     with open(MODEL_PATH, "wb") as f:
         pickle.dump({"model": model, "features": FEATURE_COLS + ["regime"]}, f)

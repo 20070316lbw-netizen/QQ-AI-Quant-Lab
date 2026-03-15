@@ -1,0 +1,8 @@
+{
+  "oos_2024": {
+    "mean_rank_ic": 0.0214,
+    "static_comparison_ic": 0.0216,
+    "ltr_stability_advantage": "High (Fixed Feb/Oct drawdowns)",
+    "feature_importance_top": ["sp_ratio_rank", "turn_20d_rank", "vol_60d_res_rank"]
+  }
+}
