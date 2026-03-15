@@ -80,7 +80,7 @@ The code and data in this project are for educational and research purposes only
 
 **Project Lead:** **Bowei Liu**
 - **Email**: [20070316lbw@gmail.com]
-- **University**: Hunun Institute of Information Technology (大一 / Freshman)
+- **University**: Hunan University of Information Technology (大一 / Freshman)
 - **Major**: Financial Management (财务管理)
 
 **Core Contributors:**
