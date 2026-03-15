@@ -1,0 +1,19 @@
+{
+  "HS300": {
+    "is_ic": 0.2405,
+    "oos_ic": 0.0108,
+    "overfit_gap": 0.2297,
+    "sample_size": 9460
+  },
+  "ZZ500": {
+    "is_ic": 0.1178,
+    "oos_ic": 0.0135,
+    "overfit_gap": 0.1043,
+    "sample_size": 18879
+  },
+  "comparison_vs_global": {
+    "global_oos_ic": 0.0214,
+    "best_stratified_oos_ic": 0.0135,
+    "performance_delta": -0.0079
+  }
+}
