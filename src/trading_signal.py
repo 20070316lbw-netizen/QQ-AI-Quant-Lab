@@ -106,6 +106,9 @@ def generate_signal(ticker: str, as_of_date: str = None, ext_sentiment: float = 
         except Exception as e:
             print(f"Warning: Multi-Factor extraction failed: {e}")
             
+    # 应用 Multi-Factor 调整乘数到 final_confidence (处理 Zombie Factor 遗漏)
+    final_confidence = min(1.0, final_confidence * multi_factor_multiplier)
+
     # 【Phase 10：财务暴雷一票否决熔断】
     # 绕开大语言模型的主观评价，直接调用 YFinance 资产负债表底层的结构化硬核数据
     # 时空壁垒：同样杜绝用明朝的剑斩前朝的官
