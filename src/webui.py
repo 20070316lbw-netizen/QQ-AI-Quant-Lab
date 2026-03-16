@@ -104,10 +104,13 @@ if app_mode == "🦅 单股全息扫描":
     
     with st.sidebar:
         st.subheader("模式专属参数")
-        ticker = st.text_input("目标代号 (Ticker)", value="AAPL").upper()
-        ext_sentiment = st.slider("强制注入狂热/恐慌指数 (Sentiment)", -1.0, 1.0, 0.0, 0.1)
-        ext_risk = st.slider("强制黑天鹅过载熔断率 (Risk)", 0.0, 1.0, 0.3, 0.1)
-        run_btn = st.button("☢️ 启动高维量化穿透扫描", use_container_width=True)
+        ticker = st.text_input("目标代号 (Ticker)", value="AAPL", placeholder="例如: AAPL, MSFT", help="输入需要扫描的美股或A股代码").upper()
+        ext_sentiment = st.slider("强制注入狂热/恐慌指数 (Sentiment)", -1.0, 1.0, 0.0, 0.1, help="模拟极端市场情绪对模型判断的干预，范围 [-1.0, 1.0]")
+        ext_risk = st.slider("强制黑天鹅过载熔断率 (Risk)", 0.0, 1.0, 0.3, 0.1, help="设定不可预见性风险的惩罚系数，值越高防范性越强")
+
+        is_disabled = not bool(ticker.strip())
+        btn_help = "请输入目标代号以启动扫描" if is_disabled else "执行深度扫描并生成战损区报告"
+        run_btn = st.button("☢️ 启动高维量化穿透扫描", use_container_width=True, disabled=is_disabled, help=btn_help)
 
     if run_btn:
         log_stream = io.StringIO()
@@ -219,8 +222,11 @@ elif app_mode == "💼 AI 投资组合配资":
     
     with st.sidebar:
         st.subheader("模式专属参数")
-        pool_input = st.text_area("股票群落代码 (以逗号或空格分隔)", value="AAPL, MSFT, NVDA, TSLA, 600519.SS")
-        run_port_btn = st.button("⚖️ 启动资金天平配平", use_container_width=True)
+        pool_input = st.text_area("股票群落代码 (以逗号或空格分隔)", value="AAPL, MSFT, NVDA, TSLA, 600519.SS", placeholder="AAPL, MSFT...", help="多支股票代码，系统将进行横向比对和配比测算")
+
+        is_port_disabled = not bool(pool_input.strip())
+        btn_port_help = "请输入至少一个股票代码" if is_port_disabled else "基于 O-Score 进行资金组合最优配比测算"
+        run_port_btn = st.button("⚖️ 启动资金天平配平", use_container_width=True, disabled=is_port_disabled, help=btn_port_help)
         
     if run_port_btn:
         tickers = [x.strip() for x in pool_input.replace(',', ' ').split() if x.strip()]
@@ -271,9 +277,12 @@ elif app_mode == "🧊 震荡网格计算机":
     
     with st.sidebar:
         st.subheader("模式专属参数")
-        grid_ticker = st.text_input("震荡目标代号", value="TSLA").upper()
-        grid_lines = st.slider("切分步长网格级数", 3, 20, 8)
-        run_grid_btn = st.button("🧊 构建全矩阵高开低走截断网", use_container_width=True)
+        grid_ticker = st.text_input("震荡目标代号", value="TSLA", placeholder="例如: TSLA, BABA", help="输入震荡市标的以生成网格").upper()
+        grid_lines = st.slider("切分步长网格级数", 3, 20, 8, help="网格分割的数量，层数越多交易频率越高")
+
+        is_grid_disabled = not bool(grid_ticker.strip())
+        btn_grid_help = "请输入震荡目标代号" if is_grid_disabled else "生成网格阶梯并测算挂单区间"
+        run_grid_btn = st.button("🧊 构建全矩阵高开低走截断网", use_container_width=True, disabled=is_grid_disabled, help=btn_grid_help)
         
     if run_grid_btn:
         with st.spinner(f"正在用 Kronos 收缩极径倒推 {grid_ticker} 阶梯挂单线..."):
