@@ -25,7 +25,7 @@ class KronosEngine:
             # 提取最近 150 天数据，足够裁出 84 个交易日的窗口
             start_dt = target_dt - timedelta(days=150)
             start_date_str = start_dt.strftime("%Y-%m-%d")
-            fetch_end_date = (target_dt + timedelta(days=1)).strftime("%Y-%m-%d")
+            fetch_end_date = target_dt.strftime("%Y-%m-%d")
         except ValueError:
             target_dt = datetime.now()
             start_dt = target_dt - timedelta(days=150)
