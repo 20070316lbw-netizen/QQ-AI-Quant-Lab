@@ -18,56 +18,82 @@ from backtest.config import BACKTEST_CONFIG
 from backtest.signal_recorder import SignalRecorder
 from backtest.performance_analyzer import analyze_performance
 
-def compute_future_actual_data(ticker: str, date: str, horizon: int):
+def precompute_future_data(ticker: str, start_date: str, end_date: str, horizons: list) -> dict:
     """
-    计算基于指定日期的未来 N 天真实收益率、真实波动率 (std) 及真实振幅 (High-Low/Close)
+    【Vectorization Fix】全量向量化预计算未来实际收益与波动率。
+    避免原生 Python 的 for 循环去逐日查询 yfinance。
     """
     try:
-        trade_date = datetime.strptime(date, "%Y-%m-%d")
-        end_date = trade_date + timedelta(days=horizon + 10)
+        max_horizon = max(horizons)
+        fetch_start = datetime.strptime(start_date, "%Y-%m-%d") - timedelta(days=10)
+        fetch_end = datetime.strptime(end_date, "%Y-%m-%d") + timedelta(days=max_horizon + 15)
         
         stock = yf.Ticker(ticker)
-        df = stock.history(start=date, end=end_date.strftime("%Y-%m-%d"))
+        df = stock.history(start=fetch_start.strftime("%Y-%m-%d"), end=fetch_end.strftime("%Y-%m-%d"))
         
-        if df.empty or len(df) < horizon + 1:
-            return None, None, None
+        if df.empty:
+            return {}
             
-        # 裁剪出确切的 horizon 窗口数据 (含 T 日)
-        window_df = df.iloc[:horizon+1]
+        df.index = df.index.tz_localize(None)
         
-        p_entry = window_df.iloc[0]["Close"]
-        p_exit = window_df.iloc[-1]["Close"]
-        
-        # 指标1：收益率
-        actual_return = float((p_exit / p_entry) - 1.0)
-        
-        # 指标2：真实波动率 (收益率序列的 std)
-        daily_returns = window_df["Close"].pct_change().dropna()
-        realized_vol = float(daily_returns.std()) if len(daily_returns) > 1 else 0.0
-        
-        # 指标3：真实振幅 (期间最高 - 期间最低) / 期初
-        actual_max = window_df["High"].max()
-        actual_min = window_df["Low"].min()
-        actual_range_pct = float((actual_max - actual_min) / p_entry)
-        
-        return actual_return, realized_vol, actual_range_pct
-        
+        result_map = {}
+        for h in horizons:
+            # 收益率：T+h 收盘价 / T 收盘价 - 1
+            future_close = df['Close'].shift(-h)
+            actual_return = (future_close / df['Close']) - 1.0
+
+            # 波动率：T+1 到 T+h 的收益率标准差
+            daily_ret = df['Close'].pct_change()
+            realized_vol = daily_ret.rolling(window=h).std().shift(-h)
+
+            # 振幅：(T 到 T+h 期间最高价 - 最低价) / T 收盘价
+            actual_max = df['High'].rolling(window=h+1).max().shift(-h)
+            actual_min = df['Low'].rolling(window=h+1).min().shift(-h)
+            actual_range_pct = (actual_max - actual_min) / df['Close']
+
+            for date, _ in df.iterrows():
+                date_str = date.strftime("%Y-%m-%d")
+                if date_str not in result_map:
+                    result_map[date_str] = {}
+
+                result_map[date_str][f"fut_ret_{h}d"] = actual_return[date] if not pd.isna(actual_return[date]) else None
+                if h == 1:
+                    result_map[date_str][f"fut_vol_{h}d"] = 0.0
+                else:
+                    result_map[date_str][f"fut_vol_{h}d"] = realized_vol[date] if not pd.isna(realized_vol[date]) else None
+                result_map[date_str][f"fut_range_{h}d"] = actual_range_pct[date] if not pd.isna(actual_range_pct[date]) else None
+
+        return result_map
     except Exception as e:
-        print(f"  [X] Failed fetching actual return for {ticker} at {date}: {e}")
-        return None, None, None
+        print(f"  [X] Failed precomputing actual returns for {ticker}: {e}")
+        return {}
+
 
 def process_single_ticker(args):
     ticker, sample_dates, record_file_path = args
     print(f"\n[Worker] ========== Starting Backtest for {ticker} ==========")
     stock_results = []
     
+    if not sample_dates:
+        return 0, None
+
+    start_dt_str = min(sample_dates)
+    end_dt_str = max(sample_dates)
+    # 【Vectorization Fix】预先提取向量化结果，极大减少网络 IO 与循环耗时
+    precomputed_data = precompute_future_data(ticker, start_dt_str, end_dt_str, horizons=[1, 5])
+
     # 为了避免多个进程打印重叠，可以去掉 tqdm 或者简单降级，这里保留以看到进度
     for date in tqdm(sample_dates, desc=f"Processing {ticker}", leave=False):
         try:
             signal = generate_signal(ticker=ticker, as_of_date=date)
             
-            fut_ret_1d, fut_vol_1d, fut_range_1d = compute_future_actual_data(ticker, date, horizon=1)
-            fut_ret_5d, fut_vol_5d, fut_range_5d = compute_future_actual_data(ticker, date, horizon=5)
+            # 从预计算字典中极速获取
+            day_data = precomputed_data.get(date)
+            if not day_data:
+                continue
+
+            fut_ret_1d, fut_vol_1d, fut_range_1d = day_data.get("fut_ret_1d"), day_data.get("fut_vol_1d"), day_data.get("fut_range_1d")
+            fut_ret_5d, fut_vol_5d, fut_range_5d = day_data.get("fut_ret_5d"), day_data.get("fut_vol_5d"), day_data.get("fut_range_5d")
             
             if fut_ret_1d is None or fut_ret_5d is None:
                 continue

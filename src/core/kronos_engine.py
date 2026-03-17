@@ -48,6 +48,11 @@ class KronosEngine:
             "Close": "close", "Volume": "volume"
         }, inplace=True)
         
+        # ── 【Fix Look-ahead Bias】剔除未来函数：强制切断 target_date 及之后的数据 ──
+        # 消除不同数据源（YFinance exclusive vs Baostock inclusive）带来的对齐重叠问题
+        if "date" not in df.columns:
+            df = df[df.index < pd.to_datetime(target_date)]
+
         # ── 【Tensor 修复 v2】固定输入序列长度至 _KRONOS_SEQ_LEN ──────────
         # 不同股票/市场的实际交易日数量不一致，predictor 期望固定维度。
         # 超出则截取最近 N 行；不足则用最早一行向前填充（保守占位）。

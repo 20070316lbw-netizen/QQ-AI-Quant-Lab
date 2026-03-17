@@ -42,16 +42,13 @@ def generate_report():
     # 对于空头 (SELL)：收益 = 仓位 * (-未来5天收益)
     # 震荡/观望 (HOLD 等)：仓位通常很小或等于0
     
-    def calc_strategy_return(row):
-        pos = row['adjusted_position_strength']
-        ret = row['future_return_5d']
-        if row['direction'] == 'BUY':
-            return pos * ret
-        elif row['direction'] == 'SELL':
-            return pos * (-ret)
-        return 0.0
+    # 【Vectorization Fix】使用向量化运算取代低效的原生循环 (df.apply)
+    buy_mask = df['direction'] == 'BUY'
+    sell_mask = df['direction'] == 'SELL'
 
-    df['strategy_return'] = df.apply(calc_strategy_return, axis=1)
+    df['strategy_return'] = 0.0
+    df.loc[buy_mask, 'strategy_return'] = df.loc[buy_mask, 'adjusted_position_strength'] * df.loc[buy_mask, 'future_return_5d']
+    df.loc[sell_mask, 'strategy_return'] = df.loc[sell_mask, 'adjusted_position_strength'] * (-df.loc[sell_mask, 'future_return_5d'])
     
     # 2. 统计胜率
     win_trades = df[df['strategy_return'] > 0]
@@ -95,7 +92,7 @@ def generate_report():
 结合多因子 O-Score 的防雷阵列（Phase 10 & 16）与 Kronos 对极值收缩的精准预判，Kronos Alpha V2 已经初步具备了抵御全天候宏观周期的硬实力，随时可接入全自动实盘券商网关！
 """
 
-    report_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../README_BACKTEST_REPORT.md"))
+    report_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../README_BACKTEST_REPORT.md"))
     with open(report_path, "w", encoding="utf-8") as f:
         f.write(report_content)
     
