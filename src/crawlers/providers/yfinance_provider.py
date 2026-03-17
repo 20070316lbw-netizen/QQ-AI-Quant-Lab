@@ -401,13 +401,11 @@ def get_fundamental_risk_metrics(ticker: str) -> dict:
     """
     [Phase 10: 财务暴雷强阻断]
     只提取核心的风险排雷指标并返回纯净字段供底层机器融合（拒绝 NLP 化）。
-    包含: debtToEquity(借款权益比), currentRatio(流动比率), freeCashflow 等。
+    包含: debtToEquity(借款权益比), currentRatio(流动比率) 等。
     """
     metrics = {
         "debtToEquity": 0.0,
         "currentRatio": 1.0, # 默认安全
-        "freeCashflow": 0.0,
-        "returnOnEquity": 0.0,
         "is_valid": False
     }
     try:
@@ -419,8 +417,6 @@ def get_fundamental_risk_metrics(ticker: str) -> dict:
             
         metrics["debtToEquity"] = info.get("debtToEquity", 0.0) / 100.0 if info.get("debtToEquity") else 0.0 # YFinance 通常给的是百分比数值如 150 = 1.5倍的杠杆
         metrics["currentRatio"] = info.get("currentRatio", 1.0)
-        metrics["freeCashflow"] = info.get("freeCashflow", 0.0)
-        metrics["returnOnEquity"] = info.get("returnOnEquity", 0.0)
         metrics["is_valid"] = True
         
     except Exception as e:

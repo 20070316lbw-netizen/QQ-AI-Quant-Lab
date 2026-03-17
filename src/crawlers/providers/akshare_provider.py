@@ -110,5 +110,4 @@ def get_ak_fundamental_snapshot(symbol: str) -> dict:
         "is_valid":     True,
         "debtToEquity": 0.0,
         "currentRatio": 1.5,
-        "freeCashflow": 1,
     }

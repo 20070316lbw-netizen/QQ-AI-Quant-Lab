@@ -159,7 +159,7 @@ class DataGateway:
     def get_fundamental_risk_metrics(ticker: str) -> dict:
         """[Phase 10+24: 财务暴雷阻断] 提取用于强行熔断的底层财务指标。支持 A 股路由。"""
         if DataGateway.offline_mode:
-            return {"debtToEquity": 0.0, "currentRatio": 1.5, "freeCashflow": 1, "is_valid": True}
+            return {"debtToEquity": 0.0, "currentRatio": 1.5, "is_valid": True}
         # 【Phase 24】A 股路由
         if ticker.upper().endswith(_A_SHARE_SUFFIXES):
             DataGateway._log_fetch(f"路由至 AKShare 获取 {ticker} 基本面快照...")
