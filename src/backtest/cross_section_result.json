@@ -1,7 +1,7 @@
 {
   "meta": {
-    "run_start": "2026-03-17T00:12:48.083349",
-    "run_end": "2026-03-17T00:13:17.844206",
+    "run_start": "2026-03-17T01:01:41.619299",
+    "run_end": "2026-03-17T01:02:09.555157",
     "total": 12,
     "success": 12,
     "errors": 0,
@@ -24,58 +24,58 @@
             "ticker": "600519.SS",
             "direction": "PENDING",
             "regime": "STRONG_TREND_DOWN",
-            "z_score": -23.2114,
-            "regime_strength": -23.2114,
-            "mean_return": -0.1353,
-            "uncertainty": 0.0058,
-            "predicted_range_pct": 0.1531,
-            "predicted_max": 1389.93,
-            "predicted_min": 1178.15,
-            "adjusted_position_strength": 0.8067,
+            "z_score": -26.3764,
+            "regime_strength": -26.3764,
+            "mean_return": -0.1319,
+            "uncertainty": 0.0044,
+            "predicted_range_pct": 0.15,
+            "predicted_max": 1384.88,
+            "predicted_min": 1177.4,
+            "adjusted_position_strength": 0.6529,
             "kronos_signal": {
               "direction": "PENDING",
-              "z_score": -23.2114,
+              "z_score": -26.3764,
               "regime": "STRONG_TREND_DOWN",
-              "expected_return": -0.1353,
-              "uncertainty": 0.0058,
+              "expected_return": -0.1319,
+              "uncertainty": 0.0044,
               "position_strength": 1.0
             },
             "factor_signal": {
               "direction": null,
               "position_strength": null,
-              "o_score": 65.24,
+              "o_score": 43.27,
               "o_score_percentile": null,
               "factor_scores": {
-                "value_score": 50.56,
-                "quality_score": 100.0,
-                "size_score": 0.0,
-                "momentum_score": 38.01,
-                "volatility_score": 100.0,
-                "overall_score": 65.24
+                "value_score": 2.07,
+                "quality_score": 65.0,
+                "size_score": 50.0,
+                "momentum_score": 50.0,
+                "volatility_score": 50.0,
+                "overall_score": 43.27
               }
             },
             "metadata": {
               "model": "kronos-v1-foundation",
-              "timestamp": "2026-03-17T00:12:53.324634Z",
+              "timestamp": "2026-03-17T01:01:43.712799Z",
               "sentiment_score": 0.0,
               "risk_factor": 0.3,
               "base_strength": 1.0,
               "volatility_discount": 1.0,
               "fundamental_bust_triggered": false,
-              "multi_factor_o_score": 65.24,
-              "multi_factor_multiplier": 1.152,
+              "multi_factor_o_score": 43.27,
+              "multi_factor_multiplier": 0.933,
               "factor_scores": {
-                "value_score": 50.56,
-                "quality_score": 100.0,
-                "size_score": 0.0,
-                "momentum_score": 38.01,
-                "volatility_score": 100.0,
-                "overall_score": 65.24
+                "value_score": 2.07,
+                "quality_score": 65.0,
+                "size_score": 50.0,
+                "momentum_score": 50.0,
+                "volatility_score": 50.0,
+                "overall_score": 43.27
               }
             }
           },
           "error": null,
-          "run_at": "2026-03-17T00:12:48.089688"
+          "run_at": "2026-03-17T01:01:41.626420"
         },
         {
           "ticker": "600036.SS",
@@ -85,58 +85,58 @@
             "ticker": "600036.SS",
             "direction": "PENDING",
             "regime": "STRONG_TREND_UP",
-            "z_score": 3.4383,
-            "regime_strength": 3.4383,
-            "mean_return": 0.0172,
-            "uncertainty": 0.0016,
-            "predicted_range_pct": 0.0303,
-            "predicted_max": 40.06,
-            "predicted_min": 38.86,
-            "adjusted_position_strength": 0.8513,
+            "z_score": 3.7727,
+            "regime_strength": 3.7727,
+            "mean_return": 0.0189,
+            "uncertainty": 0.004,
+            "predicted_range_pct": 0.0307,
+            "predicted_max": 40.04,
+            "predicted_min": 38.83,
+            "adjusted_position_strength": 0.6522,
             "kronos_signal": {
               "direction": "PENDING",
-              "z_score": 3.4383,
+              "z_score": 3.7727,
               "regime": "STRONG_TREND_UP",
-              "expected_return": 0.0172,
-              "uncertainty": 0.0016,
-              "position_strength": 0.9979
+              "expected_return": 0.0189,
+              "uncertainty": 0.004,
+              "position_strength": 0.9989
             },
             "factor_signal": {
               "direction": null,
               "position_strength": null,
-              "o_score": 71.86,
+              "o_score": 43.27,
               "o_score_percentile": null,
               "factor_scores": {
-                "value_score": 100.0,
-                "quality_score": 84.95,
-                "size_score": 0.04,
-                "momentum_score": 36.14,
-                "volatility_score": 99.0,
-                "overall_score": 71.86
+                "value_score": 2.07,
+                "quality_score": 65.0,
+                "size_score": 50.0,
+                "momentum_score": 50.0,
+                "volatility_score": 50.0,
+                "overall_score": 43.27
               }
             },
             "metadata": {
               "model": "kronos-v1-foundation",
-              "timestamp": "2026-03-17T00:12:54.779286Z",
+              "timestamp": "2026-03-17T01:01:46.082444Z",
               "sentiment_score": 0.0,
               "risk_factor": 0.3,
-              "base_strength": 0.9979,
+              "base_strength": 0.9989,
               "volatility_discount": 1.0,
               "fundamental_bust_triggered": false,
-              "multi_factor_o_score": 71.86,
-              "multi_factor_multiplier": 1.219,
+              "multi_factor_o_score": 43.27,
+              "multi_factor_multiplier": 0.933,
               "factor_scores": {
-                "value_score": 100.0,
-                "quality_score": 84.95,
-                "size_score": 0.04,
-                "momentum_score": 36.14,
-                "volatility_score": 99.0,
-                "overall_score": 71.86
+                "value_score": 2.07,
+                "quality_score": 65.0,
+                "size_score": 50.0,
+                "momentum_score": 50.0,
+                "volatility_score": 50.0,
+                "overall_score": 43.27
               }
             }
           },
           "error": null,
-          "run_at": "2026-03-17T00:12:48.092060"
+          "run_at": "2026-03-17T01:01:41.629003"
         },
         {
           "ticker": "601318.SS",
@@ -146,58 +146,58 @@
             "ticker": "601318.SS",
             "direction": "PENDING",
             "regime": "STRONG_TREND_DOWN",
-            "z_score": -37.2542,
-            "regime_strength": -37.2542,
-            "mean_return": -0.1863,
-            "uncertainty": 0.0014,
-            "predicted_range_pct": 0.203,
-            "predicted_max": 60.18,
-            "predicted_min": 48.09,
-            "adjusted_position_strength": 0.8592,
+            "z_score": -37.0182,
+            "regime_strength": -37.0182,
+            "mean_return": -0.1851,
+            "uncertainty": 0.0025,
+            "predicted_range_pct": 0.1972,
+            "predicted_max": 60.02,
+            "predicted_min": 48.22,
+            "adjusted_position_strength": 0.6529,
             "kronos_signal": {
               "direction": "PENDING",
-              "z_score": -37.2542,
+              "z_score": -37.0182,
               "regime": "STRONG_TREND_DOWN",
-              "expected_return": -0.1863,
-              "uncertainty": 0.0014,
+              "expected_return": -0.1851,
+              "uncertainty": 0.0025,
               "position_strength": 1.0
             },
             "factor_signal": {
               "direction": null,
               "position_strength": null,
-              "o_score": 72.75,
+              "o_score": 43.27,
               "o_score_percentile": null,
               "factor_scores": {
-                "value_score": 100.0,
-                "quality_score": 75.2,
-                "size_score": 0.03,
-                "momentum_score": 57.15,
-                "volatility_score": 100.0,
-                "overall_score": 72.75
+                "value_score": 2.07,
+                "quality_score": 65.0,
+                "size_score": 50.0,
+                "momentum_score": 50.0,
+                "volatility_score": 50.0,
+                "overall_score": 43.27
               }
             },
             "metadata": {
               "model": "kronos-v1-foundation",
-              "timestamp": "2026-03-17T00:12:55.943091Z",
+              "timestamp": "2026-03-17T01:01:49.409386Z",
               "sentiment_score": 0.0,
               "risk_factor": 0.3,
               "base_strength": 1.0,
               "volatility_discount": 1.0,
               "fundamental_bust_triggered": false,
-              "multi_factor_o_score": 72.75,
-              "multi_factor_multiplier": 1.228,
+              "multi_factor_o_score": 43.27,
+              "multi_factor_multiplier": 0.933,
               "factor_scores": {
-                "value_score": 100.0,
-                "quality_score": 75.2,
-                "size_score": 0.03,
-                "momentum_score": 57.15,
-                "volatility_score": 100.0,
-                "overall_score": 72.75
+                "value_score": 2.07,
+                "quality_score": 65.0,
+                "size_score": 50.0,
+                "momentum_score": 50.0,
+                "volatility_score": 50.0,
+                "overall_score": 43.27
               }
             }
           },
           "error": null,
-          "run_at": "2026-03-17T00:12:48.093977"
+          "run_at": "2026-03-17T01:01:41.631070"
         }
       ]
     },
@@ -213,58 +213,58 @@
             "ticker": "300308.SZ",
             "direction": "PENDING",
             "regime": "RANGING_MIXED",
-            "z_score": -0.8195,
-            "regime_strength": -0.8195,
-            "mean_return": -0.0082,
-            "uncertainty": 0.01,
-            "predicted_range_pct": 0.0977,
-            "predicted_max": 568.77,
-            "predicted_min": 515.47,
-            "adjusted_position_strength": 0.3593,
+            "z_score": -0.5887,
+            "regime_strength": -0.5887,
+            "mean_return": -0.0029,
+            "uncertainty": 0.0022,
+            "predicted_range_pct": 0.0966,
+            "predicted_max": 568.59,
+            "predicted_min": 515.17,
+            "adjusted_position_strength": 0.2418,
             "kronos_signal": {
               "direction": "PENDING",
-              "z_score": -0.8195,
+              "z_score": -0.5887,
               "regime": "RANGING_MIXED",
-              "expected_return": -0.0082,
-              "uncertainty": 0.01,
-              "position_strength": 0.6748
+              "expected_return": -0.0029,
+              "uncertainty": 0.0022,
+              "position_strength": 0.529
             },
             "factor_signal": {
               "direction": null,
               "position_strength": null,
-              "o_score": 58.65,
+              "o_score": 43.27,
               "o_score_percentile": null,
               "factor_scores": {
-                "value_score": 4.27,
-                "quality_score": 90.0,
-                "size_score": 0.9,
-                "momentum_score": 100.0,
-                "volatility_score": 59.97,
-                "overall_score": 58.65
+                "value_score": 2.07,
+                "quality_score": 65.0,
+                "size_score": 50.0,
+                "momentum_score": 50.0,
+                "volatility_score": 50.0,
+                "overall_score": 43.27
               }
             },
             "metadata": {
               "model": "kronos-v1-foundation",
-              "timestamp": "2026-03-17T00:12:57.681220Z",
+              "timestamp": "2026-03-17T01:01:50.498224Z",
               "sentiment_score": 0.0,
               "risk_factor": 0.3,
-              "base_strength": 0.6748,
+              "base_strength": 0.529,
               "volatility_discount": 1.0,
               "fundamental_bust_triggered": false,
-              "multi_factor_o_score": 58.65,
-              "multi_factor_multiplier": 1.087,
+              "multi_factor_o_score": 43.27,
+              "multi_factor_multiplier": 0.933,
               "factor_scores": {
-                "value_score": 4.27,
-                "quality_score": 90.0,
-                "size_score": 0.9,
-                "momentum_score": 100.0,
-                "volatility_score": 59.97,
-                "overall_score": 58.65
+                "value_score": 2.07,
+                "quality_score": 65.0,
+                "size_score": 50.0,
+                "momentum_score": 50.0,
+                "volatility_score": 50.0,
+                "overall_score": 43.27
               }
             }
           },
           "error": null,
-          "run_at": "2026-03-17T00:12:48.095618"
+          "run_at": "2026-03-17T01:01:41.633380"
         },
         {
           "ticker": "688256.SS",
@@ -273,59 +273,59 @@
           "signal": {
             "ticker": "688256.SS",
             "direction": "PENDING",
-            "regime": "STRONG_TREND_UP",
-            "z_score": 3.6104,
-            "regime_strength": 3.6104,
+            "regime": "RANGING_MIXED",
+            "z_score": 1.8725,
+            "regime_strength": 1.8725,
             "mean_return": 0.0221,
-            "uncertainty": 0.0061,
-            "predicted_range_pct": 0.0773,
-            "predicted_max": 1187.15,
-            "predicted_min": 1099.62,
-            "adjusted_position_strength": 0.6662,
+            "uncertainty": 0.0118,
+            "predicted_range_pct": 0.0717,
+            "predicted_max": 1180.89,
+            "predicted_min": 1099.55,
+            "adjusted_position_strength": 0.4359,
             "kronos_signal": {
               "direction": "PENDING",
-              "z_score": 3.6104,
-              "regime": "STRONG_TREND_UP",
+              "z_score": 1.8725,
+              "regime": "RANGING_MIXED",
               "expected_return": 0.0221,
-              "uncertainty": 0.0061,
-              "position_strength": 0.9985
+              "uncertainty": 0.0118,
+              "position_strength": 0.9538
             },
             "factor_signal": {
               "direction": null,
               "position_strength": null,
-              "o_score": 45.31,
+              "o_score": 43.27,
               "o_score_percentile": null,
               "factor_scores": {
-                "value_score": 0.0,
-                "quality_score": 100.0,
-                "size_score": 3.12,
-                "momentum_score": 0.0,
-                "volatility_score": 100.0,
-                "overall_score": 45.31
+                "value_score": 2.07,
+                "quality_score": 65.0,
+                "size_score": 50.0,
+                "momentum_score": 50.0,
+                "volatility_score": 50.0,
+                "overall_score": 43.27
               }
             },
             "metadata": {
               "model": "kronos-v1-foundation",
-              "timestamp": "2026-03-17T00:12:59.046623Z",
+              "timestamp": "2026-03-17T01:01:51.823516Z",
               "sentiment_score": 0.0,
               "risk_factor": 0.3,
-              "base_strength": 0.9985,
+              "base_strength": 0.9538,
               "volatility_discount": 1.0,
               "fundamental_bust_triggered": false,
-              "multi_factor_o_score": 45.31,
-              "multi_factor_multiplier": 0.953,
+              "multi_factor_o_score": 43.27,
+              "multi_factor_multiplier": 0.933,
               "factor_scores": {
-                "value_score": 0.0,
-                "quality_score": 100.0,
-                "size_score": 3.12,
-                "momentum_score": 0.0,
-                "volatility_score": 100.0,
-                "overall_score": 45.31
+                "value_score": 2.07,
+                "quality_score": 65.0,
+                "size_score": 50.0,
+                "momentum_score": 50.0,
+                "volatility_score": 50.0,
+                "overall_score": 43.27
               }
             }
           },
           "error": null,
-          "run_at": "2026-03-17T00:12:53.327169"
+          "run_at": "2026-03-17T01:01:43.713904"
         },
         {
           "ticker": "300750.SZ",
@@ -335,58 +335,58 @@
             "ticker": "300750.SZ",
             "direction": "PENDING",
             "regime": "STRONG_TREND_UP",
-            "z_score": 10.9203,
-            "regime_strength": 10.9203,
-            "mean_return": 0.1071,
-            "uncertainty": 0.0098,
-            "predicted_range_pct": 0.1525,
-            "predicted_max": 428.61,
-            "predicted_min": 370.29,
-            "adjusted_position_strength": 0.8242,
+            "z_score": 15.2161,
+            "regime_strength": 15.2161,
+            "mean_return": 0.1096,
+            "uncertainty": 0.0072,
+            "predicted_range_pct": 0.1584,
+            "predicted_max": 430.99,
+            "predicted_min": 370.55,
+            "adjusted_position_strength": 0.6529,
             "kronos_signal": {
               "direction": "PENDING",
-              "z_score": 10.9203,
+              "z_score": 15.2161,
               "regime": "STRONG_TREND_UP",
-              "expected_return": 0.1071,
-              "uncertainty": 0.0098,
+              "expected_return": 0.1096,
+              "uncertainty": 0.0072,
               "position_strength": 1.0
             },
             "factor_signal": {
               "direction": null,
               "position_strength": null,
-              "o_score": 67.75,
+              "o_score": 43.27,
               "o_score_percentile": null,
               "factor_scores": {
-                "value_score": 43.63,
-                "quality_score": 93.19,
-                "size_score": 0.0,
-                "momentum_score": 71.11,
-                "volatility_score": 100.0,
-                "overall_score": 67.75
+                "value_score": 2.07,
+                "quality_score": 65.0,
+                "size_score": 50.0,
+                "momentum_score": 50.0,
+                "volatility_score": 50.0,
+                "overall_score": 43.27
               }
             },
             "metadata": {
               "model": "kronos-v1-foundation",
-              "timestamp": "2026-03-17T00:13:01.444641Z",
+              "timestamp": "2026-03-17T01:01:53.539825Z",
               "sentiment_score": 0.0,
               "risk_factor": 0.3,
               "base_strength": 1.0,
               "volatility_discount": 1.0,
               "fundamental_bust_triggered": false,
-              "multi_factor_o_score": 67.75,
-              "multi_factor_multiplier": 1.178,
+              "multi_factor_o_score": 43.27,
+              "multi_factor_multiplier": 0.933,
               "factor_scores": {
-                "value_score": 43.63,
-                "quality_score": 93.19,
-                "size_score": 0.0,
-                "momentum_score": 71.11,
-                "volatility_score": 100.0,
-                "overall_score": 67.75
+                "value_score": 2.07,
+                "quality_score": 65.0,
+                "size_score": 50.0,
+                "momentum_score": 50.0,
+                "volatility_score": 50.0,
+                "overall_score": 43.27
               }
             }
           },
           "error": null,
-          "run_at": "2026-03-17T00:12:54.779641"
+          "run_at": "2026-03-17T01:01:46.082849"
         }
       ]
     },
@@ -402,58 +402,58 @@
             "ticker": "601088.SS",
             "direction": "PENDING",
             "regime": "STRONG_TREND_UP",
-            "z_score": 50.0425,
-            "regime_strength": 50.0425,
-            "mean_return": 0.2502,
-            "uncertainty": 0.0038,
-            "predicted_range_pct": 0.3082,
-            "predicted_max": 62.95,
-            "predicted_min": 47.79,
-            "adjusted_position_strength": 0.9245,
+            "z_score": 46.8766,
+            "regime_strength": 46.8766,
+            "mean_return": 0.2538,
+            "uncertainty": 0.0054,
+            "predicted_range_pct": 0.3143,
+            "predicted_max": 63.07,
+            "predicted_min": 47.64,
+            "adjusted_position_strength": 0.6529,
             "kronos_signal": {
               "direction": "PENDING",
-              "z_score": 50.0425,
+              "z_score": 46.8766,
               "regime": "STRONG_TREND_UP",
-              "expected_return": 0.2502,
-              "uncertainty": 0.0038,
+              "expected_return": 0.2538,
+              "uncertainty": 0.0054,
               "position_strength": 1.0
             },
             "factor_signal": {
               "direction": null,
               "position_strength": null,
-              "o_score": 82.07,
+              "o_score": 43.27,
               "o_score_percentile": null,
               "factor_scores": {
-                "value_score": 75.18,
-                "quality_score": 96.03,
-                "size_score": 0.07,
-                "momentum_score": 98.27,
-                "volatility_score": 100.0,
-                "overall_score": 82.07
+                "value_score": 2.07,
+                "quality_score": 65.0,
+                "size_score": 50.0,
+                "momentum_score": 50.0,
+                "volatility_score": 50.0,
+                "overall_score": 43.27
               }
             },
             "metadata": {
               "model": "kronos-v1-foundation",
-              "timestamp": "2026-03-17T00:13:06.083844Z",
+              "timestamp": "2026-03-17T01:01:55.958094Z",
               "sentiment_score": 0.0,
               "risk_factor": 0.3,
               "base_strength": 1.0,
               "volatility_discount": 1.0,
               "fundamental_bust_triggered": false,
-              "multi_factor_o_score": 82.07,
-              "multi_factor_multiplier": 1.321,
+              "multi_factor_o_score": 43.27,
+              "multi_factor_multiplier": 0.933,
               "factor_scores": {
-                "value_score": 75.18,
-                "quality_score": 96.03,
-                "size_score": 0.07,
-                "momentum_score": 98.27,
-                "volatility_score": 100.0,
-                "overall_score": 82.07
+                "value_score": 2.07,
+                "quality_score": 65.0,
+                "size_score": 50.0,
+                "momentum_score": 50.0,
+                "volatility_score": 50.0,
+                "overall_score": 43.27
               }
             }
           },
           "error": null,
-          "run_at": "2026-03-17T00:12:55.943435"
+          "run_at": "2026-03-17T01:01:49.409747"
         },
         {
           "ticker": "601899.SS",
@@ -463,58 +463,58 @@
             "ticker": "601899.SS",
             "direction": "PENDING",
             "regime": "STRONG_TREND_DOWN",
-            "z_score": -34.5729,
-            "regime_strength": -34.5729,
-            "mean_return": -0.1729,
-            "uncertainty": 0.0029,
-            "predicted_range_pct": 0.2103,
-            "predicted_max": 36.6,
-            "predicted_min": 28.93,
-            "adjusted_position_strength": 0.8141,
+            "z_score": -12.8562,
+            "regime_strength": -12.8562,
+            "mean_return": -0.1633,
+            "uncertainty": 0.0127,
+            "predicted_range_pct": 0.2094,
+            "predicted_max": 36.79,
+            "predicted_min": 29.23,
+            "adjusted_position_strength": 0.6529,
             "kronos_signal": {
               "direction": "PENDING",
-              "z_score": -34.5729,
+              "z_score": -12.8562,
               "regime": "STRONG_TREND_DOWN",
-              "expected_return": -0.1729,
-              "uncertainty": 0.0029,
+              "expected_return": -0.1633,
+              "uncertainty": 0.0127,
               "position_strength": 1.0
             },
             "factor_signal": {
               "direction": null,
               "position_strength": null,
-              "o_score": 66.3,
+              "o_score": 43.27,
               "o_score_percentile": null,
               "factor_scores": {
-                "value_score": 52.67,
-                "quality_score": 78.99,
-                "size_score": 0.09,
-                "momentum_score": 100.0,
-                "volatility_score": 54.74,
-                "overall_score": 66.3
+                "value_score": 2.07,
+                "quality_score": 65.0,
+                "size_score": 50.0,
+                "momentum_score": 50.0,
+                "volatility_score": 50.0,
+                "overall_score": 43.27
               }
             },
             "metadata": {
               "model": "kronos-v1-foundation",
-              "timestamp": "2026-03-17T00:13:08.629197Z",
+              "timestamp": "2026-03-17T01:01:57.310365Z",
               "sentiment_score": 0.0,
               "risk_factor": 0.3,
               "base_strength": 1.0,
               "volatility_discount": 1.0,
               "fundamental_bust_triggered": false,
-              "multi_factor_o_score": 66.3,
-              "multi_factor_multiplier": 1.163,
+              "multi_factor_o_score": 43.27,
+              "multi_factor_multiplier": 0.933,
               "factor_scores": {
-                "value_score": 52.67,
-                "quality_score": 78.99,
-                "size_score": 0.09,
-                "momentum_score": 100.0,
-                "volatility_score": 54.74,
-                "overall_score": 66.3
+                "value_score": 2.07,
+                "quality_score": 65.0,
+                "size_score": 50.0,
+                "momentum_score": 50.0,
+                "volatility_score": 50.0,
+                "overall_score": 43.27
               }
             }
           },
           "error": null,
-          "run_at": "2026-03-17T00:12:57.681542"
+          "run_at": "2026-03-17T01:01:50.498620"
         },
         {
           "ticker": "601857.SS",
@@ -524,58 +524,58 @@
             "ticker": "601857.SS",
             "direction": "PENDING",
             "regime": "STRONG_TREND_UP",
-            "z_score": 12.7718,
-            "regime_strength": 12.7718,
-            "mean_return": 0.2441,
-            "uncertainty": 0.0191,
-            "predicted_range_pct": 0.3229,
-            "predicted_max": 16.66,
-            "predicted_min": 12.51,
-            "adjusted_position_strength": 0.8813,
+            "z_score": 31.9805,
+            "regime_strength": 31.9805,
+            "mean_return": 0.2188,
+            "uncertainty": 0.0068,
+            "predicted_range_pct": 0.3234,
+            "predicted_max": 16.57,
+            "predicted_min": 12.38,
+            "adjusted_position_strength": 0.6529,
             "kronos_signal": {
               "direction": "PENDING",
-              "z_score": 12.7718,
+              "z_score": 31.9805,
               "regime": "STRONG_TREND_UP",
-              "expected_return": 0.2441,
-              "uncertainty": 0.0191,
+              "expected_return": 0.2188,
+              "uncertainty": 0.0068,
               "position_strength": 1.0
             },
             "factor_signal": {
               "direction": null,
               "position_strength": null,
-              "o_score": 75.9,
+              "o_score": 43.27,
               "o_score_percentile": null,
               "factor_scores": {
-                "value_score": 94.09,
-                "quality_score": 63.93,
-                "size_score": 0.0,
-                "momentum_score": 100.0,
-                "volatility_score": 100.0,
-                "overall_score": 75.9
+                "value_score": 2.07,
+                "quality_score": 65.0,
+                "size_score": 50.0,
+                "momentum_score": 50.0,
+                "volatility_score": 50.0,
+                "overall_score": 43.27
               }
             },
             "metadata": {
               "model": "kronos-v1-foundation",
-              "timestamp": "2026-03-17T00:13:09.633182Z",
+              "timestamp": "2026-03-17T01:02:01.963905Z",
               "sentiment_score": 0.0,
               "risk_factor": 0.3,
               "base_strength": 1.0,
               "volatility_discount": 1.0,
               "fundamental_bust_triggered": false,
-              "multi_factor_o_score": 75.9,
-              "multi_factor_multiplier": 1.259,
+              "multi_factor_o_score": 43.27,
+              "multi_factor_multiplier": 0.933,
               "factor_scores": {
-                "value_score": 94.09,
-                "quality_score": 63.93,
-                "size_score": 0.0,
-                "momentum_score": 100.0,
-                "volatility_score": 100.0,
-                "overall_score": 75.9
+                "value_score": 2.07,
+                "quality_score": 65.0,
+                "size_score": 50.0,
+                "momentum_score": 50.0,
+                "volatility_score": 50.0,
+                "overall_score": 43.27
               }
             }
           },
           "error": null,
-          "run_at": "2026-03-17T00:12:59.046997"
+          "run_at": "2026-03-17T01:01:51.823835"
         }
       ]
     },
@@ -591,58 +591,58 @@
             "ticker": "300059.SZ",
             "direction": "PENDING",
             "regime": "STRONG_TREND_DOWN",
-            "z_score": -30.143,
-            "regime_strength": -30.143,
-            "mean_return": -0.1507,
+            "z_score": -29.7952,
+            "regime_strength": -29.7952,
+            "mean_return": -0.149,
             "uncertainty": 0.0034,
-            "predicted_range_pct": 0.1822,
-            "predicted_max": 21.17,
-            "predicted_min": 17.38,
-            "adjusted_position_strength": 0.6903,
+            "predicted_range_pct": 0.1828,
+            "predicted_max": 21.11,
+            "predicted_min": 17.29,
+            "adjusted_position_strength": 0.6529,
             "kronos_signal": {
               "direction": "PENDING",
-              "z_score": -30.143,
+              "z_score": -29.7952,
               "regime": "STRONG_TREND_DOWN",
-              "expected_return": -0.1507,
+              "expected_return": -0.149,
               "uncertainty": 0.0034,
               "position_strength": 1.0
             },
             "factor_signal": {
               "direction": null,
               "position_strength": null,
-              "o_score": 48.61,
+              "o_score": 43.27,
               "o_score_percentile": null,
               "factor_scores": {
-                "value_score": 47.53,
-                "quality_score": 80.31,
-                "size_score": 8.01,
-                "momentum_score": 0.0,
-                "volatility_score": 78.17,
-                "overall_score": 48.61
+                "value_score": 2.07,
+                "quality_score": 65.0,
+                "size_score": 50.0,
+                "momentum_score": 50.0,
+                "volatility_score": 50.0,
+                "overall_score": 43.27
               }
             },
             "metadata": {
               "model": "kronos-v1-foundation",
-              "timestamp": "2026-03-17T00:13:12.417024Z",
+              "timestamp": "2026-03-17T01:02:05.397177Z",
               "sentiment_score": 0.0,
               "risk_factor": 0.3,
               "base_strength": 1.0,
               "volatility_discount": 1.0,
               "fundamental_bust_triggered": false,
-              "multi_factor_o_score": 48.61,
-              "multi_factor_multiplier": 0.986,
+              "multi_factor_o_score": 43.27,
+              "multi_factor_multiplier": 0.933,
               "factor_scores": {
-                "value_score": 47.53,
-                "quality_score": 80.31,
-                "size_score": 8.01,
-                "momentum_score": 0.0,
-                "volatility_score": 78.17,
-                "overall_score": 48.61
+                "value_score": 2.07,
+                "quality_score": 65.0,
+                "size_score": 50.0,
+                "momentum_score": 50.0,
+                "volatility_score": 50.0,
+                "overall_score": 43.27
               }
             }
           },
           "error": null,
-          "run_at": "2026-03-17T00:13:01.444975"
+          "run_at": "2026-03-17T01:01:53.540176"
         },
         {
           "ticker": "002230.SZ",
@@ -652,58 +652,58 @@
             "ticker": "002230.SZ",
             "direction": "PENDING",
             "regime": "STRONG_TREND_DOWN",
-            "z_score": -28.0221,
-            "regime_strength": -28.0221,
-            "mean_return": -0.1722,
-            "uncertainty": 0.0061,
-            "predicted_range_pct": 0.1932,
-            "predicted_max": 51.87,
-            "predicted_min": 41.98,
-            "adjusted_position_strength": 0.6486,
+            "z_score": -35.9279,
+            "regime_strength": -35.9279,
+            "mean_return": -0.1796,
+            "uncertainty": 0.003,
+            "predicted_range_pct": 0.194,
+            "predicted_max": 51.89,
+            "predicted_min": 41.94,
+            "adjusted_position_strength": 0.6529,
             "kronos_signal": {
               "direction": "PENDING",
-              "z_score": -28.0221,
+              "z_score": -35.9279,
               "regime": "STRONG_TREND_DOWN",
-              "expected_return": -0.1722,
-              "uncertainty": 0.0061,
+              "expected_return": -0.1796,
+              "uncertainty": 0.003,
               "position_strength": 1.0
             },
             "factor_signal": {
               "direction": null,
               "position_strength": null,
-              "o_score": 42.66,
+              "o_score": 43.27,
               "o_score_percentile": null,
               "factor_scores": {
-                "value_score": 3.25,
-                "quality_score": 57.09,
-                "size_score": 40.74,
-                "momentum_score": 39.46,
-                "volatility_score": 99.0,
-                "overall_score": 42.66
+                "value_score": 2.07,
+                "quality_score": 65.0,
+                "size_score": 50.0,
+                "momentum_score": 50.0,
+                "volatility_score": 50.0,
+                "overall_score": 43.27
               }
             },
             "metadata": {
               "model": "kronos-v1-foundation",
-              "timestamp": "2026-03-17T00:13:16.044510Z",
+              "timestamp": "2026-03-17T01:02:07.561781Z",
               "sentiment_score": 0.0,
               "risk_factor": 0.3,
               "base_strength": 1.0,
               "volatility_discount": 1.0,
               "fundamental_bust_triggered": false,
-              "multi_factor_o_score": 42.66,
-              "multi_factor_multiplier": 0.927,
+              "multi_factor_o_score": 43.27,
+              "multi_factor_multiplier": 0.933,
               "factor_scores": {
-                "value_score": 3.25,
-                "quality_score": 57.09,
-                "size_score": 40.74,
-                "momentum_score": 39.46,
-                "volatility_score": 99.0,
-                "overall_score": 42.66
+                "value_score": 2.07,
+                "quality_score": 65.0,
+                "size_score": 50.0,
+                "momentum_score": 50.0,
+                "volatility_score": 50.0,
+                "overall_score": 43.27
               }
             }
           },
           "error": null,
-          "run_at": "2026-03-17T00:13:06.084245"
+          "run_at": "2026-03-17T01:01:55.958429"
         },
         {
           "ticker": "601012.SS",
@@ -713,58 +713,58 @@
             "ticker": "601012.SS",
             "direction": "PENDING",
             "regime": "RANGING_MIXED",
-            "z_score": -0.6218,
-            "regime_strength": -0.6218,
-            "mean_return": -0.0031,
-            "uncertainty": 0.003,
-            "predicted_range_pct": 0.0588,
-            "predicted_max": 18.77,
-            "predicted_min": 17.68,
-            "adjusted_position_strength": 0.2722,
+            "z_score": -0.5462,
+            "regime_strength": -0.5462,
+            "mean_return": -0.0027,
+            "uncertainty": 0.0047,
+            "predicted_range_pct": 0.06,
+            "predicted_max": 18.81,
+            "predicted_min": 17.71,
+            "adjusted_position_strength": 0.2275,
             "kronos_signal": {
               "direction": "PENDING",
-              "z_score": -0.6218,
+              "z_score": -0.5462,
               "regime": "RANGING_MIXED",
-              "expected_return": -0.0031,
-              "uncertainty": 0.003,
-              "position_strength": 0.5524
+              "expected_return": -0.0027,
+              "uncertainty": 0.0047,
+              "position_strength": 0.4977
             },
             "factor_signal": {
               "direction": null,
               "position_strength": null,
-              "o_score": 50.58,
+              "o_score": 43.27,
               "o_score_percentile": null,
               "factor_scores": {
-                "value_score": 40.55,
-                "quality_score": 43.28,
-                "size_score": 34.74,
-                "momentum_score": 59.12,
-                "volatility_score": 100.0,
-                "overall_score": 50.58
+                "value_score": 2.07,
+                "quality_score": 65.0,
+                "size_score": 50.0,
+                "momentum_score": 50.0,
+                "volatility_score": 50.0,
+                "overall_score": 43.27
               }
             },
             "metadata": {
               "model": "kronos-v1-foundation",
-              "timestamp": "2026-03-17T00:13:17.816725Z",
+              "timestamp": "2026-03-17T01:02:09.521674Z",
               "sentiment_score": 0.0,
               "risk_factor": 0.3,
-              "base_strength": 0.5524,
+              "base_strength": 0.4977,
               "volatility_discount": 1.0,
               "fundamental_bust_triggered": false,
-              "multi_factor_o_score": 50.58,
-              "multi_factor_multiplier": 1.006,
+              "multi_factor_o_score": 43.27,
+              "multi_factor_multiplier": 0.933,
               "factor_scores": {
-                "value_score": 40.55,
-                "quality_score": 43.28,
-                "size_score": 34.74,
-                "momentum_score": 59.12,
-                "volatility_score": 100.0,
-                "overall_score": 50.58
+                "value_score": 2.07,
+                "quality_score": 65.0,
+                "size_score": 50.0,
+                "momentum_score": 50.0,
+                "volatility_score": 50.0,
+                "overall_score": 43.27
               }
             }
           },
           "error": null,
-          "run_at": "2026-03-17T00:13:08.629509"
+          "run_at": "2026-03-17T01:01:57.310674"
         }
       ]
     }
@@ -778,58 +778,58 @@
         "ticker": "600519.SS",
         "direction": "PENDING",
         "regime": "STRONG_TREND_DOWN",
-        "z_score": -23.2114,
-        "regime_strength": -23.2114,
-        "mean_return": -0.1353,
-        "uncertainty": 0.0058,
-        "predicted_range_pct": 0.1531,
-        "predicted_max": 1389.93,
-        "predicted_min": 1178.15,
-        "adjusted_position_strength": 0.8067,
+        "z_score": -26.3764,
+        "regime_strength": -26.3764,
+        "mean_return": -0.1319,
+        "uncertainty": 0.0044,
+        "predicted_range_pct": 0.15,
+        "predicted_max": 1384.88,
+        "predicted_min": 1177.4,
+        "adjusted_position_strength": 0.6529,
         "kronos_signal": {
           "direction": "PENDING",
-          "z_score": -23.2114,
+          "z_score": -26.3764,
           "regime": "STRONG_TREND_DOWN",
-          "expected_return": -0.1353,
-          "uncertainty": 0.0058,
+          "expected_return": -0.1319,
+          "uncertainty": 0.0044,
           "position_strength": 1.0
         },
         "factor_signal": {
           "direction": null,
           "position_strength": null,
-          "o_score": 65.24,
+          "o_score": 43.27,
           "o_score_percentile": null,
           "factor_scores": {
-            "value_score": 50.56,
-            "quality_score": 100.0,
-            "size_score": 0.0,
-            "momentum_score": 38.01,
-            "volatility_score": 100.0,
-            "overall_score": 65.24
+            "value_score": 2.07,
+            "quality_score": 65.0,
+            "size_score": 50.0,
+            "momentum_score": 50.0,
+            "volatility_score": 50.0,
+            "overall_score": 43.27
           }
         },
         "metadata": {
           "model": "kronos-v1-foundation",
-          "timestamp": "2026-03-17T00:12:53.324634Z",
+          "timestamp": "2026-03-17T01:01:43.712799Z",
           "sentiment_score": 0.0,
           "risk_factor": 0.3,
           "base_strength": 1.0,
           "volatility_discount": 1.0,
           "fundamental_bust_triggered": false,
-          "multi_factor_o_score": 65.24,
-          "multi_factor_multiplier": 1.152,
+          "multi_factor_o_score": 43.27,
+          "multi_factor_multiplier": 0.933,
           "factor_scores": {
-            "value_score": 50.56,
-            "quality_score": 100.0,
-            "size_score": 0.0,
-            "momentum_score": 38.01,
-            "volatility_score": 100.0,
-            "overall_score": 65.24
+            "value_score": 2.07,
+            "quality_score": 65.0,
+            "size_score": 50.0,
+            "momentum_score": 50.0,
+            "volatility_score": 50.0,
+            "overall_score": 43.27
           }
         }
       },
       "error": null,
-      "run_at": "2026-03-17T00:12:48.089688"
+      "run_at": "2026-03-17T01:01:41.626420"
     },
     {
       "ticker": "600036.SS",
@@ -839,58 +839,58 @@
         "ticker": "600036.SS",
         "direction": "PENDING",
         "regime": "STRONG_TREND_UP",
-        "z_score": 3.4383,
-        "regime_strength": 3.4383,
-        "mean_return": 0.0172,
-        "uncertainty": 0.0016,
-        "predicted_range_pct": 0.0303,
-        "predicted_max": 40.06,
-        "predicted_min": 38.86,
-        "adjusted_position_strength": 0.8513,
+        "z_score": 3.7727,
+        "regime_strength": 3.7727,
+        "mean_return": 0.0189,
+        "uncertainty": 0.004,
+        "predicted_range_pct": 0.0307,
+        "predicted_max": 40.04,
+        "predicted_min": 38.83,
+        "adjusted_position_strength": 0.6522,
         "kronos_signal": {
           "direction": "PENDING",
-          "z_score": 3.4383,
+          "z_score": 3.7727,
           "regime": "STRONG_TREND_UP",
-          "expected_return": 0.0172,
-          "uncertainty": 0.0016,
-          "position_strength": 0.9979
+          "expected_return": 0.0189,
+          "uncertainty": 0.004,
+          "position_strength": 0.9989
         },
         "factor_signal": {
           "direction": null,
           "position_strength": null,
-          "o_score": 71.86,
+          "o_score": 43.27,
           "o_score_percentile": null,
           "factor_scores": {
-            "value_score": 100.0,
-            "quality_score": 84.95,
-            "size_score": 0.04,
-            "momentum_score": 36.14,
-            "volatility_score": 99.0,
-            "overall_score": 71.86
+            "value_score": 2.07,
+            "quality_score": 65.0,
+            "size_score": 50.0,
+            "momentum_score": 50.0,
+            "volatility_score": 50.0,
+            "overall_score": 43.27
           }
         },
         "metadata": {
           "model": "kronos-v1-foundation",
-          "timestamp": "2026-03-17T00:12:54.779286Z",
+          "timestamp": "2026-03-17T01:01:46.082444Z",
           "sentiment_score": 0.0,
           "risk_factor": 0.3,
-          "base_strength": 0.9979,
+          "base_strength": 0.9989,
           "volatility_discount": 1.0,
           "fundamental_bust_triggered": false,
-          "multi_factor_o_score": 71.86,
-          "multi_factor_multiplier": 1.219,
+          "multi_factor_o_score": 43.27,
+          "multi_factor_multiplier": 0.933,
           "factor_scores": {
-            "value_score": 100.0,
-            "quality_score": 84.95,
-            "size_score": 0.04,
-            "momentum_score": 36.14,
-            "volatility_score": 99.0,
-            "overall_score": 71.86
+            "value_score": 2.07,
+            "quality_score": 65.0,
+            "size_score": 50.0,
+            "momentum_score": 50.0,
+            "volatility_score": 50.0,
+            "overall_score": 43.27
           }
         }
       },
       "error": null,
-      "run_at": "2026-03-17T00:12:48.092060"
+      "run_at": "2026-03-17T01:01:41.629003"
     },
     {
       "ticker": "601318.SS",
@@ -900,58 +900,58 @@
         "ticker": "601318.SS",
         "direction": "PENDING",
         "regime": "STRONG_TREND_DOWN",
-        "z_score": -37.2542,
-        "regime_strength": -37.2542,
-        "mean_return": -0.1863,
-        "uncertainty": 0.0014,
-        "predicted_range_pct": 0.203,
-        "predicted_max": 60.18,
-        "predicted_min": 48.09,
-        "adjusted_position_strength": 0.8592,
+        "z_score": -37.0182,
+        "regime_strength": -37.0182,
+        "mean_return": -0.1851,
+        "uncertainty": 0.0025,
+        "predicted_range_pct": 0.1972,
+        "predicted_max": 60.02,
+        "predicted_min": 48.22,
+        "adjusted_position_strength": 0.6529,
         "kronos_signal": {
           "direction": "PENDING",
-          "z_score": -37.2542,
+          "z_score": -37.0182,
           "regime": "STRONG_TREND_DOWN",
-          "expected_return": -0.1863,
-          "uncertainty": 0.0014,
+          "expected_return": -0.1851,
+          "uncertainty": 0.0025,
           "position_strength": 1.0
         },
         "factor_signal": {
           "direction": null,
           "position_strength": null,
-          "o_score": 72.75,
+          "o_score": 43.27,
           "o_score_percentile": null,
           "factor_scores": {
-            "value_score": 100.0,
-            "quality_score": 75.2,
-            "size_score": 0.03,
-            "momentum_score": 57.15,
-            "volatility_score": 100.0,
-            "overall_score": 72.75
+            "value_score": 2.07,
+            "quality_score": 65.0,
+            "size_score": 50.0,
+            "momentum_score": 50.0,
+            "volatility_score": 50.0,
+            "overall_score": 43.27
           }
         },
         "metadata": {
           "model": "kronos-v1-foundation",
-          "timestamp": "2026-03-17T00:12:55.943091Z",
+          "timestamp": "2026-03-17T01:01:49.409386Z",
           "sentiment_score": 0.0,
           "risk_factor": 0.3,
           "base_strength": 1.0,
           "volatility_discount": 1.0,
           "fundamental_bust_triggered": false,
-          "multi_factor_o_score": 72.75,
-          "multi_factor_multiplier": 1.228,
+          "multi_factor_o_score": 43.27,
+          "multi_factor_multiplier": 0.933,
           "factor_scores": {
-            "value_score": 100.0,
-            "quality_score": 75.2,
-            "size_score": 0.03,
-            "momentum_score": 57.15,
-            "volatility_score": 100.0,
-            "overall_score": 72.75
+            "value_score": 2.07,
+            "quality_score": 65.0,
+            "size_score": 50.0,
+            "momentum_score": 50.0,
+            "volatility_score": 50.0,
+            "overall_score": 43.27
           }
         }
       },
       "error": null,
-      "run_at": "2026-03-17T00:12:48.093977"
+      "run_at": "2026-03-17T01:01:41.631070"
     },
     {
       "ticker": "300308.SZ",
@@ -961,58 +961,58 @@
         "ticker": "300308.SZ",
         "direction": "PENDING",
         "regime": "RANGING_MIXED",
-        "z_score": -0.8195,
-        "regime_strength": -0.8195,
-        "mean_return": -0.0082,
-        "uncertainty": 0.01,
-        "predicted_range_pct": 0.0977,
-        "predicted_max": 568.77,
-        "predicted_min": 515.47,
-        "adjusted_position_strength": 0.3593,
+        "z_score": -0.5887,
+        "regime_strength": -0.5887,
+        "mean_return": -0.0029,
+        "uncertainty": 0.0022,
+        "predicted_range_pct": 0.0966,
+        "predicted_max": 568.59,
+        "predicted_min": 515.17,
+        "adjusted_position_strength": 0.2418,
         "kronos_signal": {
           "direction": "PENDING",
-          "z_score": -0.8195,
+          "z_score": -0.5887,
           "regime": "RANGING_MIXED",
-          "expected_return": -0.0082,
-          "uncertainty": 0.01,
-          "position_strength": 0.6748
+          "expected_return": -0.0029,
+          "uncertainty": 0.0022,
+          "position_strength": 0.529
         },
         "factor_signal": {
           "direction": null,
           "position_strength": null,
-          "o_score": 58.65,
+          "o_score": 43.27,
           "o_score_percentile": null,
           "factor_scores": {
-            "value_score": 4.27,
-            "quality_score": 90.0,
-            "size_score": 0.9,
-            "momentum_score": 100.0,
-            "volatility_score": 59.97,
-            "overall_score": 58.65
+            "value_score": 2.07,
+            "quality_score": 65.0,
+            "size_score": 50.0,
+            "momentum_score": 50.0,
+            "volatility_score": 50.0,
+            "overall_score": 43.27
           }
         },
         "metadata": {
           "model": "kronos-v1-foundation",
-          "timestamp": "2026-03-17T00:12:57.681220Z",
+          "timestamp": "2026-03-17T01:01:50.498224Z",
           "sentiment_score": 0.0,
           "risk_factor": 0.3,
-          "base_strength": 0.6748,
+          "base_strength": 0.529,
           "volatility_discount": 1.0,
           "fundamental_bust_triggered": false,
-          "multi_factor_o_score": 58.65,
-          "multi_factor_multiplier": 1.087,
+          "multi_factor_o_score": 43.27,
+          "multi_factor_multiplier": 0.933,
           "factor_scores": {
-            "value_score": 4.27,
-            "quality_score": 90.0,
-            "size_score": 0.9,
-            "momentum_score": 100.0,
-            "volatility_score": 59.97,
-            "overall_score": 58.65
+            "value_score": 2.07,
+            "quality_score": 65.0,
+            "size_score": 50.0,
+            "momentum_score": 50.0,
+            "volatility_score": 50.0,
+            "overall_score": 43.27
           }
         }
       },
       "error": null,
-      "run_at": "2026-03-17T00:12:48.095618"
+      "run_at": "2026-03-17T01:01:41.633380"
     },
     {
       "ticker": "688256.SS",
@@ -1021,59 +1021,59 @@
       "signal": {
         "ticker": "688256.SS",
         "direction": "PENDING",
-        "regime": "STRONG_TREND_UP",
-        "z_score": 3.6104,
-        "regime_strength": 3.6104,
+        "regime": "RANGING_MIXED",
+        "z_score": 1.8725,
+        "regime_strength": 1.8725,
         "mean_return": 0.0221,
-        "uncertainty": 0.0061,
-        "predicted_range_pct": 0.0773,
-        "predicted_max": 1187.15,
-        "predicted_min": 1099.62,
-        "adjusted_position_strength": 0.6662,
+        "uncertainty": 0.0118,
+        "predicted_range_pct": 0.0717,
+        "predicted_max": 1180.89,
+        "predicted_min": 1099.55,
+        "adjusted_position_strength": 0.4359,
         "kronos_signal": {
           "direction": "PENDING",
-          "z_score": 3.6104,
-          "regime": "STRONG_TREND_UP",
+          "z_score": 1.8725,
+          "regime": "RANGING_MIXED",
           "expected_return": 0.0221,
-          "uncertainty": 0.0061,
-          "position_strength": 0.9985
+          "uncertainty": 0.0118,
+          "position_strength": 0.9538
         },
         "factor_signal": {
           "direction": null,
           "position_strength": null,
-          "o_score": 45.31,
+          "o_score": 43.27,
           "o_score_percentile": null,
           "factor_scores": {
-            "value_score": 0.0,
-            "quality_score": 100.0,
-            "size_score": 3.12,
-            "momentum_score": 0.0,
-            "volatility_score": 100.0,
-            "overall_score": 45.31
+            "value_score": 2.07,
+            "quality_score": 65.0,
+            "size_score": 50.0,
+            "momentum_score": 50.0,
+            "volatility_score": 50.0,
+            "overall_score": 43.27
           }
         },
         "metadata": {
           "model": "kronos-v1-foundation",
-          "timestamp": "2026-03-17T00:12:59.046623Z",
+          "timestamp": "2026-03-17T01:01:51.823516Z",
           "sentiment_score": 0.0,
           "risk_factor": 0.3,
-          "base_strength": 0.9985,
+          "base_strength": 0.9538,
           "volatility_discount": 1.0,
           "fundamental_bust_triggered": false,
-          "multi_factor_o_score": 45.31,
-          "multi_factor_multiplier": 0.953,
+          "multi_factor_o_score": 43.27,
+          "multi_factor_multiplier": 0.933,
           "factor_scores": {
-            "value_score": 0.0,
-            "quality_score": 100.0,
-            "size_score": 3.12,
-            "momentum_score": 0.0,
-            "volatility_score": 100.0,
-            "overall_score": 45.31
+            "value_score": 2.07,
+            "quality_score": 65.0,
+            "size_score": 50.0,
+            "momentum_score": 50.0,
+            "volatility_score": 50.0,
+            "overall_score": 43.27
           }
         }
       },
       "error": null,
-      "run_at": "2026-03-17T00:12:53.327169"
+      "run_at": "2026-03-17T01:01:43.713904"
     },
     {
       "ticker": "300750.SZ",
@@ -1083,58 +1083,58 @@
         "ticker": "300750.SZ",
         "direction": "PENDING",
         "regime": "STRONG_TREND_UP",
-        "z_score": 10.9203,
-        "regime_strength": 10.9203,
-        "mean_return": 0.1071,
-        "uncertainty": 0.0098,
-        "predicted_range_pct": 0.1525,
-        "predicted_max": 428.61,
-        "predicted_min": 370.29,
-        "adjusted_position_strength": 0.8242,
+        "z_score": 15.2161,
+        "regime_strength": 15.2161,
+        "mean_return": 0.1096,
+        "uncertainty": 0.0072,
+        "predicted_range_pct": 0.1584,
+        "predicted_max": 430.99,
+        "predicted_min": 370.55,
+        "adjusted_position_strength": 0.6529,
         "kronos_signal": {
           "direction": "PENDING",
-          "z_score": 10.9203,
+          "z_score": 15.2161,
           "regime": "STRONG_TREND_UP",
-          "expected_return": 0.1071,
-          "uncertainty": 0.0098,
+          "expected_return": 0.1096,
+          "uncertainty": 0.0072,
           "position_strength": 1.0
         },
         "factor_signal": {
           "direction": null,
           "position_strength": null,
-          "o_score": 67.75,
+          "o_score": 43.27,
           "o_score_percentile": null,
           "factor_scores": {
-            "value_score": 43.63,
-            "quality_score": 93.19,
-            "size_score": 0.0,
-            "momentum_score": 71.11,
-            "volatility_score": 100.0,
-            "overall_score": 67.75
+            "value_score": 2.07,
+            "quality_score": 65.0,
+            "size_score": 50.0,
+            "momentum_score": 50.0,
+            "volatility_score": 50.0,
+            "overall_score": 43.27
           }
         },
         "metadata": {
           "model": "kronos-v1-foundation",
-          "timestamp": "2026-03-17T00:13:01.444641Z",
+          "timestamp": "2026-03-17T01:01:53.539825Z",
           "sentiment_score": 0.0,
           "risk_factor": 0.3,
           "base_strength": 1.0,
           "volatility_discount": 1.0,
           "fundamental_bust_triggered": false,
-          "multi_factor_o_score": 67.75,
-          "multi_factor_multiplier": 1.178,
+          "multi_factor_o_score": 43.27,
+          "multi_factor_multiplier": 0.933,
           "factor_scores": {
-            "value_score": 43.63,
-            "quality_score": 93.19,
-            "size_score": 0.0,
-            "momentum_score": 71.11,
-            "volatility_score": 100.0,
-            "overall_score": 67.75
+            "value_score": 2.07,
+            "quality_score": 65.0,
+            "size_score": 50.0,
+            "momentum_score": 50.0,
+            "volatility_score": 50.0,
+            "overall_score": 43.27
           }
         }
       },
       "error": null,
-      "run_at": "2026-03-17T00:12:54.779641"
+      "run_at": "2026-03-17T01:01:46.082849"
     },
     {
       "ticker": "601088.SS",
@@ -1144,58 +1144,58 @@
         "ticker": "601088.SS",
         "direction": "PENDING",
         "regime": "STRONG_TREND_UP",
-        "z_score": 50.0425,
-        "regime_strength": 50.0425,
-        "mean_return": 0.2502,
-        "uncertainty": 0.0038,
-        "predicted_range_pct": 0.3082,
-        "predicted_max": 62.95,
-        "predicted_min": 47.79,
-        "adjusted_position_strength": 0.9245,
+        "z_score": 46.8766,
+        "regime_strength": 46.8766,
+        "mean_return": 0.2538,
+        "uncertainty": 0.0054,
+        "predicted_range_pct": 0.3143,
+        "predicted_max": 63.07,
+        "predicted_min": 47.64,
+        "adjusted_position_strength": 0.6529,
         "kronos_signal": {
           "direction": "PENDING",
-          "z_score": 50.0425,
+          "z_score": 46.8766,
           "regime": "STRONG_TREND_UP",
-          "expected_return": 0.2502,
-          "uncertainty": 0.0038,
+          "expected_return": 0.2538,
+          "uncertainty": 0.0054,
           "position_strength": 1.0
         },
         "factor_signal": {
           "direction": null,
           "position_strength": null,
-          "o_score": 82.07,
+          "o_score": 43.27,
           "o_score_percentile": null,
           "factor_scores": {
-            "value_score": 75.18,
-            "quality_score": 96.03,
-            "size_score": 0.07,
-            "momentum_score": 98.27,
-            "volatility_score": 100.0,
-            "overall_score": 82.07
+            "value_score": 2.07,
+            "quality_score": 65.0,
+            "size_score": 50.0,
+            "momentum_score": 50.0,
+            "volatility_score": 50.0,
+            "overall_score": 43.27
           }
         },
         "metadata": {
           "model": "kronos-v1-foundation",
-          "timestamp": "2026-03-17T00:13:06.083844Z",
+          "timestamp": "2026-03-17T01:01:55.958094Z",
           "sentiment_score": 0.0,
           "risk_factor": 0.3,
           "base_strength": 1.0,
           "volatility_discount": 1.0,
           "fundamental_bust_triggered": false,
-          "multi_factor_o_score": 82.07,
-          "multi_factor_multiplier": 1.321,
+          "multi_factor_o_score": 43.27,
+          "multi_factor_multiplier": 0.933,
           "factor_scores": {
-            "value_score": 75.18,
-            "quality_score": 96.03,
-            "size_score": 0.07,
-            "momentum_score": 98.27,
-            "volatility_score": 100.0,
-            "overall_score": 82.07
+            "value_score": 2.07,
+            "quality_score": 65.0,
+            "size_score": 50.0,
+            "momentum_score": 50.0,
+            "volatility_score": 50.0,
+            "overall_score": 43.27
           }
         }
       },
       "error": null,
-      "run_at": "2026-03-17T00:12:55.943435"
+      "run_at": "2026-03-17T01:01:49.409747"
     },
     {
       "ticker": "601899.SS",
@@ -1205,58 +1205,58 @@
         "ticker": "601899.SS",
         "direction": "PENDING",
         "regime": "STRONG_TREND_DOWN",
-        "z_score": -34.5729,
-        "regime_strength": -34.5729,
-        "mean_return": -0.1729,
-        "uncertainty": 0.0029,
-        "predicted_range_pct": 0.2103,
-        "predicted_max": 36.6,
-        "predicted_min": 28.93,
-        "adjusted_position_strength": 0.8141,
+        "z_score": -12.8562,
+        "regime_strength": -12.8562,
+        "mean_return": -0.1633,
+        "uncertainty": 0.0127,
+        "predicted_range_pct": 0.2094,
+        "predicted_max": 36.79,
+        "predicted_min": 29.23,
+        "adjusted_position_strength": 0.6529,
         "kronos_signal": {
           "direction": "PENDING",
-          "z_score": -34.5729,
+          "z_score": -12.8562,
           "regime": "STRONG_TREND_DOWN",
-          "expected_return": -0.1729,
-          "uncertainty": 0.0029,
+          "expected_return": -0.1633,
+          "uncertainty": 0.0127,
           "position_strength": 1.0
         },
         "factor_signal": {
           "direction": null,
           "position_strength": null,
-          "o_score": 66.3,
+          "o_score": 43.27,
           "o_score_percentile": null,
           "factor_scores": {
-            "value_score": 52.67,
-            "quality_score": 78.99,
-            "size_score": 0.09,
-            "momentum_score": 100.0,
-            "volatility_score": 54.74,
-            "overall_score": 66.3
+            "value_score": 2.07,
+            "quality_score": 65.0,
+            "size_score": 50.0,
+            "momentum_score": 50.0,
+            "volatility_score": 50.0,
+            "overall_score": 43.27
           }
         },
         "metadata": {
           "model": "kronos-v1-foundation",
-          "timestamp": "2026-03-17T00:13:08.629197Z",
+          "timestamp": "2026-03-17T01:01:57.310365Z",
           "sentiment_score": 0.0,
           "risk_factor": 0.3,
           "base_strength": 1.0,
           "volatility_discount": 1.0,
           "fundamental_bust_triggered": false,
-          "multi_factor_o_score": 66.3,
-          "multi_factor_multiplier": 1.163,
+          "multi_factor_o_score": 43.27,
+          "multi_factor_multiplier": 0.933,
           "factor_scores": {
-            "value_score": 52.67,
-            "quality_score": 78.99,
-            "size_score": 0.09,
-            "momentum_score": 100.0,
-            "volatility_score": 54.74,
-            "overall_score": 66.3
+            "value_score": 2.07,
+            "quality_score": 65.0,
+            "size_score": 50.0,
+            "momentum_score": 50.0,
+            "volatility_score": 50.0,
+            "overall_score": 43.27
           }
         }
       },
       "error": null,
-      "run_at": "2026-03-17T00:12:57.681542"
+      "run_at": "2026-03-17T01:01:50.498620"
     },
     {
       "ticker": "601857.SS",
@@ -1266,58 +1266,58 @@
         "ticker": "601857.SS",
         "direction": "PENDING",
         "regime": "STRONG_TREND_UP",
-        "z_score": 12.7718,
-        "regime_strength": 12.7718,
-        "mean_return": 0.2441,
-        "uncertainty": 0.0191,
-        "predicted_range_pct": 0.3229,
-        "predicted_max": 16.66,
-        "predicted_min": 12.51,
-        "adjusted_position_strength": 0.8813,
+        "z_score": 31.9805,
+        "regime_strength": 31.9805,
+        "mean_return": 0.2188,
+        "uncertainty": 0.0068,
+        "predicted_range_pct": 0.3234,
+        "predicted_max": 16.57,
+        "predicted_min": 12.38,
+        "adjusted_position_strength": 0.6529,
         "kronos_signal": {
           "direction": "PENDING",
-          "z_score": 12.7718,
+          "z_score": 31.9805,
           "regime": "STRONG_TREND_UP",
-          "expected_return": 0.2441,
-          "uncertainty": 0.0191,
+          "expected_return": 0.2188,
+          "uncertainty": 0.0068,
           "position_strength": 1.0
         },
         "factor_signal": {
           "direction": null,
           "position_strength": null,
-          "o_score": 75.9,
+          "o_score": 43.27,
           "o_score_percentile": null,
           "factor_scores": {
-            "value_score": 94.09,
-            "quality_score": 63.93,
-            "size_score": 0.0,
-            "momentum_score": 100.0,
-            "volatility_score": 100.0,
-            "overall_score": 75.9
+            "value_score": 2.07,
+            "quality_score": 65.0,
+            "size_score": 50.0,
+            "momentum_score": 50.0,
+            "volatility_score": 50.0,
+            "overall_score": 43.27
           }
         },
         "metadata": {
           "model": "kronos-v1-foundation",
-          "timestamp": "2026-03-17T00:13:09.633182Z",
+          "timestamp": "2026-03-17T01:02:01.963905Z",
           "sentiment_score": 0.0,
           "risk_factor": 0.3,
           "base_strength": 1.0,
           "volatility_discount": 1.0,
           "fundamental_bust_triggered": false,
-          "multi_factor_o_score": 75.9,
-          "multi_factor_multiplier": 1.259,
+          "multi_factor_o_score": 43.27,
+          "multi_factor_multiplier": 0.933,
           "factor_scores": {
-            "value_score": 94.09,
-            "quality_score": 63.93,
-            "size_score": 0.0,
-            "momentum_score": 100.0,
-            "volatility_score": 100.0,
-            "overall_score": 75.9
+            "value_score": 2.07,
+            "quality_score": 65.0,
+            "size_score": 50.0,
+            "momentum_score": 50.0,
+            "volatility_score": 50.0,
+            "overall_score": 43.27
           }
         }
       },
       "error": null,
-      "run_at": "2026-03-17T00:12:59.046997"
+      "run_at": "2026-03-17T01:01:51.823835"
     },
     {
       "ticker": "300059.SZ",
@@ -1327,58 +1327,58 @@
         "ticker": "300059.SZ",
         "direction": "PENDING",
         "regime": "STRONG_TREND_DOWN",
-        "z_score": -30.143,
-        "regime_strength": -30.143,
-        "mean_return": -0.1507,
+        "z_score": -29.7952,
+        "regime_strength": -29.7952,
+        "mean_return": -0.149,
         "uncertainty": 0.0034,
-        "predicted_range_pct": 0.1822,
-        "predicted_max": 21.17,
-        "predicted_min": 17.38,
-        "adjusted_position_strength": 0.6903,
+        "predicted_range_pct": 0.1828,
+        "predicted_max": 21.11,
+        "predicted_min": 17.29,
+        "adjusted_position_strength": 0.6529,
         "kronos_signal": {
           "direction": "PENDING",
-          "z_score": -30.143,
+          "z_score": -29.7952,
           "regime": "STRONG_TREND_DOWN",
-          "expected_return": -0.1507,
+          "expected_return": -0.149,
           "uncertainty": 0.0034,
           "position_strength": 1.0
         },
         "factor_signal": {
           "direction": null,
           "position_strength": null,
-          "o_score": 48.61,
+          "o_score": 43.27,
           "o_score_percentile": null,
           "factor_scores": {
-            "value_score": 47.53,
-            "quality_score": 80.31,
-            "size_score": 8.01,
-            "momentum_score": 0.0,
-            "volatility_score": 78.17,
-            "overall_score": 48.61
+            "value_score": 2.07,
+            "quality_score": 65.0,
+            "size_score": 50.0,
+            "momentum_score": 50.0,
+            "volatility_score": 50.0,
+            "overall_score": 43.27
           }
         },
         "metadata": {
           "model": "kronos-v1-foundation",
-          "timestamp": "2026-03-17T00:13:12.417024Z",
+          "timestamp": "2026-03-17T01:02:05.397177Z",
           "sentiment_score": 0.0,
           "risk_factor": 0.3,
           "base_strength": 1.0,
           "volatility_discount": 1.0,
           "fundamental_bust_triggered": false,
-          "multi_factor_o_score": 48.61,
-          "multi_factor_multiplier": 0.986,
+          "multi_factor_o_score": 43.27,
+          "multi_factor_multiplier": 0.933,
           "factor_scores": {
-            "value_score": 47.53,
-            "quality_score": 80.31,
-            "size_score": 8.01,
-            "momentum_score": 0.0,
-            "volatility_score": 78.17,
-            "overall_score": 48.61
+            "value_score": 2.07,
+            "quality_score": 65.0,
+            "size_score": 50.0,
+            "momentum_score": 50.0,
+            "volatility_score": 50.0,
+            "overall_score": 43.27
           }
         }
       },
       "error": null,
-      "run_at": "2026-03-17T00:13:01.444975"
+      "run_at": "2026-03-17T01:01:53.540176"
     },
     {
       "ticker": "002230.SZ",
@@ -1388,58 +1388,58 @@
         "ticker": "002230.SZ",
         "direction": "PENDING",
         "regime": "STRONG_TREND_DOWN",
-        "z_score": -28.0221,
-        "regime_strength": -28.0221,
-        "mean_return": -0.1722,
-        "uncertainty": 0.0061,
-        "predicted_range_pct": 0.1932,
-        "predicted_max": 51.87,
-        "predicted_min": 41.98,
-        "adjusted_position_strength": 0.6486,
+        "z_score": -35.9279,
+        "regime_strength": -35.9279,
+        "mean_return": -0.1796,
+        "uncertainty": 0.003,
+        "predicted_range_pct": 0.194,
+        "predicted_max": 51.89,
+        "predicted_min": 41.94,
+        "adjusted_position_strength": 0.6529,
         "kronos_signal": {
           "direction": "PENDING",
-          "z_score": -28.0221,
+          "z_score": -35.9279,
           "regime": "STRONG_TREND_DOWN",
-          "expected_return": -0.1722,
-          "uncertainty": 0.0061,
+          "expected_return": -0.1796,
+          "uncertainty": 0.003,
           "position_strength": 1.0
         },
         "factor_signal": {
           "direction": null,
           "position_strength": null,
-          "o_score": 42.66,
+          "o_score": 43.27,
           "o_score_percentile": null,
           "factor_scores": {
-            "value_score": 3.25,
-            "quality_score": 57.09,
-            "size_score": 40.74,
-            "momentum_score": 39.46,
-            "volatility_score": 99.0,
-            "overall_score": 42.66
+            "value_score": 2.07,
+            "quality_score": 65.0,
+            "size_score": 50.0,
+            "momentum_score": 50.0,
+            "volatility_score": 50.0,
+            "overall_score": 43.27
           }
         },
         "metadata": {
           "model": "kronos-v1-foundation",
-          "timestamp": "2026-03-17T00:13:16.044510Z",
+          "timestamp": "2026-03-17T01:02:07.561781Z",
           "sentiment_score": 0.0,
           "risk_factor": 0.3,
           "base_strength": 1.0,
           "volatility_discount": 1.0,
           "fundamental_bust_triggered": false,
-          "multi_factor_o_score": 42.66,
-          "multi_factor_multiplier": 0.927,
+          "multi_factor_o_score": 43.27,
+          "multi_factor_multiplier": 0.933,
           "factor_scores": {
-            "value_score": 3.25,
-            "quality_score": 57.09,
-            "size_score": 40.74,
-            "momentum_score": 39.46,
-            "volatility_score": 99.0,
-            "overall_score": 42.66
+            "value_score": 2.07,
+            "quality_score": 65.0,
+            "size_score": 50.0,
+            "momentum_score": 50.0,
+            "volatility_score": 50.0,
+            "overall_score": 43.27
           }
         }
       },
       "error": null,
-      "run_at": "2026-03-17T00:13:06.084245"
+      "run_at": "2026-03-17T01:01:55.958429"
     },
     {
       "ticker": "601012.SS",
@@ -1449,58 +1449,58 @@
         "ticker": "601012.SS",
         "direction": "PENDING",
         "regime": "RANGING_MIXED",
-        "z_score": -0.6218,
-        "regime_strength": -0.6218,
-        "mean_return": -0.0031,
-        "uncertainty": 0.003,
-        "predicted_range_pct": 0.0588,
-        "predicted_max": 18.77,
-        "predicted_min": 17.68,
-        "adjusted_position_strength": 0.2722,
+        "z_score": -0.5462,
+        "regime_strength": -0.5462,
+        "mean_return": -0.0027,
+        "uncertainty": 0.0047,
+        "predicted_range_pct": 0.06,
+        "predicted_max": 18.81,
+        "predicted_min": 17.71,
+        "adjusted_position_strength": 0.2275,
         "kronos_signal": {
           "direction": "PENDING",
-          "z_score": -0.6218,
+          "z_score": -0.5462,
           "regime": "RANGING_MIXED",
-          "expected_return": -0.0031,
-          "uncertainty": 0.003,
-          "position_strength": 0.5524
+          "expected_return": -0.0027,
+          "uncertainty": 0.0047,
+          "position_strength": 0.4977
         },
         "factor_signal": {
           "direction": null,
           "position_strength": null,
-          "o_score": 50.58,
+          "o_score": 43.27,
           "o_score_percentile": null,
           "factor_scores": {
-            "value_score": 40.55,
-            "quality_score": 43.28,
-            "size_score": 34.74,
-            "momentum_score": 59.12,
-            "volatility_score": 100.0,
-            "overall_score": 50.58
+            "value_score": 2.07,
+            "quality_score": 65.0,
+            "size_score": 50.0,
+            "momentum_score": 50.0,
+            "volatility_score": 50.0,
+            "overall_score": 43.27
           }
         },
         "metadata": {
           "model": "kronos-v1-foundation",
-          "timestamp": "2026-03-17T00:13:17.816725Z",
+          "timestamp": "2026-03-17T01:02:09.521674Z",
           "sentiment_score": 0.0,
           "risk_factor": 0.3,
-          "base_strength": 0.5524,
+          "base_strength": 0.4977,
           "volatility_discount": 1.0,
           "fundamental_bust_triggered": false,
-          "multi_factor_o_score": 50.58,
-          "multi_factor_multiplier": 1.006,
+          "multi_factor_o_score": 43.27,
+          "multi_factor_multiplier": 0.933,
           "factor_scores": {
-            "value_score": 40.55,
-            "quality_score": 43.28,
-            "size_score": 34.74,
-            "momentum_score": 59.12,
-            "volatility_score": 100.0,
-            "overall_score": 50.58
+            "value_score": 2.07,
+            "quality_score": 65.0,
+            "size_score": 50.0,
+            "momentum_score": 50.0,
+            "volatility_score": 50.0,
+            "overall_score": 43.27
           }
         }
       },
       "error": null,
-      "run_at": "2026-03-17T00:13:08.629509"
+      "run_at": "2026-03-17T01:01:57.310674"
     }
   ]
 }
