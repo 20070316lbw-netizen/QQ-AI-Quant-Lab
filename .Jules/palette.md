@@ -1,3 +1,3 @@
-## 2024-03-16 - Prevent empty submissions in Streamlit
-**Learning:** In Streamlit applications, form buttons do not have native required-field validation like HTML forms. If text inputs are cleared, users might still click run buttons causing backend errors or unhelpful empty states.
-**Action:** Always compute `is_disabled = not input_val.strip()` and pass it to `st.button` with a helpful `help` text.
+## 2024-05-14 - Interactive Elements using div/span Tags Lack Keyboard Accessibility
+**Learning:** Found custom UI actions built using `div` elements (like `.slicer-tool` in the sidebar) that used `onclick` without matching keyboard support. This made key features completely inaccessible to keyboard-only and screen reader users.
+**Action:** Always verify that interactive custom components have `role="button"`, `tabindex="0"`, an `onkeydown` handler for Enter/Space, `aria-label`, and a clear `:focus-visible` CSS state. Where possible, use native `<button>` tags instead to get this functionality out-of-the-box.

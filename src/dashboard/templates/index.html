@@ -508,6 +508,12 @@
             transform: translateY(-1px);
         }
 
+        .slicer-tool:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+            background: rgba(99, 102, 241, 0.2);
+        }
+
         .slicer-tool-icon {
             font-size: 18px;
         }
@@ -636,14 +642,14 @@
     <div class="main">
         <div class="sidebar">
             <div class="sidebar-title">📁 Data Explorer</div>
-            <div class="slicer-tool" onclick="openSignals()" style="margin-bottom:8px">
+            <div class="slicer-tool" role="button" tabindex="0" onclick="openSignals()" onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); openSignals(); }" style="margin-bottom:8px">
                 <span class="slicer-tool-icon">🚀</span>
                 <div>
                     <div class="slicer-tool-text">美股选股信号</div>
                     <div class="slicer-tool-sub">量化排序 + 基本面防雷</div>
                 </div>
             </div>
-            <div class="slicer-tool" onclick="openSlicer()">
+            <div class="slicer-tool" role="button" tabindex="0" onclick="openSlicer()" onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); openSlicer(); }">
                 <span class="slicer-tool-icon">🔀</span>
                 <div>
                     <div class="slicer-tool-text">数据切片器</div>
