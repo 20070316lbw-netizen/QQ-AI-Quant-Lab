@@ -67,7 +67,8 @@ def main():
             if not os.path.exists(file_path): continue
                 
             hist_df = pd.read_parquet(file_path)
-            hist_df = hist_df[hist_df.index <= curr_month].tail(HISTORY_DAYS) # 取最后 HISTORY_DAYS 天
+            # Memory Fix: Ensure strict exclusion of target date (<) to prevent Look-ahead bias
+            hist_df = hist_df[hist_df.index < curr_month].tail(HISTORY_DAYS) # 取最后 HISTORY_DAYS 天
             
             if len(hist_df) < 60: continue
                 

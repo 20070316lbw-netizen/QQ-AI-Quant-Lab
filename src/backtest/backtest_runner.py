@@ -51,17 +51,24 @@ def precompute_future_data(ticker: str, start_date: str, end_date: str, horizons
             actual_min = df['Low'].rolling(window=h+1).min().shift(-h)
             actual_range_pct = (actual_max - actual_min) / df['Close']
 
-            for date, _ in df.iterrows():
-                date_str = date.strftime("%Y-%m-%d")
-                if date_str not in result_map:
-                    result_map[date_str] = {}
+            # Build an intermediate dataframe to avoid native python loops
+            temp_df = pd.DataFrame(index=df.index)
+            temp_df[f"fut_ret_{h}d"] = actual_return.where(pd.notna(actual_return), None)
+            if h == 1:
+                temp_df[f"fut_vol_{h}d"] = 0.0
+            else:
+                temp_df[f"fut_vol_{h}d"] = realized_vol.where(pd.notna(realized_vol), None)
+            temp_df[f"fut_range_{h}d"] = actual_range_pct.where(pd.notna(actual_range_pct), None)
 
-                result_map[date_str][f"fut_ret_{h}d"] = actual_return[date] if not pd.isna(actual_return[date]) else None
-                if h == 1:
-                    result_map[date_str][f"fut_vol_{h}d"] = 0.0
-                else:
-                    result_map[date_str][f"fut_vol_{h}d"] = realized_vol[date] if not pd.isna(realized_vol[date]) else None
-                result_map[date_str][f"fut_range_{h}d"] = actual_range_pct[date] if not pd.isna(actual_range_pct[date]) else None
+            # Convert index to string for dictionary keys
+            temp_df.index = temp_df.index.strftime("%Y-%m-%d")
+
+            # Update result_map using vectorized to_dict
+            h_dict = temp_df.to_dict(orient="index")
+            for d_str, vals in h_dict.items():
+                if d_str not in result_map:
+                    result_map[d_str] = {}
+                result_map[d_str].update(vals)
 
         return result_map
     except Exception as e:

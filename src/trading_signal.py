@@ -61,6 +61,7 @@ def generate_signal(ticker: str, as_of_date: str = None, ext_sentiment: float = 
         kronos_gate = True   # 不阻断信号，但强度折穿
 
     # 方向暂时为 PENDING，由 generate_dual_signal() 的 O-Score 排名层填充
+    # [ZOMBIE FACTOR] Zombie factor annotation: direction is generated but no longer directly used by the main logic down the line unless it triggers fundamental override, it's overwritten or ignored by dual signal.
     direction = "PENDING"
 
 
