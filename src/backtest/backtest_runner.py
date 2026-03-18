@@ -51,7 +51,7 @@ def precompute_future_data(ticker: str, start_date: str, end_date: str, horizons
             actual_min = df['Low'].rolling(window=h+1).min().shift(-h)
             actual_range_pct = (actual_max - actual_min) / df['Close']
 
-            # Build an intermediate dataframe to avoid native python loops
+            # 【性能优化】构建临时 DataFrame 替代原生 Python 循环，实现全量向量化运算
             temp_df = pd.DataFrame(index=df.index)
             temp_df[f"fut_ret_{h}d"] = actual_return.where(pd.notna(actual_return), None)
             if h == 1:
@@ -60,10 +60,10 @@ def precompute_future_data(ticker: str, start_date: str, end_date: str, horizons
                 temp_df[f"fut_vol_{h}d"] = realized_vol.where(pd.notna(realized_vol), None)
             temp_df[f"fut_range_{h}d"] = actual_range_pct.where(pd.notna(actual_range_pct), None)
 
-            # Convert index to string for dictionary keys
+            # 将索引转换为字符串格式作为字典键
             temp_df.index = temp_df.index.strftime("%Y-%m-%d")
 
-            # Update result_map using vectorized to_dict
+            # 利用向量化的 to_dict 方法批量更新结果字典映射
             h_dict = temp_df.to_dict(orient="index")
             for d_str, vals in h_dict.items():
                 if d_str not in result_map:
