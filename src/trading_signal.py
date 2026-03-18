@@ -61,6 +61,7 @@ def generate_signal(ticker: str, as_of_date: str = None, ext_sentiment: float = 
         kronos_gate = True   # 不阻断信号，但强度折穿
 
     # 方向暂时为 PENDING，由 generate_dual_signal() 的 O-Score 排名层填充
+    # [ZOMBIE FACTOR] 僵尸因子标注：该 direction 变量虽被生成，但在后续主逻辑中除了触发基本面熔断时之外，不再被直接使用，它会被双路信号机制（dual signal）覆盖或忽略。
     direction = "PENDING"
 
 
