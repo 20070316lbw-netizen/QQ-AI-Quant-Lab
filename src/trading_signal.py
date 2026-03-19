@@ -60,9 +60,8 @@ def generate_signal(ticker: str, as_of_date: str = None, ext_sentiment: float = 
         regime = "RANGING_MIXED"  # 震荡态
         kronos_gate = True   # 不阻断信号，但强度折穿
 
-    # 方向暂时为 PENDING，由 generate_dual_signal() 的 O-Score 排名层填充
-    # [ZOMBIE FACTOR] 僵尸因子标注：该 direction 变量虽被生成，但在后续主逻辑中除了触发基本面熔断时之外，不再被直接使用，它会被双路信号机制（dual signal）覆盖或忽略。
-    direction = "PENDING"
+    # 方向由 regime_strength 决定，如果 > 0 则是做多，否则做空
+    direction = "BUY" if regime_strength > 0 else "SELL"
 
 
     # 3. 收集基本面/情绪调整因子
