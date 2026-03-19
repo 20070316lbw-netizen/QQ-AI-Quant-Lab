@@ -80,26 +80,46 @@ def l2_time_alignment_check(features_df: pd.DataFrame, original_price_dir: str, 
             continue
             
         fdf = features_df[(features_df["ticker"] == tk) & (features_df["label_3m_return"].notna())].copy()
-        for idx, row in fdf.iterrows():
-            date_t = row["report_date"]
-            label_val = row["label_3m_return"]
+        if fdf.empty:
+            continue
             
-            # 定位当时的原始价格表索引
-            if date_t not in pdf.index:
-                continue
-                
-            loc_t = pdf.index.get_loc(date_t)
-            loc_target = loc_t + target_shift_days
+        fdf = fdf.set_index("report_date")
+        common_idx = fdf.index.intersection(pdf.index)
+        if common_idx.empty:
+            continue
             
-            if loc_target < len(pdf):
-                p_t = pdf["Close"].iloc[loc_t]
-                p_target = pdf["Close"].iloc[loc_target]
-                true_label = (p_target / p_t) - 1.0
-                
-                err = abs(true_label - label_val)
-                if err > 1e-8:
-                    raise QuantValidationError(f"L2_Error: '{tk}' 在 {date_t} 的收益率标签偏离真实收益！代码中的 Shift 与实际自然日索引脱节！ (Diff: {err})")
+        # 提取当前时间点在 pdf 中的整型位置
+        loc_t_arr = pdf.index.get_indexer(common_idx)
+        # 过滤掉无效位置
+        valid_mask = loc_t_arr >= 0
+        loc_t_arr = loc_t_arr[valid_mask]
+        common_idx = common_idx[valid_mask]
+
+        # 计算目标时间点位置
+        loc_target_arr = loc_t_arr + target_shift_days
         
+        # 过滤掉超出边界的目标位置
+        valid_target_mask = loc_target_arr < len(pdf)
+        loc_t_arr = loc_t_arr[valid_target_mask]
+        loc_target_arr = loc_target_arr[valid_target_mask]
+        common_idx = common_idx[valid_target_mask]
+
+        if len(common_idx) > 0:
+            # 向量化提取价格
+            p_t_arr = pdf["Close"].iloc[loc_t_arr].values
+            p_target_arr = pdf["Close"].iloc[loc_target_arr].values
+
+            true_labels = (p_target_arr / p_t_arr) - 1.0
+            label_vals = fdf.loc[common_idx, "label_3m_return"].values
+
+            errs = np.abs(true_labels - label_vals)
+            max_err = np.max(errs)
+
+            if max_err > 1e-8:
+                bad_idx = np.argmax(errs)
+                bad_date = common_idx[bad_idx]
+                raise QuantValidationError(f"L2_Error: '{tk}' 在 {bad_date} 的收益率标签偏离真实收益！代码中的 Shift 与实际自然日索引脱节！ (Diff: {errs[bad_idx]})")
+
         passed_cnt += 1
         
     print(f"  √ L2 通过！随机抽查 {passed_cnt} 只股票的时间错位，误差严格处于 < 1e-8 的理论置信域。")

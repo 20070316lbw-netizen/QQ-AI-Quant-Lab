@@ -50,8 +50,12 @@ class KronosEngine:
         
         # ── 【Fix Look-ahead Bias】剔除未来函数：强制切断 target_date 及之后的数据 ──
         # 消除不同数据源（YFinance exclusive vs Baostock inclusive）带来的对齐重叠问题
-        if "date" not in df.columns:
-            df = df[df.index < pd.to_datetime(target_date)]
+        # When slicing historical market data for backtests or modeling, always ensure data slicing is strictly exclusive of the target date
+        if not df.empty:
+            if "date" in df.columns:
+                df = df[pd.to_datetime(df["date"]) < pd.to_datetime(target_date)]
+            else:
+                df = df[df.index < pd.to_datetime(target_date)]
 
         # ── 【Tensor 修复 v2】固定输入序列长度至 _KRONOS_SEQ_LEN ──────────
         # 不同股票/市场的实际交易日数量不一致，predictor 期望固定维度。
