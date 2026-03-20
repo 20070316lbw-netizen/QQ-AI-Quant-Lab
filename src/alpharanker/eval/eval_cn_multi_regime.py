@@ -76,7 +76,7 @@ def main():
     factors = [
         "mom_60d_rank", "mom_20d_rank", 
         "vol_60d_res_rank", "sp_ratio_rank", 
-        "roe_rank", "turn_20d_rank"
+        "turn_20d_rank"
     ]
     
     # 4. 统计

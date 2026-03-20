@@ -40,7 +40,7 @@ def main():
         print("⚠️ 警告：在此日期下未找到有效验证集。")
         return
 
-    factors = ["mom_60d_rank", "vol_60d_res_rank", "sp_ratio_rank", "roe_rank"]
+    factors = ["mom_60d_rank", "vol_60d_res_rank", "sp_ratio_rank"]
     
     print(f"\n[实时测试样本数]: {len(val_window)}")
     print(f"周期跨度: {val_window['date'].min().date()} 至 {val_window['date'].max().date()}")

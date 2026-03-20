@@ -15,39 +15,9 @@ def diagnostic_report():
     df = pd.read_parquet(FEATURES_PATH)
     print(f"Total Rows: {len(df)}")
     
-    # 1. ROE 深度分析
-    print("\n" + "="*40)
-    print("  ROE (Quality) 异常诊断")
-    print("="*40)
-    
     # 检查 IC 稳定性
     dates = sorted(df["date"].unique())
     df["year"] = pd.to_datetime(df["date"]).dt.year
-    
-    for f in ["roe", "roe_rank"]:
-        if f not in df.columns: continue
-        ics = []
-        for d in dates:
-            grp = df[df["date"] == d]
-            mask = grp[[f, "label_next_month"]].notna().all(axis=1)
-            if mask.sum() > 50:
-                ic, _ = spearmanr(grp.loc[mask, f], grp.loc[mask, "label_next_month"])
-                ics.append(ic)
-        print(f"\n{f} Global IC Mean: {np.mean(ics):.4f}, Std: {np.std(ics):.4f}")
-        
-        # Yearly
-        yearly_ic = []
-        for y in sorted(df["year"].unique()):
-            y_grp = df[df["year"] == y]
-            y_ics = []
-            for d in y_grp["date"].unique():
-                d_grp = y_grp[y_grp["date"] == d]
-                mask = d_grp[[f, "label_next_month"]].notna().all(axis=1)
-                if mask.sum() > 50:
-                    ic, _ = spearmanr(d_grp.loc[mask, f], d_grp.loc[mask, "label_next_month"])
-                    y_ics.append(ic)
-            if y_ics:
-                print(f"  {y} IC Mean: {np.mean(y_ics):.4f}")
 
     # 2. 12-1 动量深度分析
     print("\n" + "="*40)
@@ -88,7 +58,7 @@ def diagnostic_report():
     for name, pool in [("ZZ500", zz500), ("HS300", hs300)]:
         print(f"\n--- {name} Pool (Size: {len(pool)}) ---")
         sub_df = df[df["ticker"].isin(pool)]
-        for f in ["mom_12m_minus_1m_rank", "roe_rank"]:
+        for f in ["mom_12m_minus_1m_rank"]:
             ics = []
             for d in sub_df["date"].unique():
                 grp = sub_df[sub_df["date"] == d]
