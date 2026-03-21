@@ -612,6 +612,11 @@
             transform: none;
         }
 
+        .slicer-btn:focus-visible, .view-btn:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
         .slicer-status {
             font-size: 12px;
             color: var(--text-muted);
@@ -1028,7 +1033,7 @@
                         </select>
                     </div>
                     <button class="slicer-btn slicer-btn-primary" onclick="runSlicer()" id="slicerRunBtn">🚀 提取</button>
-                    <button class="slicer-btn slicer-btn-success" onclick="downloadSlicerCSV()" id="slicerCsvBtn" disabled>⬇️ 导出 CSV</button>
+                    <button class="slicer-btn slicer-btn-success" onclick="downloadSlicerCSV()" id="slicerCsvBtn" title="请先提取数据" disabled>⬇️ 导出 CSV</button>
                 </div>
                 <div id="slicerStatus" class="slicer-status"></div>
                 <div id="slicerResult"></div>
@@ -1078,6 +1083,7 @@
                 document.getElementById('slicerStatus').textContent =
                     `✅ 已从 ${data.totalStocks} 只股票中提取 "${data.field}"（${data.dates.length} 个季度）`;
                 document.getElementById('slicerCsvBtn').disabled = false;
+                document.getElementById('slicerCsvBtn').removeAttribute('title');
 
                 // Render result table
                 let h = '<div class="data-table-wrap"><div class="data-table-scroll"><table class="data-table"><thead><tr><th>Ticker</th>';
@@ -1184,6 +1190,11 @@
 
             // Limit to top 50 
             const top50 = filtered.slice(0, 50);
+
+            if (top50.length === 0) {
+                document.getElementById('sigResult').innerHTML = '<div style="text-align:center; padding:40px; color:var(--text-muted); background:var(--bg-secondary); border-radius:8px; margin-top:16px;">没有找到符合条件的股票。请尝试调整过滤条件。</div>';
+                return;
+            }
 
             let h = '<h3 style="margin-bottom:12px; font-size:14px">推荐候选池 (Top 50 满足条件)</h3>';
             h += '<div class="data-table-wrap"><div class="data-table-scroll" style="max-height: 600px;"><table class="data-table"><thead><tr>';
