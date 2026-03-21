@@ -44,7 +44,7 @@ def main():
     
     # Baostock code in index_map is 'sh.600000', in features it's '600000.SS'
     # Let's normalize ticker format
-    index_map['ticker'] = index_map['code'].apply(lambda x: x.split(".")[1] + (".SS" if x.startswith("sh") else ".SZ"))
+    index_map['ticker'] = index_map['code'].str.split(".").str[1] + np.where(index_map['code'].str.startswith("sh"), ".SS", ".SZ")
     
     df = pd.merge(df, index_map[['ticker', 'index_group']], on='ticker', how='left')
     df['index_group'] = df['index_group'].fillna('Other')

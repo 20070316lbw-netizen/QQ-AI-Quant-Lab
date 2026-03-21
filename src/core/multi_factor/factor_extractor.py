@@ -2,7 +2,7 @@ import yfinance as yf
 import pandas as pd
 from typing import Dict, Any
 
-def extract_raw_factors(ticker: str) -> Dict[str, Any]:
+def extract_raw_factors(ticker: str, as_of_date: str = None) -> Dict[str, Any]:
     """
     提取基于 Fama-French 及拓展的经典多因子体系裸数据。
     包含：
@@ -30,10 +30,6 @@ def extract_raw_factors(ticker: str) -> Dict[str, Any]:
             
         factors["meta"]["is_valid"] = True
         
-        # 补充市价等基础信息
-        current_price = info.get("currentPrice") or info.get("regularMarketPrice") or info.get("previousClose")
-        factors["meta"]["price"] = current_price
-            
         # 1. 价值因子 (Value)
         # 用市盈率 (PE) 和 市净率 (PB) 作为核心指标
         factors["value"]["pe_ratio"] = info.get("trailingPE") or info.get("forwardPE")
@@ -61,7 +57,11 @@ def extract_raw_factors(ticker: str) -> Dict[str, Any]:
         # 5. 动量因子 (Momentum - Medium/Long Term)
         # 获取 6 个月的动量收益率 (使用历史截面数据估算)
         try:
-            hist = t.history(period="6mo")
+            if as_of_date:
+                start_dt = pd.to_datetime(as_of_date) - pd.DateOffset(months=6)
+                hist = t.history(start=start_dt.strftime("%Y-%m-%d"), end=as_of_date)
+            else:
+                hist = t.history(period="6mo")
             if not hist.empty and len(hist) > 10:
                 first_close = hist['Close'].iloc[0]
                 last_close = hist['Close'].iloc[-1]

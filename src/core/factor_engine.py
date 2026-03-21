@@ -27,7 +27,7 @@ class FactorEngine:
 
     # ── 单股原始分提取 ────────────────────────────────────────
     @staticmethod
-    def get_raw_score(ticker: str) -> dict:
+    def get_raw_score(ticker: str, as_of_date: str = None) -> dict:
         """
         提取单股的 O-Score 分解（value / quality / size / momentum / volatility）。
         返回: {overall_score, value_score, quality_score, size_score,
@@ -53,7 +53,7 @@ class FactorEngine:
             return result
 
         try:
-            raw_factors = extract_raw_factors(ticker)
+            raw_factors = extract_raw_factors(ticker, as_of_date)
             scores = ScoringEngine.process(raw_factors)
             result.update({
                 "overall_score":    scores.get("overall_score",   50.0),
@@ -132,12 +132,12 @@ class FactorEngine:
 
     # ── 单股独立信号（无横截面排名，方向为 None）────────────────
     @staticmethod
-    def get_factor_signal(ticker: str) -> dict:
+    def get_factor_signal(ticker: str, as_of_date: str = None) -> dict:
         """
         获取单股的因子信号（包含 raw score，但不含 BUY/SELL 方向）。
         方向需要通过 rank_universe() 进行横截面排名才能确定。
         """
-        score_data = FactorEngine.get_raw_score(ticker)
+        score_data = FactorEngine.get_raw_score(ticker, as_of_date)
         return {
             "ticker":          ticker,
             "engine":          "o_score_factor",

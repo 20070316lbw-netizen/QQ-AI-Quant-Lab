@@ -41,7 +41,7 @@ def main():
 
     df = pd.read_parquet(FEATURES_PATH)
     index_map = pd.read_parquet(INDEX_MAP_PATH)
-    index_map['ticker'] = index_map['code'].apply(lambda x: x.split(".")[1] + (".SS" if x.startswith("sh") else ".SZ"))
+    index_map['ticker'] = index_map['code'].str.split(".").str[1] + np.where(index_map['code'].str.startswith("sh"), ".SS", ".SZ")
     
     df = pd.merge(df, index_map[['ticker', 'index_group']], on='ticker', how='left')
     df['index_group'] = df['index_group'].fillna('Other')
