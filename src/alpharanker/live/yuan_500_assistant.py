@@ -65,14 +65,14 @@ def generate_signals(df, latest_macro, use_model=True):
         print("未找到符合条件的标的。")
         return
 
-    for _, row in top_picks.iterrows():
-        cost_100 = row['raw_close'] * 100
-        print(f"股票: {row['ticker']} | 代码: {row['ticker']}")
-        print(f"当前价格: {row['raw_close']:.2f} 元")
+    for row in top_picks.itertuples():
+        cost_100 = row.raw_close * 100
+        print(f"股票: {row.ticker} | 代码: {row.ticker}")
+        print(f"当前价格: {row.raw_close:.2f} 元")
         print(f"买入单位: 100 股")
         print(f"预计成本: {cost_100:.1f} 元 (+ 佣金)")
-        print(f"LambdaRank评分: {row['alpha_score']:.4f}")
-        print(f"静态权重评分:  {row['static_score']:.4f}")
+        print(f"LambdaRank评分: {row.alpha_score:.4f}")
+        print(f"静态权重评分:  {row.static_score:.4f}")
         print("-" * 20)
 
 def main():

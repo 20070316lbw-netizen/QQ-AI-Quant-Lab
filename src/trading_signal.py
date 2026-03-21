@@ -92,7 +92,7 @@ def generate_signal(ticker: str, as_of_date: str = None, ext_sentiment: float = 
     
     if not DataGateway.offline_mode and not is_historical:
         try:
-            raw_factors = extract_raw_factors(ticker)
+            raw_factors = extract_raw_factors(ticker, as_of_date=as_of_date)
             factor_scores = ScoringEngine.process(raw_factors)
             o_score = factor_scores.get("overall_score", 50.0)
             

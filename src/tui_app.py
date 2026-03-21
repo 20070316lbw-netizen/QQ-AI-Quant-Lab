@@ -110,16 +110,16 @@ class AlphaGenomeApp(App):
             top_20 = latest_df.sort_values('alpha_score', ascending=False).head(20)
             table = self.query_one("#signal-table", DataTable)
             table.clear()
-            for i, (_, row) in enumerate(top_20.iterrows()):
+            for i, row in enumerate(top_20.itertuples()):
                 # 简单判定主驱动因子
-                main_driver = "价值 (V)" if row.get('sp_ratio_rank', 0) > 0.8 else "动量 (M)"
+                main_driver = "价值 (V)" if getattr(row, "sp_ratio_rank", 0) > 0.8 else "动量 (M)"
                 table.add_row(
                     str(i+1), 
-                    row['ticker'], 
-                    row['ticker'], 
-                    f"{row['alpha_score']:.4f}", 
+                    row.ticker,
+                    row.ticker,
+                    f"{row.alpha_score:.4f}",
                     main_driver,
-                    f"{row['raw_close']:.2f}"
+                    f"{row.raw_close:.2f}"
                 )
 
             # 2. 更新状态栏
@@ -169,11 +169,11 @@ class AlphaGenomeApp(App):
         if pts.empty:
             return
             
-        for _, row in pts.iterrows():
-            x = int(row['sp_ratio_rank'] * (width - 1))
-            y = int((1 - row['vol_60d_res_rank']) * (height - 1)) # Y轴反转
+        for row in pts.itertuples():
+            x = int(row.sp_ratio_rank * (width - 1))
+            y = int((1 - row.vol_60d_res_rank) * (height - 1)) # Y轴反转
             
-            color = "red" if row['label_next_month'] > 0 else "green"
+            color = "red" if row.label_next_month > 0 else "green"
             char = f"[bold {color}]·[/]"
             canvas[y][x] = char
             
