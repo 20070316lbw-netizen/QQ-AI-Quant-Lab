@@ -44,12 +44,12 @@ def main():
     
     # Baostock code in index_map is 'sh.600000', in features it's '600000.SS'
     # Let's normalize ticker format
-    index_map['ticker'] = index_map['code'].apply(lambda x: x.split(".")[1] + (".SS" if x.startswith("sh") else ".SZ"))
+    index_map['ticker'] = index_map['code'].str.split(".").str[1] + np.where(index_map['code'].str.startswith("sh"), ".SS", ".SZ")
     
     df = pd.merge(df, index_map[['ticker', 'index_group']], on='ticker', how='left')
     df['index_group'] = df['index_group'].fillna('Other')
     
-    factors = ["mom_60d_rank", "mom_20d_rank", "vol_60d_res_rank", "sp_ratio_rank", "roe_rank"]
+    factors = ["mom_60d_rank", "mom_20d_rank", "vol_60d_res_rank", "sp_ratio_rank"]
     target = "label_next_month"
     df = df.dropna(subset=[target])
 
@@ -77,19 +77,6 @@ def main():
             })
             
             print(f" - {f:20}: IC={mean_ic:+.4f}, t-stat={t_stat:+.2f}")
-
-    # --- ROE Lag Analysis ---
-    print("\n" + "="*50)
-    print(">> ROE (Quality) 因子滞后性归因分析 <<")
-    # 测试将 ROE 滞后 3 个月 (约为一个季度披露时间)
-    df_sorted = df.sort_values(['ticker', 'date'])
-    df_sorted['roe_rank_lag3'] = df_sorted.groupby('ticker')['roe_rank'].shift(3)
-    
-    for group in groups:
-        g_df = df_sorted[df_sorted["index_group"] == group].dropna(subset=['roe_rank_lag3'])
-        ic_orig = calculate_ic_series(g_df, 'roe_rank', target).mean()
-        ic_lag = calculate_ic_series(g_df, 'roe_rank_lag3', target).mean()
-        print(f"[{group}] ROE (Original) IC: {ic_orig:+.4f} | ROE (Lag 3m) IC: {ic_lag:+.4f}")
 
     # Summary
     res_df = pd.DataFrame(all_results)

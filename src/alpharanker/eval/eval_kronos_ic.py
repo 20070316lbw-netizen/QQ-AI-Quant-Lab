@@ -24,7 +24,7 @@ def get_actual_return(ticker, start_date, end_date):
     try:
         df = pd.read_parquet(file_path)
         # 提取核心价格段
-        prices = df[(df.index >= start_date) & (df.index <= end_date)]
+        prices = df[(df.index >= start_date) & (df.index < end_date)]
         if len(prices) < 2:
             return None
         return (prices['close'].iloc[-1] / prices['close'].iloc[0]) - 1.0
