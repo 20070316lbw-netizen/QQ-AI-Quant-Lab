@@ -5,3 +5,7 @@
 ## 2024-05-20 - Label Association with Inputs Missing in Forms
 **Learning:** Found multiple `<label>` tags in `src/dashboard/templates/index.html` missing `for` attributes connecting them to their respective `<select>` and `<input>` elements. Without this, users cannot click the label to focus the input, and screen readers lack proper context when reading the input fields. Additionally, the labels lacked a `cursor: pointer` style, meaning sighted users had no visual cue that clicking the label would work.
 **Action:** Always ensure that every `<label>` is explicitly associated with its form control using the `for` attribute (matching the target element's `id`). When building custom forms, add `cursor: pointer` to labels to improve interaction affordance.
+
+## 2024-05-22 - Data Filtering Needs Empty States
+**Learning:** Found data tables (like the signals candidate pool) that simply rendered as blank when no results matched the current filter. This looks like a bug and leaves the user confused about whether the system is broken or the filters are just too strict.
+**Action:** Whenever implementing client-side filtering that results in 0 items, explicitly render a clear, helpful empty state message instead of a blank table to guide the user to adjust their filters.
