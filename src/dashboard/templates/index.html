@@ -1050,15 +1050,30 @@
             const sel = document.getElementById('slicerField');
             sel.innerHTML = '<option value="">Loading...</option>';
 
-            const res = await fetch(`/api/slicer/fields?market=${market}&type=${type}`);
-            const data = await res.json();
+            const btn = document.getElementById('slicerRunBtn');
+            if (btn) {
+                btn.disabled = true;
+                btn.title = "正在加载可用字段...";
+            }
 
-            sel.innerHTML = data.fields.map(f =>
-                `<option value="${f}">${f}</option>`
-            ).join('');
+            try {
+                const res = await fetch(`/api/slicer/fields?market=${market}&type=${type}`);
+                const data = await res.json();
 
-            document.getElementById('slicerStatus').textContent =
-                `共 ${data.count} 个文件，${data.fields.length} 个可选字段`;
+                sel.innerHTML = data.fields.map(f =>
+                    `<option value="${f}">${f}</option>`
+                ).join('');
+
+                document.getElementById('slicerStatus').textContent =
+                    `共 ${data.count} 个文件，${data.fields.length} 个可选字段`;
+            } catch (e) {
+                document.getElementById('slicerStatus').textContent = '❌ Error: ' + e.message;
+            } finally {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.removeAttribute('title');
+                }
+            }
         }
 
         let slicerState = null;
@@ -1143,7 +1158,7 @@
                         </select>
                     </div>
                     <div class="slicer-group">
-                        <button class="slicer-btn slicer-btn-primary" onclick="loadSignals()"><span id="sigRefreshIcon">🔄</span> 刷新推断</button>
+                        <button class="slicer-btn slicer-btn-primary" id="sigRefreshBtn" onclick="loadSignals()"><span id="sigRefreshIcon">🔄</span> 刷新推断</button>
                     </div>
                 </div>
                 <div id="sigStatus" class="slicer-status" style="margin-bottom:8px"></div>
@@ -1156,6 +1171,11 @@
         }
 
         async function loadSignals() {
+            const btn = document.getElementById('sigRefreshBtn');
+            if (btn) {
+                btn.disabled = true;
+                btn.title = "正在推断数据，请稍候...";
+            }
             document.getElementById('sigRefreshIcon').textContent = '⏳';
             document.getElementById('sigStatus').textContent = '加载最新截面数据与推断...';
             try {
@@ -1168,8 +1188,13 @@
                 renderSignalsTable();
             } catch (e) {
                 document.getElementById('sigStatus').textContent = '❌ Error: ' + e.message;
+            } finally {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.removeAttribute('title');
+                }
+                document.getElementById('sigRefreshIcon').textContent = '🔄';
             }
-            document.getElementById('sigRefreshIcon').textContent = '🔄';
         }
 
         function renderSignalsTable() {

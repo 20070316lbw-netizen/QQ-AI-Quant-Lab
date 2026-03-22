@@ -9,3 +9,7 @@
 ## 2024-05-22 - Data Filtering Needs Empty States
 **Learning:** Found data tables (like the signals candidate pool) that simply rendered as blank when no results matched the current filter. This looks like a bug and leaves the user confused about whether the system is broken or the filters are just too strict.
 **Action:** Whenever implementing client-side filtering that results in 0 items, explicitly render a clear, helpful empty state message instead of a blank table to guide the user to adjust their filters.
+
+## 2024-05-23 - Async Form Dependency Loading Lacks Visual Feedback
+**Learning:** Found that long-running network requests populating dropdown forms (like Slicer Fields) or fetching heavy data tables (like Signals Push) did not disable their associated submission buttons. This allowed users to prematurely click "Extract" or rapidly click "Refresh", resulting in errors or duplicate network requests.
+**Action:** When a submission button relies on dynamically loaded data or is fetching heavy data itself, always set `btn.disabled = true` and provide a helpful `title` tooltip (e.g., "正在加载数据...") during the network request. Ensure `finally` block logic resets both the disabled state and the tooltip to prevent the UI from becoming permanently locked if the request fails.
