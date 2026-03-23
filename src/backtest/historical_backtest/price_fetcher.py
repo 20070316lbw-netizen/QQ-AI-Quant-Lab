@@ -80,13 +80,13 @@ def compute_forward_return(price_series: pd.Series,
     返回: float 收益率 or None（数据不足）
     """
     sd = pd.Timestamp(signal_date)
-    future = price_series[price_series.index > sd]
+    idx = price_series.index.searchsorted(sd, side='right')
 
-    if len(future) < hold_days:
+    if idx + hold_days > len(price_series):
         return None
 
-    start_p = future.iloc[0]
-    end_p   = future.iloc[hold_days - 1]
+    start_p = price_series.iloc[idx]
+    end_p   = price_series.iloc[idx + hold_days - 1]
 
     if start_p == 0 or pd.isna(start_p) or pd.isna(end_p):
         return None
