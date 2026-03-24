@@ -13,3 +13,7 @@
 ## 2024-05-23 - Async Form Dependency Loading Lacks Visual Feedback
 **Learning:** Found that long-running network requests populating dropdown forms (like Slicer Fields) or fetching heavy data tables (like Signals Push) did not disable their associated submission buttons. This allowed users to prematurely click "Extract" or rapidly click "Refresh", resulting in errors or duplicate network requests.
 **Action:** When a submission button relies on dynamically loaded data or is fetching heavy data itself, always set `btn.disabled = true` and provide a helpful `title` tooltip (e.g., "正在加载数据...") during the network request. Ensure `finally` block logic resets both the disabled state and the tooltip to prevent the UI from becoming permanently locked if the request fails.
+
+## 2024-06-03 - Dynamic Status Announcements Lacking for Screen Readers
+**Learning:** Found dynamic status updates (like `id="slicerStatus"` and `id="sigStatus"`) inserted into the DOM without screen reader awareness. The text simply appeared on the screen, meaning visually impaired users wouldn't know when operations like loading fields or refreshing signals completed.
+**Action:** Always wrap dynamic status containers with `aria-live="polite"` and `aria-atomic="true"`. This ensures screen readers automatically announce updates injected into these containers without interrupting the user.
