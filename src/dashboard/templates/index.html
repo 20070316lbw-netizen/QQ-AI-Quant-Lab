@@ -1035,7 +1035,7 @@
                     <button class="slicer-btn slicer-btn-primary" onclick="runSlicer()" id="slicerRunBtn">🚀 提取</button>
                     <button class="slicer-btn slicer-btn-success" onclick="downloadSlicerCSV()" id="slicerCsvBtn" title="请先提取数据" disabled>⬇️ 导出 CSV</button>
                 </div>
-                <div id="slicerStatus" class="slicer-status"></div>
+                <div id="slicerStatus" class="slicer-status" aria-live="polite" aria-atomic="true"></div>
                 <div id="slicerResult"></div>
             </div>`;
             document.getElementById('panelsContainer').appendChild(panel);
@@ -1161,7 +1161,7 @@
                         <button class="slicer-btn slicer-btn-primary" id="sigRefreshBtn" onclick="loadSignals()"><span id="sigRefreshIcon">🔄</span> 刷新推断</button>
                     </div>
                 </div>
-                <div id="sigStatus" class="slicer-status" style="margin-bottom:8px"></div>
+                <div id="sigStatus" class="slicer-status" style="margin-bottom:8px" aria-live="polite" aria-atomic="true"></div>
                 <div id="sigResult"></div>
             </div>`;
             document.getElementById('panelsContainer').appendChild(panel);
