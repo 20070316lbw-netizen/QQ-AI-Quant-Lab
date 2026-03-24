@@ -222,10 +222,6 @@ def main():
         if er is not None:
             exp_rets.append(float(er))
 
-        pr = s.get("predicted_range_pct")
-        if pr is not None:
-            pred_rngs.append(float(pr))
-
         uc = s.get("uncertainty")
         if uc is not None:
             uncertains.append(float(uc))
@@ -236,7 +232,6 @@ def main():
         "adjusted_position_strength": compute_distribution_stats(pos_strs,  "仓位强度"),
         "o_score":                    compute_distribution_stats(o_scores,   "O-Score 多因子"),
         "expected_return":            compute_distribution_stats(exp_rets,   "预期收益"),
-        "predicted_range_pct":        compute_distribution_stats(pred_rngs,  "预测振幅"),
         "uncertainty":                compute_distribution_stats(uncertains, "不确定性"),
     }
 

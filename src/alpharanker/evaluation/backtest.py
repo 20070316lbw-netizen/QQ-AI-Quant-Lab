@@ -23,13 +23,14 @@ def run_backtest(df, top_k=50, label_col="label_next_month"):
     df['date'] = pd.to_datetime(df['date'])
     
     # 1. 筛选每月 Top-K 标的
-    def select_top(group):
-        # 这里的 pred_rank 是百分比排名，越大越好
-        t = group.nlargest(top_k, 'pred_rank')
-        return t[label_col].mean()
-
-    # 每月组合收益
-    portfolio_ret = df.groupby('date').apply(select_top)
+    # 使用向量化的 sort_values().groupby().head() 代替原生的 groupby().apply()
+    portfolio_ret = (
+        df.sort_values(['date', 'pred_rank'], ascending=[True, False])
+        .groupby('date')
+        .head(top_k)
+        .groupby('date')[label_col]
+        .mean()
+    )
     
     # 2. 计算基准 (全样本等权)
     benchmark_ret = df.groupby('date')[label_col].mean()
