@@ -115,7 +115,6 @@ def process_single_ticker(args):
                 "direction": signal["direction"],
                 "mean_return": signal["mean_return"],
                 "uncertainty": signal["uncertainty"],
-                "predicted_range_pct": signal.get("predicted_range_pct", 0.0),
                 "adjusted_position_strength": signal["adjusted_position_strength"],
                 "sentiment_score": meta.get("sentiment_score", 0.0),
                 "risk_factor": meta.get("risk_factor", 0.0),

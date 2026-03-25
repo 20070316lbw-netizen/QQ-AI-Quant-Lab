@@ -161,8 +161,8 @@ def extract_features_for_ticker(ticker: str) -> pd.DataFrame:
     # ================= 采样至月频 (月末) =================
     # 获取实际交易日：按自然月分组，取该月最后一个实际存在的交易日
     out["year_month"] = out.index.to_period("M")
-    # 找到每个月最后一个交易日
-    last_trading_days = out.groupby("year_month").apply(lambda x: x.index[-1]).values
+    # 找到每个月最后一个交易日，使用向量化操作
+    last_trading_days = out.index.to_series().groupby(out["year_month"]).max().values
     
     out_monthly = out.loc[last_trading_days].copy()
     out_monthly["report_date"] = out_monthly.index

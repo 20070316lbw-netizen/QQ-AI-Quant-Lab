@@ -55,7 +55,7 @@ class KronosEngine:
             if "date" in df.columns:
                 df = df[pd.to_datetime(df["date"]) < pd.to_datetime(target_date)]
             else:
-                df = df[df.index < pd.to_datetime(target_date)]
+                df = df[pd.to_datetime(df.index) < pd.to_datetime(target_date)]
 
         # ── 【Tensor 修复 v2】固定输入序列长度至 _KRONOS_SEQ_LEN ──────────
         # 不同股票/市场的实际交易日数量不一致，predictor 期望固定维度。
@@ -83,9 +83,6 @@ class KronosEngine:
              
         mean_ret = prediction_df.attrs.get('mean_return', 0.0)
         std_ret = prediction_df.attrs.get('std_return', 0.0309)  # 默认降级波动率
-        pred_range = prediction_df.attrs.get('predicted_range_pct', 0.0)
-        pred_max = prediction_df.attrs.get('predicted_max', 0.0)
-        pred_min = prediction_df.attrs.get('predicted_min', 0.0)
         
         # 计算 Regime Strength (原 Z-Score)，设定一个最低噪声地板防止极高杠杆
         noise_floor = 0.005 
@@ -95,8 +92,5 @@ class KronosEngine:
             "expected_return": float(mean_ret),
             "uncertainty": float(std_ret),
             "z_score": regime_strength,
-            "regime_strength": regime_strength,
-            "predicted_range_pct": float(pred_range),
-            "predicted_max": float(pred_max),
-            "predicted_min": float(pred_min)
+            "regime_strength": regime_strength
         }
