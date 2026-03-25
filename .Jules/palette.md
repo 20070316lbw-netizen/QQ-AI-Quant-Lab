@@ -17,3 +17,7 @@
 ## 2024-05-24 - Async Status Updates Lack Screen Reader Feedback
 **Learning:** Found dynamic status text containers (like Slicer Status or Signal extraction logs) being injected into the DOM via JavaScript after async actions complete, but lacking `aria-live` attributes. This meant screen readers remained silent upon task completion, requiring blind users to manually hunt for the result message.
 **Action:** Always wrap dynamic status message containers with `aria-live="polite"` and `aria-atomic="true"` so that async feedback (e.g., "✅ Extraction complete") is automatically announced to assistive technologies without interrupting the user.
+
+## 2026-03-25 - [Incomplete Segmented Controls / View Switcher]
+**Learning:** Discovered an incomplete `.view-switch` pattern in the AlphaRanker data explorer where a "📋 Data" button existed without an alternative view button to switch back, rendering the toggle effectively a one-way trip or at best confusing to the user. Visual segmented controls must always represent at least two distinct, mutually exclusive states.
+**Action:** Always ensure view switchers provide all available options (e.g., "Chart" and "Data") and implement proper tablist ARIA semantics (`role="tablist"`, `role="tab"`, `aria-selected`) to convey state changes to screen readers clearly.
