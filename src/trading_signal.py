@@ -41,8 +41,6 @@ def generate_signal(ticker: str, as_of_date: str = None, ext_sentiment: float = 
     expected_return = raw_data["expected_return"]
     uncertainty = raw_data["uncertainty"]
     pred_range_pct = raw_data["predicted_range_pct"]
-    pred_max = raw_data["predicted_max"]
-    pred_min = raw_data["predicted_min"]
     
     # 2. Kronos 不再决定方向 —— 仅输出市场机制判断和波动门控
     # regime: STRONG_TREND_UP / STRONG_TREND_DOWN / RANGING / HIGH_VOL
@@ -163,8 +161,6 @@ def generate_signal(ticker: str, as_of_date: str = None, ext_sentiment: float = 
         "mean_return": round(expected_return, 4),
         "uncertainty": round(uncertainty, 4),
         "predicted_range_pct": round(pred_range_pct, 4),
-        "predicted_max": round(pred_max, 2),
-        "predicted_min": round(pred_min, 2),
         "adjusted_position_strength": round(final_confidence, 4),
         # ── 新增：双模块独立信号 ──────────────────────────────────
         "kronos_signal": kronos_signal,
