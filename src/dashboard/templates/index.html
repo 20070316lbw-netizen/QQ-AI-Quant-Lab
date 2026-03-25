@@ -799,7 +799,7 @@
             <div class="tab ${t.id === activeTabId ? 'active' : ''}" role="tab" tabindex="0" aria-selected="${t.id === activeTabId}" onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); activateTab('${t.id}'); }" onclick="activateTab('${t.id}')">
                 <span class="tab-icon">${getFileIcon(t.name)}</span>
                 <span>${t.name.replace('.parquet', '')}</span>
-                <span class="tab-close" role="button" tabindex="0" aria-label="Close tab" onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); event.stopPropagation(); closeTab('${t.id}'); }" onclick="event.stopPropagation();closeTab('${t.id}')">×</span>
+                <span class="tab-close" role="button" tabindex="0" aria-label="Close tab" title="Close tab" onkeydown="if(event.key==='Enter'||event.key===' ') { event.preventDefault(); event.stopPropagation(); closeTab('${t.id}'); }" onclick="event.stopPropagation();closeTab('${t.id}')">×</span>
             </div>
         `).join('');
         }
@@ -1035,7 +1035,7 @@
                     <button class="slicer-btn slicer-btn-primary" onclick="runSlicer()" id="slicerRunBtn">🚀 提取</button>
                     <button class="slicer-btn slicer-btn-success" onclick="downloadSlicerCSV()" id="slicerCsvBtn" title="请先提取数据" disabled>⬇️ 导出 CSV</button>
                 </div>
-                <div id="slicerStatus" class="slicer-status"></div>
+                <div id="slicerStatus" class="slicer-status" aria-live="polite" aria-atomic="true"></div>
                 <div id="slicerResult"></div>
             </div>`;
             document.getElementById('panelsContainer').appendChild(panel);
@@ -1086,6 +1086,7 @@
 
             const btn = document.getElementById('slicerRunBtn');
             btn.disabled = true;
+            btn.title = "正在提取数据...";
             btn.innerHTML = '⏳ 提取中...';
             document.getElementById('slicerStatus').textContent = '正在从所有财报中提取 ' + field + '...';
             document.getElementById('slicerResult').innerHTML = '';
@@ -1116,10 +1117,11 @@
                 document.getElementById('slicerResult').innerHTML = h;
             } catch (e) {
                 document.getElementById('slicerStatus').textContent = '❌ Error: ' + e.message;
+            } finally {
+                btn.disabled = false;
+                btn.removeAttribute('title');
+                btn.innerHTML = '🚀 提取';
             }
-
-            btn.disabled = false;
-            btn.innerHTML = '🚀 提取';
         }
 
         function downloadSlicerCSV() {
@@ -1161,7 +1163,7 @@
                         <button class="slicer-btn slicer-btn-primary" id="sigRefreshBtn" onclick="loadSignals()"><span id="sigRefreshIcon">🔄</span> 刷新推断</button>
                     </div>
                 </div>
-                <div id="sigStatus" class="slicer-status" style="margin-bottom:8px"></div>
+                <div id="sigStatus" class="slicer-status" style="margin-bottom:8px" aria-live="polite" aria-atomic="true"></div>
                 <div id="sigResult"></div>
             </div>`;
             document.getElementById('panelsContainer').appendChild(panel);
