@@ -8,21 +8,12 @@ from core.multi_factor.factor_extractor import extract_raw_factors
 from core.multi_factor.scoring_engine import ScoringEngine
 from core.factor_engine import FactorEngine
 
-def get_llm_adjustments(ticker: str) -> Tuple[float, float]:
+def generate_signal(ticker: str, as_of_date: str = None) -> Dict[str, Any]:
     """
-    [Phase 2 留白]
-    在独立运行时，回退的默认情绪与风险评估。
-    """
-    return 0.0, 0.3
-
-def generate_signal(ticker: str, as_of_date: str = None, ext_sentiment: float = None, ext_risk: float = None) -> Dict[str, Any]:
-    """
-    生成高度结构化、基于 Z-Score 引擎与 NLP 辅助降权的交易信号字典。
+    生成高度结构化、基于 Z-Score 引擎的交易信号字典。
     
     :param ticker: 公司/代币的大写代号，如 AAPL
     :param as_of_date: 历史模拟回测的截断点 YYYY-MM-DD，留空则为今日
-    :param ext_sentiment: 外部注入的市场情绪 (-1.0 到 1.0)
-    :param ext_risk: 外部注入的市场风险系数 (0.0 到 1.0)
     :return: 标准量化交易信令 JSON 结构
     """
     target_date = as_of_date if as_of_date else datetime.now().strftime("%Y-%m-%d")
@@ -59,14 +50,8 @@ def generate_signal(ticker: str, as_of_date: str = None, ext_sentiment: float = 
 
     # 方向由 regime_strength 决定，如果 > 0 则是做多，否则做空
     direction = "BUY" if regime_strength > 0 else "SELL"
-
-
-    # 3. 收集基本面/情绪调整因子
-    default_sentiment, default_risk = get_llm_adjustments(ticker)
-    sentiment_score = ext_sentiment if ext_sentiment is not None else default_sentiment
-    risk_factor = ext_risk if ext_risk is not None else default_risk
     
-    # 4. 基于波动的资金管控层 —— Kronos 作为择时门控
+    # 3. 基于波动的资金管控层 —— Kronos 作为择时门控
     # base_kronos_gate: Kronos 火力强度 tanh(|z|) 乘以波动折扣
     base_momentum_strength = math.tanh(abs(regime_strength))
     volatility_discount_factor = math.exp(-10.0 * max(0, uncertainty - 0.03))
@@ -79,7 +64,7 @@ def generate_signal(ticker: str, as_of_date: str = None, ext_sentiment: float = 
     if "RANGING" in regime:
         kronos_position_cap *= 0.7   # 震荡态再进一步折口
 
-    final_confidence = max(0.0, min(1.0, kronos_position_cap * (1 + 0.3 * sentiment_score) * (1 - risk_factor)))
+    final_confidence = max(0.0, min(1.0, kronos_position_cap))
 
     # ===== Phase 11: 引入 Fama-French 多因子选股底牌 (O-Score) =====
     # 在非 Offline 隔离时，且非历史回测穿越时，提取并打分该股票的财务多因子
@@ -166,8 +151,6 @@ def generate_signal(ticker: str, as_of_date: str = None, ext_sentiment: float = 
         "metadata": {
             "model": "kronos-v1-foundation",
             "timestamp": f"{as_of_date}T23:59:59Z" if as_of_date else (datetime.now().isoformat() + "Z"),
-            "sentiment_score": round(sentiment_score, 4),
-            "risk_factor": round(risk_factor, 4),
             "base_strength": round(base_momentum_strength, 4),
             "volatility_discount": round(volatility_discount_factor, 4),
             "fundamental_bust_triggered": fundamental_risk_override,
