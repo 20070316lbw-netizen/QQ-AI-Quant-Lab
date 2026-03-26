@@ -17,3 +17,7 @@
 ## 2024-05-24 - Async Status Updates Lack Screen Reader Feedback
 **Learning:** Found dynamic status text containers (like Slicer Status or Signal extraction logs) being injected into the DOM via JavaScript after async actions complete, but lacking `aria-live` attributes. This meant screen readers remained silent upon task completion, requiring blind users to manually hunt for the result message.
 **Action:** Always wrap dynamic status message containers with `aria-live="polite"` and `aria-atomic="true"` so that async feedback (e.g., "✅ Extraction complete") is automatically announced to assistive technologies without interrupting the user.
+
+## 2026-03-26 - View Switchers & ARIA Tablists
+**Learning:** When creating a visual view switcher, a single toggle button is confusing; users need explicit choices. Furthermore, without proper ARIA semantics (`role="tablist"` and `role="tab"`), screen readers don't understand it is a set of mutually exclusive panels.
+**Action:** Always provide at least two mutually exclusive buttons for segmented controls, add `role="tablist"` to their container, and implement `role="tab"` with dynamic `aria-selected` attributes on the buttons to toggle visibility states of wrapped content correctly.
