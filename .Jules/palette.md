@@ -17,3 +17,7 @@
 ## 2024-05-24 - Async Status Updates Lack Screen Reader Feedback
 **Learning:** Found dynamic status text containers (like Slicer Status or Signal extraction logs) being injected into the DOM via JavaScript after async actions complete, but lacking `aria-live` attributes. This meant screen readers remained silent upon task completion, requiring blind users to manually hunt for the result message.
 **Action:** Always wrap dynamic status message containers with `aria-live="polite"` and `aria-atomic="true"` so that async feedback (e.g., "✅ Extraction complete") is automatically announced to assistive technologies without interrupting the user.
+
+## 2024-05-25 - View Switchers Lack Mutual Exclusivity and ARIA Tablist Semantics
+**Learning:** Found view switchers (like `.view-switch` in price chart and industry views) that were implemented as a standalone toggle button ("📋 Data") which simply showed the data table without hiding the chart. This lacked mutual exclusivity and proper semantics. Without two mutually exclusive options, users might not realize the view states, and without ARIA semantics, screen reader users lacked context about state changes.
+**Action:** When implementing visual segmented controls or view switchers, always provide at least two mutually exclusive options (e.g., both '📈 Chart' and '📋 Data'). Implement proper tablist ARIA semantics (`role="tablist"`, `role="tab"`, `aria-selected="true/false"`) and toggle the display of both the chart and the data table.
