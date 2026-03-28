@@ -110,13 +110,12 @@ def render_group(group: dict, results: list):
     table.add_column("Z-Score",    justify="right", width=10)
     table.add_column("预期收益",   justify="right", width=10)
     table.add_column("不确定性",   justify="right", width=10)
-    table.add_column("预测振幅",   justify="right", width=10)
     table.add_column("综合信号",   justify="center", width=10)
 
     for r in results:
         if r["error"]:
             table.add_row(r["ticker"], r["name"], "[red]ERROR[/red]",
-                          "—", "—", "—", "—", f"[dim]{r['error'][:30]}...[/dim]")
+                          "—", "—", "—", f"[dim]{r['error'][:30]}...[/dim]")
             continue
 
         s = r["signal"]
@@ -124,7 +123,6 @@ def render_group(group: dict, results: list):
         z            = s.get("z_score", 0.0)
         exp_ret      = s.get("expected_return", 0.0)
         uncertainty  = s.get("uncertainty", 0.0)
-        pred_range   = s.get("predicted_range_pct", 0.0)
         final_signal = s.get("final_signal", direction)
 
         dir_style = "green" if "BUY" in direction else ("red" if "SELL" in direction else "yellow")
@@ -137,7 +135,6 @@ def render_group(group: dict, results: list):
             f"{z:+.3f}",
             f"{exp_ret*100:+.2f}%",
             f"{uncertainty*100:.2f}%",
-            f"{pred_range*100:.2f}%",
             f"[{sig_style}]{final_signal}[/{sig_style}]",
         )
 
