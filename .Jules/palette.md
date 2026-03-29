@@ -17,3 +17,7 @@
 ## 2024-05-24 - Async Status Updates Lack Screen Reader Feedback
 **Learning:** Found dynamic status text containers (like Slicer Status or Signal extraction logs) being injected into the DOM via JavaScript after async actions complete, but lacking `aria-live` attributes. This meant screen readers remained silent upon task completion, requiring blind users to manually hunt for the result message.
 **Action:** Always wrap dynamic status message containers with `aria-live="polite"` and `aria-atomic="true"` so that async feedback (e.g., "✅ Extraction complete") is automatically announced to assistive technologies without interrupting the user.
+
+## 2025-03-29 - [Dashboard Data/Chart Tabs]
+**Learning:** Found a partial UI state where a single "Data" button would reveal a data table without providing a way to return to the Chart view. Implementing a proper `role="tablist"` with `role="tab"` and `aria-selected` attributes for mutually exclusive segments is crucial for screen readers to understand the view state.
+**Action:** Always implement complete visual segmented controls (e.g. "Chart" and "Data") rather than standalone toggle buttons, and include full tablist ARIA semantics to ensure clear state changes.

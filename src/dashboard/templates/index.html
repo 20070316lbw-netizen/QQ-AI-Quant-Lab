@@ -857,15 +857,18 @@
                     ${preview.shape ? `<span class="meta-chip">${preview.shape[0]} rows × ${preview.shape[1]} cols</span>` : ''}
                 </div>
             </div>
+            <div id="chart_wrapper_${tabId}">
             <div class="chart-box">
                 <div class="chart-title">Price Chart (Close + MA5 / MA20)</div>
                 <canvas id="chart_${tabId}"></canvas>
             </div>
             ${candle.volume ? `<div class="chart-box"><div class="chart-title">Volume</div><canvas id="vol_${tabId}"></canvas></div>` : ''}
-            <div class="view-switch">
-                <button class="view-btn active" onclick="this.parentElement.querySelectorAll('.view-btn').forEach(b=>b.classList.remove('active'));this.classList.add('active');document.getElementById('tbl_${tabId}').style.display='block'">📋 Data</button>
             </div>
-            <div id="tbl_${tabId}">${renderDataTable(preview)}</div>
+            <div class="view-switch" role="tablist">
+                <button class="view-btn active" role="tab" aria-selected="true" onclick="this.parentElement.querySelectorAll('.view-btn').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-selected', 'false');});this.classList.add('active');this.setAttribute('aria-selected', 'true');document.getElementById('chart_wrapper_${tabId}').style.display='block';document.getElementById('tbl_${tabId}').style.display='none'">📈 Chart</button>
+                <button class="view-btn" role="tab" aria-selected="false" onclick="this.parentElement.querySelectorAll('.view-btn').forEach(b=>{b.classList.remove('active');b.setAttribute('aria-selected', 'false');});this.classList.add('active');this.setAttribute('aria-selected', 'true');document.getElementById('chart_wrapper_${tabId}').style.display='none';document.getElementById('tbl_${tabId}').style.display='block'">📋 Data</button>
+            </div>
+            <div id="tbl_${tabId}" style="display:none">${renderDataTable(preview)}</div>
         </div>`;
 
             // Price chart
