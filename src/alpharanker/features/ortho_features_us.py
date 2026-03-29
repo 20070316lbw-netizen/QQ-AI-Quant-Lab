@@ -24,27 +24,36 @@ OUTPUT_PATH = os.path.join(DATA_ROOT, 'us', 'us_features_ortho.parquet')
 
 def orthogonalize_cross_section(df, x_col="mom_12m", y_col="vol_60d"):
     """
-    在每个 report_date 截面内执行线性回归离。
+    在每个 report_date 截面内执行线性回归离 (Vectorized)。
     """
     print(f">> 开始正交化: {y_col} ~ {x_col}")
     
-    def get_residual(group):
-        # 过滤 NaN
-        valid = group.dropna(subset=[x_col, y_col])
-        if len(valid) < 20: 
-            return pd.Series(index=group.index, dtype=float)
-            
-        X = sm.add_constant(valid[x_col])
-        y = valid[y_col]
-        model = OLS(y, X).fit()
-        
-        # 返回残差
-        res = pd.Series(index=group.index, dtype=float)
-        res.loc[valid.index] = model.resid
-        return res
+    # 过滤 NaN 并确保每组至少有 20 个样本
+    valid_mask = df[x_col].notna() & df[y_col].notna()
+    valid_counts = df[valid_mask].groupby('report_date')[x_col].transform('count')
+    mask = valid_mask & (valid_counts >= 20)
 
-    # 按截面并行计算 (transform)
-    df[f"{y_col}_res"] = df.groupby('report_date').apply(get_residual).reset_index(level=0, drop=True)
+    df_valid = df[mask].copy()
+
+    # 计算分组均值
+    means = df_valid.groupby('report_date')[[x_col, y_col]].transform('mean')
+    df_c_x = df_valid[x_col] - means[x_col]
+    df_c_y = df_valid[y_col] - means[y_col]
+
+    # 向量化计算斜率(beta)和截距(alpha)
+    cov_xy = (df_c_x * df_c_y).groupby(df_valid['report_date']).transform('sum')
+    var_x = (df_c_x ** 2).groupby(df_valid['report_date']).transform('sum')
+
+    beta = cov_xy / var_x
+    alpha = means[y_col] - beta * means[x_col]
+
+    # 计算残差
+    df_valid['res'] = df_valid[y_col] - (alpha + beta * df_valid[x_col])
+
+    # 映射回原 DataFrame
+    df[f"{y_col}_res"] = np.nan
+    df.loc[mask, f"{y_col}_res"] = df_valid['res']
+
     return df
 
 def main():
