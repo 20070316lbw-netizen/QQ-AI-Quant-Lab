@@ -21,3 +21,7 @@
 ## 2025-03-29 - [Dashboard Data/Chart Tabs]
 **Learning:** Found a partial UI state where a single "Data" button would reveal a data table without providing a way to return to the Chart view. Implementing a proper `role="tablist"` with `role="tab"` and `aria-selected` attributes for mutually exclusive segments is crucial for screen readers to understand the view state.
 **Action:** Always implement complete visual segmented controls (e.g. "Chart" and "Data") rather than standalone toggle buttons, and include full tablist ARIA semantics to ensure clear state changes.
+
+## 2024-11-20 - Data Table Empty State
+**Learning:** Returning an empty table header without a body is confusing to users and looks like a rendering bug when the API returns 0 items.
+**Action:** Always render an explicit, friendly empty state message (e.g., "No data found, please adjust your filters") in data tables when the resulting data array is empty.

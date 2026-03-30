@@ -950,6 +950,9 @@
 
         function renderDataTable(data) {
             if (!data || data.error) return `<div style="padding:20px;color:var(--red)">Error: ${data?.error || 'No data'}</div>`;
+            if (!data.data || data.data.length === 0) {
+                return '<div class="welcome" style="background:var(--bg-secondary); border-radius:8px; margin-top:16px; padding:40px;"><div class="welcome-icon">📭</div><p>当前无数据记录，请尝试调整过滤条件或选择其他文件。</p></div>';
+            }
             let h = '<div class="data-table-wrap"><div class="data-table-scroll"><table class="data-table"><thead><tr><th>Index</th>';
             data.columns.forEach(c => h += `<th>${c}</th>`);
             h += '</tr></thead><tbody>';
@@ -1105,19 +1108,23 @@
                 document.getElementById('slicerCsvBtn').removeAttribute('title');
 
                 // Render result table
-                let h = '<div class="data-table-wrap"><div class="data-table-scroll"><table class="data-table"><thead><tr><th>Ticker</th>';
-                data.dates.forEach(d => h += `<th>${d}</th>`);
-                h += '</tr></thead><tbody>';
-                data.data.forEach(row => {
-                    h += `<tr><td>${row.ticker}</td>`;
-                    row.values.forEach(v => {
-                        const cls = v > 0 ? '' : v < 0 ? 'negative' : '';
-                        h += `<td class="${cls}">${fmt(v)}</td>`;
+                if (!data.data || data.data.length === 0 || data.totalStocks === 0) {
+                    document.getElementById('slicerResult').innerHTML = '<div class="welcome" style="background:var(--bg-secondary); border-radius:8px; margin-top:16px; padding:40px;"><div class="welcome-icon">📭</div><p>未提取到相关股票数据，请尝试调整市场或报表类型。</p></div>';
+                } else {
+                    let h = '<div class="data-table-wrap"><div class="data-table-scroll"><table class="data-table"><thead><tr><th>Ticker</th>';
+                    data.dates.forEach(d => h += `<th>${d}</th>`);
+                    h += '</tr></thead><tbody>';
+                    data.data.forEach(row => {
+                        h += `<tr><td>${row.ticker}</td>`;
+                        row.values.forEach(v => {
+                            const cls = v > 0 ? '' : v < 0 ? 'negative' : '';
+                            h += `<td class="${cls}">${fmt(v)}</td>`;
+                        });
+                        h += '</tr>';
                     });
-                    h += '</tr>';
-                });
-                h += '</tbody></table></div></div>';
-                document.getElementById('slicerResult').innerHTML = h;
+                    h += '</tbody></table></div></div>';
+                    document.getElementById('slicerResult').innerHTML = h;
+                }
             } catch (e) {
                 document.getElementById('slicerStatus').textContent = '❌ Error: ' + e.message;
             } finally {
