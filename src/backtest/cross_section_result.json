@@ -1,7 +1,7 @@
 {
   "meta": {
-    "run_start": "2026-03-17T00:12:48.083349",
-    "run_end": "2026-03-17T00:13:17.844206",
+    "run_start": "2026-03-29T00:33:59.985188",
+    "run_end": "2026-03-29T00:34:23.411107",
     "total": 12,
     "success": 12,
     "errors": 0,
@@ -22,60 +22,57 @@
           "group": "G1",
           "signal": {
             "ticker": "600519.SS",
-            "direction": "PENDING",
-            "regime": "STRONG_TREND_DOWN",
-            "z_score": -23.2114,
-            "regime_strength": -23.2114,
-            "mean_return": -0.1353,
-            "uncertainty": 0.0058,
-            "predicted_range_pct": 0.1531,
-            "predicted_max": 1389.93,
-            "predicted_min": 1178.15,
-            "adjusted_position_strength": 0.8067,
+            "direction": "BUY",
+            "regime": "STRONG_TREND_UP",
+            "z_score": 2.1948,
+            "regime_strength": 2.1948,
+            "mean_return": 0.011,
+            "uncertainty": 0.0045,
+            "adjusted_position_strength": 0.7886,
             "kronos_signal": {
-              "direction": "PENDING",
-              "z_score": -23.2114,
-              "regime": "STRONG_TREND_DOWN",
-              "expected_return": -0.1353,
-              "uncertainty": 0.0058,
-              "position_strength": 1.0
+              "direction": "BUY",
+              "z_score": 2.1948,
+              "regime": "STRONG_TREND_UP",
+              "expected_return": 0.011,
+              "uncertainty": 0.0045,
+              "position_strength": 0.9755
             },
             "factor_signal": {
               "direction": null,
               "position_strength": null,
-              "o_score": 65.24,
+              "o_score": 65.49,
               "o_score_percentile": null,
               "factor_scores": {
-                "value_score": 50.56,
+                "value_score": 52.24,
                 "quality_score": 100.0,
                 "size_score": 0.0,
-                "momentum_score": 38.01,
+                "momentum_score": 37.16,
                 "volatility_score": 100.0,
-                "overall_score": 65.24
+                "overall_score": 65.49
               }
             },
             "metadata": {
               "model": "kronos-v1-foundation",
-              "timestamp": "2026-03-17T00:12:53.324634Z",
+              "timestamp": "2026-03-29T00:34:04.617803Z",
               "sentiment_score": 0.0,
               "risk_factor": 0.3,
-              "base_strength": 1.0,
+              "base_strength": 0.9755,
               "volatility_discount": 1.0,
               "fundamental_bust_triggered": false,
-              "multi_factor_o_score": 65.24,
-              "multi_factor_multiplier": 1.152,
+              "multi_factor_o_score": 65.49,
+              "multi_factor_multiplier": 1.155,
               "factor_scores": {
-                "value_score": 50.56,
+                "value_score": 52.24,
                 "quality_score": 100.0,
                 "size_score": 0.0,
-                "momentum_score": 38.01,
+                "momentum_score": 37.16,
                 "volatility_score": 100.0,
-                "overall_score": 65.24
+                "overall_score": 65.49
               }
             }
           },
           "error": null,
-          "run_at": "2026-03-17T00:12:48.089688"
+          "run_at": "2026-03-29T00:33:59.991063"
         },
         {
           "ticker": "600036.SS",
@@ -83,60 +80,57 @@
           "group": "G1",
           "signal": {
             "ticker": "600036.SS",
-            "direction": "PENDING",
+            "direction": "BUY",
             "regime": "STRONG_TREND_UP",
-            "z_score": 3.4383,
-            "regime_strength": 3.4383,
-            "mean_return": 0.0172,
-            "uncertainty": 0.0016,
-            "predicted_range_pct": 0.0303,
-            "predicted_max": 40.06,
-            "predicted_min": 38.86,
-            "adjusted_position_strength": 0.8513,
+            "z_score": 4.7069,
+            "regime_strength": 4.7069,
+            "mean_return": 0.0235,
+            "uncertainty": 0.0021,
+            "adjusted_position_strength": 0.8568,
             "kronos_signal": {
-              "direction": "PENDING",
-              "z_score": 3.4383,
+              "direction": "BUY",
+              "z_score": 4.7069,
               "regime": "STRONG_TREND_UP",
-              "expected_return": 0.0172,
-              "uncertainty": 0.0016,
-              "position_strength": 0.9979
+              "expected_return": 0.0235,
+              "uncertainty": 0.0021,
+              "position_strength": 0.9998
             },
             "factor_signal": {
               "direction": null,
               "position_strength": null,
-              "o_score": 71.86,
+              "o_score": 72.42,
               "o_score_percentile": null,
               "factor_scores": {
                 "value_score": 100.0,
                 "quality_score": 84.95,
-                "size_score": 0.04,
-                "momentum_score": 36.14,
+                "size_score": 0.05,
+                "momentum_score": 38.93,
                 "volatility_score": 99.0,
-                "overall_score": 71.86
+                "overall_score": 72.42
               }
             },
             "metadata": {
               "model": "kronos-v1-foundation",
-              "timestamp": "2026-03-17T00:12:54.779286Z",
+              "timestamp": "2026-03-29T00:34:05.347515Z",
               "sentiment_score": 0.0,
               "risk_factor": 0.3,
-              "base_strength": 0.9979,
+              "base_strength": 0.9998,
               "volatility_discount": 1.0,
               "fundamental_bust_triggered": false,
-              "multi_factor_o_score": 71.86,
-              "multi_factor_multiplier": 1.219,
+              "multi_factor_o_score": 72.42,
+              "multi_factor_multiplier": 1.224,
               "factor_scores": {
                 "value_score": 100.0,
                 "quality_score": 84.95,
-                "size_score": 0.04,
-                "momentum_score": 36.14,
+                "size_score": 0.05,
+                "momentum_score": 38.93,
                 "volatility_score": 99.0,
-                "overall_score": 71.86
+                "overall_score": 72.42
               }
             }
           },
           "error": null,
-          "run_at": "2026-03-17T00:12:48.092060"
+          "run_at": "2026-03-29T00:33:59.993338"
         },
         {
           "ticker": "601318.SS",
@@ -144,60 +138,57 @@
           "group": "G1",
           "signal": {
             "ticker": "601318.SS",
-            "direction": "PENDING",
+            "direction": "SELL",
             "regime": "STRONG_TREND_DOWN",
-            "z_score": -37.2542,
-            "regime_strength": -37.2542,
-            "mean_return": -0.1863,
-            "uncertainty": 0.0014,
-            "predicted_range_pct": 0.203,
-            "predicted_max": 60.18,
-            "predicted_min": 48.09,
-            "adjusted_position_strength": 0.8592,
+            "z_score": -29.1923,
+            "regime_strength": -29.1923,
+            "mean_return": -0.146,
+            "uncertainty": 0.0036,
+            "adjusted_position_strength": 0.843,
             "kronos_signal": {
-              "direction": "PENDING",
-              "z_score": -37.2542,
+              "direction": "SELL",
+              "z_score": -29.1923,
               "regime": "STRONG_TREND_DOWN",
-              "expected_return": -0.1863,
-              "uncertainty": 0.0014,
+              "expected_return": -0.146,
+              "uncertainty": 0.0036,
               "position_strength": 1.0
             },
             "factor_signal": {
               "direction": null,
               "position_strength": null,
-              "o_score": 72.75,
+              "o_score": 70.43,
               "o_score_percentile": null,
               "factor_scores": {
                 "value_score": 100.0,
-                "quality_score": 75.2,
-                "size_score": 0.03,
-                "momentum_score": 57.15,
+                "quality_score": 74.54,
+                "size_score": 0.04,
+                "momentum_score": 46.7,
                 "volatility_score": 100.0,
-                "overall_score": 72.75
+                "overall_score": 70.43
               }
             },
             "metadata": {
               "model": "kronos-v1-foundation",
-              "timestamp": "2026-03-17T00:12:55.943091Z",
+              "timestamp": "2026-03-29T00:34:08.000095Z",
               "sentiment_score": 0.0,
               "risk_factor": 0.3,
               "base_strength": 1.0,
               "volatility_discount": 1.0,
               "fundamental_bust_triggered": false,
-              "multi_factor_o_score": 72.75,
-              "multi_factor_multiplier": 1.228,
+              "multi_factor_o_score": 70.43,
+              "multi_factor_multiplier": 1.204,
               "factor_scores": {
                 "value_score": 100.0,
-                "quality_score": 75.2,
-                "size_score": 0.03,
-                "momentum_score": 57.15,
+                "quality_score": 74.54,
+                "size_score": 0.04,
+                "momentum_score": 46.7,
                 "volatility_score": 100.0,
-                "overall_score": 72.75
+                "overall_score": 70.43
               }
             }
           },
           "error": null,
-          "run_at": "2026-03-17T00:12:48.093977"
+          "run_at": "2026-03-29T00:33:59.995213"
         }
       ]
     },
@@ -211,60 +202,57 @@
           "group": "G2",
           "signal": {
             "ticker": "300308.SZ",
-            "direction": "PENDING",
-            "regime": "RANGING_MIXED",
-            "z_score": -0.8195,
-            "regime_strength": -0.8195,
-            "mean_return": -0.0082,
-            "uncertainty": 0.01,
-            "predicted_range_pct": 0.0977,
-            "predicted_max": 568.77,
-            "predicted_min": 515.47,
-            "adjusted_position_strength": 0.3593,
+            "direction": "BUY",
+            "regime": "STRONG_TREND_UP",
+            "z_score": 9.0898,
+            "regime_strength": 9.0898,
+            "mean_return": 0.1719,
+            "uncertainty": 0.0189,
+            "adjusted_position_strength": 0.759,
             "kronos_signal": {
-              "direction": "PENDING",
-              "z_score": -0.8195,
-              "regime": "RANGING_MIXED",
-              "expected_return": -0.0082,
-              "uncertainty": 0.01,
-              "position_strength": 0.6748
+              "direction": "BUY",
+              "z_score": 9.0898,
+              "regime": "STRONG_TREND_UP",
+              "expected_return": 0.1719,
+              "uncertainty": 0.0189,
+              "position_strength": 1.0
             },
             "factor_signal": {
               "direction": null,
               "position_strength": null,
-              "o_score": 58.65,
+              "o_score": 58.43,
               "o_score_percentile": null,
               "factor_scores": {
-                "value_score": 4.27,
+                "value_score": 3.46,
                 "quality_score": 90.0,
-                "size_score": 0.9,
+                "size_score": 0.66,
                 "momentum_score": 100.0,
                 "volatility_score": 59.97,
-                "overall_score": 58.65
+                "overall_score": 58.43
               }
             },
             "metadata": {
               "model": "kronos-v1-foundation",
-              "timestamp": "2026-03-17T00:12:57.681220Z",
+              "timestamp": "2026-03-29T00:34:09.899646Z",
               "sentiment_score": 0.0,
               "risk_factor": 0.3,
-              "base_strength": 0.6748,
+              "base_strength": 1.0,
               "volatility_discount": 1.0,
               "fundamental_bust_triggered": false,
-              "multi_factor_o_score": 58.65,
-              "multi_factor_multiplier": 1.087,
+              "multi_factor_o_score": 58.43,
+              "multi_factor_multiplier": 1.084,
               "factor_scores": {
-                "value_score": 4.27,
+                "value_score": 3.46,
                 "quality_score": 90.0,
-                "size_score": 0.9,
+                "size_score": 0.66,
                 "momentum_score": 100.0,
                 "volatility_score": 59.97,
-                "overall_score": 58.65
+                "overall_score": 58.43
               }
             }
           },
           "error": null,
-          "run_at": "2026-03-17T00:12:48.095618"
+          "run_at": "2026-03-29T00:33:59.996709"
         },
         {
           "ticker": "688256.SS",
@@ -272,60 +260,57 @@
           "group": "G2",
           "signal": {
             "ticker": "688256.SS",
-            "direction": "PENDING",
-            "regime": "STRONG_TREND_UP",
-            "z_score": 3.6104,
-            "regime_strength": 3.6104,
-            "mean_return": 0.0221,
-            "uncertainty": 0.0061,
-            "predicted_range_pct": 0.0773,
-            "predicted_max": 1187.15,
-            "predicted_min": 1099.62,
-            "adjusted_position_strength": 0.6662,
+            "direction": "SELL",
+            "regime": "STRONG_TREND_DOWN",
+            "z_score": -42.6367,
+            "regime_strength": -42.6367,
+            "mean_return": -0.2573,
+            "uncertainty": 0.006,
+            "adjusted_position_strength": 0.6677,
             "kronos_signal": {
-              "direction": "PENDING",
-              "z_score": 3.6104,
-              "regime": "STRONG_TREND_UP",
-              "expected_return": 0.0221,
-              "uncertainty": 0.0061,
-              "position_strength": 0.9985
+              "direction": "SELL",
+              "z_score": -42.6367,
+              "regime": "STRONG_TREND_DOWN",
+              "expected_return": -0.2573,
+              "uncertainty": 0.006,
+              "position_strength": 1.0
             },
             "factor_signal": {
               "direction": null,
               "position_strength": null,
-              "o_score": 45.31,
+              "o_score": 45.39,
               "o_score_percentile": null,
               "factor_scores": {
-                "value_score": 0.0,
+                "value_score": 0.01,
                 "quality_score": 100.0,
-                "size_score": 3.12,
+                "size_score": 3.85,
                 "momentum_score": 0.0,
                 "volatility_score": 100.0,
-                "overall_score": 45.31
+                "overall_score": 45.39
               }
             },
             "metadata": {
               "model": "kronos-v1-foundation",
-              "timestamp": "2026-03-17T00:12:59.046623Z",
+              "timestamp": "2026-03-29T00:34:12.936836Z",
               "sentiment_score": 0.0,
               "risk_factor": 0.3,
-              "base_strength": 0.9985,
+              "base_strength": 1.0,
               "volatility_discount": 1.0,
               "fundamental_bust_triggered": false,
-              "multi_factor_o_score": 45.31,
-              "multi_factor_multiplier": 0.953,
+              "multi_factor_o_score": 45.39,
+              "multi_factor_multiplier": 0.954,
               "factor_scores": {
-                "value_score": 0.0,
+                "value_score": 0.01,
                 "quality_score": 100.0,
-                "size_score": 3.12,
+                "size_score": 3.85,
                 "momentum_score": 0.0,
                 "volatility_score": 100.0,
-                "overall_score": 45.31
+                "overall_score": 45.39
               }
             }
           },
           "error": null,
-          "run_at": "2026-03-17T00:12:53.327169"
+          "run_at": "2026-03-29T00:34:04.619935"
         },
         {
           "ticker": "300750.SZ",
@@ -333,60 +318,57 @@
           "group": "G2",
           "signal": {
             "ticker": "300750.SZ",
-            "direction": "PENDING",
+            "direction": "BUY",
             "regime": "STRONG_TREND_UP",
-            "z_score": 10.9203,
-            "regime_strength": 10.9203,
-            "mean_return": 0.1071,
-            "uncertainty": 0.0098,
-            "predicted_range_pct": 0.1525,
-            "predicted_max": 428.61,
-            "predicted_min": 370.29,
-            "adjusted_position_strength": 0.8242,
+            "z_score": 19.6064,
+            "regime_strength": 19.6064,
+            "mean_return": 0.2606,
+            "uncertainty": 0.0133,
+            "adjusted_position_strength": 0.7922,
             "kronos_signal": {
-              "direction": "PENDING",
-              "z_score": 10.9203,
+              "direction": "BUY",
+              "z_score": 19.6064,
               "regime": "STRONG_TREND_UP",
-              "expected_return": 0.1071,
-              "uncertainty": 0.0098,
+              "expected_return": 0.2606,
+              "uncertainty": 0.0133,
               "position_strength": 1.0
             },
             "factor_signal": {
               "direction": null,
               "position_strength": null,
-              "o_score": 67.75,
+              "o_score": 63.17,
               "o_score_percentile": null,
               "factor_scores": {
-                "value_score": 43.63,
+                "value_score": 42.62,
                 "quality_score": 93.19,
                 "size_score": 0.0,
-                "momentum_score": 71.11,
+                "momentum_score": 49.47,
                 "volatility_score": 100.0,
-                "overall_score": 67.75
+                "overall_score": 63.17
               }
             },
             "metadata": {
               "model": "kronos-v1-foundation",
-              "timestamp": "2026-03-17T00:13:01.444641Z",
+              "timestamp": "2026-03-29T00:34:14.088715Z",
               "sentiment_score": 0.0,
               "risk_factor": 0.3,
               "base_strength": 1.0,
               "volatility_discount": 1.0,
               "fundamental_bust_triggered": false,
-              "multi_factor_o_score": 67.75,
-              "multi_factor_multiplier": 1.178,
+              "multi_factor_o_score": 63.17,
+              "multi_factor_multiplier": 1.132,
               "factor_scores": {
-                "value_score": 43.63,
+                "value_score": 42.62,
                 "quality_score": 93.19,
                 "size_score": 0.0,
-                "momentum_score": 71.11,
+                "momentum_score": 49.47,
                 "volatility_score": 100.0,
-                "overall_score": 67.75
+                "overall_score": 63.17
               }
             }
           },
           "error": null,
-          "run_at": "2026-03-17T00:12:54.779641"
+          "run_at": "2026-03-29T00:34:05.347844"
         }
       ]
     },
@@ -400,60 +382,57 @@
           "group": "G3",
           "signal": {
             "ticker": "601088.SS",
-            "direction": "PENDING",
+            "direction": "BUY",
             "regime": "STRONG_TREND_UP",
-            "z_score": 50.0425,
-            "regime_strength": 50.0425,
-            "mean_return": 0.2502,
-            "uncertainty": 0.0038,
-            "predicted_range_pct": 0.3082,
-            "predicted_max": 62.95,
-            "predicted_min": 47.79,
-            "adjusted_position_strength": 0.9245,
+            "z_score": 12.5727,
+            "regime_strength": 12.5727,
+            "mean_return": 0.0828,
+            "uncertainty": 0.0066,
+            "adjusted_position_strength": 0.9202,
             "kronos_signal": {
-              "direction": "PENDING",
-              "z_score": 50.0425,
+              "direction": "BUY",
+              "z_score": 12.5727,
               "regime": "STRONG_TREND_UP",
-              "expected_return": 0.2502,
-              "uncertainty": 0.0038,
+              "expected_return": 0.0828,
+              "uncertainty": 0.0066,
               "position_strength": 1.0
             },
             "factor_signal": {
               "direction": null,
               "position_strength": null,
-              "o_score": 82.07,
+              "o_score": 81.46,
               "o_score_percentile": null,
               "factor_scores": {
-                "value_score": 75.18,
+                "value_score": 76.66,
                 "quality_score": 96.03,
-                "size_score": 0.07,
-                "momentum_score": 98.27,
+                "size_score": 0.05,
+                "momentum_score": 93.4,
                 "volatility_score": 100.0,
-                "overall_score": 82.07
+                "overall_score": 81.46
               }
             },
             "metadata": {
               "model": "kronos-v1-foundation",
-              "timestamp": "2026-03-17T00:13:06.083844Z",
+              "timestamp": "2026-03-29T00:34:15.986644Z",
               "sentiment_score": 0.0,
               "risk_factor": 0.3,
               "base_strength": 1.0,
               "volatility_discount": 1.0,
               "fundamental_bust_triggered": false,
-              "multi_factor_o_score": 82.07,
-              "multi_factor_multiplier": 1.321,
+              "multi_factor_o_score": 81.46,
+              "multi_factor_multiplier": 1.315,
               "factor_scores": {
-                "value_score": 75.18,
+                "value_score": 76.66,
                 "quality_score": 96.03,
-                "size_score": 0.07,
-                "momentum_score": 98.27,
+                "size_score": 0.05,
+                "momentum_score": 93.4,
                 "volatility_score": 100.0,
-                "overall_score": 82.07
+                "overall_score": 81.46
               }
             }
           },
           "error": null,
-          "run_at": "2026-03-17T00:12:55.943435"
+          "run_at": "2026-03-29T00:34:08.000421"
         },
         {
           "ticker": "601899.SS",
@@ -461,60 +440,57 @@
           "group": "G3",
           "signal": {
             "ticker": "601899.SS",
-            "direction": "PENDING",
+            "direction": "SELL",
             "regime": "STRONG_TREND_DOWN",
-            "z_score": -34.5729,
-            "regime_strength": -34.5729,
-            "mean_return": -0.1729,
-            "uncertainty": 0.0029,
-            "predicted_range_pct": 0.2103,
-            "predicted_max": 36.6,
-            "predicted_min": 28.93,
-            "adjusted_position_strength": 0.8141,
+            "z_score": -32.5733,
+            "regime_strength": -32.5733,
+            "mean_return": -0.4061,
+            "uncertainty": 0.0125,
+            "adjusted_position_strength": 0.7918,
             "kronos_signal": {
-              "direction": "PENDING",
-              "z_score": -34.5729,
+              "direction": "SELL",
+              "z_score": -32.5733,
               "regime": "STRONG_TREND_DOWN",
-              "expected_return": -0.1729,
-              "uncertainty": 0.0029,
+              "expected_return": -0.4061,
+              "uncertainty": 0.0125,
               "position_strength": 1.0
             },
             "factor_signal": {
               "direction": null,
               "position_strength": null,
-              "o_score": 66.3,
+              "o_score": 63.12,
               "o_score_percentile": null,
               "factor_scores": {
-                "value_score": 52.67,
-                "quality_score": 78.99,
-                "size_score": 0.09,
-                "momentum_score": 100.0,
+                "value_score": 63.53,
+                "quality_score": 80.73,
+                "size_score": 0.15,
+                "momentum_score": 67.46,
                 "volatility_score": 54.74,
-                "overall_score": 66.3
+                "overall_score": 63.12
               }
             },
             "metadata": {
               "model": "kronos-v1-foundation",
-              "timestamp": "2026-03-17T00:13:08.629197Z",
+              "timestamp": "2026-03-29T00:34:17.501782Z",
               "sentiment_score": 0.0,
               "risk_factor": 0.3,
               "base_strength": 1.0,
               "volatility_discount": 1.0,
               "fundamental_bust_triggered": false,
-              "multi_factor_o_score": 66.3,
-              "multi_factor_multiplier": 1.163,
+              "multi_factor_o_score": 63.12,
+              "multi_factor_multiplier": 1.131,
               "factor_scores": {
-                "value_score": 52.67,
-                "quality_score": 78.99,
-                "size_score": 0.09,
-                "momentum_score": 100.0,
+                "value_score": 63.53,
+                "quality_score": 80.73,
+                "size_score": 0.15,
+                "momentum_score": 67.46,
                 "volatility_score": 54.74,
-                "overall_score": 66.3
+                "overall_score": 63.12
               }
             }
           },
           "error": null,
-          "run_at": "2026-03-17T00:12:57.681542"
+          "run_at": "2026-03-29T00:34:09.900037"
         },
         {
           "ticker": "601857.SS",
@@ -522,60 +498,57 @@
           "group": "G3",
           "signal": {
             "ticker": "601857.SS",
-            "direction": "PENDING",
-            "regime": "STRONG_TREND_UP",
-            "z_score": 12.7718,
-            "regime_strength": 12.7718,
-            "mean_return": 0.2441,
-            "uncertainty": 0.0191,
-            "predicted_range_pct": 0.3229,
-            "predicted_max": 16.66,
-            "predicted_min": 12.51,
-            "adjusted_position_strength": 0.8813,
+            "direction": "SELL",
+            "regime": "STRONG_TREND_DOWN",
+            "z_score": -20.3048,
+            "regime_strength": -20.3048,
+            "mean_return": -0.1016,
+            "uncertainty": 0.005,
+            "adjusted_position_strength": 0.8808,
             "kronos_signal": {
-              "direction": "PENDING",
-              "z_score": 12.7718,
-              "regime": "STRONG_TREND_UP",
-              "expected_return": 0.2441,
-              "uncertainty": 0.0191,
+              "direction": "SELL",
+              "z_score": -20.3048,
+              "regime": "STRONG_TREND_DOWN",
+              "expected_return": -0.1016,
+              "uncertainty": 0.005,
               "position_strength": 1.0
             },
             "factor_signal": {
               "direction": null,
               "position_strength": null,
-              "o_score": 75.9,
+              "o_score": 75.83,
               "o_score_percentile": null,
               "factor_scores": {
-                "value_score": 94.09,
+                "value_score": 93.82,
                 "quality_score": 63.93,
                 "size_score": 0.0,
                 "momentum_score": 100.0,
                 "volatility_score": 100.0,
-                "overall_score": 75.9
+                "overall_score": 75.83
               }
             },
             "metadata": {
               "model": "kronos-v1-foundation",
-              "timestamp": "2026-03-17T00:13:09.633182Z",
+              "timestamp": "2026-03-29T00:34:18.506455Z",
               "sentiment_score": 0.0,
               "risk_factor": 0.3,
               "base_strength": 1.0,
               "volatility_discount": 1.0,
               "fundamental_bust_triggered": false,
-              "multi_factor_o_score": 75.9,
-              "multi_factor_multiplier": 1.259,
+              "multi_factor_o_score": 75.83,
+              "multi_factor_multiplier": 1.258,
               "factor_scores": {
-                "value_score": 94.09,
+                "value_score": 93.82,
                 "quality_score": 63.93,
                 "size_score": 0.0,
                 "momentum_score": 100.0,
                 "volatility_score": 100.0,
-                "overall_score": 75.9
+                "overall_score": 75.83
               }
             }
           },
           "error": null,
-          "run_at": "2026-03-17T00:12:59.046997"
+          "run_at": "2026-03-29T00:34:12.937146"
         }
       ]
     },
@@ -589,60 +562,57 @@
           "group": "G4",
           "signal": {
             "ticker": "300059.SZ",
-            "direction": "PENDING",
+            "direction": "SELL",
             "regime": "STRONG_TREND_DOWN",
-            "z_score": -30.143,
-            "regime_strength": -30.143,
-            "mean_return": -0.1507,
-            "uncertainty": 0.0034,
-            "predicted_range_pct": 0.1822,
-            "predicted_max": 21.17,
-            "predicted_min": 17.38,
-            "adjusted_position_strength": 0.6903,
+            "z_score": -35.1615,
+            "regime_strength": -35.1615,
+            "mean_return": -0.1758,
+            "uncertainty": 0.0033,
+            "adjusted_position_strength": 0.6936,
             "kronos_signal": {
-              "direction": "PENDING",
-              "z_score": -30.143,
+              "direction": "SELL",
+              "z_score": -35.1615,
               "regime": "STRONG_TREND_DOWN",
-              "expected_return": -0.1507,
-              "uncertainty": 0.0034,
+              "expected_return": -0.1758,
+              "uncertainty": 0.0033,
               "position_strength": 1.0
             },
             "factor_signal": {
               "direction": null,
               "position_strength": null,
-              "o_score": 48.61,
+              "o_score": 49.09,
               "o_score_percentile": null,
               "factor_scores": {
-                "value_score": 47.53,
-                "quality_score": 80.31,
-                "size_score": 8.01,
+                "value_score": 52.13,
+                "quality_score": 77.79,
+                "size_score": 10.18,
                 "momentum_score": 0.0,
                 "volatility_score": 78.17,
-                "overall_score": 48.61
+                "overall_score": 49.09
               }
             },
             "metadata": {
               "model": "kronos-v1-foundation",
-              "timestamp": "2026-03-17T00:13:12.417024Z",
+              "timestamp": "2026-03-29T00:34:20.499360Z",
               "sentiment_score": 0.0,
               "risk_factor": 0.3,
               "base_strength": 1.0,
               "volatility_discount": 1.0,
               "fundamental_bust_triggered": false,
-              "multi_factor_o_score": 48.61,
-              "multi_factor_multiplier": 0.986,
+              "multi_factor_o_score": 49.09,
+              "multi_factor_multiplier": 0.991,
               "factor_scores": {
-                "value_score": 47.53,
-                "quality_score": 80.31,
-                "size_score": 8.01,
+                "value_score": 52.13,
+                "quality_score": 77.79,
+                "size_score": 10.18,
                 "momentum_score": 0.0,
                 "volatility_score": 78.17,
-                "overall_score": 48.61
+                "overall_score": 49.09
               }
             }
           },
           "error": null,
-          "run_at": "2026-03-17T00:13:01.444975"
+          "run_at": "2026-03-29T00:34:14.089039"
         },
         {
           "ticker": "002230.SZ",
@@ -650,60 +620,57 @@
           "group": "G4",
           "signal": {
             "ticker": "002230.SZ",
-            "direction": "PENDING",
+            "direction": "SELL",
             "regime": "STRONG_TREND_DOWN",
-            "z_score": -28.0221,
-            "regime_strength": -28.0221,
-            "mean_return": -0.1722,
-            "uncertainty": 0.0061,
-            "predicted_range_pct": 0.1932,
-            "predicted_max": 51.87,
-            "predicted_min": 41.98,
-            "adjusted_position_strength": 0.6486,
+            "z_score": -48.3688,
+            "regime_strength": -48.3688,
+            "mean_return": -0.2418,
+            "uncertainty": 0.0034,
+            "adjusted_position_strength": 0.617,
             "kronos_signal": {
-              "direction": "PENDING",
-              "z_score": -28.0221,
+              "direction": "SELL",
+              "z_score": -48.3688,
               "regime": "STRONG_TREND_DOWN",
-              "expected_return": -0.1722,
-              "uncertainty": 0.0061,
+              "expected_return": -0.2418,
+              "uncertainty": 0.0034,
               "position_strength": 1.0
             },
             "factor_signal": {
               "direction": null,
               "position_strength": null,
-              "o_score": 42.66,
+              "o_score": 38.14,
               "o_score_percentile": null,
               "factor_scores": {
-                "value_score": 3.25,
+                "value_score": 4.5,
                 "quality_score": 57.09,
-                "size_score": 40.74,
-                "momentum_score": 39.46,
+                "size_score": 44.78,
+                "momentum_score": 13.27,
                 "volatility_score": 99.0,
-                "overall_score": 42.66
+                "overall_score": 38.14
               }
             },
             "metadata": {
               "model": "kronos-v1-foundation",
-              "timestamp": "2026-03-17T00:13:16.044510Z",
+              "timestamp": "2026-03-29T00:34:21.979496Z",
               "sentiment_score": 0.0,
               "risk_factor": 0.3,
               "base_strength": 1.0,
               "volatility_discount": 1.0,
               "fundamental_bust_triggered": false,
-              "multi_factor_o_score": 42.66,
-              "multi_factor_multiplier": 0.927,
+              "multi_factor_o_score": 38.14,
+              "multi_factor_multiplier": 0.881,
               "factor_scores": {
-                "value_score": 3.25,
+                "value_score": 4.5,
                 "quality_score": 57.09,
-                "size_score": 40.74,
-                "momentum_score": 39.46,
+                "size_score": 44.78,
+                "momentum_score": 13.27,
                 "volatility_score": 99.0,
-                "overall_score": 42.66
+                "overall_score": 38.14
               }
             }
           },
           "error": null,
-          "run_at": "2026-03-17T00:13:06.084245"
+          "run_at": "2026-03-29T00:34:15.987035"
         },
         {
           "ticker": "601012.SS",
@@ -711,60 +678,57 @@
           "group": "G4",
           "signal": {
             "ticker": "601012.SS",
-            "direction": "PENDING",
-            "regime": "RANGING_MIXED",
-            "z_score": -0.6218,
-            "regime_strength": -0.6218,
-            "mean_return": -0.0031,
-            "uncertainty": 0.003,
-            "predicted_range_pct": 0.0588,
-            "predicted_max": 18.77,
-            "predicted_min": 17.68,
-            "adjusted_position_strength": 0.2722,
+            "direction": "BUY",
+            "regime": "STRONG_TREND_UP",
+            "z_score": 13.9357,
+            "regime_strength": 13.9357,
+            "mean_return": 0.0697,
+            "uncertainty": 0.004,
+            "adjusted_position_strength": 0.6933,
             "kronos_signal": {
-              "direction": "PENDING",
-              "z_score": -0.6218,
-              "regime": "RANGING_MIXED",
-              "expected_return": -0.0031,
-              "uncertainty": 0.003,
-              "position_strength": 0.5524
+              "direction": "BUY",
+              "z_score": 13.9357,
+              "regime": "STRONG_TREND_UP",
+              "expected_return": 0.0697,
+              "uncertainty": 0.004,
+              "position_strength": 1.0
             },
             "factor_signal": {
               "direction": null,
               "position_strength": null,
-              "o_score": 50.58,
+              "o_score": 49.05,
               "o_score_percentile": null,
               "factor_scores": {
-                "value_score": 40.55,
+                "value_score": 41.04,
                 "quality_score": 43.28,
-                "size_score": 34.74,
-                "momentum_score": 59.12,
+                "size_score": 35.06,
+                "momentum_score": 50.69,
                 "volatility_score": 100.0,
-                "overall_score": 50.58
+                "overall_score": 49.05
               }
             },
             "metadata": {
               "model": "kronos-v1-foundation",
-              "timestamp": "2026-03-17T00:13:17.816725Z",
+              "timestamp": "2026-03-29T00:34:23.383486Z",
               "sentiment_score": 0.0,
               "risk_factor": 0.3,
-              "base_strength": 0.5524,
+              "base_strength": 1.0,
               "volatility_discount": 1.0,
               "fundamental_bust_triggered": false,
-              "multi_factor_o_score": 50.58,
-              "multi_factor_multiplier": 1.006,
+              "multi_factor_o_score": 49.05,
+              "multi_factor_multiplier": 0.99,
               "factor_scores": {
-                "value_score": 40.55,
+                "value_score": 41.04,
                 "quality_score": 43.28,
-                "size_score": 34.74,
-                "momentum_score": 59.12,
+                "size_score": 35.06,
+                "momentum_score": 50.69,
                 "volatility_score": 100.0,
-                "overall_score": 50.58
+                "overall_score": 49.05
               }
             }
           },
           "error": null,
-          "run_at": "2026-03-17T00:13:08.629509"
+          "run_at": "2026-03-29T00:34:17.502157"
         }
       ]
     }
@@ -776,60 +740,57 @@
       "group": "G1",
       "signal": {
         "ticker": "600519.SS",
-        "direction": "PENDING",
-        "regime": "STRONG_TREND_DOWN",
-        "z_score": -23.2114,
-        "regime_strength": -23.2114,
-        "mean_return": -0.1353,
-        "uncertainty": 0.0058,
-        "predicted_range_pct": 0.1531,
-        "predicted_max": 1389.93,
-        "predicted_min": 1178.15,
-        "adjusted_position_strength": 0.8067,
+        "direction": "BUY",
+        "regime": "STRONG_TREND_UP",
+        "z_score": 2.1948,
+        "regime_strength": 2.1948,
+        "mean_return": 0.011,
+        "uncertainty": 0.0045,
+        "adjusted_position_strength": 0.7886,
         "kronos_signal": {
-          "direction": "PENDING",
-          "z_score": -23.2114,
-          "regime": "STRONG_TREND_DOWN",
-          "expected_return": -0.1353,
-          "uncertainty": 0.0058,
-          "position_strength": 1.0
+          "direction": "BUY",
+          "z_score": 2.1948,
+          "regime": "STRONG_TREND_UP",
+          "expected_return": 0.011,
+          "uncertainty": 0.0045,
+          "position_strength": 0.9755
         },
         "factor_signal": {
           "direction": null,
           "position_strength": null,
-          "o_score": 65.24,
+          "o_score": 65.49,
           "o_score_percentile": null,
           "factor_scores": {
-            "value_score": 50.56,
+            "value_score": 52.24,
             "quality_score": 100.0,
             "size_score": 0.0,
-            "momentum_score": 38.01,
+            "momentum_score": 37.16,
             "volatility_score": 100.0,
-            "overall_score": 65.24
+            "overall_score": 65.49
           }
         },
         "metadata": {
           "model": "kronos-v1-foundation",
-          "timestamp": "2026-03-17T00:12:53.324634Z",
+          "timestamp": "2026-03-29T00:34:04.617803Z",
           "sentiment_score": 0.0,
           "risk_factor": 0.3,
-          "base_strength": 1.0,
+          "base_strength": 0.9755,
           "volatility_discount": 1.0,
           "fundamental_bust_triggered": false,
-          "multi_factor_o_score": 65.24,
-          "multi_factor_multiplier": 1.152,
+          "multi_factor_o_score": 65.49,
+          "multi_factor_multiplier": 1.155,
           "factor_scores": {
-            "value_score": 50.56,
+            "value_score": 52.24,
             "quality_score": 100.0,
             "size_score": 0.0,
-            "momentum_score": 38.01,
+            "momentum_score": 37.16,
             "volatility_score": 100.0,
-            "overall_score": 65.24
+            "overall_score": 65.49
           }
         }
       },
       "error": null,
-      "run_at": "2026-03-17T00:12:48.089688"
+      "run_at": "2026-03-29T00:33:59.991063"
     },
     {
       "ticker": "600036.SS",
@@ -837,60 +798,57 @@
       "group": "G1",
       "signal": {
         "ticker": "600036.SS",
-        "direction": "PENDING",
+        "direction": "BUY",
         "regime": "STRONG_TREND_UP",
-        "z_score": 3.4383,
-        "regime_strength": 3.4383,
-        "mean_return": 0.0172,
-        "uncertainty": 0.0016,
-        "predicted_range_pct": 0.0303,
-        "predicted_max": 40.06,
-        "predicted_min": 38.86,
-        "adjusted_position_strength": 0.8513,
+        "z_score": 4.7069,
+        "regime_strength": 4.7069,
+        "mean_return": 0.0235,
+        "uncertainty": 0.0021,
+        "adjusted_position_strength": 0.8568,
         "kronos_signal": {
-          "direction": "PENDING",
-          "z_score": 3.4383,
+          "direction": "BUY",
+          "z_score": 4.7069,
           "regime": "STRONG_TREND_UP",
-          "expected_return": 0.0172,
-          "uncertainty": 0.0016,
-          "position_strength": 0.9979
+          "expected_return": 0.0235,
+          "uncertainty": 0.0021,
+          "position_strength": 0.9998
         },
         "factor_signal": {
           "direction": null,
           "position_strength": null,
-          "o_score": 71.86,
+          "o_score": 72.42,
           "o_score_percentile": null,
           "factor_scores": {
             "value_score": 100.0,
             "quality_score": 84.95,
-            "size_score": 0.04,
-            "momentum_score": 36.14,
+            "size_score": 0.05,
+            "momentum_score": 38.93,
             "volatility_score": 99.0,
-            "overall_score": 71.86
+            "overall_score": 72.42
           }
         },
         "metadata": {
           "model": "kronos-v1-foundation",
-          "timestamp": "2026-03-17T00:12:54.779286Z",
+          "timestamp": "2026-03-29T00:34:05.347515Z",
           "sentiment_score": 0.0,
           "risk_factor": 0.3,
-          "base_strength": 0.9979,
+          "base_strength": 0.9998,
           "volatility_discount": 1.0,
           "fundamental_bust_triggered": false,
-          "multi_factor_o_score": 71.86,
-          "multi_factor_multiplier": 1.219,
+          "multi_factor_o_score": 72.42,
+          "multi_factor_multiplier": 1.224,
           "factor_scores": {
             "value_score": 100.0,
             "quality_score": 84.95,
-            "size_score": 0.04,
-            "momentum_score": 36.14,
+            "size_score": 0.05,
+            "momentum_score": 38.93,
             "volatility_score": 99.0,
-            "overall_score": 71.86
+            "overall_score": 72.42
           }
         }
       },
       "error": null,
-      "run_at": "2026-03-17T00:12:48.092060"
+      "run_at": "2026-03-29T00:33:59.993338"
     },
     {
       "ticker": "601318.SS",
@@ -898,60 +856,57 @@
       "group": "G1",
       "signal": {
         "ticker": "601318.SS",
-        "direction": "PENDING",
+        "direction": "SELL",
         "regime": "STRONG_TREND_DOWN",
-        "z_score": -37.2542,
-        "regime_strength": -37.2542,
-        "mean_return": -0.1863,
-        "uncertainty": 0.0014,
-        "predicted_range_pct": 0.203,
-        "predicted_max": 60.18,
-        "predicted_min": 48.09,
-        "adjusted_position_strength": 0.8592,
+        "z_score": -29.1923,
+        "regime_strength": -29.1923,
+        "mean_return": -0.146,
+        "uncertainty": 0.0036,
+        "adjusted_position_strength": 0.843,
         "kronos_signal": {
-          "direction": "PENDING",
-          "z_score": -37.2542,
+          "direction": "SELL",
+          "z_score": -29.1923,
           "regime": "STRONG_TREND_DOWN",
-          "expected_return": -0.1863,
-          "uncertainty": 0.0014,
+          "expected_return": -0.146,
+          "uncertainty": 0.0036,
           "position_strength": 1.0
         },
         "factor_signal": {
           "direction": null,
           "position_strength": null,
-          "o_score": 72.75,
+          "o_score": 70.43,
           "o_score_percentile": null,
           "factor_scores": {
             "value_score": 100.0,
-            "quality_score": 75.2,
-            "size_score": 0.03,
-            "momentum_score": 57.15,
+            "quality_score": 74.54,
+            "size_score": 0.04,
+            "momentum_score": 46.7,
             "volatility_score": 100.0,
-            "overall_score": 72.75
+            "overall_score": 70.43
           }
         },
         "metadata": {
           "model": "kronos-v1-foundation",
-          "timestamp": "2026-03-17T00:12:55.943091Z",
+          "timestamp": "2026-03-29T00:34:08.000095Z",
           "sentiment_score": 0.0,
           "risk_factor": 0.3,
           "base_strength": 1.0,
           "volatility_discount": 1.0,
           "fundamental_bust_triggered": false,
-          "multi_factor_o_score": 72.75,
-          "multi_factor_multiplier": 1.228,
+          "multi_factor_o_score": 70.43,
+          "multi_factor_multiplier": 1.204,
           "factor_scores": {
             "value_score": 100.0,
-            "quality_score": 75.2,
-            "size_score": 0.03,
-            "momentum_score": 57.15,
+            "quality_score": 74.54,
+            "size_score": 0.04,
+            "momentum_score": 46.7,
             "volatility_score": 100.0,
-            "overall_score": 72.75
+            "overall_score": 70.43
           }
         }
       },
       "error": null,
-      "run_at": "2026-03-17T00:12:48.093977"
+      "run_at": "2026-03-29T00:33:59.995213"
     },
     {
       "ticker": "300308.SZ",
@@ -959,60 +914,57 @@
       "group": "G2",
       "signal": {
         "ticker": "300308.SZ",
-        "direction": "PENDING",
-        "regime": "RANGING_MIXED",
-        "z_score": -0.8195,
-        "regime_strength": -0.8195,
-        "mean_return": -0.0082,
-        "uncertainty": 0.01,
-        "predicted_range_pct": 0.0977,
-        "predicted_max": 568.77,
-        "predicted_min": 515.47,
-        "adjusted_position_strength": 0.3593,
+        "direction": "BUY",
+        "regime": "STRONG_TREND_UP",
+        "z_score": 9.0898,
+        "regime_strength": 9.0898,
+        "mean_return": 0.1719,
+        "uncertainty": 0.0189,
+        "adjusted_position_strength": 0.759,
         "kronos_signal": {
-          "direction": "PENDING",
-          "z_score": -0.8195,
-          "regime": "RANGING_MIXED",
-          "expected_return": -0.0082,
-          "uncertainty": 0.01,
-          "position_strength": 0.6748
+          "direction": "BUY",
+          "z_score": 9.0898,
+          "regime": "STRONG_TREND_UP",
+          "expected_return": 0.1719,
+          "uncertainty": 0.0189,
+          "position_strength": 1.0
         },
         "factor_signal": {
           "direction": null,
           "position_strength": null,
-          "o_score": 58.65,
+          "o_score": 58.43,
           "o_score_percentile": null,
           "factor_scores": {
-            "value_score": 4.27,
+            "value_score": 3.46,
             "quality_score": 90.0,
-            "size_score": 0.9,
+            "size_score": 0.66,
             "momentum_score": 100.0,
             "volatility_score": 59.97,
-            "overall_score": 58.65
+            "overall_score": 58.43
           }
         },
         "metadata": {
           "model": "kronos-v1-foundation",
-          "timestamp": "2026-03-17T00:12:57.681220Z",
+          "timestamp": "2026-03-29T00:34:09.899646Z",
           "sentiment_score": 0.0,
           "risk_factor": 0.3,
-          "base_strength": 0.6748,
+          "base_strength": 1.0,
           "volatility_discount": 1.0,
           "fundamental_bust_triggered": false,
-          "multi_factor_o_score": 58.65,
-          "multi_factor_multiplier": 1.087,
+          "multi_factor_o_score": 58.43,
+          "multi_factor_multiplier": 1.084,
           "factor_scores": {
-            "value_score": 4.27,
+            "value_score": 3.46,
             "quality_score": 90.0,
-            "size_score": 0.9,
+            "size_score": 0.66,
             "momentum_score": 100.0,
             "volatility_score": 59.97,
-            "overall_score": 58.65
+            "overall_score": 58.43
           }
         }
       },
       "error": null,
-      "run_at": "2026-03-17T00:12:48.095618"
+      "run_at": "2026-03-29T00:33:59.996709"
     },
     {
       "ticker": "688256.SS",
@@ -1020,60 +972,57 @@
       "group": "G2",
       "signal": {
         "ticker": "688256.SS",
-        "direction": "PENDING",
-        "regime": "STRONG_TREND_UP",
-        "z_score": 3.6104,
-        "regime_strength": 3.6104,
-        "mean_return": 0.0221,
-        "uncertainty": 0.0061,
-        "predicted_range_pct": 0.0773,
-        "predicted_max": 1187.15,
-        "predicted_min": 1099.62,
-        "adjusted_position_strength": 0.6662,
+        "direction": "SELL",
+        "regime": "STRONG_TREND_DOWN",
+        "z_score": -42.6367,
+        "regime_strength": -42.6367,
+        "mean_return": -0.2573,
+        "uncertainty": 0.006,
+        "adjusted_position_strength": 0.6677,
         "kronos_signal": {
-          "direction": "PENDING",
-          "z_score": 3.6104,
-          "regime": "STRONG_TREND_UP",
-          "expected_return": 0.0221,
-          "uncertainty": 0.0061,
-          "position_strength": 0.9985
+          "direction": "SELL",
+          "z_score": -42.6367,
+          "regime": "STRONG_TREND_DOWN",
+          "expected_return": -0.2573,
+          "uncertainty": 0.006,
+          "position_strength": 1.0
         },
         "factor_signal": {
           "direction": null,
           "position_strength": null,
-          "o_score": 45.31,
+          "o_score": 45.39,
           "o_score_percentile": null,
           "factor_scores": {
-            "value_score": 0.0,
+            "value_score": 0.01,
             "quality_score": 100.0,
-            "size_score": 3.12,
+            "size_score": 3.85,
             "momentum_score": 0.0,
             "volatility_score": 100.0,
-            "overall_score": 45.31
+            "overall_score": 45.39
           }
         },
         "metadata": {
           "model": "kronos-v1-foundation",
-          "timestamp": "2026-03-17T00:12:59.046623Z",
+          "timestamp": "2026-03-29T00:34:12.936836Z",
           "sentiment_score": 0.0,
           "risk_factor": 0.3,
-          "base_strength": 0.9985,
+          "base_strength": 1.0,
           "volatility_discount": 1.0,
           "fundamental_bust_triggered": false,
-          "multi_factor_o_score": 45.31,
-          "multi_factor_multiplier": 0.953,
+          "multi_factor_o_score": 45.39,
+          "multi_factor_multiplier": 0.954,
           "factor_scores": {
-            "value_score": 0.0,
+            "value_score": 0.01,
             "quality_score": 100.0,
-            "size_score": 3.12,
+            "size_score": 3.85,
             "momentum_score": 0.0,
             "volatility_score": 100.0,
-            "overall_score": 45.31
+            "overall_score": 45.39
           }
         }
       },
       "error": null,
-      "run_at": "2026-03-17T00:12:53.327169"
+      "run_at": "2026-03-29T00:34:04.619935"
     },
     {
       "ticker": "300750.SZ",
@@ -1081,60 +1030,57 @@
       "group": "G2",
       "signal": {
         "ticker": "300750.SZ",
-        "direction": "PENDING",
+        "direction": "BUY",
         "regime": "STRONG_TREND_UP",
-        "z_score": 10.9203,
-        "regime_strength": 10.9203,
-        "mean_return": 0.1071,
-        "uncertainty": 0.0098,
-        "predicted_range_pct": 0.1525,
-        "predicted_max": 428.61,
-        "predicted_min": 370.29,
-        "adjusted_position_strength": 0.8242,
+        "z_score": 19.6064,
+        "regime_strength": 19.6064,
+        "mean_return": 0.2606,
+        "uncertainty": 0.0133,
+        "adjusted_position_strength": 0.7922,
         "kronos_signal": {
-          "direction": "PENDING",
-          "z_score": 10.9203,
+          "direction": "BUY",
+          "z_score": 19.6064,
           "regime": "STRONG_TREND_UP",
-          "expected_return": 0.1071,
-          "uncertainty": 0.0098,
+          "expected_return": 0.2606,
+          "uncertainty": 0.0133,
           "position_strength": 1.0
         },
         "factor_signal": {
           "direction": null,
           "position_strength": null,
-          "o_score": 67.75,
+          "o_score": 63.17,
           "o_score_percentile": null,
           "factor_scores": {
-            "value_score": 43.63,
+            "value_score": 42.62,
             "quality_score": 93.19,
             "size_score": 0.0,
-            "momentum_score": 71.11,
+            "momentum_score": 49.47,
             "volatility_score": 100.0,
-            "overall_score": 67.75
+            "overall_score": 63.17
           }
         },
         "metadata": {
           "model": "kronos-v1-foundation",
-          "timestamp": "2026-03-17T00:13:01.444641Z",
+          "timestamp": "2026-03-29T00:34:14.088715Z",
           "sentiment_score": 0.0,
           "risk_factor": 0.3,
           "base_strength": 1.0,
           "volatility_discount": 1.0,
           "fundamental_bust_triggered": false,
-          "multi_factor_o_score": 67.75,
-          "multi_factor_multiplier": 1.178,
+          "multi_factor_o_score": 63.17,
+          "multi_factor_multiplier": 1.132,
           "factor_scores": {
-            "value_score": 43.63,
+            "value_score": 42.62,
             "quality_score": 93.19,
             "size_score": 0.0,
-            "momentum_score": 71.11,
+            "momentum_score": 49.47,
             "volatility_score": 100.0,
-            "overall_score": 67.75
+            "overall_score": 63.17
           }
         }
       },
       "error": null,
-      "run_at": "2026-03-17T00:12:54.779641"
+      "run_at": "2026-03-29T00:34:05.347844"
     },
     {
       "ticker": "601088.SS",
@@ -1142,60 +1088,57 @@
       "group": "G3",
       "signal": {
         "ticker": "601088.SS",
-        "direction": "PENDING",
+        "direction": "BUY",
         "regime": "STRONG_TREND_UP",
-        "z_score": 50.0425,
-        "regime_strength": 50.0425,
-        "mean_return": 0.2502,
-        "uncertainty": 0.0038,
-        "predicted_range_pct": 0.3082,
-        "predicted_max": 62.95,
-        "predicted_min": 47.79,
-        "adjusted_position_strength": 0.9245,
+        "z_score": 12.5727,
+        "regime_strength": 12.5727,
+        "mean_return": 0.0828,
+        "uncertainty": 0.0066,
+        "adjusted_position_strength": 0.9202,
         "kronos_signal": {
-          "direction": "PENDING",
-          "z_score": 50.0425,
+          "direction": "BUY",
+          "z_score": 12.5727,
           "regime": "STRONG_TREND_UP",
-          "expected_return": 0.2502,
-          "uncertainty": 0.0038,
+          "expected_return": 0.0828,
+          "uncertainty": 0.0066,
           "position_strength": 1.0
         },
         "factor_signal": {
           "direction": null,
           "position_strength": null,
-          "o_score": 82.07,
+          "o_score": 81.46,
           "o_score_percentile": null,
           "factor_scores": {
-            "value_score": 75.18,
+            "value_score": 76.66,
             "quality_score": 96.03,
-            "size_score": 0.07,
-            "momentum_score": 98.27,
+            "size_score": 0.05,
+            "momentum_score": 93.4,
             "volatility_score": 100.0,
-            "overall_score": 82.07
+            "overall_score": 81.46
           }
         },
         "metadata": {
           "model": "kronos-v1-foundation",
-          "timestamp": "2026-03-17T00:13:06.083844Z",
+          "timestamp": "2026-03-29T00:34:15.986644Z",
           "sentiment_score": 0.0,
           "risk_factor": 0.3,
           "base_strength": 1.0,
           "volatility_discount": 1.0,
           "fundamental_bust_triggered": false,
-          "multi_factor_o_score": 82.07,
-          "multi_factor_multiplier": 1.321,
+          "multi_factor_o_score": 81.46,
+          "multi_factor_multiplier": 1.315,
           "factor_scores": {
-            "value_score": 75.18,
+            "value_score": 76.66,
             "quality_score": 96.03,
-            "size_score": 0.07,
-            "momentum_score": 98.27,
+            "size_score": 0.05,
+            "momentum_score": 93.4,
             "volatility_score": 100.0,
-            "overall_score": 82.07
+            "overall_score": 81.46
           }
         }
       },
       "error": null,
-      "run_at": "2026-03-17T00:12:55.943435"
+      "run_at": "2026-03-29T00:34:08.000421"
     },
     {
       "ticker": "601899.SS",
@@ -1203,60 +1146,57 @@
       "group": "G3",
       "signal": {
         "ticker": "601899.SS",
-        "direction": "PENDING",
+        "direction": "SELL",
         "regime": "STRONG_TREND_DOWN",
-        "z_score": -34.5729,
-        "regime_strength": -34.5729,
-        "mean_return": -0.1729,
-        "uncertainty": 0.0029,
-        "predicted_range_pct": 0.2103,
-        "predicted_max": 36.6,
-        "predicted_min": 28.93,
-        "adjusted_position_strength": 0.8141,
+        "z_score": -32.5733,
+        "regime_strength": -32.5733,
+        "mean_return": -0.4061,
+        "uncertainty": 0.0125,
+        "adjusted_position_strength": 0.7918,
         "kronos_signal": {
-          "direction": "PENDING",
-          "z_score": -34.5729,
+          "direction": "SELL",
+          "z_score": -32.5733,
           "regime": "STRONG_TREND_DOWN",
-          "expected_return": -0.1729,
-          "uncertainty": 0.0029,
+          "expected_return": -0.4061,
+          "uncertainty": 0.0125,
           "position_strength": 1.0
         },
         "factor_signal": {
           "direction": null,
           "position_strength": null,
-          "o_score": 66.3,
+          "o_score": 63.12,
           "o_score_percentile": null,
           "factor_scores": {
-            "value_score": 52.67,
-            "quality_score": 78.99,
-            "size_score": 0.09,
-            "momentum_score": 100.0,
+            "value_score": 63.53,
+            "quality_score": 80.73,
+            "size_score": 0.15,
+            "momentum_score": 67.46,
             "volatility_score": 54.74,
-            "overall_score": 66.3
+            "overall_score": 63.12
           }
         },
         "metadata": {
           "model": "kronos-v1-foundation",
-          "timestamp": "2026-03-17T00:13:08.629197Z",
+          "timestamp": "2026-03-29T00:34:17.501782Z",
           "sentiment_score": 0.0,
           "risk_factor": 0.3,
           "base_strength": 1.0,
           "volatility_discount": 1.0,
           "fundamental_bust_triggered": false,
-          "multi_factor_o_score": 66.3,
-          "multi_factor_multiplier": 1.163,
+          "multi_factor_o_score": 63.12,
+          "multi_factor_multiplier": 1.131,
           "factor_scores": {
-            "value_score": 52.67,
-            "quality_score": 78.99,
-            "size_score": 0.09,
-            "momentum_score": 100.0,
+            "value_score": 63.53,
+            "quality_score": 80.73,
+            "size_score": 0.15,
+            "momentum_score": 67.46,
             "volatility_score": 54.74,
-            "overall_score": 66.3
+            "overall_score": 63.12
           }
         }
       },
       "error": null,
-      "run_at": "2026-03-17T00:12:57.681542"
+      "run_at": "2026-03-29T00:34:09.900037"
     },
     {
       "ticker": "601857.SS",
@@ -1264,60 +1204,57 @@
       "group": "G3",
       "signal": {
         "ticker": "601857.SS",
-        "direction": "PENDING",
-        "regime": "STRONG_TREND_UP",
-        "z_score": 12.7718,
-        "regime_strength": 12.7718,
-        "mean_return": 0.2441,
-        "uncertainty": 0.0191,
-        "predicted_range_pct": 0.3229,
-        "predicted_max": 16.66,
-        "predicted_min": 12.51,
-        "adjusted_position_strength": 0.8813,
+        "direction": "SELL",
+        "regime": "STRONG_TREND_DOWN",
+        "z_score": -20.3048,
+        "regime_strength": -20.3048,
+        "mean_return": -0.1016,
+        "uncertainty": 0.005,
+        "adjusted_position_strength": 0.8808,
         "kronos_signal": {
-          "direction": "PENDING",
-          "z_score": 12.7718,
-          "regime": "STRONG_TREND_UP",
-          "expected_return": 0.2441,
-          "uncertainty": 0.0191,
+          "direction": "SELL",
+          "z_score": -20.3048,
+          "regime": "STRONG_TREND_DOWN",
+          "expected_return": -0.1016,
+          "uncertainty": 0.005,
           "position_strength": 1.0
         },
         "factor_signal": {
           "direction": null,
           "position_strength": null,
-          "o_score": 75.9,
+          "o_score": 75.83,
           "o_score_percentile": null,
           "factor_scores": {
-            "value_score": 94.09,
+            "value_score": 93.82,
             "quality_score": 63.93,
             "size_score": 0.0,
             "momentum_score": 100.0,
             "volatility_score": 100.0,
-            "overall_score": 75.9
+            "overall_score": 75.83
           }
         },
         "metadata": {
           "model": "kronos-v1-foundation",
-          "timestamp": "2026-03-17T00:13:09.633182Z",
+          "timestamp": "2026-03-29T00:34:18.506455Z",
           "sentiment_score": 0.0,
           "risk_factor": 0.3,
           "base_strength": 1.0,
           "volatility_discount": 1.0,
           "fundamental_bust_triggered": false,
-          "multi_factor_o_score": 75.9,
-          "multi_factor_multiplier": 1.259,
+          "multi_factor_o_score": 75.83,
+          "multi_factor_multiplier": 1.258,
           "factor_scores": {
-            "value_score": 94.09,
+            "value_score": 93.82,
             "quality_score": 63.93,
             "size_score": 0.0,
             "momentum_score": 100.0,
             "volatility_score": 100.0,
-            "overall_score": 75.9
+            "overall_score": 75.83
           }
         }
       },
       "error": null,
-      "run_at": "2026-03-17T00:12:59.046997"
+      "run_at": "2026-03-29T00:34:12.937146"
     },
     {
       "ticker": "300059.SZ",
@@ -1325,60 +1262,57 @@
       "group": "G4",
       "signal": {
         "ticker": "300059.SZ",
-        "direction": "PENDING",
+        "direction": "SELL",
         "regime": "STRONG_TREND_DOWN",
-        "z_score": -30.143,
-        "regime_strength": -30.143,
-        "mean_return": -0.1507,
-        "uncertainty": 0.0034,
-        "predicted_range_pct": 0.1822,
-        "predicted_max": 21.17,
-        "predicted_min": 17.38,
-        "adjusted_position_strength": 0.6903,
+        "z_score": -35.1615,
+        "regime_strength": -35.1615,
+        "mean_return": -0.1758,
+        "uncertainty": 0.0033,
+        "adjusted_position_strength": 0.6936,
         "kronos_signal": {
-          "direction": "PENDING",
-          "z_score": -30.143,
+          "direction": "SELL",
+          "z_score": -35.1615,
           "regime": "STRONG_TREND_DOWN",
-          "expected_return": -0.1507,
-          "uncertainty": 0.0034,
+          "expected_return": -0.1758,
+          "uncertainty": 0.0033,
           "position_strength": 1.0
         },
         "factor_signal": {
           "direction": null,
           "position_strength": null,
-          "o_score": 48.61,
+          "o_score": 49.09,
           "o_score_percentile": null,
           "factor_scores": {
-            "value_score": 47.53,
-            "quality_score": 80.31,
-            "size_score": 8.01,
+            "value_score": 52.13,
+            "quality_score": 77.79,
+            "size_score": 10.18,
             "momentum_score": 0.0,
             "volatility_score": 78.17,
-            "overall_score": 48.61
+            "overall_score": 49.09
           }
         },
         "metadata": {
           "model": "kronos-v1-foundation",
-          "timestamp": "2026-03-17T00:13:12.417024Z",
+          "timestamp": "2026-03-29T00:34:20.499360Z",
           "sentiment_score": 0.0,
           "risk_factor": 0.3,
           "base_strength": 1.0,
           "volatility_discount": 1.0,
           "fundamental_bust_triggered": false,
-          "multi_factor_o_score": 48.61,
-          "multi_factor_multiplier": 0.986,
+          "multi_factor_o_score": 49.09,
+          "multi_factor_multiplier": 0.991,
           "factor_scores": {
-            "value_score": 47.53,
-            "quality_score": 80.31,
-            "size_score": 8.01,
+            "value_score": 52.13,
+            "quality_score": 77.79,
+            "size_score": 10.18,
             "momentum_score": 0.0,
             "volatility_score": 78.17,
-            "overall_score": 48.61
+            "overall_score": 49.09
           }
         }
       },
       "error": null,
-      "run_at": "2026-03-17T00:13:01.444975"
+      "run_at": "2026-03-29T00:34:14.089039"
     },
     {
       "ticker": "002230.SZ",
@@ -1386,60 +1320,57 @@
       "group": "G4",
       "signal": {
         "ticker": "002230.SZ",
-        "direction": "PENDING",
+        "direction": "SELL",
         "regime": "STRONG_TREND_DOWN",
-        "z_score": -28.0221,
-        "regime_strength": -28.0221,
-        "mean_return": -0.1722,
-        "uncertainty": 0.0061,
-        "predicted_range_pct": 0.1932,
-        "predicted_max": 51.87,
-        "predicted_min": 41.98,
-        "adjusted_position_strength": 0.6486,
+        "z_score": -48.3688,
+        "regime_strength": -48.3688,
+        "mean_return": -0.2418,
+        "uncertainty": 0.0034,
+        "adjusted_position_strength": 0.617,
         "kronos_signal": {
-          "direction": "PENDING",
-          "z_score": -28.0221,
+          "direction": "SELL",
+          "z_score": -48.3688,
           "regime": "STRONG_TREND_DOWN",
-          "expected_return": -0.1722,
-          "uncertainty": 0.0061,
+          "expected_return": -0.2418,
+          "uncertainty": 0.0034,
           "position_strength": 1.0
         },
         "factor_signal": {
           "direction": null,
           "position_strength": null,
-          "o_score": 42.66,
+          "o_score": 38.14,
           "o_score_percentile": null,
           "factor_scores": {
-            "value_score": 3.25,
+            "value_score": 4.5,
             "quality_score": 57.09,
-            "size_score": 40.74,
-            "momentum_score": 39.46,
+            "size_score": 44.78,
+            "momentum_score": 13.27,
             "volatility_score": 99.0,
-            "overall_score": 42.66
+            "overall_score": 38.14
           }
         },
         "metadata": {
           "model": "kronos-v1-foundation",
-          "timestamp": "2026-03-17T00:13:16.044510Z",
+          "timestamp": "2026-03-29T00:34:21.979496Z",
           "sentiment_score": 0.0,
           "risk_factor": 0.3,
           "base_strength": 1.0,
           "volatility_discount": 1.0,
           "fundamental_bust_triggered": false,
-          "multi_factor_o_score": 42.66,
-          "multi_factor_multiplier": 0.927,
+          "multi_factor_o_score": 38.14,
+          "multi_factor_multiplier": 0.881,
           "factor_scores": {
-            "value_score": 3.25,
+            "value_score": 4.5,
             "quality_score": 57.09,
-            "size_score": 40.74,
-            "momentum_score": 39.46,
+            "size_score": 44.78,
+            "momentum_score": 13.27,
             "volatility_score": 99.0,
-            "overall_score": 42.66
+            "overall_score": 38.14
           }
         }
       },
       "error": null,
-      "run_at": "2026-03-17T00:13:06.084245"
+      "run_at": "2026-03-29T00:34:15.987035"
     },
     {
       "ticker": "601012.SS",
@@ -1447,60 +1378,57 @@
       "group": "G4",
       "signal": {
         "ticker": "601012.SS",
-        "direction": "PENDING",
-        "regime": "RANGING_MIXED",
-        "z_score": -0.6218,
-        "regime_strength": -0.6218,
-        "mean_return": -0.0031,
-        "uncertainty": 0.003,
-        "predicted_range_pct": 0.0588,
-        "predicted_max": 18.77,
-        "predicted_min": 17.68,
-        "adjusted_position_strength": 0.2722,
+        "direction": "BUY",
+        "regime": "STRONG_TREND_UP",
+        "z_score": 13.9357,
+        "regime_strength": 13.9357,
+        "mean_return": 0.0697,
+        "uncertainty": 0.004,
+        "adjusted_position_strength": 0.6933,
         "kronos_signal": {
-          "direction": "PENDING",
-          "z_score": -0.6218,
-          "regime": "RANGING_MIXED",
-          "expected_return": -0.0031,
-          "uncertainty": 0.003,
-          "position_strength": 0.5524
+          "direction": "BUY",
+          "z_score": 13.9357,
+          "regime": "STRONG_TREND_UP",
+          "expected_return": 0.0697,
+          "uncertainty": 0.004,
+          "position_strength": 1.0
         },
         "factor_signal": {
           "direction": null,
           "position_strength": null,
-          "o_score": 50.58,
+          "o_score": 49.05,
           "o_score_percentile": null,
           "factor_scores": {
-            "value_score": 40.55,
+            "value_score": 41.04,
             "quality_score": 43.28,
-            "size_score": 34.74,
-            "momentum_score": 59.12,
+            "size_score": 35.06,
+            "momentum_score": 50.69,
             "volatility_score": 100.0,
-            "overall_score": 50.58
+            "overall_score": 49.05
           }
         },
         "metadata": {
           "model": "kronos-v1-foundation",
-          "timestamp": "2026-03-17T00:13:17.816725Z",
+          "timestamp": "2026-03-29T00:34:23.383486Z",
           "sentiment_score": 0.0,
           "risk_factor": 0.3,
-          "base_strength": 0.5524,
+          "base_strength": 1.0,
           "volatility_discount": 1.0,
           "fundamental_bust_triggered": false,
-          "multi_factor_o_score": 50.58,
-          "multi_factor_multiplier": 1.006,
+          "multi_factor_o_score": 49.05,
+          "multi_factor_multiplier": 0.99,
           "factor_scores": {
-            "value_score": 40.55,
+            "value_score": 41.04,
             "quality_score": 43.28,
-            "size_score": 34.74,
-            "momentum_score": 59.12,
+            "size_score": 35.06,
+            "momentum_score": 50.69,
             "volatility_score": 100.0,
-            "overall_score": 50.58
+            "overall_score": 49.05
           }
         }
       },
       "error": null,
-      "run_at": "2026-03-17T00:13:08.629509"
+      "run_at": "2026-03-29T00:34:17.502157"
     }
   ]
 }
