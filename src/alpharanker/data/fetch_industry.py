@@ -18,10 +18,6 @@ import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
 from config import IND_MAP_PATH as SAVE_PATH
 
-def _bs_to_std(bs_code: str) -> str:
-    parts = bs_code.split(".")
-    return f"{parts[1]}.{'SS' if parts[0] == 'sh' else 'SZ'}"
-
 def fetch_industry_mapping():
     print("正在通过 Baostock 抓取全 A 股行业分类...")
     bs.login()
@@ -44,7 +40,7 @@ def fetch_industry_mapping():
     df = df[[1, 3]].rename(columns={1: "bs_code", 3: "industry_name"})
     
     # 转换代码格式
-    df["ticker"] = df["bs_code"].apply(_bs_to_std)
+    df["ticker"] = df["bs_code"].str.split(".").str[1] + "." + df["bs_code"].str.split(".").str[0].map({"sh": "SS", "sz": "SZ"})
     
     # 清洗：去掉行业为空的
     df = df[df["industry_name"] != ""]
