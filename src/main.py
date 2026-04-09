@@ -97,7 +97,6 @@ def action_kronos_raw():
         tbl.add_row("期望收益率 (Mean Return)",    f"{raw_pred['expected_return']:.4%}")
         tbl.add_row("预测波动迷茫度 (Uncertainty)", f"{raw_pred['uncertainty']:.4%}")
         tbl.add_row("趋势强度 / Z-Score",           f"{raw_pred['z_score']:.4f}")
-        tbl.add_row("预测未来区间幅度",             f"{raw_pred['predicted_range_pct']:.4%}")
         console.print(tbl)
         console.print("[dim]以上为数学内核纯输出，尚未叠加 O-Score 与基本面修正。[/dim]")
 

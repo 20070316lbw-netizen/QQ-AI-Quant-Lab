@@ -92,34 +92,53 @@ class FactorEngine:
             factor_position_strength  : float [0, 1]（基于 O-Score 分位数）
             factor_percentile         : float [0, 1]（O-Score 在全体中的分位）
         """
+        import pandas as pd
+        import numpy as np
+
         valid = [x for x in items if x.get(o_score_key) is not None]
         if not valid:
+            for item in items:
+                if "factor_direction" not in item:
+                    item["factor_direction"]         = "HOLD"
+                    item["factor_position_strength"] = 0.0
+                    item["factor_percentile"]        = 0.5
             return items
 
-        sorted_items = sorted(valid, key=lambda x: x[o_score_key], reverse=True)
-        n = len(sorted_items)
+        df = pd.DataFrame(valid)
+        n = len(df)
         top_k    = max(1, int(n * top_pct))
         bottom_k = max(1, int(n * bottom_pct))
 
-        # 分位数映射：排在前面 → 高分位（强多）；排在后面 → 低分位（强空）
-        for rank, item in enumerate(sorted_items):
-            percentile = 1.0 - (rank / n)   # 1.0 = 最高 O-Score
-            o = item[o_score_key]
+        # Vectorized calculation of rank (0-indexed equivalent of enumerate on sorted)
+        # ascending=False gives the highest score rank 1.0. We subtract 1 to get 0-based rank.
+        ranks = df[o_score_key].rank(method='first', ascending=False) - 1.0
 
-            if rank < top_k:
-                direction = "BUY"
-                # 仓位强度：O-Score 越高、排名越前 → 强度越高
-                strength = 0.5 + 0.5 * (o / 100.0)
-            elif rank >= n - bottom_k:
-                direction = "SELL"
-                strength = 0.5 + 0.5 * (1.0 - o / 100.0)
-            else:
-                direction = "HOLD"
-                strength = 0.0
+        # Vectorized percentiles
+        df['factor_percentile'] = (1.0 - (ranks / n)).round(4)
 
-            item["factor_direction"]         = direction
-            item["factor_position_strength"] = round(min(1.0, strength), 4)
-            item["factor_percentile"]        = round(percentile, 4)
+        # Vectorized direction and strength
+        conditions = [
+            ranks < top_k,
+            ranks >= n - bottom_k
+        ]
+
+        o_scores = df[o_score_key]
+        strength_buy = 0.5 + 0.5 * (o_scores / 100.0)
+        strength_sell = 0.5 + 0.5 * (1.0 - o_scores / 100.0)
+
+        choices_dir = ["BUY", "SELL"]
+        df['factor_direction'] = np.select(conditions, choices_dir, default="HOLD")
+
+        choices_strength = [strength_buy, strength_sell]
+        df['factor_position_strength'] = np.select(conditions, choices_strength, default=0.0)
+        df['factor_position_strength'] = df['factor_position_strength'].clip(0.0, 1.0).round(4)
+
+        # Update the original dicts
+        # Since 'valid' items are references to dicts in 'items', we can update them directly
+        for row, item in zip(df.itertuples(index=False), valid):
+            item["factor_direction"] = row.factor_direction
+            item["factor_position_strength"] = row.factor_position_strength
+            item["factor_percentile"] = row.factor_percentile
 
         # 确保未进入排序（o_score 为 None）的记录也有字段
         for item in items:

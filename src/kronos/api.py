@@ -190,38 +190,23 @@ def predict_market_trend(
     
     # --- V13.4 5-Step Logic: 计算收益均值与波动 (Step 2 & 3) ---
     all_returns = []
-    # 抽取区间预测
-    max_prices = []
-    min_prices = []
     
     for df in valid_predictions:
         s_p = df.iloc[0]['close']
         e_p = df.iloc[-1]['close']
         all_returns.append((e_p / s_p) - 1.0)
-        max_prices.append(df['high'].max())
-        min_prices.append(df['low'].min())
     
     mean_return = float(np.mean(all_returns))
     std_return = float(np.std(all_returns))
-    
-    # 获取相对振幅 (区间长度 / 基准价格)
-    # 取均值来消除单次采样的极端 outliers
-    avg_max = float(np.mean(max_prices))
-    avg_min = float(np.mean(min_prices))
-    start_price = float(temp_df.iloc[0]['close'])
-    predicted_range_pct = (avg_max - avg_min) / start_price
     
     # 注入元数据 (Step 4 & 5 的基础)
     prediction_df.attrs = {
         'mean_return': mean_return,
         'std_return': std_return,
-        'model_uncertainty': std_return,  # 保持向下兼容
-        'predicted_max': avg_max,
-        'predicted_min': avg_min,
-        'predicted_range_pct': predicted_range_pct
+        'model_uncertainty': std_return  # 保持向下兼容
     }
     
     print(f"[Kronos] Adaptive Ensemble completed ({len(valid_predictions)} samples).")
-    print(f"         Mean Return: {mean_return:.2%}, Std: {std_return:.2%}, Range: {predicted_range_pct:.2%}")
+    print(f"         Mean Return: {mean_return:.2%}, Std: {std_return:.2%}")
     
     return prediction_df

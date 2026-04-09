@@ -52,10 +52,17 @@ class KronosEngine:
         # 消除不同数据源（YFinance exclusive vs Baostock inclusive）带来的对齐重叠问题
         # When slicing historical market data for backtests or modeling, always ensure data slicing is strictly exclusive of the target date
         if not df.empty:
+            target_dt = pd.to_datetime(target_date)
             if "date" in df.columns:
-                df = df[pd.to_datetime(df["date"]) < pd.to_datetime(target_date)]
+                dt_col = pd.to_datetime(df["date"])
+                if dt_col.dt.tz is not None:
+                    target_dt = target_dt.tz_localize(dt_col.dt.tz)
+                df = df[dt_col < target_dt]
             else:
-                df = df[pd.to_datetime(df.index) < pd.to_datetime(target_date)]
+                dt_idx = pd.to_datetime(df.index)
+                if dt_idx.tz is not None:
+                    target_dt = target_dt.tz_localize(dt_idx.tz)
+                df = df[dt_idx < target_dt]
 
         # ── 【Tensor 修复 v2】固定输入序列长度至 _KRONOS_SEQ_LEN ──────────
         # 不同股票/市场的实际交易日数量不一致，predictor 期望固定维度。

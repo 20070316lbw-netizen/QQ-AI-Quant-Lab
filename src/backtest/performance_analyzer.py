@@ -73,17 +73,13 @@ def analyze_performance(log_file: str):
         # Part 2: V2 新增维度 - 波动评估能力 (Volatility & Range)
         # -------------------------------------------------------------
         print(f"\n[2] VOLATILITY & DISTRIBUTION AWARENESS (Phase 6 Core)")
-        if target_range_col in df.columns and "predicted_range_pct" in valid_df.columns:
+        if target_vol_col in df.columns and "uncertainty" in valid_df.columns:
             # 去除可能存在的 NaN 极值
-            clean_df = valid_df.dropna(subset=['uncertainty', target_vol_col, 'predicted_range_pct', target_range_col])
+            clean_df = valid_df.dropna(subset=['uncertainty', target_vol_col])
             if not clean_df.empty:
                 # 假设 1: 预测标准差 (uncertainty) 应该与真实未来波动率 (realized_vol) 正相关
                 corr_vol = clean_df["uncertainty"].corr(clean_df[target_vol_col])
                 print(f"Corr(Predicted Std, Realized Vol):       {corr_vol:.4f}  <-- Volatility Awareness")
-                
-                # 假设 2: 预测宽幅 (predicted_range) 应该与真实极值振幅 (actual_range) 正相关
-                corr_range = clean_df["predicted_range_pct"].corr(clean_df[target_range_col])
-                print(f"Corr(Predicted Range, Actual Range):     {corr_range:.4f}  <-- Range Awareness")
             else:
                 print("Missing clean volatility data for correlation.")
 

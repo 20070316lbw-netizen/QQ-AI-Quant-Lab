@@ -175,10 +175,9 @@ if app_mode == "🦅 单股全息扫描":
 
                 with tab3:
                     st.subheader("📉 量化置信区间推演 (Kronos 30-Day Outlook)")
-                    vcol1, vcol2, vcol3 = st.columns(3)
+                    vcol1, vcol2 = st.columns(2)
                     vcol1.metric("未来均值预期 (Mean Ret)", f"{signal_pack['mean_return']*100:.2f}%")
                     vcol2.metric("预测标准差裂口 (Uncertainty)", f"{signal_pack['uncertainty']*100:.2f}%")
-                    vcol3.metric("预测极值收缩极径 (Range)", f"{signal_pack['predicted_range_pct']*100:.2f}%")
                     
                     end_arg = as_of_date if as_of_date else datetime.datetime.now().strftime("%Y-%m-%d")
                     end_dt = datetime.datetime.strptime(end_arg, "%Y-%m-%d")
